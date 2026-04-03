@@ -1,0 +1,252 @@
+'use client';
+/*
+ * Footer Component — ProSWPPP Redesign
+ * Design: Black background, 5-column layout
+ * Col 1: Company Info (logo + address + phone)
+ * Col 2: SWPPP Services links
+ * Col 3: Where We Serve links
+ * Col 4–5 (span 2): Contact Form — First/Last, Company, Email/Phone, Interest
+ *         No labels — placeholder text only inside inputs
+ */
+
+import { MapPin, Phone } from "lucide-react";
+import { useState } from "react";
+
+const INTEREST_OPTIONS = [
+  "New SWPPP",
+  "SWPPP Revision",
+  "SWPPP Inspection",
+  "Annual Report",
+  "General Question",
+];
+
+export default function Footer() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    email: "",
+    phone: "",
+    interest: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    window.location.href = "https://proswppp.com/get-your-swppp/";
+  };
+
+  const inputClass =
+    "w-full bg-white/5 border border-white/15 rounded-lg text-white text-sm placeholder-white/40 px-3 py-2.5 outline-none focus:border-[#EF7C3B] focus:bg-white/10 transition-all";
+
+  return (
+    <footer className="bg-black text-white">
+      <div className="container py-12 lg:py-16">
+
+        {/* 5-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
+
+          {/* ── Col 1: Company Info ── */}
+          <div className="lg:col-span-1">
+            <img
+              src="https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png"
+              alt="Pro SWPPP Logo"
+              className="h-10 w-auto mb-4 brightness-0 invert"
+            />
+            <p className="text-gray-400 text-sm leading-relaxed mb-5">
+              America's #1 SWPPP Service. Fast, affordable, and 100% compliant — delivered in 72 hours or it's FREE.
+            </p>
+            <div className="space-y-2 text-sm">
+              <a
+                href="tel:8334387977"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#EF7C3B] transition-colors"
+              >
+                <Phone size={13} className="text-[#EF7C3B] flex-shrink-0" />
+                833-GET-SWPP
+              </a>
+              <a
+                href="https://maps.app.goo.gl/rKcDY3vvTKsJTqnQ9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 text-gray-400 hover:text-[#EF7C3B] transition-colors"
+              >
+                <MapPin size={13} className="text-[#EF7C3B] flex-shrink-0 mt-0.5" />
+                17904 W Lake Houston Pkwy, STE 303, Atascocita, TX 77346
+              </a>
+            </div>
+          </div>
+
+          {/* ── Col 2: SWPPP Services ── */}
+          <div className="lg:col-span-1">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+              SWPPP Services
+            </h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { label: "Get Your SWPPP", href: "/get-your-swppp" },
+                { label: "Order Form", href: "/order" },
+                { label: "Make a Payment", href: "/payment" },
+                { label: "SWPPP Quiz", href: "/quiz" },
+                { label: "SWPPP FAQs", href: "/faq/" },
+                { label: "About Us", href: "/about" },
+                { label: "Blog", href: "/blog" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Col 3: Where We Serve ── */}
+          <div className="lg:col-span-1">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+              Where We Serve
+            </h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { label: "California", href: "/locations/california" },
+                { label: "Florida", href: "/locations/florida" },
+                { label: "Nevada", href: "/locations/nevada" },
+                { label: "Texas", href: "/locations/texas" },
+                { label: "Arizona", href: "/locations/arizona" },
+                { label: "Colorado", href: "/locations/colorado" },
+                { label: "Georgia", href: "/locations/georgia" },
+                { label: "All States We Serve", href: "/locations" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Col 4–5: Contact Form (span 2) ── */}
+          <div className="lg:col-span-2">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+              Get In Touch
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-3">
+
+              {/* Row 1: First + Last Name */}
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={form.firstName}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                  className={inputClass}
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={form.lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                  className={inputClass}
+                  required
+                />
+              </div>
+
+              {/* Row 2: Company (full width) */}
+              <input
+                type="text"
+                name="company"
+                value={form.company}
+                onChange={handleChange}
+                placeholder="Company"
+                className={inputClass}
+              />
+
+              {/* Row 3: Email + Phone */}
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  className={inputClass}
+                  required
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Phone"
+                  className={inputClass}
+                />
+              </div>
+
+              {/* Row 4: Interest (full width) */}
+              <select
+                name="interest"
+                value={form.interest}
+                onChange={handleChange}
+                className={inputClass}
+                style={{
+                  color: form.interest ? "white" : "rgba(255,255,255,0.4)",
+                }}
+              >
+                <option value="" disabled style={{ color: "#888", background: "#111" }}>
+                  Interest
+                </option>
+                {INTEREST_OPTIONS.map((opt) => (
+                  <option
+                    key={opt}
+                    value={opt}
+                    style={{ color: "white", background: "#111" }}
+                  >
+                    {opt}
+                  </option>
+                ))}
+              </select>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full btn-orange text-sm py-3 rounded-lg"
+              >
+                Send Message
+              </button>
+
+            </form>
+          </div>
+
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} Pro SWPPP. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a href="/privacy" className="hover:text-[#EF7C3B] transition-colors">
+              Privacy
+            </a>
+            <a href="/terms" className="hover:text-[#EF7C3B] transition-colors">
+              Terms
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
+}

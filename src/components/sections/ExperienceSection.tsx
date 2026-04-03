@@ -1,0 +1,53 @@
+'use client';
+/*
+ * Experience Section — ProSWPPP Redesign
+ * Design: Single unified black section — Confidence Statement headline + 17+ stat merged
+ * Per user request: merged two separate black sections into one centered band.
+ */
+import { motion } from "framer-motion";
+
+export default function ExperienceSection() {
+  return (
+    <section className="bg-black py-16 lg:py-20">
+      <div className="container text-center">
+
+        {/* Confidence headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="section-heading text-white text-2xl lg:text-4xl leading-tight mb-4"
+        >
+          Confidence in Your SWPPP Expertise,<br />
+          Compliance, and Full Support.
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-gray-300 max-w-2xl mx-auto mb-12"
+        >
+          17+ years of experience with a long-standing track record of delivering
+          fully compliant SWPPP solutions on time, every time.
+        </motion.p>
+
+        {/* 17+ stat */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className="stat-number text-8xl lg:text-9xl mb-4">17+</div>
+          <h3 className="section-heading text-white text-2xl lg:text-3xl">
+            Years of Experience
+          </h3>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
