@@ -304,6 +304,33 @@ export default function HeroSection() {
               >
                 Get Compliant Today. Stay Compliant Tomorrow.
               </p>
+
+              {/* SWPPP definition paragraph */}
+              <div style={{ marginTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.10)", paddingTop: "1rem" }}>
+                <p
+                  style={{
+                    fontFamily: "'Roboto', Arial, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.9375rem",
+                    color: "rgba(200,210,220,0.85)",
+                    lineHeight: "1.65",
+                    margin: 0,
+                  }}
+                >
+                  A Stormwater Pollution Prevention Plan (SWPPP) is a site-specific document designed to minimize environmental impact from construction or industrial projects. It identifies potential pollutant sources and outlines Best Management Practices (BMPs) to control erosion and runoff. Regulated under NPDES standards, it ensures compliance through site mapping and regular inspections.{" "}
+                  <a
+                    href="/swppp-glossary/"
+                    style={{
+                      color: "#EF7C3B",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Read More →
+                  </a>
+                </p>
+              </div>
             </div>
           </motion.div>
 

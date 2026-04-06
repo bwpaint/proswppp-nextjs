@@ -1,0 +1,27 @@
+import type { Metadata } from 'next';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import GlossaryClient from './GlossaryClient';
+
+export const metadata: Metadata = {
+  title: 'SWPPP Glossary — Stormwater Compliance Terms | Pro SWPPP',
+  description:
+    'A comprehensive reference of SWPPP, NPDES, BMP, and stormwater compliance terminology. Search definitions for every term used in construction stormwater permits.',
+  openGraph: {
+    title: 'SWPPP Glossary — Stormwater Compliance Terms | Pro SWPPP',
+    description:
+      'Search definitions for SWPPP, NPDES, BMP, CGP, and every other stormwater compliance term.',
+  },
+};
+
+export default function SWPPPGlossaryPage() {
+  return (
+    <>
+      <Navigation />
+      <main>
+        <GlossaryClient />
+      </main>
+      <Footer />
+    </>
+  );
+}
