@@ -51,7 +51,7 @@ export default function FAQSection() {
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section style={{ backgroundColor: "#0F110A" }} className="py-20 lg:py-24">
+    <section style={{ background: "linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)" }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         {/* Section heading */}
         <motion.div

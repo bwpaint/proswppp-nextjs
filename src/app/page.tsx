@@ -1,6 +1,4 @@
 import dynamic from 'next/dynamic';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 
 // Dynamic imports with ssr:false for framer-motion components
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
@@ -19,24 +17,20 @@ const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { s
 
 export default function HomePage() {
   return (
-    <>
-      <Navigation />
-      <main>
-        <HeroSection />
-        <TrustBadgesSection />
-        <StatsSection />
-        <FeaturesShowcaseSection />
-        <WhyChooseSection />
-        <SocialProofSection />
-        <ExperienceSection />
-        <CEOGuaranteeSection />
-        <ClientLogosSection />
-        <QuizCTASection />
-        <FinalCTASection />
-        <LatestBlogSection />
-        <FAQSection />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <HeroSection />
+      <TrustBadgesSection />
+      <StatsSection />
+      <FeaturesShowcaseSection />
+      <WhyChooseSection />
+      <SocialProofSection />
+      <ExperienceSection />
+      <CEOGuaranteeSection />
+      <ClientLogosSection />
+      <QuizCTASection />
+      <FinalCTASection />
+      <LatestBlogSection />
+      <FAQSection />
+    </main>
   );
 }

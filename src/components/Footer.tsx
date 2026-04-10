@@ -56,7 +56,7 @@ export default function Footer() {
             <img
               src="https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png"
               alt="Pro SWPPP Logo"
-              className="h-10 w-auto mb-4 brightness-0 invert"
+              className="h-10 w-auto mb-4"
             />
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               America's #1 SWPPP Service. Fast, affordable, and 100% compliant — delivered in 72 hours or it's FREE.
@@ -76,7 +76,11 @@ export default function Footer() {
                 className="flex items-start gap-2 text-gray-400 hover:text-[#EF7C3B] transition-colors"
               >
                 <MapPin size={13} className="text-[#EF7C3B] flex-shrink-0 mt-0.5" />
-                17904 W Lake Houston Pkwy, STE 303, Atascocita, TX 77346
+                <span>
+                  17904 W Lake Houston Pkwy.<br />
+                  STE 303<br />
+                  Atascocita, TX 77346
+                </span>
               </a>
             </div>
           </div>
@@ -89,10 +93,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               {[
                 { label: "Get Your SWPPP", href: "/get-your-swppp" },
-                { label: "Order Form", href: "/order" },
-                { label: "Make a Payment", href: "/payment" },
-                { label: "SWPPP Quiz", href: "/quiz" },
+                { label: "Order Form (PDF)", href: "/swppp-order-form.pdf" },
+                { label: "Make a Payment", href: "/make-a-payment" },
+                { label: "SWPPP Quiz", href: "/quiz-form" },
                 { label: "SWPPP FAQs", href: "/faq/" },
+                { label: "SWPPP Glossary", href: "/swppp-glossary/" },
+                { label: "SWPPP Documents", href: "/resources/documents/" },
+                { label: "SWPPP Links", href: "/resources/links/" },
+                { label: "Locations", href: "/locations/" },
                 { label: "About Us", href: "/about" },
                 { label: "Blog", href: "/blog" },
               ].map((link) => (

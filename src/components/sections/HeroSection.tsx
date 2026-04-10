@@ -60,8 +60,8 @@ export default function HeroSection() {
         backgroundPosition: "center top",
       }}
     >
-      {/* Dark gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0D1F2B]/92 via-[#0D1F2B]/80 to-[#0D1F2B]/70" />
+      {/* Dark gradient overlay — lightened left by 15%, right by 8% per design */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(13,31,43,0.82) 0%, rgba(13,31,43,0.78) 40%, rgba(13,31,43,0.65) 65%, rgba(13,31,43,0.47) 100%)' }} />
 
       {/* Two-column content — items-start so both columns flush to top */}
       <div className="relative z-10 container py-20 lg:py-28">
@@ -75,10 +75,11 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-4"
-              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em" }}
+              className="uppercase tracking-widest text-sm mb-4"
+              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em", color: "#FFB800" }}
             >
-              Fast, Affordable, &amp; 100% Compliant SWPPP Solution
+              Fast, Affordable, and 100% Compliant<br />
+              SWPPP Solution
             </motion.p>
 
             {/* Main Headline */}
@@ -162,7 +163,7 @@ export default function HeroSection() {
             >
               <a
                 href="https://proswppp.com/get-your-swppp/"
-                className="btn-orange text-base px-8 py-4 inline-block"
+                className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block"
               >
                 Get My SWPPP
               </a>
@@ -184,10 +185,11 @@ export default function HeroSection() {
           >
             {/* Eyebrow above form — same size/style as left column eyebrow */}
             <p
-              className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-4"
+              className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-4 text-center"
               style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em" }}
             >
-              #1 StormWater Pollution Prevention Plan Service in the US
+              Number One Stormwater Pollution Prevention<br />
+              Plan Service in the U.S.
             </p>
 
             <div
@@ -311,7 +313,7 @@ export default function HeroSection() {
                   style={{
                     fontFamily: "'Roboto', Arial, sans-serif",
                     fontWeight: 400,
-                    fontSize: "0.9375rem",
+                    fontSize: "calc(11rem / 16)",
                     color: "rgba(200,210,220,0.85)",
                     lineHeight: "1.65",
                     margin: 0,

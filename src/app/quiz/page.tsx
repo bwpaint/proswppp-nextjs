@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 
 const QuizClient = dynamic(() => import('./QuizClient'), { ssr: false });
 
@@ -17,12 +15,8 @@ export const metadata: Metadata = {
 
 export default function QuizPage() {
   return (
-    <>
-      <Navigation />
-      <main>
-        <QuizClient />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <QuizClient />
+    </main>
   );
 }

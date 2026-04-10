@@ -127,7 +127,13 @@ const questions = [
 
 function RiskGauge({ score }: { score: number }) {
   const clamped = Math.min(100, Math.max(0, score));
-  const rotation = -180 + (clamped / 100) * 180;
+  // -90° = left (LOW), 0° = up (MED), +90° = right (HIGH)
+  // Compute endpoint directly to avoid CSS/SVG transform conflicts
+  const angleDeg = -90 + (clamped / 100) * 180;
+  const angleRad = (angleDeg * Math.PI) / 180;
+  const nx2 = parseFloat((Math.sin(angleRad) * 72).toFixed(2));
+  const ny2 = parseFloat((-Math.cos(angleRad) * 72).toFixed(2));
+
   const riskLevel = clamped >= 70 ? 'HIGH' : clamped >= 40 ? 'MEDIUM' : 'LOW';
   const riskColor = clamped >= 70 ? '#EF4444' : clamped >= 40 ? '#F59E0B' : '#22C55E';
   const riskLabel = clamped >= 70 ? 'High Risk' : clamped >= 40 ? 'Medium Risk' : 'Low Risk';
@@ -135,20 +141,23 @@ function RiskGauge({ score }: { score: number }) {
   return (
     <div className="flex flex-col items-center">
       <div className="relative w-full max-w-[280px]">
-        <svg viewBox="0 0 200 110" className="w-full">
+        <svg viewBox="0 -10 200 132" className="w-full">
+          {/* Background arc */}
           <path d="M 15 100 A 85 85 0 0 1 185 100" fill="none" stroke="#1e293b" strokeWidth="18" strokeLinecap="round" />
+          {/* Colored segments */}
           <path d="M 15 100 A 85 85 0 0 1 70 22" fill="none" stroke="#22C55E" strokeWidth="18" strokeLinecap="round" opacity="0.8" />
           <path d="M 70 22 A 85 85 0 0 1 130 22" fill="none" stroke="#F59E0B" strokeWidth="18" strokeLinecap="round" opacity="0.8" />
           <path d="M 130 22 A 85 85 0 0 1 185 100" fill="none" stroke="#EF4444" strokeWidth="18" strokeLinecap="round" opacity="0.8" />
-          <text x="18" y="95" fill="#22C55E" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif">LOW</text>
-          <text x="84" y="16" fill="#F59E0B" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif" textAnchor="middle">MED</text>
-          <text x="162" y="95" fill="#EF4444" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif">HIGH</text>
-          <g transform={`translate(100, 100) rotate(${rotation})`}>
+          {/* Labels outside the arc */}
+          <text x="10" y="118" fill="#22C55E" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif" textAnchor="middle">LOW</text>
+          <text x="100" y="2" fill="#F59E0B" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif" textAnchor="middle">MED</text>
+          <text x="190" y="118" fill="#EF4444" fontSize="8" fontWeight="700" fontFamily="Roboto, sans-serif" textAnchor="middle">HIGH</text>
+          {/* Needle: pivot at (100,100), endpoint computed from angle — no CSS transforms needed */}
+          <g transform="translate(100, 100)">
             <motion.line
-              x1="0" y1="0" x2="0" y2="-72"
+              x1={0} y1={0}
+              animate={{ x2: nx2, y2: ny2 }}
               stroke={riskColor} strokeWidth="3" strokeLinecap="round"
-              initial={{ rotate: -180 }}
-              animate={{ rotate: rotation }}
               transition={{ type: 'spring', stiffness: 60, damping: 14 }}
             />
             <circle cx="0" cy="0" r="6" fill={riskColor} />
@@ -260,6 +269,7 @@ export default function QuizClient() {
   const riskLevel = riskScore >= 70 ? 'HIGH' : riskScore >= 40 ? 'MEDIUM' : 'LOW';
 
   return (
+    <>
     <section
       className="min-h-screen py-16 lg:py-24"
       style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}
@@ -486,6 +496,116 @@ export default function QuizClient() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </div>
+    </section>
+
+      {/* ── Quiz Page FAQs ── */}
+      <QuizFAQSection />
+    </>
+  );
+}
+
+function QuizFAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "What triggers the requirement for a SWPPP?",
+      a: "Any construction activity that disturbs 1 or more acres of land — or is part of a larger common plan of development — requires a SWPPP under the EPA's Construction General Permit (CGP). Some states have lower thresholds (as little as 0.5 acres in California), so always check your local state permit requirements.",
+    },
+    {
+      q: "Who is legally responsible for the SWPPP on a job site?",
+      a: "The permit holder — typically the land developer or general contractor — is legally responsible. However, responsibility can be shared or transferred through the permit process. The Stormwater Pollution Prevention Team listed in the SWPPP are accountable for implementation and inspections throughout the project.",
+    },
+    {
+      q: "How often do SWPPP inspections need to occur?",
+      a: "Under the EPA CGP, qualified personnel must inspect the entire site at least every 7 calendar days, OR once every 14 days AND within 24 hours of a 0.25-inch or greater rainfall event. States may impose more frequent requirements. Pro SWPPP provides inspection services to keep you fully in compliance.",
+    },
+    {
+      q: "What is a Notice of Intent (NOI) and how does it relate to my SWPPP?",
+      a: "The NOI is your formal notification to the regulatory agency that you intend to obtain coverage under the Construction General Permit. Your SWPPP must be developed BEFORE you submit your NOI. You cannot legally begin earth-disturbing activities until your NOI is accepted and permit coverage is granted.",
+    },
+    {
+      q: "Can I use the same SWPPP for multiple projects?",
+      a: "No. SWPPPs are site-specific documents. Each project requires its own plan tailored to that site's topography, soil conditions, drainage patterns, BMPs, and local permit requirements. A generic SWPPP that isn't site-specific will fail inspection and expose you to significant fines.",
+    },
+    {
+      q: "Do SWPPP requirements differ by state?",
+      a: "Yes, significantly. While the EPA's Construction General Permit sets minimum federal standards, states with NPDES authorization administer their own programs and may require additional BMPs, more frequent inspections, lower acreage thresholds, or different reporting formats. Pro SWPPP is experienced across all 50 states and ensures your plan meets every applicable requirement.",
+    },
+    {
+      q: "What happens to the SWPPP when I sell or transfer the property?",
+      a: "Permit coverage — and SWPPP responsibility — must be formally transferred to the new owner before the sale closes. Both parties must sign a transfer agreement and notify the permitting authority. Failing to transfer coverage properly leaves the original permit holder liable for any violations that occur after the sale.",
+    },
+  ];
+
+  return (
+    <section style={{ background: "linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)" }} className="py-20 lg:py-24">
+      <div className="container max-w-4xl mx-auto px-4">
+        <div className="text-center mb-14">
+          <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#EF7C3B" }}>
+            SWPPP Compliance
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-black leading-tight text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+            Frequently Asked Questions
+          </h2>
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <span className="h-px w-16 bg-[#EF7C3B]/40" />
+            <span className="text-[#EF7C3B] text-xl">✦</span>
+            <span className="h-px w-16 bg-[#EF7C3B]/40" />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <div
+                key={i}
+                className="overflow-hidden rounded-[11px]"
+                style={{
+                  border: isOpen ? "1px solid #EF7C3B" : "1px solid rgba(255,255,255,0.08)",
+                  backgroundColor: isOpen ? "rgba(239,124,59,0.06)" : "rgba(255,255,255,0.03)",
+                  transition: "border-color 0.25s, background-color 0.25s",
+                }}
+              >
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
+                >
+                  <span className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#EF7C3B] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {faq.q}
+                  </span>
+                  <span
+                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors text-lg leading-none"
+                    style={{ backgroundColor: isOpen ? "#EF7C3B" : "rgba(239,124,59,0.15)", color: isOpen ? "white" : "#EF7C3B" }}
+                  >
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="px-6 pb-6">
+                    <div className="h-px w-full mb-4" style={{ backgroundColor: "rgba(239,124,59,0.2)" }} />
+                    <p className="text-gray-300 leading-relaxed" style={{ fontFamily: "'Roboto', sans-serif", fontSize: "0.9375rem" }}>
+                      {faq.a}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-400 mb-5 text-sm">Still have questions? Our team is ready to help.</p>
+          <a
+            href="tel:8334387977"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-[11px] font-bold text-white uppercase tracking-wide transition-all hover:opacity-90 hover:scale-105"
+            style={{ backgroundColor: "#EF7C3B", fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: "0.9375rem" }}
+          >
+            Call Derek at 833-GET-SWPP
+          </a>
         </div>
       </div>
     </section>

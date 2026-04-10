@@ -17,8 +17,8 @@ export default function SocialProofSection() {
         backgroundPosition: "center",
       }}
     >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[#0D1F2B]/82" />
+      {/* Gradient overlay — darkens top-to-bottom for text readability */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(13,31,43,0.75) 0%, rgba(13,31,43,0.88) 40%, rgba(13,31,43,0.96) 100%)' }} />
 
       <div className="relative z-10 container text-center">
         <motion.div

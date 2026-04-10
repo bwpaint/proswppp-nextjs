@@ -40,6 +40,7 @@ export default function CEOGuaranteeSection() {
           transition={{ duration: 0.7 }}
           className="bg-white px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
         >
+          <div style={{ maxWidth: '70%', marginLeft: '15%' }}>
           <h2 className="section-heading text-[#1A3A4A] text-2xl lg:text-3xl mb-1 leading-tight">
             Order Your SWPPP Now and Your Site Will Be
           </h2>
@@ -75,6 +76,7 @@ export default function CEOGuaranteeSection() {
                 Derek – CEO, Pro SWPPP
               </p>
             </div>
+          </div>
           </div>
         </motion.div>
 

@@ -93,20 +93,20 @@ export default function WhyChooseSection() {
         {/* Full-bleed color bands: 3 columns */}
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-[1fr_340px_1fr] pointer-events-none">
           <div className="bg-[#EF7C3B]" />
-          <div className="bg-black" />
+          <div className="bg-[#0D1F2B]" />
           <div className="bg-[#EF7C3B]" />
         </div>
         {/* Content grid */}
         <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_340px_1fr]">
-          {/* Left: Why Choose */}
+          {/* Left: Why Choose — flush right */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="py-16 lg:py-20 px-8 lg:px-12 xl:px-16"
+            className="py-16 lg:py-20 px-8 lg:px-12 xl:px-16 text-right"
           >
-            <h2 className="section-heading text-white text-3xl lg:text-4xl mb-4 leading-tight">
+            <h2 className="section-heading text-white text-4xl lg:text-6xl mb-4 leading-tight">
               Why Should I Choose<br />Pro SWPPP?
             </h2>
             <p className="text-white/90 font-semibold text-lg italic">
@@ -140,7 +140,7 @@ export default function WhyChooseSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="py-16 lg:py-20 px-8 lg:px-12 xl:px-16"
           >
-            <h2 className="section-heading text-white text-3xl lg:text-4xl mb-4 leading-tight">
+            <h2 className="section-heading text-white text-4xl lg:text-6xl mb-4 leading-tight">
               How Can We Guarantee<br />72 Hour Delivery?
             </h2>
             <p className="text-white/90 font-semibold italic text-lg">
@@ -151,7 +151,7 @@ export default function WhyChooseSection() {
       </section>
 
       {/* Feature Grid */}
-      <section className="bg-black py-16 lg:py-20">
+      <section className="py-16 lg:py-20" style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
             {/* Left Column */}

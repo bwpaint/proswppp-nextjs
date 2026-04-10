@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import GlossaryClient from './GlossaryClient';
 
 export const metadata: Metadata = {
@@ -16,12 +14,8 @@ export const metadata: Metadata = {
 
 export default function SWPPPGlossaryPage() {
   return (
-    <>
-      <Navigation />
-      <main>
-        <GlossaryClient />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <GlossaryClient />
+    </main>
   );
 }

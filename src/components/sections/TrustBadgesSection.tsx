@@ -105,7 +105,7 @@ export default function TrustBadgesSection() {
   return (
     <section
       style={{
-        background: "#000000",
+        background: "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)",
         padding: "5rem 0",
         overflow: "hidden",
       }}
@@ -162,7 +162,7 @@ export default function TrustBadgesSection() {
             top: 0,
             bottom: 0,
             width: "8rem",
-            background: "linear-gradient(to right, #000000, transparent)",
+            background: "linear-gradient(to right, #0D1F2B, transparent)",
             zIndex: 2,
             pointerEvents: "none",
           }}
@@ -175,7 +175,7 @@ export default function TrustBadgesSection() {
             top: 0,
             bottom: 0,
             width: "8rem",
-            background: "linear-gradient(to left, #000000, transparent)",
+            background: "linear-gradient(to left, #0D1F2B, transparent)",
             zIndex: 2,
             pointerEvents: "none",
           }}

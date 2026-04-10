@@ -97,7 +97,7 @@ export default function LatestBlogSection() {
   return (
     <section
       style={{
-        backgroundColor: "#0A0A0A",
+        background: "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)",
         padding: "5rem 0 4.5rem",
         overflow: "hidden",
       }}
@@ -148,28 +148,28 @@ export default function LatestBlogSection() {
 
       {/* ── Scrolling article cards ── */}
       <div style={{ position: "relative", overflow: "hidden" }}>
-        {/* Left fade mask */}
+        {/* Left fade mask — gradual multi-stop */}
         <div
           style={{
             position: "absolute",
             left: 0,
             top: 0,
             bottom: 0,
-            width: "8rem",
-            background: "linear-gradient(to right, #0A0A0A, transparent)",
+            width: "14rem",
+            background: "linear-gradient(to right, #0D1F2B 0%, rgba(13,31,43,0.85) 30%, rgba(13,31,43,0.5) 60%, transparent 100%)",
             zIndex: 2,
             pointerEvents: "none",
           }}
         />
-        {/* Right fade mask */}
+        {/* Right fade mask — gradual multi-stop */}
         <div
           style={{
             position: "absolute",
             right: 0,
             top: 0,
             bottom: 0,
-            width: "8rem",
-            background: "linear-gradient(to left, #0A0A0A, transparent)",
+            width: "14rem",
+            background: "linear-gradient(to left, #0D1F2B 0%, rgba(13,31,43,0.85) 30%, rgba(13,31,43,0.5) 60%, transparent 100%)",
             zIndex: 2,
             pointerEvents: "none",
           }}
