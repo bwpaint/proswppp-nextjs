@@ -320,3 +320,102 @@
   animation: reviewTicker 50s linear infinite;
 }
 .review-ticker-track:hover { animation-play-state: paused; }
+
+/* ── WordPress Post Content ── */
+.wp-content {
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.wp-content h1,
+.wp-content h2,
+.wp-content h3,
+.wp-content h4,
+.wp-content h5,
+.wp-content h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.wp-content h2 { font-size: 1.6rem; }
+.wp-content h3 { font-size: 1.3rem; }
+.wp-content h4 { font-size: 1.1rem; }
+.wp-content p { margin-bottom: 1.25rem; }
+.wp-content a { color: #EF7C3B; text-decoration: underline; text-underline-offset: 3px; }
+.wp-content a:hover { color: #f9974f; }
+.wp-content ul,
+.wp-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.wp-content ul { list-style: disc; }
+.wp-content ol { list-style: decimal; }
+.wp-content li { margin-bottom: 0.4rem; }
+.wp-content blockquote {
+  border-left: 4px solid #EF7C3B;
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba(239, 124, 59, 0.07);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+.wp-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.wp-content th {
+  background: rgba(239, 124, 59, 0.15);
+  color: #EF7C3B;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(239, 124, 59, 0.3);
+}
+.wp-content td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.wp-content tr:last-child td { border-bottom: none; }
+.wp-content code {
+  background: rgba(255, 255, 255, 0.08);
+  color: #EF7C3B;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+.wp-content pre {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+.wp-content hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2rem 0;
+}
+.wp-content .wp-block-image { margin: 1.5rem 0; }
+.wp-content figure { margin: 1.5rem 0; }
+.wp-content figcaption {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.5rem;
+}

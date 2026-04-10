@@ -1,23 +1,10 @@
 'use client';
-/*
- * Blog Page Client — ProSWPPP Redesign
- * Receives posts from server component (WP REST API)
- * Features: search filter, category pills, responsive grid
- */
 
 import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
-import { useState, useMemo } from 'react';
-import { Search, Calendar, ArrowRight, BookOpen } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Search, Calendar, ArrowRight, BookOpen, Tag, FolderOpen } from 'lucide-react';
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
-};
+const DARK_BG = 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)';
 
 interface WPPost {
   id: number;
@@ -25,129 +12,175 @@ interface WPPost {
   date: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  link: string;
   _embedded?: {
     'wp:featuredmedia'?: Array<{ source_url: string; alt_text: string }>;
     'wp:term'?: Array<Array<{ id: number; name: string; slug: string }>>;
   };
 }
 
+interface WPTerm { id: number; name: string; slug: string; count: number; }
+
 interface Props {
   posts: WPPost[];
+  categories: WPTerm[];
+  tags: WPTerm[];
 }
 
-function stripHtml(html: string): string {
+function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/gi, ' ').trim();
 }
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
-function getCategories(posts: WPPost[]): string[] {
-  const seen = new Set<string>();
-  const cats: string[] = ['All'];
-  posts.forEach((post) => {
-    const terms = post._embedded?.['wp:term']?.[0] ?? [];
-    terms.forEach((t) => {
-      if (!seen.has(t.name)) {
-        seen.add(t.name);
-        cats.push(t.name);
-      }
-    });
-  });
-  return cats;
-}
-
-function PostCard({ post, index }: { post: WPPost; index: number }) {
+function PostCard({ post }: { post: WPPost }) {
   const image = post._embedded?.['wp:featuredmedia']?.[0];
-  const categories = post._embedded?.['wp:term']?.[0] ?? [];
+  const cats = post._embedded?.['wp:term']?.[0] ?? [];
   const title = stripHtml(post.title.rendered);
   const excerpt = stripHtml(post.excerpt.rendered).slice(0, 140) + '…';
 
   return (
-    <motion.article
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeUp}
-      custom={index * 0.06}
+    <article
       className="group rounded-2xl overflow-hidden flex flex-col"
-      style={{ background: '#fff', border: '1px solid #e9ecef', transition: 'box-shadow 0.2s' }}
-      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.10)')}
-      onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
+      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)', transition: 'border-color 0.2s, transform 0.2s' }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)'; e.currentTarget.style.transform = 'translateY(0)'; }}
     >
-      {/* Featured image */}
-      <a href={`/blog/${post.slug}/`} className="block overflow-hidden aspect-video bg-[#f0f4f8] flex-shrink-0">
+      <a href={`/blog/${post.slug}/`} className="block overflow-hidden aspect-video bg-[#0D1F2B] flex-shrink-0">
         {image ? (
-          <img
-            src={image.source_url}
-            alt={image.alt_text || title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
+          <img src={image.source_url} alt={image.alt_text || title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #1A3A4A, #0D1F2B)' }}>
-            <BookOpen size={36} style={{ color: '#EF7C3B', opacity: 0.5 }} />
+            <BookOpen size={36} style={{ color: '#EF7C3B', opacity: 0.4 }} />
           </div>
         )}
       </a>
-
-      {/* Content */}
       <div className="p-5 flex flex-col flex-1">
-        {/* Categories */}
-        {categories.length > 0 && (
+        {cats.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
-            {categories.slice(0, 2).map((cat) => (
-              <span
-                key={cat.id}
-                className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full"
-                style={{ background: 'rgba(239,124,59,0.1)', color: '#EF7C3B' }}
-              >
+            {cats.slice(0, 2).map((cat) => (
+              <span key={cat.id} className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style={{ background: 'rgba(239,124,59,0.15)', color: '#EF7C3B' }}>
                 {cat.name}
               </span>
             ))}
           </div>
         )}
-
         <a href={`/blog/${post.slug}/`} className="block flex-1">
-          <h2
-            className="font-black text-base leading-snug mb-2 group-hover:text-[#EF7C3B] transition-colors"
-            style={{ fontFamily: "'Inter', sans-serif", color: '#1A3A4A', letterSpacing: '-0.01em' }}
-            dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-          />
-          <p className="text-gray-500 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
-            {excerpt}
-          </p>
+          <h2 className="font-black text-base leading-snug mb-2 text-white group-hover:text-[#EF7C3B] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}
+            dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+          <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>{excerpt}</p>
         </a>
-
-        <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid #f0f0f0' }}>
-          <span className="flex items-center gap-1.5 text-gray-400 text-xs" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
-            <Calendar size={12} />
-            {formatDate(post.date)}
+        <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <span className="flex items-center gap-1.5 text-gray-500 text-xs">
+            <Calendar size={12} />{formatDate(post.date)}
           </span>
-          <a
-            href={`/blog/${post.slug}/`}
-            className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#EF7C3B] hover:gap-2 transition-all"
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
+          <a href={`/blog/${post.slug}/`} className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#EF7C3B] hover:gap-2 transition-all">
             Read More <ArrowRight size={12} />
           </a>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
-export default function BlogClient({ posts }: Props) {
+function BlogSidebar({
+  search, setSearch, categories, tags, activeCategory, setActiveCategory, activeTag, setActiveTag,
+}: {
+  search: string; setSearch: (v: string) => void;
+  categories: WPTerm[]; tags: WPTerm[];
+  activeCategory: string; setActiveCategory: (v: string) => void;
+  activeTag: string; setActiveTag: (v: string) => void;
+}) {
+  const sideCard = { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: '1rem', padding: '1.5rem' };
+
+  return (
+    <aside className="space-y-6">
+      {/* Search */}
+      <div style={sideCard}>
+        <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>Search</h3>
+        <div className="relative">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search articles..."
+            className="w-full pl-9 pr-3 py-2.5 text-white text-sm outline-none rounded-lg"
+            style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: "'Roboto', Arial, sans-serif" }}
+            onFocus={(e) => (e.target.style.borderColor = '#EF7C3B')}
+            onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
+          />
+        </div>
+      </div>
+
+      {/* Categories */}
+      {categories.length > 0 && (
+        <div style={sideCard}>
+          <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <FolderOpen size={14} style={{ color: '#EF7C3B' }} /> Categories
+          </h3>
+          <ul className="space-y-1">
+            <li>
+              <button onClick={() => setActiveCategory('All')} className="w-full text-left flex items-center justify-between py-1.5 px-2 rounded-lg text-sm transition-colors"
+                style={{ color: activeCategory === 'All' ? '#EF7C3B' : 'rgba(255,255,255,0.7)', background: activeCategory === 'All' ? 'rgba(239,124,59,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
+                All Posts
+              </button>
+            </li>
+            {categories.map((cat) => (
+              <li key={cat.id}>
+                <button onClick={() => setActiveCategory(cat.name)} className="w-full text-left flex items-center justify-between py-1.5 px-2 rounded-lg text-sm transition-colors"
+                  style={{ color: activeCategory === cat.name ? '#EF7C3B' : 'rgba(255,255,255,0.7)', background: activeCategory === cat.name ? 'rgba(239,124,59,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
+                  <span>{cat.name}</span>
+                  <span className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{cat.count}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Tags */}
+      {tags.length > 0 && (
+        <div style={sideCard}>
+          <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <Tag size={14} style={{ color: '#EF7C3B' }} /> Tags
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <button key={tag.id} onClick={() => setActiveTag(activeTag === tag.name ? '' : tag.name)}
+                className="text-xs px-3 py-1 rounded-full transition-all"
+                style={{
+                  background: activeTag === tag.name ? '#EF7C3B' : 'rgba(255,255,255,0.07)',
+                  color: activeTag === tag.name ? '#fff' : 'rgba(255,255,255,0.6)',
+                  border: `1px solid ${activeTag === tag.name ? '#EF7C3B' : 'rgba(255,255,255,0.12)'}`,
+                  fontFamily: "'Roboto', sans-serif",
+                }}>
+                {tag.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </aside>
+  );
+}
+
+export default function BlogClient({ posts, categories, tags }: Props) {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+  const [activeTag, setActiveTag] = useState('');
 
-  const categories = useMemo(() => getCategories(posts), [posts]);
+  // Read query params from URL on mount (for links from post sidebar)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    const tag = params.get('tag');
+    const q = params.get('search');
+    if (cat) setActiveCategory(cat);
+    if (tag) setActiveTag(tag);
+    if (q) setSearch(q);
+  }, []);
 
   const filtered = useMemo(() => {
     return posts.filter((post) => {
@@ -155,124 +188,77 @@ export default function BlogClient({ posts }: Props) {
       const excerpt = stripHtml(post.excerpt.rendered).toLowerCase();
       const matchesSearch = !search || title.includes(search.toLowerCase()) || excerpt.includes(search.toLowerCase());
       const postCats = post._embedded?.['wp:term']?.[0]?.map((c) => c.name) ?? [];
+      const postTags = post._embedded?.['wp:term']?.[1]?.map((t) => t.name) ?? [];
       const matchesCat = activeCategory === 'All' || postCats.includes(activeCategory);
-      return matchesSearch && matchesCat;
+      const matchesTag = !activeTag || postTags.includes(activeTag);
+      return matchesSearch && matchesCat && matchesTag;
     });
-  }, [posts, search, activeCategory]);
+  }, [posts, search, activeCategory, activeTag]);
 
   return (
     <>
-      {/* ── Hero ── */}
-      <section
-        className="relative py-20 lg:py-28"
-        style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)' }}
-      >
+      {/* Hero */}
+      <section className="py-20 lg:py-28" style={{ background: DARK_BG }}>
         <div className="container text-center">
-          <motion.p
-            custom={0} initial="hidden" animate="visible" variants={fadeUp}
-            className="section-label mb-4"
-          >
-            Expert Resources
-          </motion.p>
-          <motion.h1
-            custom={0.1} initial="hidden" animate="visible" variants={fadeUp}
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="section-label mb-4">Expert Resources</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-white uppercase leading-none mb-4"
-            style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-              fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 900,
-              letterSpacing: '-0.03em',
-            }}
-          >
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: "'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}>
             SWPPP <span style={{ color: '#EF7C3B' }}>Blog</span>
           </motion.h1>
-          <motion.p
-            custom={0.2} initial="hidden" animate="visible" variants={fadeUp}
-            className="text-gray-400 text-lg max-w-xl mx-auto mb-10"
-            style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
-          >
-            State-specific guides, compliance tips, and stormwater management resources from America&apos;s #1 SWPPP experts.
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-gray-400 text-lg max-w-xl mx-auto"
+            style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+            State-specific guides, compliance tips, and stormwater resources from America&apos;s #1 SWPPP experts.
           </motion.p>
-
-          {/* Search */}
-          <motion.div
-            custom={0.3} initial="hidden" animate="visible" variants={fadeUp}
-            className="relative max-w-md mx-auto"
-          >
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search articles..."
-              className="w-full pl-10 pr-4 py-3 rounded-full text-white text-sm outline-none transition-colors"
-              style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                fontFamily: "'Roboto', Arial, sans-serif",
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#EF7C3B')}
-              onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
-            />
-          </motion.div>
         </div>
       </section>
 
-      {/* ── Posts Grid ── */}
-      <section className="py-16 lg:py-24" style={{ background: '#f8f9fa' }}>
+      {/* Content + Sidebar */}
+      <section className="py-16 lg:py-20" style={{ background: 'linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
         <div className="container">
-          {/* Category filters */}
-          {categories.length > 1 && (
-            <div className="flex flex-wrap gap-2 mb-10 justify-center">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className="text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-200"
-                  style={{
-                    background: activeCategory === cat ? '#EF7C3B' : '#fff',
-                    color: activeCategory === cat ? '#fff' : '#6b7280',
-                    border: activeCategory === cat ? '1px solid #EF7C3B' : '1px solid #e9ecef',
-                    fontFamily: "'Roboto', sans-serif",
-                  }}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
 
-          {filtered.length === 0 ? (
-            <div className="text-center py-20">
-              <BookOpen size={48} className="mx-auto mb-4 text-gray-300" />
-              <p className="text-gray-500 text-lg" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
-                {posts.length === 0 ? 'Blog posts coming soon.' : 'No posts match your search.'}
-              </p>
-              {search && (
-                <button
-                  onClick={() => setSearch('')}
-                  className="mt-4 text-[#EF7C3B] text-sm font-semibold underline"
-                >
-                  Clear search
-                </button>
-              )}
-            </div>
-          ) : (
-            <>
-              <p className="text-gray-400 text-sm mb-6 text-center" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+            {/* Left — Posts */}
+            <div>
+              <p className="text-gray-500 text-sm mb-6" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
                 {filtered.length} article{filtered.length !== 1 ? 's' : ''}
                 {activeCategory !== 'All' ? ` in ${activeCategory}` : ''}
+                {activeTag ? ` tagged "${activeTag}"` : ''}
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filtered.map((post, i) => (
-                  <PostCard key={post.id} post={post} index={i} />
-                ))}
-              </div>
-            </>
-          )}
+              {filtered.length === 0 ? (
+                <div className="text-center py-20">
+                  <BookOpen size={48} className="mx-auto mb-4" style={{ color: 'rgba(255,255,255,0.2)' }} />
+                  <p className="text-gray-500 text-lg" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                    {posts.length === 0 ? 'Blog posts coming soon.' : 'No posts match your search.'}
+                  </p>
+                  {(search || activeTag) && (
+                    <button onClick={() => { setSearch(''); setActiveTag(''); }} className="mt-4 text-[#EF7C3B] text-sm font-semibold underline">
+                      Clear filters
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {filtered.map((post) => <PostCard key={post.id} post={post} />)}
+                </div>
+              )}
+            </div>
+
+            {/* Right — Sidebar */}
+            <div className="lg:sticky lg:top-28">
+              <BlogSidebar
+                search={search} setSearch={setSearch}
+                categories={categories} tags={tags}
+                activeCategory={activeCategory} setActiveCategory={setActiveCategory}
+                activeTag={activeTag} setActiveTag={setActiveTag}
+              />
+            </div>
+
+          </div>
         </div>
       </section>
-
     </>
   );
 }

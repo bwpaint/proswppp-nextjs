@@ -96,7 +96,7 @@ export default function Footer() {
                 { label: "Order Form (PDF)", href: "/swppp-order-form.pdf" },
                 { label: "Make a Payment", href: "/make-a-payment" },
                 { label: "SWPPP Quiz", href: "/quiz-form" },
-                { label: "SWPPP FAQs", href: "/faq/" },
+
                 { label: "SWPPP Glossary", href: "/swppp-glossary/" },
                 { label: "SWPPP Documents", href: "/resources/documents/" },
                 { label: "SWPPP Links", href: "/resources/links/" },
