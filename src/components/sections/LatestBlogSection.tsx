@@ -1,31 +1,44 @@
 'use client';
 /*
  * LatestBlogSection — ProSWPPP Redesign
- * Design: WebWize-style horizontal auto-scrolling blog article cards
- * - Near-black background (#0A0A0A), orange section label with decorative dashes
- * - Continuous CSS marquee scroll (same pattern as reviewTicker)
- * - Each card: 16:9 image, colored category pill, bold white headline, gray excerpt, date
- * - Left/right edge fade masks for polished infinite loop feel
- * - "READ ALL ARTICLES →" orange outline CTA centered below
- * - Section background: #0A0A0A (slightly different from FAQ to visually separate)
- * - Will be wired to WordPress REST API to pull real posts
+ * Fetches live posts from WordPress REST API (cms.proswppp.com)
+ * Falls back to placeholder data if API is unavailable
  */
 
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
+import { useState, useEffect } from "react";
 
-// ── Blog post data (placeholder — will be replaced by WordPress REST API) ──
-const blogPosts = [
+const CATEGORY_COLORS: Record<string, string> = {
+  compliance: "#EF7C3B",
+  guides: "#154FC1",
+  inspections: "#6B9ED1",
+  "best-practices": "#2D7D46",
+  violations: "#C0392B",
+  "permit-close-out": "#8B4513",
+  uncategorized: "#6B9ED1",
+};
+
+interface PostCard {
+  id: number;
+  category: string;
+  categoryColor: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  image: string;
+  slug: string;
+}
+
+const FALLBACK_POSTS: PostCard[] = [
   {
     id: 1,
     category: "COMPLIANCE",
     categoryColor: "#EF7C3B",
     title: "Does My Construction Project Actually Need a SWPPP?",
-    excerpt:
-      "If your project disturbs 1 acre or more of land, federal law requires a Stormwater Pollution Prevention Plan. Here's how to know for sure.",
+    excerpt: "If your project disturbs 1 acre or more of land, federal law requires a Stormwater Pollution Prevention Plan. Here's how to know for sure.",
     date: "Mar 18, 2025",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-swppp-required-5g5heySjM992MM84CHA4zv.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-swppp-required-5g5heySjM992MM84CHA4zv.webp",
     slug: "/blog/does-my-project-need-a-swppp",
   },
   {
@@ -33,11 +46,9 @@ const blogPosts = [
     category: "GUIDES",
     categoryColor: "#154FC1",
     title: "How We Deliver a Fully Compliant SWPPP in 72 Hours",
-    excerpt:
-      "Most firms take two weeks. We've engineered a process that delivers a permit-ready plan in 3 business days — or your money back.",
+    excerpt: "Most firms take two weeks. We've engineered a process that delivers a permit-ready plan in 3 business days — or your money back.",
     date: "Feb 28, 2025",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-72hr-delivery-3zE2jKXUKSi42ksd8NnQpx.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-72hr-delivery-3zE2jKXUKSi42ksd8NnQpx.webp",
     slug: "/blog/72-hour-swppp-delivery",
   },
   {
@@ -45,11 +56,9 @@ const blogPosts = [
     category: "INSPECTIONS",
     categoryColor: "#6B9ED1",
     title: "What to Expect During a Stormwater Inspection",
-    excerpt:
-      "Regulators can show up unannounced. We break down exactly what inspectors look for and how a solid SWPPP protects you from fines.",
+    excerpt: "Regulators can show up unannounced. We break down exactly what inspectors look for and how a solid SWPPP protects you from fines.",
     date: "Feb 14, 2025",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-inspector-gXfUZgxgodw6MsCTyZM5W6.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-inspector-gXfUZgxgodw6MsCTyZM5W6.webp",
     slug: "/blog/stormwater-inspection-guide",
   },
   {
@@ -57,11 +66,9 @@ const blogPosts = [
     category: "BEST PRACTICES",
     categoryColor: "#2D7D46",
     title: "The Complete Guide to BMPs for Your Construction Site",
-    excerpt:
-      "Best Management Practices like silt fences, sediment basins, and erosion control blankets are the backbone of every compliant SWPPP.",
+    excerpt: "Best Management Practices like silt fences, sediment basins, and erosion control blankets are the backbone of every compliant SWPPP.",
     date: "Jan 30, 2025",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-bmp-guide-9ELJhakrHQEDuKggMoNYHC.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-bmp-guide-9ELJhakrHQEDuKggMoNYHC.webp",
     slug: "/blog/bmp-guide-construction-sites",
   },
   {
@@ -69,11 +76,9 @@ const blogPosts = [
     category: "VIOLATIONS",
     categoryColor: "#C0392B",
     title: "SWPPP Violations: How to Avoid $50,000/Day Fines",
-    excerpt:
-      "Stormwater violations can trigger immediate stop-work orders and fines that compound daily. Here's what triggers them and how to stay safe.",
+    excerpt: "Stormwater violations can trigger immediate stop-work orders and fines that compound daily. Here's what triggers them and how to stay safe.",
     date: "Jan 12, 2025",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-fines-violations-ZtALNdprAppmAdcmyUF7Ud.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-fines-violations-ZtALNdprAppmAdcmyUF7Ud.webp",
     slug: "/blog/swppp-violations-fines",
   },
   {
@@ -81,19 +86,54 @@ const blogPosts = [
     category: "PERMIT CLOSE-OUT",
     categoryColor: "#8B4513",
     title: "When Can You Terminate Your Construction General Permit?",
-    excerpt:
-      "Once your site reaches 70% permanent stabilization, you may be eligible to close out your permit. We walk you through the process step by step.",
+    excerpt: "Once your site reaches 70% permanent stabilization, you may be eligible to close out your permit. We walk you through the process step by step.",
     date: "Dec 20, 2024",
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-permit-termination-SXzdnsP9PqGNRohvDWLmjb.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/blog-permit-termination-SXzdnsP9PqGNRohvDWLmjb.webp",
     slug: "/blog/terminate-construction-general-permit",
   },
 ];
 
-// Duplicate for seamless infinite loop
-const allPosts = [...blogPosts, ...blogPosts];
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/gi, ' ').trim();
+}
 
 export default function LatestBlogSection() {
+  const [posts, setPosts] = useState<PostCard[]>(FALLBACK_POSTS);
+
+  useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_WP_API_BASE ?? 'https://cms.proswppp.com/wp-json';
+    fetch(`${base}/wp/v2/posts?_embed&per_page=12&status=publish`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data || !Array.isArray(data) || data.length === 0) return;
+        const mapped: PostCard[] = data.map((p: any) => {
+          const terms = p._embedded?.['wp:term']?.[0] ?? [];
+          const cat = terms[0];
+          const catSlug = cat?.slug ?? 'uncategorized';
+          const catName = (cat?.name ?? 'General').toUpperCase();
+          const color = CATEGORY_COLORS[catSlug] ?? '#6B9ED1';
+          const image = p._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? '';
+          return {
+            id: p.id,
+            category: catName,
+            categoryColor: color,
+            title: stripHtml(p.title?.rendered ?? ''),
+            excerpt: stripHtml(p.excerpt?.rendered ?? ''),
+            date: formatDate(p.date),
+            image,
+            slug: `/blog/${p.slug}`,
+          };
+        });
+        setPosts(mapped);
+      })
+      .catch(() => {/* keep fallback */});
+  }, []);
+
+  const allPosts = [...posts, ...posts];
   return (
     <section
       style={{
