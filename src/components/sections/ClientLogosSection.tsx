@@ -66,7 +66,7 @@ export default function ClientLogosSection() {
       </section>
 
       {/* Client Logos */}
-      <section className="py-14 lg:py-16" style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
+      <section className="py-14 lg:py-16" style={{ background: '#000000' }}>
         <div className="container">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

@@ -137,7 +137,7 @@ export default function LatestBlogSection() {
   return (
     <section
       style={{
-        background: "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)",
+        background: "#000000",
         padding: "5rem 0 4.5rem",
         overflow: "hidden",
       }}

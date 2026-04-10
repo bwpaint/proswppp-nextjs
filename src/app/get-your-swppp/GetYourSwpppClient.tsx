@@ -188,7 +188,7 @@ export default function GetYourSwpppClient() {
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0D1F2B]/95 via-[#0D1F2B]/90 to-[#0D1F2B]/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/90 to-black/95" />
         <div className="relative z-10 container text-center">
           <motion.p
             custom={0} initial="hidden" animate="visible" variants={fadeUp}

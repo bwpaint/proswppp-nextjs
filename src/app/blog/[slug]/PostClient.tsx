@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Calendar, FolderOpen, Tag, ArrowLeft, ArrowRight } from 'lucide-react';
 
-const DARK_BG = 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)';
+const DARK_BG = '#000000';
 
 interface WPTerm { id: number; name: string; slug: string; count: number; }
 
@@ -204,7 +204,7 @@ export default function PostClient({ title, date, content, categories, tags, all
 
       {/* Featured image */}
       {image && (
-        <div style={{ background: '#0D1F2B' }}>
+        <div style={{ background: '#000000' }}>
           <div className="container">
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
@@ -218,7 +218,7 @@ export default function PostClient({ title, date, content, categories, tags, all
       )}
 
       {/* Content + Sidebar */}
-      <section className="py-14 lg:py-20" style={{ background: 'linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
+      <section className="py-14 lg:py-20" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
 

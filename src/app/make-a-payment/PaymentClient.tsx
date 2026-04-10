@@ -46,7 +46,7 @@ export default function PaymentClient() {
       {/* ── Hero ── */}
       <section
         className="relative py-20 lg:py-28"
-        style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)' }}
+        style={{ background: '#000000' }}
       >
         <div className="relative z-10 container text-center">
           <motion.div
@@ -96,7 +96,7 @@ export default function PaymentClient() {
               {/* Card header */}
               <div
                 className="px-8 py-6"
-                style={{ background: 'linear-gradient(135deg, #1A3A4A 0%, #0D1F2B 100%)' }}
+                style={{ background: '#111111' }}
               >
                 <div className="flex items-center justify-between">
                   <div>

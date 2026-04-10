@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useState, useMemo, useEffect } from 'react';
 import { Search, Calendar, ArrowRight, BookOpen, Tag, FolderOpen } from 'lucide-react';
 
-const DARK_BG = 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)';
+const DARK_BG = '#000000';
 
 interface WPPost {
   id: number;
@@ -47,11 +47,11 @@ function PostCard({ post }: { post: WPPost }) {
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)'; e.currentTarget.style.transform = 'translateY(0)'; }}
     >
-      <a href={`/blog/${post.slug}/`} className="block overflow-hidden aspect-video bg-[#0D1F2B] flex-shrink-0">
+      <a href={`/blog/${post.slug}/`} className="block overflow-hidden aspect-video bg-black flex-shrink-0">
         {image ? (
           <img src={image.source_url} alt={image.alt_text || title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #1A3A4A, #0D1F2B)' }}>
+          <div className="w-full h-full flex items-center justify-center" style={{ background: '#111111' }}>
             <BookOpen size={36} style={{ color: '#EF7C3B', opacity: 0.4 }} />
           </div>
         )}
@@ -216,7 +216,7 @@ export default function BlogClient({ posts, categories, tags }: Props) {
       </section>
 
       {/* Content + Sidebar */}
-      <section className="py-16 lg:py-20" style={{ background: 'linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
+      <section className="py-16 lg:py-20" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
 

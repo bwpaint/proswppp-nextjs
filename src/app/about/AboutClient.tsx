@@ -80,7 +80,7 @@ export default function AboutClient() {
           backgroundPosition: 'center top',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0D1F2B]/95 via-[#0D1F2B]/85 to-[#0D1F2B]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-black/70" />
         <div className="relative z-10 container">
           <motion.p
             custom={0}
@@ -195,7 +195,7 @@ export default function AboutClient() {
             >
               <div
                 className="rounded-2xl p-10 text-center max-w-sm w-full"
-                style={{ background: 'linear-gradient(135deg, #1A3A4A 0%, #0D1F2B 100%)', border: '1px solid rgba(239,124,59,0.3)' }}
+                style={{ background: '#111111', border: '1px solid rgba(239,124,59,0.3)' }}
               >
                 <div
                   className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
@@ -320,7 +320,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── Why Choose Us ── */}
-      <section className="py-20 lg:py-28" style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)' }}>
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="text-center mb-14">
             <p className="section-label mb-3">Why Pro SWPPP</p>

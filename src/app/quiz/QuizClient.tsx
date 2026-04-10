@@ -272,7 +272,7 @@ export default function QuizClient() {
     <>
     <section
       className="min-h-screen py-16 lg:py-24"
-      style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}
+      style={{ background: '#000000' }}
     >
       <div className="container">
         {/* Header */}
@@ -541,7 +541,7 @@ function QuizFAQSection() {
   ];
 
   return (
-    <section style={{ background: "linear-gradient(315deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)" }} className="py-20 lg:py-24">
+    <section style={{ background: '#000000' }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#EF7C3B" }}>

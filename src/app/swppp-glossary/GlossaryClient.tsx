@@ -153,7 +153,7 @@ export default function GlossaryClient() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: 'linear-gradient(180deg, #0D1F2B 0%, #0a1520 100%)' }}
+      style={{ background: '#000000' }}
     >
       {/* Hero header */}
       <div className="py-16 lg:py-20" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>

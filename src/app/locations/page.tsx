@@ -10,7 +10,7 @@ export default function LocationsPage() {
     <main>
       <section
         className="py-20 lg:py-28"
-        style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)' }}
+        style={{ background: '#000000' }}
       >
         <div className="container">
           <div className="max-w-3xl mx-auto">
