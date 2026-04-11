@@ -1,215 +1,183 @@
 'use client';
 
-interface StateItem {
-  name: string;
-  slug: string;
-  abbreviation: string;
+import { useState, useEffect } from 'react';
+
+interface StateItem { name: string; slug: string; abbreviation: string; }
+interface Props { liveStates: StateItem[]; }
+
+// Full state name → 2-letter abbreviation
+const NAME_TO_ABBR: Record<string, string> = {
+  'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+  'Colorado':'CO','Connecticut':'CT','Delaware':'DE','Florida':'FL','Georgia':'GA',
+  'Hawaii':'HI','Idaho':'ID','Illinois':'IL','Indiana':'IN','Iowa':'IA','Kansas':'KS',
+  'Kentucky':'KY','Louisiana':'LA','Maine':'ME','Maryland':'MD','Massachusetts':'MA',
+  'Michigan':'MI','Minnesota':'MN','Mississippi':'MS','Missouri':'MO','Montana':'MT',
+  'Nebraska':'NE','Nevada':'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM',
+  'New York':'NY','North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK',
+  'Oregon':'OR','Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC',
+  'South Dakota':'SD','Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT',
+  'Virginia':'VA','Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY',
+};
+
+// ── Minimal inline TopoJSON decoder (replaces topojson-client) ──────────────
+// The states-albers-10m.json is pre-projected so coords are already screen pixels.
+// TopoJSON arcs use delta encoding: each [dx,dy] is relative to the previous point.
+type RawArc  = [number, number][];
+type ScreenPt = [number, number];
+
+function decodeArcs(topology: any): ScreenPt[][] {
+  const { scale = [1,1], translate = [0,0] } = topology.transform ?? {};
+  return (topology.arcs as RawArc[]).map(arc => {
+    let x = 0, y = 0;
+    return arc.map(([dx, dy]) => {
+      x += dx; y += dy;
+      return [x * scale[0] + translate[0], y * scale[1] + translate[1]] as ScreenPt;
+    });
+  });
 }
 
-interface Props {
-  liveStates: StateItem[];
+function ringToD(decoded: ScreenPt[][], indices: number[]): string {
+  let d = '';
+  for (const idx of indices) {
+    const pts = idx >= 0 ? decoded[idx] : [...decoded[~idx]].reverse();
+    if (!pts.length) continue;
+    d += `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+    for (let i = 1; i < pts.length; i++) d += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`;
+    d += 'Z';
+  }
+  return d;
 }
 
-// Each entry: [abbr, name, x, y, w, h, labelX?, labelY?]
-// labelX/labelY optional overrides for text centering
-const STATE_RECTS: [string, string, number, number, number, number][] = [
-  // Row 1 — north
-  ['WA', 'Washington',       20,  60,  80, 70],
-  ['MT', 'Montana',         100,  60, 120, 70],
-  ['ND', 'North Dakota',    220,  60,  80, 70],
-  ['MN', 'Minnesota',       300,  60,  80, 70],
-  ['WI', 'Wisconsin',       390,  60,  70, 60],
-  ['NY', 'New York',        620,  60, 100, 60],
-  ['VT', 'Vermont',         720,  60,  40, 50],
-  ['NH', 'New Hampshire',   760,  60,  40, 50],
-  ['ME', 'Maine',           800,  60,  80, 70],
-  // Row 1 sub
-  ['MA', 'Massachusetts',   720,  95,  80, 45],
-  // Row 2
-  ['OR', 'Oregon',           20, 130,  80, 70],
-  ['ID', 'Idaho',           100, 130,  70, 80],
-  ['SD', 'South Dakota',    220, 130,  80, 70],
-  ['NE', 'Nebraska',        300, 130,  80, 60],
-  ['IA', 'Iowa',            380, 130,  70, 60],
-  ['MI', 'Michigan',        460,  60,  80, 70],
-  ['IL', 'Illinois',        450, 130,  60, 70],
-  ['IN', 'Indiana',         510, 130,  50, 70],
-  ['OH', 'Ohio',            560, 130,  60, 70],
-  ['PA', 'Pennsylvania',    620, 130, 100, 60],
-  ['NJ', 'New Jersey',      720, 130,  40, 50],
-  ['CT', 'Connecticut',     760, 130,  35, 40],
-  ['RI', 'Rhode Island',    795, 130,  25, 35],
-  // Row 3
-  ['CA', 'California',       20, 200,  70,150],
-  ['NV', 'Nevada',           90, 200,  70,100],
-  ['UT', 'Utah',            160, 200,  70, 90],
-  ['CO', 'Colorado',        230, 200,  90, 70],
-  ['KS', 'Kansas',          320, 200,  90, 60],
-  ['MO', 'Missouri',        410, 200,  70, 70],
-  ['KY', 'Kentucky',        480, 200,  80, 60],
-  ['WV', 'West Virginia',   560, 200,  55, 60],
-  ['VA', 'Virginia',        615, 200,  90, 55],
-  ['MD', 'Maryland',        705, 200,  60, 35],
-  ['DE', 'Delaware',        765, 200,  30, 45],
-  // Row 3 sub
-  ['WY', 'Wyoming',         100, 200,  80, 70], // actually between ID/CO — fix coords
-  // Row 4
-  ['AZ', 'Arizona',          90, 270,  80, 90],
-  ['NM', 'New Mexico',      170, 270,  80, 90],
-  ['OK', 'Oklahoma',        260, 270, 100, 60],
-  ['AR', 'Arkansas',        360, 270,  75, 60],
-  ['TN', 'Tennessee',       435, 270, 100, 55],
-  ['NC', 'North Carolina',  535, 270, 100, 55],
-  ['SC', 'South Carolina',  635, 270,  65, 55],
-  // Row 5
-  ['TX', 'Texas',           180, 330, 140,130],
-  ['LA', 'Louisiana',       340, 360,  70, 70],
-  ['MS', 'Mississippi',     410, 330,  60, 80],
-  ['AL', 'Alabama',         470, 330,  60, 90],
-  ['GA', 'Georgia',         530, 330,  75, 95],
-  ['FL', 'Florida',         540, 430,  80,110],
-  // DC small marker
-  ['DC', 'District of Columbia', 700, 255, 20, 20],
-  // Alaska & Hawaii
-  ['AK', 'Alaska',           20, 470, 120, 80],
-  ['HI', 'Hawaii',          160, 500, 100, 50],
-];
+function geoToD(geo: any, decoded: ScreenPt[][]): string {
+  if (geo.type === 'Polygon')
+    return (geo.arcs as number[][]).map(r => ringToD(decoded, r)).join(' ');
+  if (geo.type === 'MultiPolygon')
+    return (geo.arcs as number[][][]).map(poly => poly.map(r => ringToD(decoded, r)).join(' ')).join(' ');
+  return '';
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
-// WY overlaps with NV/UT area — fix: WY is between MT/SD (x=170) and NE (x=230 area)
-// Let's use corrected positions for WY
-const WY_FIXED: [string, string, number, number, number, number] = ['WY', 'Wyoming', 160, 130, 70, 70];
-
-const STATES_FINAL = STATE_RECTS.filter(([abbr]) => abbr !== 'WY').concat([WY_FIXED]);
+interface StatePath { abbr: string; name: string; d: string; }
 
 export default function USMapClient({ liveStates }: Props) {
-  const liveSet = new Set(liveStates.map((s) => s.abbreviation));
-  const slugMap = new Map(liveStates.map((s) => [s.abbreviation, s.slug]));
+  const [statePaths, setStatePaths] = useState<StatePath[]>([]);
+  const [tooltip, setTooltip]       = useState<{ name: string; cx: number; cy: number } | null>(null);
+  const [hovered, setHovered]       = useState<string | null>(null);
 
-  const ACTIVE_FILL   = '#EF7C3B';
-  const INACTIVE_FILL = '#1a1a1a';
-  const ACTIVE_STROKE = '#2a2a2a';
-  const HOVER_FILL    = '#d4692a';
+  const liveSet = new Set(liveStates.map(s => s.abbreviation));
+  const slugMap = new Map(liveStates.map(s => [s.abbreviation, s.slug]));
 
-  function handleMouseEnter(e: React.MouseEvent<SVGElement>) {
-    const rect = e.currentTarget.querySelector('rect');
-    if (rect) rect.setAttribute('fill', HOVER_FILL);
-  }
-  function handleMouseLeave(e: React.MouseEvent<SVGElement>, abbr: string) {
-    const rect = e.currentTarget.querySelector('rect');
-    if (rect) rect.setAttribute('fill', liveSet.has(abbr) ? ACTIVE_FILL : INACTIVE_FILL);
-  }
+  useEffect(() => {
+    fetch('/us-states.json')
+      .then(r => r.json())
+      .then((topology: any) => {
+        const decoded = decodeArcs(topology);
+        const features: StatePath[] = topology.objects.states.geometries
+          .map((geo: any) => {
+            const name = geo.properties?.name ?? '';
+            const abbr = NAME_TO_ABBR[name] ?? '';
+            const d    = geoToD(geo, decoded);
+            return { abbr, name, d };
+          })
+          .filter((s: StatePath) => s.abbr && s.d);
+        setStatePaths(features);
+      })
+      .catch(() => {/* silently fail — map just won't render */});
+  }, []);
 
   return (
-    <div className="container">
+    <div className="container pb-10">
       <div
         className="rounded-2xl overflow-hidden"
         style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)' }}
       >
-        <svg
-          viewBox="0 0 960 600"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ width: '100%', height: 'auto', display: 'block' }}
-          aria-label="Interactive map of US states with SWPPP service availability"
-        >
-          {STATES_FINAL.map(([abbr, name, x, y, w, h]) => {
-            const isActive = liveSet.has(abbr);
-            const slug = slugMap.get(abbr);
-            const fill = isActive ? ACTIVE_FILL : INACTIVE_FILL;
-            const cx = x + w / 2;
-            const cy = y + h / 2;
-            const fontSize = w < 30 ? 6 : w < 50 ? 7 : 9;
+        {/* Loading state */}
+        {statePaths.length === 0 && (
+          <div className="flex items-center justify-center" style={{ minHeight: 400 }}>
+            <p style={{ color: 'rgba(255,255,255,0.25)', fontFamily: "'Roboto',sans-serif", fontSize: '0.9rem' }}>
+              Loading map…
+            </p>
+          </div>
+        )}
 
-            const inner = (
-              <g
-                key={abbr}
-                style={{ cursor: isActive ? 'pointer' : 'default' }}
-                onMouseEnter={isActive ? handleMouseEnter : undefined}
-                onMouseLeave={isActive ? (e) => handleMouseLeave(e, abbr) : undefined}
-                role={isActive ? 'link' : undefined}
-                aria-label={isActive ? `${name} — active, click to explore` : `${name} — coming soon`}
-              >
-                <rect
-                  x={x}
-                  y={y}
-                  width={w}
-                  height={h}
+        {/* SVG Map — viewBox matches the Albers pre-projected 975×610 space */}
+        {statePaths.length > 0 && (
+          <svg
+            viewBox="0 0 975 610"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+            aria-label="Interactive map of US states with SWPPP service availability"
+            onMouseLeave={() => { setTooltip(null); setHovered(null); }}
+          >
+            {statePaths.map(({ abbr, name, d }) => {
+              const isActive = liveSet.has(abbr);
+              const slug     = slugMap.get(abbr);
+              const isHov    = hovered === abbr;
+              const fill     = isActive ? (isHov ? '#d4692a' : '#EF7C3B') : '#1e1e1e';
+
+              const pathEl = (
+                <path
+                  key={abbr}
+                  d={d}
                   fill={fill}
-                  stroke={ACTIVE_STROKE}
-                  strokeWidth={0.5}
-                  rx={2}
-                  style={{ transition: 'fill 0.15s' }}
+                  stroke={isActive ? '#000' : '#2d2d2d'}
+                  strokeWidth={isActive ? 0.8 : 0.5}
+                  style={{ cursor: isActive ? 'pointer' : 'default', transition: 'fill 0.15s ease' }}
+                  onMouseEnter={e => {
+                    if (isActive) setHovered(abbr);
+                    const box = (e.currentTarget as SVGPathElement).getBBox();
+                    setTooltip({ name, cx: box.x + box.width / 2, cy: box.y });
+                  }}
+                  onMouseLeave={() => { setHovered(null); setTooltip(null); }}
+                  aria-label={isActive ? `${name} — click to explore SWPPP services` : `${name} — coming soon`}
+                />
+              );
+
+              return isActive && slug
+                ? <a key={abbr} href={`/locations/${slug}`}>{pathEl}</a>
+                : <g key={abbr}>{pathEl}</g>;
+            })}
+
+            {/* Hover tooltip */}
+            {tooltip && (
+              <g style={{ pointerEvents: 'none' }}>
+                <rect
+                  x={tooltip.cx - 56} y={tooltip.cy - 32}
+                  width={112} height={24}
+                  rx={4}
+                  fill="rgba(0,0,0,0.88)"
+                  stroke="rgba(239,124,59,0.6)"
+                  strokeWidth={0.75}
                 />
                 <text
-                  x={cx}
-                  y={cy + fontSize * 0.35}
+                  x={tooltip.cx} y={tooltip.cy - 16}
                   textAnchor="middle"
-                  fill={isActive ? '#ffffff' : '#555555'}
-                  fontSize={fontSize}
-                  fontFamily="'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+                  fill="#fff"
+                  fontSize={9.5}
+                  fontFamily="'Inter','Helvetica Neue',Arial,sans-serif"
                   fontWeight={700}
-                  style={{ pointerEvents: 'none', userSelect: 'none' }}
                 >
-                  {abbr}
+                  {tooltip.name}
                 </text>
               </g>
-            );
-
-            if (isActive && slug) {
-              return (
-                <a key={abbr} href={`/locations/${slug}`}>
-                  {inner}
-                </a>
-              );
-            }
-            return inner;
-          })}
-
-          {/* Separator line between main map and AK/HI */}
-          <line x1="20" y1="460" x2="300" y2="460" stroke="#222" strokeWidth={1} strokeDasharray="4,4" />
-
-          {/* Legend labels */}
-          <text x="20" y="585" fill="rgba(255,255,255,0.4)" fontSize={9}
-            fontFamily="'Roboto', Arial, sans-serif">
-            AK and HI shown repositioned
-          </text>
-        </svg>
+            )}
+          </svg>
+        )}
 
         {/* Legend */}
         <div
-          className="flex items-center gap-6 px-6 py-4"
+          className="flex flex-wrap items-center gap-6 px-6 py-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
           <div className="flex items-center gap-2">
-            <div
-              style={{ width: 16, height: 16, background: '#EF7C3B', borderRadius: 3 }}
-            />
-            <span
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                fontSize: '0.8rem',
-                color: 'rgba(255,255,255,0.7)',
-              }}
-            >
-              Active — Click to explore
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#EF7C3B' }} />
+            <span style={{ fontFamily:"'Roboto',Arial,sans-serif", fontSize:'0.8rem', color:'rgba(255,255,255,0.7)' }}>
+              Active — click to explore
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <div
-              style={{
-                width: 16,
-                height: 16,
-                background: '#1a1a1a',
-                border: '1px solid #333',
-                borderRadius: 3,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                fontSize: '0.8rem',
-                color: 'rgba(255,255,255,0.7)',
-              }}
-            >
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#1e1e1e', border: '1px solid #333' }} />
+            <span style={{ fontFamily:"'Roboto',Arial,sans-serif", fontSize:'0.8rem', color:'rgba(255,255,255,0.7)' }}>
               Coming soon
             </span>
           </div>
