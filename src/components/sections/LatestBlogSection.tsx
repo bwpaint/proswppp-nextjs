@@ -196,7 +196,7 @@ export default function LatestBlogSection() {
             top: 0,
             bottom: 0,
             width: "14rem",
-            background: "linear-gradient(to right, #0D1F2B 0%, rgba(13,31,43,0.85) 30%, rgba(13,31,43,0.5) 60%, transparent 100%)",
+            background: "linear-gradient(to right, #000000 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.5) 60%, transparent 100%)",
             zIndex: 2,
             pointerEvents: "none",
           }}
@@ -209,7 +209,7 @@ export default function LatestBlogSection() {
             top: 0,
             bottom: 0,
             width: "14rem",
-            background: "linear-gradient(to left, #0D1F2B 0%, rgba(13,31,43,0.85) 30%, rgba(13,31,43,0.5) 60%, transparent 100%)",
+            background: "linear-gradient(to left, #000000 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.5) 60%, transparent 100%)",
             zIndex: 2,
             pointerEvents: "none",
           }}

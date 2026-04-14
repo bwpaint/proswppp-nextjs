@@ -481,7 +481,7 @@ export default function GetYourSwpppClient() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    style={{ background: '#1A3A4A', borderRadius: '14px', padding: '1.5rem' }}
+                    style={{ background: '#000000', borderRadius: '14px', padding: '1.5rem' }}
                   >
                     <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.8125rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#EF7C3B', marginBottom: '1rem' }}>
                       Why Pro SWPPP?

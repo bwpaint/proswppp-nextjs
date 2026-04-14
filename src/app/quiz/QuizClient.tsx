@@ -143,7 +143,7 @@ function RiskGauge({ score }: { score: number }) {
       <div className="relative w-full max-w-[280px]">
         <svg viewBox="0 -10 200 132" className="w-full">
           {/* Background arc */}
-          <path d="M 15 100 A 85 85 0 0 1 185 100" fill="none" stroke="#1e293b" strokeWidth="18" strokeLinecap="round" />
+          <path d="M 15 100 A 85 85 0 0 1 185 100" fill="none" stroke="#000000" strokeWidth="18" strokeLinecap="round" />
           {/* Colored segments */}
           <path d="M 15 100 A 85 85 0 0 1 70 22" fill="none" stroke="#22C55E" strokeWidth="18" strokeLinecap="round" opacity="0.8" />
           <path d="M 70 22 A 85 85 0 0 1 130 22" fill="none" stroke="#F59E0B" strokeWidth="18" strokeLinecap="round" opacity="0.8" />
@@ -161,7 +161,7 @@ function RiskGauge({ score }: { score: number }) {
               transition={{ type: 'spring', stiffness: 60, damping: 14 }}
             />
             <circle cx="0" cy="0" r="6" fill={riskColor} />
-            <circle cx="0" cy="0" r="3" fill="#0f172a" />
+            <circle cx="0" cy="0" r="3" fill="#000000" />
           </g>
         </svg>
       </div>

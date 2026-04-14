@@ -61,7 +61,7 @@ export default function HeroSection() {
       }}
     >
       {/* Dark gradient overlay — lightened left by 15%, right by 8% per design */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(13,31,43,0.82) 0%, rgba(13,31,43,0.78) 40%, rgba(13,31,43,0.65) 65%, rgba(13,31,43,0.47) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.78) 40%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.47) 100%)' }} />
 
       {/* Two-column content — items-start so both columns flush to top */}
       <div className="relative z-10 container py-20 lg:py-28">
