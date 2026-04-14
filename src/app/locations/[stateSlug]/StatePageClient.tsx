@@ -138,6 +138,13 @@ export default function StatePageClient({ state }: Props) {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
+                style={{
+                  marginLeft: '50px',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '16px',
+                  background: 'rgba(255,255,255,0.05)',
+                  padding: '24px',
+                }}
               >
                 <h2
                   className="text-white uppercase mb-6"
