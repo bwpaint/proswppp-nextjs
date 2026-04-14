@@ -81,7 +81,7 @@ export default function PaymentClient() {
       </section>
 
       {/* ── Payment Card ── */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-lg mx-auto">
             <motion.div
@@ -91,12 +91,12 @@ export default function PaymentClient() {
               variants={fadeUp}
               custom={0}
               className="rounded-2xl overflow-hidden shadow-2xl"
-              style={{ border: '1px solid #e9ecef' }}
+              style={{ border: '1px solid rgba(255,255,255,0.15)' }}
             >
               {/* Card header */}
               <div
                 className="px-8 py-6"
-                style={{ background: '#111111' }}
+                style={{ background: '#000000' }}
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -116,14 +116,14 @@ export default function PaymentClient() {
               </div>
 
               {/* Card body */}
-              <div className="px-8 py-8">
-                <div className="flex items-start gap-4 mb-6 p-4 rounded-xl" style={{ background: '#f8f9fa' }}>
-                  <CreditCard size={22} style={{ color: '#154FC1', flexShrink: 0, marginTop: 2 }} />
+              <div className="px-8 py-8" style={{ background: '#000000' }}>
+                <div className="flex items-start gap-4 mb-6 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <CreditCard size={22} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 2 }} />
                   <div>
-                    <p className="font-bold text-sm text-[#1A3A4A] mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    <p className="font-bold text-sm mb-1" style={{ fontFamily: "'Inter', sans-serif", color: '#ffffff' }}>
                       All Major Cards Accepted
                     </p>
-                    <p className="text-gray-500 text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                    <p className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>
                       Visa, Mastercard, Amex, Discover — processed securely via our payment portal.
                     </p>
                   </div>
@@ -138,7 +138,7 @@ export default function PaymentClient() {
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 size={15} style={{ color: '#EF7C3B', flexShrink: 0 }} />
-                      <span className="text-gray-600 text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>{item}</span>
+                      <span className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -166,9 +166,9 @@ export default function PaymentClient() {
               variants={fadeUp}
               custom={0.15}
               className="mt-6 rounded-xl p-5 text-center"
-              style={{ background: '#f8f9fa', border: '1px solid #e9ecef' }}
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)' }}
             >
-              <p className="text-gray-600 text-sm mb-3" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+              <p className="text-sm mb-3" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>
                 Prefer to pay by phone or need help with your invoice?
               </p>
               <a
@@ -184,7 +184,7 @@ export default function PaymentClient() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 lg:py-24" style={{ background: '#f8f9fa' }}>
+      <section className="py-20 lg:py-24" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <h2
@@ -194,7 +194,7 @@ export default function PaymentClient() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: '-0.02em',
-                color: '#1A3A4A',
+                color: '#ffffff',
               }}
             >
               Payment <span style={{ color: '#EF7C3B' }}>FAQs</span>
@@ -208,16 +208,16 @@ export default function PaymentClient() {
                   viewport={{ once: true }}
                   variants={fadeUp}
                   custom={i * 0.08}
-                  className="rounded-xl p-6 bg-white"
-                  style={{ border: '1px solid #e9ecef' }}
+                  className="rounded-xl p-6"
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)' }}
                 >
                   <h3
                     className="font-black text-sm uppercase mb-2"
-                    style={{ fontFamily: "'Inter', sans-serif", color: '#1A3A4A', letterSpacing: '-0.01em' }}
+                    style={{ fontFamily: "'Inter', sans-serif", color: '#ffffff', letterSpacing: '-0.01em' }}
                   >
                     {faq.q}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                  <p className="text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>
                     {faq.a}
                   </p>
                 </motion.div>
