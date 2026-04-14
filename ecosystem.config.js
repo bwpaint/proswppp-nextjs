@@ -4,7 +4,7 @@ module.exports = {
       name: 'proswppp',
       script: './node_modules/.bin/next',
       args: 'start',
-      cwd: '/var/www/proswppp.com',   // update this path to match your server's document root
+      cwd: '/var/www/www2.proswppp.com',
       instances: 1,
       autorestart: true,
       watch: false,
