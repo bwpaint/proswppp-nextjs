@@ -77,9 +77,7 @@ export default function SWPPPLinksPage() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {cat.links.map((link) => (
-                    <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 rounded-xl p-5 transition-all group" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', textDecoration: 'none' }}
-                      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(239,124,59,0.4)' )}
-                      onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}>
+                    <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 rounded-xl p-5 transition-all group border border-white/[0.08] hover:border-[rgba(239,124,59,0.4)]" style={{ background: 'rgba(255,255,255,0.04)', textDecoration: 'none' }}>
                       <Globe size={16} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 3 }} />
                       <div>
                         <div className="flex items-center gap-1.5 mb-1">
