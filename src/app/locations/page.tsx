@@ -7,9 +7,11 @@ export const metadata: Metadata = {
     'Find SWPPP services for your state. Pro SWPPP delivers fully compliant stormwater plans in 72 hours across the United States.',
 };
 
+export const dynamic = 'force-dynamic';
+
 const SCL_BASE =
   process.env.SCL_API_BASE ?? 'https://cms.proswppp.com/wp-json/swppp-loc/v1';
-const REVALIDATE = { next: { revalidate: 3600 } };
+const REVALIDATE = { cache: 'no-store' as const };
 
 interface StateItem {
   id: number;
