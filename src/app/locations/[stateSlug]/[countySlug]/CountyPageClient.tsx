@@ -111,132 +111,133 @@ export default function CountyPageClient({ county }: Props) {
         </ol>
       </nav>
 
-      {/* Hero */}
+      {/* Hero + Cities */}
       <section className="py-20" style={{ background: '#000000' }}>
         <div className="container">
-          <motion.div
-            className="max-w-3xl"
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-          >
-            <p
-              className="section-label mb-4"
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                fontWeight: 900,
-                fontSize: '0.75rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.2em',
-                color: '#EF7C3B',
-              }}
-            >
-              SWPPP Services
-            </p>
-            <h1
-              className="text-white uppercase leading-none mb-6"
-              style={{
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 900,
-                letterSpacing: '-0.03em',
-              }}
-            >
-              {county.name}, {state.abbreviation}{' '}
-              <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
-            </h1>
-            <p
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: '1.125rem',
-                lineHeight: 1.7,
-                marginBottom: '2rem',
-              }}
-            >
-              Fully compliant stormwater plans delivered in 72 hours for{' '}
-              {county.name} County, {state.name} construction projects.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-            {county.summary && (
-              <div
-                className="wp-content"
-                style={{ color: 'rgba(255,255,255,0.7)' }}
-                dangerouslySetInnerHTML={{ __html: county.summary }}
-              />
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Cities */}
-      {county.cities.length > 0 && (
-        <section className="py-16" style={{ background: '#000000' }}>
-          <div className="container">
+            {/* Left: Text */}
             <motion.div
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
+              animate="visible"
               variants={fadeUp}
             >
-              <h2
-                className="text-white uppercase mb-10"
+              <p
+                className="section-label mb-4"
                 style={{
-                  fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-                  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                  fontFamily: "'Roboto', Arial, sans-serif",
                   fontWeight: 900,
-                  letterSpacing: '-0.02em',
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.2em',
+                  color: '#EF7C3B',
                 }}
               >
-                Cities We Serve
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {county.cities.map((city) => (
-                  <a
-                    key={city.id}
-                    href={`/locations/${state.slug}/${county.slug}/${city.slug}`}
-                    className="group block rounded-xl p-4 transition-all duration-200"
-                    style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      border: '1px solid rgba(255,255,255,0.10)',
-                      textDecoration: 'none',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                        color: '#ffffff',
-                        marginBottom: '0.25rem',
-                      }}
-                    >
-                      {city.name}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "'Roboto', Arial, sans-serif",
-                        fontSize: '0.75rem',
-                        color: '#EF7C3B',
-                      }}
-                    >
-                      View Details →
-                    </p>
-                  </a>
-                ))}
-              </div>
+                SWPPP Services
+              </p>
+              <h1
+                className="text-white uppercase leading-none mb-6"
+                style={{
+                  fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                  fontWeight: 900,
+                  letterSpacing: '-0.03em',
+                }}
+              >
+                {county.name}, {state.abbreviation}{' '}
+                <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'Roboto', Arial, sans-serif",
+                  color: 'rgba(255,255,255,0.7)',
+                  fontSize: '1.125rem',
+                  lineHeight: 1.7,
+                  marginBottom: '2rem',
+                }}
+              >
+                Fully compliant stormwater plans delivered in 72 hours for{' '}
+                {county.name} County, {state.name} construction projects.
+              </p>
+              {county.summary && (
+                <div
+                  className="wp-content"
+                  style={{ color: 'rgba(255,255,255,0.7)' }}
+                  dangerouslySetInnerHTML={{ __html: county.summary }}
+                />
+              )}
             </motion.div>
+
+            {/* Right: Cities */}
+            {county.cities.length > 0 && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+              >
+                <h2
+                  className="text-white uppercase mb-6"
+                  style={{
+                    fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
+                    fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    fontWeight: 900,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  Cities We Serve
+                </h2>
+                <div
+                  className="grid grid-cols-2 sm:grid-cols-3 gap-3"
+                  style={{ maxHeight: '520px', overflowY: 'auto', paddingRight: '4px' }}
+                >
+                  {county.cities.map((city) => (
+                    <a
+                      key={city.id}
+                      href={`/locations/${state.slug}/${county.slug}/${city.slug}`}
+                      className="group block rounded-xl p-4 transition-all duration-200"
+                      style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        border: '1px solid rgba(255,255,255,0.10)',
+                        textDecoration: 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                          fontWeight: 700,
+                          fontSize: '0.85rem',
+                          color: '#ffffff',
+                          marginBottom: '0.25rem',
+                        }}
+                      >
+                        {city.name}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontSize: '0.7rem',
+                          color: '#EF7C3B',
+                        }}
+                      >
+                        View Details →
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Documents */}
       {county.files.length > 0 && (
