@@ -224,35 +224,6 @@ export default function CityPageClient({ city }: Props) {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="py-16" style={{ background: '#000000' }}>
-        <div className="container">
-          <motion.div
-            className="text-center"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            variants={fadeUp}
-          >
-            <h2
-              className="text-white uppercase mb-6"
-              style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 900,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Ready to Get Your{' '}
-              <span style={{ color: '#EF7C3B' }}>{city.name}</span>{' '}
-              SWPPP?
-            </h2>
-            <a href="/get-your-swppp" className="btn-orange" style={{ display: 'inline-block' }}>
-              Get My SWPPP
-            </a>
-          </motion.div>
-        </div>
-      </section>
     </>
   );
 }
