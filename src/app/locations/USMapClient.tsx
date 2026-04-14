@@ -37,15 +37,19 @@ function decodeArcs(topology: any): ScreenPt[][] {
 }
 
 function ringToD(decoded: ScreenPt[][], indices: number[]): string {
-  let d = '';
+  const pts: ScreenPt[] = [];
   for (const idx of indices) {
-    const pts = idx >= 0 ? decoded[idx] : [...decoded[~idx]].reverse();
-    if (!pts.length) continue;
-    d += `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
-    for (let i = 1; i < pts.length; i++) d += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`;
-    d += 'Z';
+    const arc = idx >= 0 ? decoded[idx] : [...decoded[~idx]].reverse();
+    if (pts.length === 0) {
+      pts.push(...arc);
+    } else {
+      pts.push(...arc.slice(1)); // skip shared endpoint with previous arc
+    }
   }
-  return d;
+  if (!pts.length) return '';
+  let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) d += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`;
+  return d + 'Z';
 }
 
 function geoToD(geo: any, decoded: ScreenPt[][]): string {
