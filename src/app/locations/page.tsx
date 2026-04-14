@@ -61,8 +61,8 @@ export default async function LocationsPage() {
                 letterSpacing: '-0.03em',
               }}
             >
-              SWPPP Services{' '}
-              <span style={{ color: '#EF7C3B' }}>By Location</span>
+              Serving 48 States With{' '}
+              <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
             </h1>
             <p
               style={{
@@ -72,8 +72,9 @@ export default async function LocationsPage() {
                 lineHeight: 1.7,
               }}
             >
-              Fully compliant stormwater pollution prevention plans delivered in
-              72 hours. Select your state below to find SWPPP services near you.
+              Fully compliant stormwater pollution prevention plans delivered in 72 hours.
+              <br />
+              Select your state below to find SWPPP services near you.
             </p>
           </div>
         </div>
