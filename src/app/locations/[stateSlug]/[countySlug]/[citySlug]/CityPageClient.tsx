@@ -112,7 +112,7 @@ export default function CityPageClient({ city }: Props) {
             animate="visible"
             variants={fadeUp}
           >
-            <p
+            <h2
               className="section-label mb-4"
               style={{
                 fontFamily: "'Roboto', Arial, sans-serif",
@@ -123,8 +123,8 @@ export default function CityPageClient({ city }: Props) {
                 color: '#EF7C3B',
               }}
             >
-              SWPPP Services
-            </p>
+              Stormwater Pollution Prevention Plan Service
+            </h2>
             <h1
               className="text-white uppercase leading-none mb-6"
               style={{
