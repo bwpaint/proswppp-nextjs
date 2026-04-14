@@ -117,14 +117,14 @@ export default function USMapClient({ liveStates }: Props) {
               const isActive = liveSet.has(abbr);
               const slug     = slugMap.get(abbr);
               const isHov    = hovered === abbr;
-              const fill     = isActive ? (isHov ? '#d4692a' : '#EF7C3B') : '#1e1e1e';
+              const fill     = isActive ? (isHov ? '#d4692a' : '#EF7C3B') : '#737373';
 
               const pathEl = (
                 <path
                   key={abbr}
                   d={d}
                   fill={fill}
-                  stroke={isActive ? '#000' : '#2d2d2d'}
+                  stroke={isActive ? '#000' : '#555555'}
                   strokeWidth={isActive ? 0.8 : 0.5}
                   style={{ cursor: isActive ? 'pointer' : 'default', transition: 'fill 0.15s ease' }}
                   onMouseEnter={e => {
@@ -180,7 +180,7 @@ export default function USMapClient({ liveStates }: Props) {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#1e1e1e', border: '1px solid #333' }} />
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#737373', border: '1px solid #555' }} />
             <span style={{ fontFamily:"'Roboto',Arial,sans-serif", fontSize:'0.8rem', color:'rgba(255,255,255,0.7)' }}>
               Coming soon
             </span>
