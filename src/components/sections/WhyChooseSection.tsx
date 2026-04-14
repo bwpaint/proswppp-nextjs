@@ -93,7 +93,7 @@ export default function WhyChooseSection() {
         {/* Full-bleed color bands: 3 columns */}
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-[1fr_340px_1fr] pointer-events-none">
           <div className="bg-[#EF7C3B]" />
-          <div className="bg-[#0D1F2B]" />
+          <div className="bg-[#000000]" />
           <div className="bg-[#EF7C3B]" />
         </div>
         {/* Content grid */}
@@ -151,7 +151,7 @@ export default function WhyChooseSection() {
       </section>
 
       {/* Feature Grid */}
-      <section className="py-16 lg:py-20" style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 50%, #0D1F2B 100%)' }}>
+      <section className="py-16 lg:py-20" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
             {/* Left Column */}

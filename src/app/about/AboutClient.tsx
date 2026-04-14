@@ -195,7 +195,7 @@ export default function AboutClient() {
             >
               <div
                 className="rounded-2xl p-10 text-center max-w-sm w-full"
-                style={{ background: '#111111', border: '1px solid rgba(239,124,59,0.3)' }}
+                style={{ background: '#000000', border: '1px solid rgba(239,124,59,0.3)' }}
               >
                 <div
                   className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
