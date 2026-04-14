@@ -146,7 +146,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── CEO Guarantee ── */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
@@ -164,16 +164,16 @@ export default function AboutClient() {
                   fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                   fontWeight: 900,
                   letterSpacing: '-0.03em',
-                  color: '#1A3A4A',
+                  color: '#ffffff',
                 }}
               >
                 You Get My Personal<br />
                 <span style={{ color: '#EF7C3B' }}>Guarantee</span>
               </h2>
-              <p className="text-gray-600 text-base leading-relaxed mb-5" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+              <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: "'Roboto', Arial, sans-serif" }}>
                 When you order from Pro SWPPP, you are not handed off to a junior associate or a call center. I personally oversee every project from start to finish and guarantee your complete satisfaction throughout the permitting process.
               </p>
-              <p className="text-gray-600 text-base leading-relaxed mb-8" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+              <p className="text-base leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: "'Roboto', Arial, sans-serif" }}>
                 My mission is to revolutionize stormwater permitting — making it faster, more affordable, and completely stress-free for every contractor and developer we serve. That is a promise I stand behind with our 72-hour delivery guarantee.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -225,7 +225,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── Mission / Vision ── */}
-      <section className="py-20 lg:py-28" style={{ background: '#f8f9fa' }}>
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
@@ -248,7 +248,7 @@ export default function AboutClient() {
                 variants={fadeUp}
                 custom={i * 0.15}
                 className="rounded-2xl p-8"
-                style={{ background: '#fff', border: `2px solid ${item.color}30` }}
+                style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid rgba(255,255,255,0.12)` }}
               >
                 <div
                   className="text-xs font-bold uppercase tracking-widest mb-3"
@@ -257,8 +257,8 @@ export default function AboutClient() {
                   {item.label}
                 </div>
                 <p
-                  className="text-[#1A3A4A] text-base leading-relaxed"
-                  style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
+                  className="text-base leading-relaxed"
+                  style={{ color: 'rgba(255,255,255,0.8)', fontFamily: "'Roboto', Arial, sans-serif" }}
                 >
                   {item.text}
                 </p>
@@ -269,7 +269,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── Core Values ── */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="text-center mb-14">
             <p className="section-label mb-3">What Drives Us</p>
@@ -280,7 +280,7 @@ export default function AboutClient() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: '-0.02em',
-                color: '#1A3A4A',
+                color: '#ffffff',
               }}
             >
               Our Core <span style={{ color: '#EF7C3B' }}>Values</span>
@@ -296,7 +296,7 @@ export default function AboutClient() {
                 variants={fadeUp}
                 custom={i * 0.08}
                 className="rounded-2xl p-6"
-                style={{ background: '#f8f9fa', border: '1px solid #e9ecef' }}
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
@@ -306,11 +306,11 @@ export default function AboutClient() {
                 </div>
                 <h3
                   className="font-black text-lg uppercase mb-2"
-                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#1A3A4A' }}
+                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#ffffff' }}
                 >
                   {v.label}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'Roboto', Arial, sans-serif" }}>
                   {v.desc}
                 </p>
               </motion.div>

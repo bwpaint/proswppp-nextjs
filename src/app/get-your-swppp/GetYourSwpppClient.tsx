@@ -141,14 +141,14 @@ export default function GetYourSwpppClient() {
     setSubmitting(false);
   };
 
-  // Light-theme field styles for white form card
+  // Dark-theme field styles for dark form card
   const fieldStyle: React.CSSProperties = {
     width: '100%',
-    background: '#ffffff',
-    border: '1.5px solid #dde1e7',
+    background: 'rgba(255,255,255,0.06)',
+    border: '1.5px solid rgba(255,255,255,0.12)',
     borderRadius: '8px',
     padding: '0.6875rem 0.875rem',
-    color: '#1A3A4A',
+    color: '#ffffff',
     fontFamily: "'Roboto', Arial, sans-serif",
     fontSize: '0.875rem',
     outline: 'none',
@@ -161,13 +161,13 @@ export default function GetYourSwpppClient() {
     fontWeight: 700,
     textTransform: 'uppercase' as const,
     letterSpacing: '0.08em',
-    color: '#64748b',
+    color: 'rgba(255,255,255,0.6)',
     marginBottom: '0.375rem',
     fontFamily: "'Roboto', sans-serif",
   };
   const sectionStyle: React.CSSProperties = {
     padding: '1.75rem 2rem',
-    borderBottom: '1px solid #f0f2f5',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
   };
   const sectionNumStyle = (n: string): React.CSSProperties => ({
     width: '28px', height: '28px', borderRadius: '50%',
@@ -252,7 +252,7 @@ export default function GetYourSwpppClient() {
       <section
         id="order_swppp_form"
         className="py-20 lg:py-28 scroll-mt-20"
-        style={{ background: '#eef0f3' }}
+        style={{ background: '#000000' }}
       >
         <div className="container">
           <div className="max-w-6xl mx-auto">
@@ -267,12 +267,12 @@ export default function GetYourSwpppClient() {
                   fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                   fontWeight: 900,
                   letterSpacing: '-0.02em',
-                  color: '#1A3A4A',
+                  color: '#ffffff',
                 }}
               >
                 Order Your <span style={{ color: '#EF7C3B' }}>SWPPP</span>
               </h2>
-              <p className="text-gray-500 text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+              <p className="text-gray-400 text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
                 Fill out the form below and a SWPPP expert will contact you within 1 business hour.
               </p>
             </div>
@@ -281,19 +281,19 @@ export default function GetYourSwpppClient() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="max-w-2xl mx-auto rounded-2xl p-10 text-center bg-white"
-                style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.10)', border: '1px solid #e2e8f0' }}
+                className="max-w-2xl mx-auto rounded-2xl p-10 text-center"
+                style={{ background: 'rgba(255,255,255,0.05)', boxShadow: '0 8px 40px rgba(0,0,0,0.40)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'rgba(34,197,94,0.1)', border: '2px solid #22c55e' }}>
                   <CheckCircle2 size={36} className="text-green-500" />
                 </div>
-                <h3 className="text-2xl font-black uppercase mb-3" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.02em', color: '#1A3A4A' }}>
+                <h3 className="text-2xl font-black uppercase mb-3" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.02em', color: '#ffffff' }}>
                   Order <span style={{ color: '#EF7C3B' }}>Received!</span>
                 </h3>
-                <p className="text-gray-500 text-base leading-relaxed mb-2 max-w-md mx-auto">
-                  Thank you, <strong className="text-[#1A3A4A]">{formData.firstName}</strong>! A SWPPP expert will contact you at <strong className="text-[#1A3A4A]">{formData.email}</strong> within 1 business hour.
+                <p className="text-base leading-relaxed mb-2 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                  Thank you, <strong className="text-white">{formData.firstName}</strong>! A SWPPP expert will contact you at <strong className="text-white">{formData.email}</strong> within 1 business hour.
                 </p>
-                <p className="text-gray-400 text-sm mb-8">Your SWPPP will be delivered within 72 hours of receiving your civil drawings.</p>
+                <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>Your SWPPP will be delivered within 72 hours of receiving your civil drawings.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a href="/" className="btn-orange text-sm px-8 py-3.5">Back to Home</a>
                   <a href="tel:8334387977" className="btn-blue text-sm px-8 py-3.5 flex items-center justify-center gap-2">
@@ -309,7 +309,7 @@ export default function GetYourSwpppClient() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  style={{ background: '#ffffff', borderRadius: '16px', boxShadow: '0 4px 32px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0', overflow: 'hidden' }}
+                  style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '16px', boxShadow: '0 4px 32px rgba(0,0,0,0.40)', border: '1px solid rgba(255,255,255,0.12)', overflow: 'hidden' }}
                 >
                   <form onSubmit={handleSubmit}>
 
@@ -317,7 +317,7 @@ export default function GetYourSwpppClient() {
                     <div style={sectionStyle}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
                         <div style={sectionNumStyle('1')}>1</div>
-                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#1A3A4A', letterSpacing: '-0.01em', margin: 0 }}>Contact Information</h3>
+                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#ffffff', letterSpacing: '-0.01em', margin: 0 }}>Contact Information</h3>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
@@ -359,7 +359,7 @@ export default function GetYourSwpppClient() {
                     <div style={sectionStyle}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
                         <div style={sectionNumStyle('2')}>2</div>
-                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#1A3A4A', letterSpacing: '-0.01em', margin: 0 }}>Project Details</h3>
+                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#ffffff', letterSpacing: '-0.01em', margin: 0 }}>Project Details</h3>
                       </div>
                       <div className="mb-4">
                         <label style={labelStyle}>Project Name <span style={{ color: '#EF7C3B' }}>*</span></label>
@@ -378,7 +378,7 @@ export default function GetYourSwpppClient() {
                           <label style={labelStyle}>State <span style={{ color: '#EF7C3B' }}>*</span></label>
                           <div style={{ position: 'relative' }}>
                             <select name="state" value={formData.state} onChange={handleChange} required
-                              style={{ ...fieldStyle, color: formData.state ? '#1A3A4A' : '#94a3b8' }}
+                              style={{ ...fieldStyle, color: formData.state ? '#ffffff' : '#94a3b8' }}
                               onFocus={e => { e.target.style.borderColor = '#EF7C3B'; e.target.style.boxShadow = '0 0 0 3px rgba(239,124,59,0.12)'; }}
                               onBlur={e => { e.target.style.borderColor = '#dde1e7'; e.target.style.boxShadow = 'none'; }}
                             >
@@ -400,7 +400,7 @@ export default function GetYourSwpppClient() {
                           <label style={labelStyle}>Land Disturbance Area <span style={{ color: '#EF7C3B' }}>*</span></label>
                           <div style={{ position: 'relative' }}>
                             <select name="acreage" value={formData.acreage} onChange={handleChange} required
-                              style={{ ...fieldStyle, color: formData.acreage ? '#1A3A4A' : '#94a3b8' }}
+                              style={{ ...fieldStyle, color: formData.acreage ? '#ffffff' : '#94a3b8' }}
                               onFocus={e => { e.target.style.borderColor = '#EF7C3B'; e.target.style.boxShadow = '0 0 0 3px rgba(239,124,59,0.12)'; }}
                               onBlur={e => { e.target.style.borderColor = '#dde1e7'; e.target.style.boxShadow = 'none'; }}
                             >
@@ -414,7 +414,7 @@ export default function GetYourSwpppClient() {
                           <label style={labelStyle}>Service Needed <span style={{ color: '#EF7C3B' }}>*</span></label>
                           <div style={{ position: 'relative' }}>
                             <select name="service" value={formData.service} onChange={handleChange} required
-                              style={{ ...fieldStyle, color: formData.service ? '#1A3A4A' : '#94a3b8' }}
+                              style={{ ...fieldStyle, color: formData.service ? '#ffffff' : '#94a3b8' }}
                               onFocus={e => { e.target.style.borderColor = '#EF7C3B'; e.target.style.boxShadow = '0 0 0 3px rgba(239,124,59,0.12)'; }}
                               onBlur={e => { e.target.style.borderColor = '#dde1e7'; e.target.style.boxShadow = 'none'; }}
                             >
@@ -431,7 +431,7 @@ export default function GetYourSwpppClient() {
                     <div style={{ ...sectionStyle, borderBottom: 'none' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
                         <div style={sectionNumStyle('3')}>3</div>
-                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#1A3A4A', letterSpacing: '-0.01em', margin: 0 }}>Civil Drawings &amp; Notes</h3>
+                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '0.9375rem', color: '#ffffff', letterSpacing: '-0.01em', margin: 0 }}>Civil Drawings &amp; Notes</h3>
                       </div>
                       <div className="mb-4">
                         <label style={labelStyle}>Civil Drawings Link (Google Drive, Dropbox, etc.)</label>
@@ -457,7 +457,7 @@ export default function GetYourSwpppClient() {
                     </div>
 
                     {/* Submit footer */}
-                    <div style={{ padding: '1.5rem 2rem', background: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+                    <div style={{ padding: '1.5rem 2rem', background: 'rgba(255,255,255,0.03)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                       <button
                         type="submit"
                         disabled={submitting}
@@ -508,9 +508,9 @@ export default function GetYourSwpppClient() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    style={{ background: '#ffffff', borderRadius: '14px', padding: '1.25rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                    style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 2px 12px rgba(0,0,0,0.30)' }}
                   >
-                    <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.8rem', color: '#64748b', marginBottom: '0.75rem' }}>
+                    <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.75rem' }}>
                       Prefer to speak with someone directly?
                     </p>
                     <a
@@ -532,15 +532,15 @@ export default function GetYourSwpppClient() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    style={{ background: '#ffffff', borderRadius: '14px', padding: '1.25rem', border: '1px solid #e2e8f0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                    style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 2px 12px rgba(0,0,0,0.30)' }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.625rem' }}>
                       <FileText size={16} style={{ color: '#6B9ED1', flexShrink: 0 }} />
-                      <p style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 700, fontSize: '0.8125rem', color: '#1A3A4A', margin: 0 }}>
+                      <p style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 700, fontSize: '0.8125rem', color: '#ffffff', margin: 0 }}>
                         Prefer a paper form?
                       </p>
                     </div>
-                    <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.78rem', color: '#64748b', marginBottom: '0.75rem', lineHeight: '1.5' }}>
+                    <p style={{ fontFamily: "'Roboto', sans-serif", fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.75rem', lineHeight: '1.5' }}>
                       Download our printable order form, complete it, and email or fax it back to us.
                     </p>
                     <a
@@ -569,7 +569,7 @@ export default function GetYourSwpppClient() {
       </section>
 
       {/* ── What's Included ── */}
-      <section className="py-16" style={{ background: '#f8f9fa' }}>
+      <section className="py-16" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <p className="section-label mb-3 text-center">What You Receive</p>
@@ -580,16 +580,16 @@ export default function GetYourSwpppClient() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: '-0.02em',
-                color: '#1A3A4A',
+                color: '#ffffff',
               }}
             >
               Every SWPPP <span style={{ color: '#EF7C3B' }}>Includes</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {included.map((item) => (
-                <div key={item} className="flex items-center gap-3 rounded-xl p-4 bg-white" style={{ border: '1px solid #e2e8f0' }}>
+                <div key={item} className="flex items-center gap-3 rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}>
                   <CheckCircle2 size={18} style={{ color: '#EF7C3B', flexShrink: 0 }} />
-                  <span className="text-[#1A3A4A] text-sm font-medium" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                  <span className="text-white text-sm font-medium" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
                     {item}
                   </span>
                 </div>
@@ -600,7 +600,7 @@ export default function GetYourSwpppClient() {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="text-center mb-14">
             <p className="section-label mb-3">The Process</p>
@@ -611,7 +611,7 @@ export default function GetYourSwpppClient() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: '-0.02em',
-                color: '#1A3A4A',
+                color: '#ffffff',
               }}
             >
               How It <span style={{ color: '#EF7C3B' }}>Works</span>
@@ -627,7 +627,7 @@ export default function GetYourSwpppClient() {
                 variants={fadeUp}
                 custom={i * 0.1}
                 className="text-center rounded-2xl p-6"
-                style={{ background: '#f8f9fa' }}
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div
                   className="text-5xl font-black mb-3"
@@ -637,11 +637,11 @@ export default function GetYourSwpppClient() {
                 </div>
                 <h3
                   className="font-black text-base uppercase mb-2"
-                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#1A3A4A' }}
+                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#ffffff' }}
                 >
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
                   {step.desc}
                 </p>
               </motion.div>
