@@ -85,24 +85,20 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ── Col 2: SWPPP Services ── */}
+          {/* ── Col 2: Site Links ── */}
           <div className="lg:col-span-1">
             <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
-              SWPPP Services
+              Site Links
             </h3>
             <ul className="space-y-2 text-sm">
               {[
-                { label: "Get Your SWPPP", href: "/get-your-swppp" },
-                { label: "Order Form (PDF)", href: "/swppp-order-form.pdf" },
-                { label: "Make a Payment", href: "/make-a-payment" },
-                { label: "SWPPP Quiz", href: "/quiz-form" },
-
-                { label: "SWPPP Glossary", href: "/swppp-glossary/" },
-                { label: "SWPPP Documents", href: "/resources/documents/" },
-                { label: "SWPPP Links", href: "/resources/links/" },
+                { label: "Get My SWPPP", href: "/get-your-swppp/" },
+                { label: "SWPPP Quiz", href: "/quiz-form/" },
+                { label: "About Us", href: "/about/" },
                 { label: "Locations", href: "/locations/" },
-                { label: "About Us", href: "/about" },
-                { label: "Blog", href: "/blog" },
+                { label: "Make a Payment", href: "/make-a-payment/" },
+                { label: "Blog", href: "/blog/" },
+                { label: "Contact Us", href: "/contact-us/" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
@@ -116,21 +112,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ── Col 3: Where We Serve ── */}
+          {/* ── Col 3: Resource Links ── */}
           <div className="lg:col-span-1">
             <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
-              Where We Serve
+              Resource Links
             </h3>
             <ul className="space-y-2 text-sm">
               {[
-                { label: "California", href: "/locations/california" },
-                { label: "Florida", href: "/locations/florida" },
-                { label: "Nevada", href: "/locations/nevada" },
-                { label: "Texas", href: "/locations/texas" },
-                { label: "Arizona", href: "/locations/arizona" },
-                { label: "Colorado", href: "/locations/colorado" },
-                { label: "Georgia", href: "/locations/georgia" },
-                { label: "All States We Serve", href: "/locations" },
+                { label: "Order Form PDF", href: "/swppp-order-form.pdf" },
+                { label: "SWPPP Glossary", href: "/swppp-glossary/" },
+                { label: "SWPPP Documents", href: "/resources/documents/" },
+                { label: "SWPPP Links", href: "/resources/links/" },
               ].map((link) => (
                 <li key={link.label}>
                   <a

@@ -38,6 +38,7 @@ const navLinks: NavItem[] = [
   },
   { label: "MAKE A PAYMENT", href: "/make-a-payment/" },
   { label: "BLOG", href: "/blog/" },
+  { label: "CONTACT US", href: "/contact-us/" },
 ];
 
 export default function Navigation() {
