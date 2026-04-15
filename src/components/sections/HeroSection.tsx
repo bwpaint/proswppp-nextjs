@@ -53,7 +53,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[92vh] flex items-center"
+      className="relative min-h-[50vh] flex items-center"
       style={{
         backgroundImage: `url(${HERO_BG})`,
         backgroundSize: "cover",
