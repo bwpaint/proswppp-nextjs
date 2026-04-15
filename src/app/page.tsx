@@ -20,8 +20,8 @@ export default function HomePage() {
   return (
     <main>
       <HeroSection />
-      <WhoWeAreSection />
       <TrustBadgesSection />
+      <WhoWeAreSection />
       <StatsSection />
       <FeaturesShowcaseSection />
       <WhyChooseSection />
