@@ -25,7 +25,7 @@ const fadeUp: Variants = {
 
 const leftFeatures = [
   {
-    title: "17+ Years of Experience",
+    title: "20+ Years of Experience",
     desc: "With a long-standing track record, we bring extensive expertise to ensure your SWPPP is done right.",
   },
   {
@@ -57,7 +57,7 @@ const leftFeatures = [
 const rightFeatures = [
   {
     title: "Exclusive SWPPP Focus",
-    desc: "With over 17 years of experience we know the regulations inside and out so we can streamline our process to deliver a full compliant solution with full speed and efficiency.",
+    desc: "With over 20 years of experience we know the regulations inside and out so we can streamline our process to deliver a full compliant solution with full speed and efficiency.",
   },
   {
     title: "Customer Focused",

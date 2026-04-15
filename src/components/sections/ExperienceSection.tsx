@@ -30,7 +30,7 @@ export default function ExperienceSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-gray-300 max-w-2xl mx-auto mb-12"
         >
-          17+ years of experience with a long-standing track record of delivering
+          20+ years of experience with a long-standing track record of delivering
           fully compliant SWPPP solutions on time, every time.
         </motion.p>
 
@@ -41,7 +41,7 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="stat-number text-8xl lg:text-9xl mb-4">17+</div>
+          <div className="stat-number text-8xl lg:text-9xl mb-4">20+</div>
           <h3 className="section-heading text-white text-2xl lg:text-3xl">
             Years of Experience
           </h3>

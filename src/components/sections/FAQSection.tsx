@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: 'Who is a "Qualified Person" to write this?',
-    a: "Regulatory agencies require specific expertise. Our team has 17+ years of experience ensuring every plan meets Federal, State, and Local requirements perfectly.",
+    a: "Regulatory agencies require specific expertise. Our team has 20+ years of experience ensuring every plan meets Federal, State, and Local requirements perfectly.",
   },
   {
     q: "How much does a SWPPP cost?",

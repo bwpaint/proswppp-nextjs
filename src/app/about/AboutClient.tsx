@@ -66,25 +66,25 @@ const team = [
   {
     name: 'Derek Chinners',
     title: 'Founder / CEO',
-    photo: '/images/team/derek-chinners.jpg',
+    photo: '/images/Derek-E-Chinners-ProSWPPP.jpg',
     bio: 'Derek has served as the fearless leader of Pro SWPPP for the last 20+ years, guiding the company with unmatched integrity and industry expertise. A CPESC-certified professional who understands exactly what it takes to keep your construction site compliant.',
   },
   {
     name: 'Daniela Chinners',
     title: 'Founder / CFO',
-    photo: '/images/team/daniela-chinners.jpg',
+    photo: '/images/Daniela-Chinners-Proswppp.jpg',
     bio: 'As co-founder of Pro SWPPP, Daniela has been a steady force behind the company since day one. She serves as the heart of our organization, brings consistency, and an unmatched sharp financial mind as our CFO.',
   },
   {
     name: 'Terry Harris',
     title: 'Chief Estimator',
-    photo: '/images/team/terry-harris.jpg',
+    photo: '/images/Terry-Harris-Proswppp.jpg',
     bio: "Terry is a key leader at Pro SWPPP known for his responsiveness and precision. He has an exceptional ability to clearly explain scope, pricing, and expectations so customers know exactly what they're getting — often within seconds of calling.",
   },
   {
     name: 'Michael Hill',
     title: 'Chief Project Manager',
-    photo: '/images/team/michael-hill.jpg',
+    photo: '/images/Michael-Hill-Proswppp.jpg',
     bio: 'Michael brings extensive expertise in the development and implementation of stormwater pollution prevention plans. His proven track record of proper SWPPP documentation and regulatory adherence ensures your plan meets all state and federal EPA standards.',
   },
   {
@@ -96,13 +96,13 @@ const team = [
   {
     name: 'Cameron Williams',
     title: 'Project Manager',
-    photo: '/images/team/cameron-williams.jpg',
+    photo: '/images/Cameron-Williams-ProSWPPP.jpg',
     bio: 'Cameron supports projects daily through the preparation of SWPPPs, permits, and all related EPA documentation including NOIs and CSNs. His calm, approachable presence makes it easy for customers to get the exact support their jobsite needs.',
   },
   {
     name: 'Josie Godfrey',
     title: 'Marketing Manager / Estimator',
-    photo: '/images/team/josie-godfrey.jpg',
+    photo: '/images/Josie-Godfrey-Proswppp.jpg',
     bio: 'Josie serves in a dual role as marketing manager and sales estimator. She leads marketing efforts across social media and industry events, and through her consultative approach helps customers clearly understand our services.',
   },
 ];
@@ -297,8 +297,8 @@ export default function AboutClient() {
                 <img
                   src={member.photo}
                   alt={member.name}
-                  className="rounded-xl w-full object-cover mb-4"
-                  style={{ height: '220px' }}
+                  className="rounded-xl object-cover mb-4"
+                  style={{ width: '100%', aspectRatio: '1 / 1' }}
                 />
                 <h3
                   className="font-black text-base uppercase mb-1"

@@ -8,7 +8,7 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "17+", label: "Years of Experience", suffix: "" },
+  { value: "20+", label: "Years of Experience", suffix: "" },
   { value: "100%", label: "Compliance Record", suffix: "" },
   { value: "72", label: "Hour Delivery Guarantee", suffix: "hrs" },
   { value: "5.0", label: "Google Rating", suffix: "★" },

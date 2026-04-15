@@ -6,10 +6,10 @@ const AboutHero = dynamic(() => import('./AboutClient'), { ssr: false });
 export const metadata: Metadata = {
   title: "About Us | Pro SWPPP — America's #1 SWPPP Service",
   description:
-    "17 years of exclusive SWPPP expertise. Zero compliance issues. Woman-owned business dedicated to fast, accurate stormwater compliance nationwide.",
+    "20+ years of exclusive SWPPP expertise. Zero compliance issues. Woman-owned business dedicated to fast, accurate stormwater compliance nationwide.",
   openGraph: {
     title: "About Us | Pro SWPPP",
-    description: "17 years of exclusive SWPPP expertise. Zero compliance issues. Fast, affordable, and 100% compliant.",
+    description: "20+ years of exclusive SWPPP expertise. Zero compliance issues. Fast, affordable, and 100% compliant.",
   },
 };
 
