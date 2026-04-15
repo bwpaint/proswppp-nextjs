@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 
 const HELMET_BG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp';
-const TEAM_PHOTO = '/images/about-team.jpg';
+const TEAM_PHOTO = '/images/proswppp-team-800.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
