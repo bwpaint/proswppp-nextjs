@@ -170,7 +170,7 @@ export default function AboutClient() {
               className="flex justify-center"
             >
               <img
-                src="/images/derek-daniela.jpg"
+                src="/images/Derek-Daniela-Chiners.jpg"
                 alt="Derek and Daniela Chinners — Founders, Pro SWPPP"
                 className="rounded-2xl w-full"
                 style={{
