@@ -82,66 +82,98 @@ export default function AboutClient() {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-black/70" />
         <div className="relative z-10 container">
-          <motion.p
-            custom={0}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="section-label mb-4"
-          >
-            About Pro SWPPP
-          </motion.p>
-          <motion.h1
-            custom={0.1}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="text-white uppercase leading-none mb-4"
-            style={{
-              fontSize: 'clamp(2.5rem, 5.5vw, 5rem)',
-              fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 900,
-              letterSpacing: '-0.03em',
-            }}
-          >
-            America&apos;s <span style={{ color: '#EF7C3B' }}>#1</span><br />SWPPP Service
-          </motion.h1>
-          <motion.p
-            custom={0.2}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="text-gray-300 text-lg max-w-xl mb-10 leading-relaxed"
-            style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
-          >
-            17 years of exclusive stormwater expertise. Zero compliance issues.
-            Trusted by contractors and developers across all 50 states.
-          </motion.p>
-
-          {/* Stats row */}
-          <motion.div
-            custom={0.3}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl"
-          >
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-xl p-4 text-center"
-                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left column: label, h1, p, stats */}
+            <div>
+              <motion.p
+                custom={0}
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+                className="section-label mb-4"
               >
-                <div
-                  className="text-3xl font-black mb-1"
-                  style={{ color: '#EF7C3B', fontFamily: "'Inter', sans-serif" }}
-                >
-                  {s.value}
+                About Pro SWPPP
+              </motion.p>
+              <motion.h1
+                custom={0.1}
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+                className="text-white uppercase leading-none mb-4"
+                style={{
+                  fontSize: 'clamp(2.5rem, 5.5vw, 5rem)',
+                  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                  fontWeight: 900,
+                  letterSpacing: '-0.03em',
+                }}
+              >
+                America&apos;s <span style={{ color: '#EF7C3B' }}>#1</span><br />SWPPP Service
+              </motion.h1>
+              <motion.p
+                custom={0.2}
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+                className="text-gray-300 text-lg mb-10 leading-relaxed"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
+              >
+                17 years of exclusive Stormwater Pollution Prevention expertise. Zero compliance issues.
+                Trusted by contractors and developers across all 50 states.
+              </motion.p>
+
+              {/* Stats row */}
+              <motion.div
+                custom={0.3}
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4"
+              >
+                {stats.map((s) => (
+                  <div
+                    key={s.label}
+                    className="rounded-xl p-4 text-center"
+                    style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                  >
+                    <div
+                      className="text-3xl font-black mb-1"
+                      style={{ color: '#EF7C3B', fontFamily: "'Inter', sans-serif" }}
+                    >
+                      {s.value}
+                    </div>
+                    <div className="text-gray-400 text-xs uppercase tracking-widest">{s.label}</div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right column: 72-Hour Delivery guarantee card */}
+            <motion.div
+              custom={0.2}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="flex justify-center items-center h-full"
+            >
+              <div className="rounded-2xl p-10 text-center max-w-sm w-full"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(239,124,59,0.3)' }}>
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
+                  style={{ background: 'rgba(239,124,59,0.15)', border: '2px solid #EF7C3B' }}>
+                  <Shield size={36} style={{ color: '#EF7C3B' }} />
                 </div>
-                <div className="text-gray-400 text-xs uppercase tracking-widest">{s.label}</div>
+                <p className="text-white font-black text-xl uppercase mb-2"
+                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}>
+                  72-Hour Delivery
+                </p>
+                <p className="font-black text-4xl mb-4" style={{ color: '#EF7C3B', fontFamily: "'Inter', sans-serif" }}>
+                  or it&apos;s FREE
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                  Your SWPPP delivered within 72 hours of receiving your civil drawings — or you pay nothing. No fine print.
+                </p>
               </div>
-            ))}
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -185,41 +217,131 @@ export default function AboutClient() {
               </div>
             </motion.div>
 
-            <motion.div
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.15} className="flex justify-center">
+              <img
+                src="/images/IMG_4484.jpg"
+                alt="Derek Chinners — Founder & CEO, Pro SWPPP"
+                className="rounded-2xl w-full"
+                style={{ maxWidth: '420px', border: '2px solid rgba(239,124,59,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Team Bios ── */}
+      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
+        <div className="container">
+          <div className="text-center mb-14">
+            <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              custom={0.15}
-              className="flex justify-center"
+              custom={0}
+              className="section-label mb-3"
             >
-              <div
-                className="rounded-2xl p-10 text-center max-w-sm w-full"
-                style={{ background: '#000000', border: '1px solid rgba(239,124,59,0.3)' }}
+              Our Team
+            </motion.p>
+            <motion.h2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={0.1}
+              className="uppercase leading-none"
+              style={{
+                fontSize: 'clamp(1.75rem, 3.5vw, 3rem)',
+                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                fontWeight: 900,
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+              }}
+            >
+              Meet The <span style={{ color: '#EF7C3B' }}>Experts</span>
+            </motion.h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                name: 'Derek Chinners',
+                title: 'Founder / CEO',
+                photo: '/images/team/derek-chinners.jpg',
+                bio: 'Derek has served as the fearless leader of Pro SWPPP for the last 20+ years, guiding the company with unmatched integrity and industry expertise. A CPESC-certified professional who understands exactly what it takes to keep your construction site compliant.',
+              },
+              {
+                name: 'Daniela Chinners',
+                title: 'Founder / CFO',
+                photo: '/images/team/daniela-chinners.jpg',
+                bio: 'As co-founder of Pro SWPPP, Daniela has been a steady force behind the company since day one. She serves as the heart of our organization, brings consistency, and an unmatched sharp financial mind as our CFO.',
+              },
+              {
+                name: 'Terry Harris',
+                title: 'Chief Estimator',
+                photo: '/images/team/terry-harris.jpg',
+                bio: "Terry is a key leader at Pro SWPPP known for his responsiveness and precision. He has an exceptional ability to clearly explain scope, pricing, and expectations so customers know exactly what they're getting — often within seconds of calling.",
+              },
+              {
+                name: 'Michael Hill',
+                title: 'Chief Project Manager',
+                photo: '/images/team/michael-hill.jpg',
+                bio: 'Michael brings extensive expertise in the development and implementation of stormwater pollution prevention plans. His proven track record of proper SWPPP documentation and regulatory adherence ensures your plan meets all state and federal EPA standards.',
+              },
+              {
+                name: 'Sarah Romero',
+                title: 'Office Manager / Certified Inspector',
+                photo: '/images/team/sarah-romero.jpg',
+                bio: 'Sarah serves as our certified inspector with a strong focus on ensuring your jobsite is fully compliant from start to finish. Known for her attention to detail, Sarah is a trusted source for both our customers and our team.',
+              },
+              {
+                name: 'Cameron Williams',
+                title: 'Project Manager',
+                photo: '/images/team/cameron-williams.jpg',
+                bio: 'Cameron supports projects daily through the preparation of SWPPPs, permits, and all related EPA documentation including NOIs and CSNs. His calm, approachable presence makes it easy for customers to get the exact support their jobsite needs.',
+              },
+              {
+                name: 'Josie Godfrey',
+                title: 'Marketing Manager / Estimator',
+                photo: '/images/team/josie-godfrey.jpg',
+                bio: 'Josie serves in a dual role as marketing manager and sales estimator. She leads marketing efforts across social media and industry events, and through her consultative approach helps customers clearly understand our services.',
+              },
+            ].map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                custom={i * 0.08}
+                className="rounded-2xl p-6"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(239,124,59,0.2)' }}
               >
-                <div
-                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
-                  style={{ background: 'rgba(239,124,59,0.15)', border: '2px solid #EF7C3B' }}
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="rounded-xl w-full object-cover mb-4"
+                  style={{ height: '220px' }}
+                />
+                <h3
+                  className="font-black text-base uppercase mb-1"
+                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#ffffff' }}
                 >
-                  <Shield size={36} style={{ color: '#EF7C3B' }} />
-                </div>
+                  {member.name}
+                </h3>
                 <p
-                  className="text-white font-black text-xl uppercase mb-2"
-                  style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}
+                  className="text-xs uppercase tracking-widest mb-3"
+                  style={{ color: '#EF7C3B', fontFamily: "'Roboto', Arial, sans-serif" }}
                 >
-                  72-Hour Delivery
+                  {member.title}
                 </p>
                 <p
-                  className="font-black text-4xl mb-4"
-                  style={{ color: '#EF7C3B', fontFamily: "'Inter', sans-serif" }}
+                  className="text-sm leading-relaxed"
+                  style={{ color: 'rgba(255,255,255,0.75)', fontFamily: "'Roboto', Arial, sans-serif" }}
                 >
-                  or it&apos;s FREE
+                  {member.bio}
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
-                  Your SWPPP delivered within 72 hours of receiving your civil drawings — or you pay nothing. No fine print.
-                </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
