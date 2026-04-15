@@ -278,41 +278,6 @@ export default function GlossaryClient() {
           </div>
         )}
 
-        {/* CTA */}
-        <div
-          className="mt-16 rounded-2xl p-8 lg:p-10 text-center"
-          style={{ background: 'rgba(239,124,59,0.08)', border: '1px solid rgba(239,124,59,0.25)' }}
-        >
-          <h2
-            className="text-white uppercase mb-3"
-            style={{
-              fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 900,
-              fontSize: '1.5rem',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Ready to Get <span style={{ color: '#EF7C3B' }}>Compliant?</span>
-          </h2>
-          <p
-            className="text-gray-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed"
-            style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
-          >
-            Our SWPPP experts handle everything from plan preparation to permit filing — delivered in 72
-            hours or it&apos;s free.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href="https://proswppp.com/get-your-swppp/"
-              className="btn-orange text-sm px-8 py-3.5 inline-block"
-            >
-              Get My SWPPP
-            </a>
-            <a href="/quiz" className="btn-blue text-sm px-8 py-3.5 inline-block">
-              Take the Risk Assessment
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );

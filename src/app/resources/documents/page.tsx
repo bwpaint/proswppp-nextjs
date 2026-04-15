@@ -96,18 +96,6 @@ export default function SWPPPDocumentsPage() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="max-w-4xl mx-auto mt-16 rounded-2xl p-10 text-center" style={{ background: 'rgba(239,124,59,0.08)', border: '1px solid rgba(239,124,59,0.25)' }}>
-            <h2 className="text-white font-black uppercase mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', letterSpacing: '-0.02em' }}>
-              Need Help With Your SWPPP?
-            </h2>
-            <p className="mb-6" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: "'Roboto', sans-serif" }}>
-              Skip the paperwork. We handle everything — permit, NOI, plan, and inspection documentation — delivered in 72 hours.
-            </p>
-            <a href="/get-your-swppp/" className="inline-block font-black uppercase tracking-wider rounded-full px-8 py-3 transition-all" style={{ background: '#EF7C3B', color: '#fff', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', textDecoration: 'none' }}>
-              Get My SWPPP
-            </a>
-          </div>
         </div>
       </section>
     </main>

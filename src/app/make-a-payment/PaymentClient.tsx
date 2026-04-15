@@ -96,34 +96,34 @@ export default function PaymentClient() {
               {/* Card header */}
               <div
                 className="px-8 py-6"
-                style={{ background: '#000000' }}
+                style={{ background: '#F8F6F2', borderBottom: '1px solid rgba(0,0,0,0.08)' }}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-[#EF7C3B] text-xs font-bold uppercase tracking-widest mb-1">Pro SWPPP</p>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#EF7C3B' }}>Pro SWPPP</p>
                     <h2
-                      className="text-white font-black text-xl uppercase"
-                      style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}
+                      className="font-black text-xl uppercase"
+                      style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#111111' }}
                     >
                       Secure Payment
                     </h2>
                   </div>
                   <div className="flex items-center gap-1">
                     <Shield size={20} style={{ color: '#EF7C3B' }} />
-                    <Lock size={16} className="text-gray-400" />
+                    <Lock size={16} style={{ color: '#555555' }} />
                   </div>
                 </div>
               </div>
 
               {/* Card body */}
-              <div className="px-8 py-8" style={{ background: '#000000' }}>
-                <div className="flex items-start gap-4 mb-6 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <div className="px-8 py-8" style={{ background: '#F8F6F2' }}>
+                <div className="flex items-start gap-4 mb-6 p-4 rounded-xl" style={{ background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.08)' }}>
                   <CreditCard size={22} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 2 }} />
                   <div>
-                    <p className="font-bold text-sm mb-1" style={{ fontFamily: "'Inter', sans-serif", color: '#ffffff' }}>
+                    <p className="font-bold text-sm mb-1" style={{ fontFamily: "'Inter', sans-serif", color: '#111111' }}>
                       All Major Cards Accepted
                     </p>
-                    <p className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>
+                    <p className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: '#444444' }}>
                       Visa, Mastercard, Amex, Discover — processed securely via our payment portal.
                     </p>
                   </div>
@@ -138,7 +138,7 @@ export default function PaymentClient() {
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 size={15} style={{ color: '#EF7C3B', flexShrink: 0 }} />
-                      <span className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>{item}</span>
+                      <span className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: '#333333' }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -152,7 +152,7 @@ export default function PaymentClient() {
                   Proceed to Secure Payment →
                 </a>
 
-                <p className="text-center text-gray-400 text-xs mt-4" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
+                <p className="text-center text-xs mt-4" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: '#666666' }}>
                   You will be redirected to our secure payment portal.
                 </p>
               </div>
@@ -166,9 +166,9 @@ export default function PaymentClient() {
               variants={fadeUp}
               custom={0.15}
               className="mt-6 rounded-xl p-5 text-center"
-              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)' }}
+              style={{ background: '#F8F6F2', border: '1px solid rgba(0,0,0,0.10)' }}
             >
-              <p className="text-sm mb-3" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.85)' }}>
+              <p className="text-sm mb-3" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: '#333333' }}>
                 Prefer to pay by phone or need help with your invoice?
               </p>
               <a
