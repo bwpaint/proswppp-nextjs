@@ -20,8 +20,8 @@ export default function WhoWeAreSection() {
         backgroundPosition: 'center',
       }}
     >
-      {/* Dark mask — 60% opacity so helmet background shows through */}
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.60)' }} />
+      {/* Dark mask — 85% at top fading to 50% at bottom */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.50) 100%)' }} />
 
       <div className="relative z-10 container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
