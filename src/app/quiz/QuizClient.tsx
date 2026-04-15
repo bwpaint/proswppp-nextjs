@@ -427,6 +427,13 @@ export default function QuizClient() {
                     </p>
                   </div>
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Hidden fields — quiz answers passed to form processor */}
+                    {answers.map((a) => (
+                      <input key={a.questionId} type="hidden" name={`quiz_${a.questionId}`} value={a.value} />
+                    ))}
+                    <input type="hidden" name="quiz_risk_score" value={String(riskScore)} />
+                    <input type="hidden" name="quiz_risk_level" value={riskLevel} />
+
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-gray-400 text-xs mb-1.5 uppercase tracking-wide">First Name *</label>
