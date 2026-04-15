@@ -53,7 +53,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[50vh] flex items-center"
+      className="relative min-h-[70vh] flex items-center"
       style={{
         backgroundImage: `url(${HERO_BG})`,
         backgroundSize: "cover",
@@ -64,7 +64,7 @@ export default function HeroSection() {
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.78) 40%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.47) 100%)' }} />
 
       {/* Two-column content — items-start so both columns flush to top */}
-      <div className="relative z-10 container py-4 lg:py-6">
+      <div className="relative z-10 container py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ── LEFT: Copy ── */}
