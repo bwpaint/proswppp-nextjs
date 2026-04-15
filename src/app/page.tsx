@@ -20,12 +20,12 @@ export default function HomePage() {
   return (
     <main>
       <HeroSection />
-      <WhoWeAreSection />
+      <SocialProofSection />
       <TrustBadgesSection />
+      <WhoWeAreSection />
       <StatsSection />
       <FeaturesShowcaseSection />
       <WhyChooseSection />
-      <SocialProofSection />
       <ExperienceSection />
       <CEOGuaranteeSection />
       <ClientLogosSection />
