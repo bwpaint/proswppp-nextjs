@@ -488,61 +488,6 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* ── CTA Strip ── */}
-      <section className="py-16 lg:py-20" style={{ background: '#EF7C3B' }}>
-        <div className="container text-center">
-          <motion.h2
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0}
-            className="text-white uppercase leading-none mb-4"
-            style={{
-              fontSize: 'clamp(1.75rem, 3.5vw, 3rem)',
-              fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontWeight: 900,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Ready to Get Compliant?
-          </motion.h2>
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.1}
-            className="text-white/85 text-lg mb-8 max-w-xl mx-auto"
-            style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
-          >
-            Order your SWPPP today and receive it in 72 hours — or it is FREE.
-          </motion.p>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={0.2}
-            className="flex flex-wrap gap-4 justify-center"
-          >
-            <a
-              href="/get-your-swppp/"
-              className="bg-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-              style={{ color: '#EF7C3B', fontFamily: "'Roboto', sans-serif" }}
-            >
-              Order My SWPPP
-            </a>
-            <a
-              href="tel:8334387977"
-              className="btn-outline-white flex items-center gap-2"
-            >
-              <Phone size={14} />
-              833-GET-SWPP
-            </a>
-          </motion.div>
-        </div>
-      </section>
     </>
   );
 }
