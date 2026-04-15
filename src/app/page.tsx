@@ -14,11 +14,13 @@ const QuizCTASection = dynamic(() => import('@/components/sections/QuizCTASectio
 const FinalCTASection = dynamic(() => import('@/components/sections/FinalCTASection'), { ssr: false });
 const LatestBlogSection = dynamic(() => import('@/components/sections/LatestBlogSection'), { ssr: false });
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { ssr: false });
+const WhoWeAreSection = dynamic(() => import('@/components/sections/WhoWeAreSection'), { ssr: false });
 
 export default function HomePage() {
   return (
     <main>
       <HeroSection />
+      <WhoWeAreSection />
       <TrustBadgesSection />
       <StatsSection />
       <FeaturesShowcaseSection />

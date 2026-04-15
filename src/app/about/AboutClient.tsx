@@ -23,8 +23,7 @@ const fadeUp: Variants = {
   }),
 };
 
-const HERO_BG   = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp';
-const TEAM_PHOTO = '/images/about-team.jpg';
+const HERO_BG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp';
 
 const stats = [
   { value: '17+', label: 'Years Experience' },
@@ -143,91 +142,6 @@ export default function AboutClient() {
               </div>
             ))}
           </motion.div>
-        </div>
-      </section>
-
-      {/* ── Who We Are ── */}
-      <section
-        className="relative py-20 lg:py-28"
-        style={{
-          backgroundImage: `url(${HERO_BG})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Dark mask */}
-        <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.84)' }} />
-        <div className="relative z-10 container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Left: Copy */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0}
-            >
-              <p className="section-label mb-4">Who We Are</p>
-              <h2
-                className="text-white uppercase leading-none mb-8"
-                style={{
-                  fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
-                  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 900,
-                  letterSpacing: '-0.03em',
-                }}
-              >
-                Built for <span style={{ color: '#EF7C3B' }}>Builders</span>
-              </h2>
-              <div
-                style={{
-                  color: 'rgba(255,255,255,0.8)',
-                  fontFamily: "'Roboto', Arial, sans-serif",
-                  fontSize: '1rem',
-                  lineHeight: 1.85,
-                }}
-              >
-                <p style={{ marginBottom: '1rem' }}>
-                  Pro SWPPP is a nationwide stormwater pollution prevention plan service built for contractors, developers, and site managers who need compliance fast — without the runaround.
-                </p>
-                <p style={{ marginBottom: '1rem' }}>
-                  Every construction project that disturbs one or more acres of land is required by federal and state law to have a SWPPP on file before breaking ground. We exist to make that requirement simple. Our team delivers fully compliant, site-specific stormwater pollution prevention plans in 72 hours — so your project stays on schedule and your permit stays clean.
-                </p>
-                <p style={{ marginBottom: '1rem' }}>
-                  We serve construction professionals across 48 states, from single-family home builders to large commercial developers. Our plans are engineered to meet EPA and state-specific NPDES permit requirements, with the documentation inspectors actually want to see.
-                </p>
-                <p style={{ marginBottom: '1rem' }}>
-                  What sets Pro SWPPP apart is our combination of speed, accuracy, and accessibility. No waiting weeks for an engineering firm. No confusing templates you fill out yourself. Just a purpose-built SWPPP service that delivers a permit-ready plan directly to your inbox — backed by professionals who understand the regulatory landscape in your state.
-                </p>
-                <p style={{ fontStyle: 'italic', color: '#EF7C3B', fontWeight: 700 }}>
-                  Construction doesn&apos;t wait. Neither should your stormwater compliance.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Right: Team Photo */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.15}
-              className="flex justify-center"
-            >
-              <img
-                src={TEAM_PHOTO}
-                alt="The Pro SWPPP Team"
-                className="w-full rounded-2xl"
-                style={{
-                  maxWidth: '520px',
-                  border: '2px solid rgba(239,124,59,0.35)',
-                  boxShadow: '0 30px 70px rgba(0,0,0,0.6)',
-                }}
-              />
-            </motion.div>
-
-          </div>
         </div>
       </section>
 
