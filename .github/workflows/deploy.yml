@@ -10,7 +10,40 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy via SSH
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          WWCO_API_KEY: ${{ secrets.WWCO_API_KEY }}
+          WWCO_API_URL: ${{ secrets.WWCO_API_URL }}
+          NEXT_PUBLIC_WP_API_URL: ${{ secrets.NEXT_PUBLIC_WP_API_URL }}
+          WEBWIZE_API_KEY: ${{ secrets.WEBWIZE_API_KEY }}
+          WWRM_API_KEY: ${{ secrets.WWRM_API_KEY }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+
+      - name: Sync built files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: ".next,public,package.json,package-lock.json,next.config.js,next.config.mjs"
+          target: "/var/www/www2.proswppp.com"
+          overwrite: true
+
+      - name: Restart PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -18,8 +51,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/www2.proswppp.com
-            git checkout main
-            git pull origin main
-            npm run build
+            npm ci --omit=dev
             pm2 restart proswppp || pm2 start ecosystem.config.js
             pm2 save
