@@ -64,7 +64,7 @@ const differentiators = [
 
 const team = [
   {
-    name: 'Derek Chinners',
+    name: 'Derek E. Chinners',
     title: 'Founder / CEO',
     photo: '/images/Derek-E-Chinners-ProSWPPP.jpg',
     bio: 'Derek has served as the fearless leader of Pro SWPPP for the last 20+ years, guiding the company with unmatched integrity and industry expertise. A CPESC-certified professional who understands exactly what it takes to keep your construction site compliant.',
@@ -171,7 +171,7 @@ export default function AboutClient() {
             >
               <img
                 src="/images/Derek-Daniela-Chiners.jpg"
-                alt="Derek and Daniela Chinners — Founders, Pro SWPPP"
+                alt="Derek E. and Daniela Chinners — Founders, Pro SWPPP"
                 className="rounded-2xl w-full"
                 style={{
                   maxWidth: '480px',
@@ -374,7 +374,7 @@ export default function AboutClient() {
             >
               <img
                 src="/images/IMG_4484.jpg"
-                alt="Derek Chinners — Founder & CEO, Pro SWPPP"
+                alt="Derek E. Chinners — Founder & CEO, Pro SWPPP"
                 className="rounded-2xl w-full"
                 style={{ maxWidth: '420px', border: '2px solid rgba(239,124,59,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
               />
