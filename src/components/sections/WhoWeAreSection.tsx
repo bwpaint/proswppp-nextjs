@@ -85,10 +85,10 @@ export default function WhoWeAreSection() {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a href="/get-your-swppp" className="btn-orange">Get My SWPPP</a>
-              <a href="/about" className="btn-blue">Meet the Team</a>
-              <a href="/quiz-form/" className="btn-orange">Take the Quiz</a>
+            <div className="mt-8 flex flex-nowrap gap-3">
+              <a href="/get-your-swppp" className="btn-orange whitespace-nowrap" style={{ fontWeight: 400, fontSize: '0.8rem', padding: '0.6rem 1rem' }}>Get My SWPPP</a>
+              <a href="/about" className="btn-blue whitespace-nowrap" style={{ fontWeight: 400, fontSize: '0.8rem', padding: '0.6rem 1rem' }}>Meet the Team</a>
+              <a href="/quiz-form/" className="btn-orange whitespace-nowrap" style={{ fontWeight: 400, fontSize: '0.8rem', padding: '0.6rem 1rem' }}>Take the Quiz</a>
             </div>
           </motion.div>
 
