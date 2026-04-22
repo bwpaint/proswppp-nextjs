@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: ".next,public,package.json,pnpm-lock.yaml,next.config.js,next.config.mjs"
+          source: ".next,public,package.json,pnpm-lock.yaml,next.config.js,next.config.mjs,ecosystem.config.js"
           target: "/var/www/www2.proswppp.com"
           overwrite: true
 
@@ -58,8 +58,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            npm install -g pnpm --silent 2>/dev/null || true
             cd /var/www/www2.proswppp.com
-            pnpm install --prod --frozen-lockfile
-            pm2 restart proswppp || pm2 start ecosystem.config.js
+            npm install --omit=dev --legacy-peer-deps
+            pm2 restart proswppp --env production || pm2 start ecosystem.config.js --env production
             pm2 save
