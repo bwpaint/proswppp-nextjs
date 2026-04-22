@@ -11,7 +11,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown, Mail, Linkedin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
 
 const LOGO_URL = "https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png";
 
@@ -70,7 +70,45 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="announcement-bar">
-        <span>Your SWPPP Delivered in 72 Hours or it&apos;s FREE</span>
+        <div className="container flex items-center justify-between gap-4">
+
+          {/* Left: Phone + Email */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <a href="tel:7134167111" className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
+              <Phone size={12} />
+              713-416-7111
+            </a>
+            <a href="mailto:info@proswppp.com" className="hidden sm:flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
+              <Mail size={12} />
+              info@proswppp.com
+            </a>
+          </div>
+
+          {/* Center: Tagline */}
+          <span className="text-xs font-semibold text-center hidden md:block whitespace-nowrap">
+            Your SWPPP Delivered in 72 Hours or it&apos;s FREE
+          </span>
+
+          {/* Right: Social Icons */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a href="https://www.linkedin.com/company/pro-swppp/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/80 hover:text-white transition-colors">
+              <Linkedin size={14} />
+            </a>
+            <a href="https://www.facebook.com/p/Pro-SWPPP-LLC-61576065660377/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/80 hover:text-white transition-colors">
+              <Facebook size={14} />
+            </a>
+            <a href="https://www.instagram.com/proswppp/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/80 hover:text-white transition-colors">
+              <Instagram size={14} />
+            </a>
+            <a href="https://www.youtube.com/@ProSWPPP" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white/80 hover:text-white transition-colors">
+              <Youtube size={14} />
+            </a>
+            <a href="https://x.com/Pro_SWPPP" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" className="text-white/80 hover:text-white transition-colors">
+              <Twitter size={14} />
+            </a>
+          </div>
+
+        </div>
       </div>
 
       {/* Main Navigation */}
