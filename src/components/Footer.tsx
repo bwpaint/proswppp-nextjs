@@ -233,8 +233,33 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
+        {/* Badge row — BBB + Procore, flush left */}
+        <div className="border-t border-white/10 mt-10 pt-6 flex flex-wrap items-center gap-6">
+          {/* BBB Badge */}
+          <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-2.5">
+            <div className="text-center leading-none">
+              <p className="font-black text-[#003087] text-base leading-none">BBB</p>
+              <p className="text-[9px] text-gray-500 leading-tight">Accredited</p>
+              <p className="text-[9px] text-gray-500 leading-tight">Business</p>
+            </div>
+            <div className="border-l border-gray-200 pl-3">
+              <p className="font-bold text-[#1A3A4A] text-xs">Rating: A+</p>
+              <p className="text-[9px] text-gray-400">Click for Profile</p>
+            </div>
+          </div>
+
+          {/* Procore Badge */}
+          <div className="bg-white rounded-lg px-4 py-2.5">
+            <img
+              src="/images/procore-black-badge.svg"
+              alt="Procore Network Member"
+              style={{ height: '32px', width: 'auto' }}
+            />
+          </div>
+        </div>
+
+        {/* Copyright bar */}
+        <div className="border-t border-white/10 mt-6 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
           <p>© {new Date().getFullYear()} Pro SWPPP. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="/privacy" className="hover:text-[#EF7C3B] transition-colors">
@@ -244,6 +269,19 @@ export default function Footer() {
               Terms
             </a>
           </div>
+        </div>
+
+        {/* Designer credit */}
+        <div className="pt-3 text-center text-xs">
+          <a
+            href="https://www.webwize.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#1A1A1A' }}
+            className="hover:underline"
+          >
+            Houston Website Design | WebWize
+          </a>
         </div>
 
       </div>
