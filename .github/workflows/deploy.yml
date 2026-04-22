@@ -58,6 +58,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            npm install -g pnpm --silent 2>/dev/null || true
             cd /var/www/www2.proswppp.com
             pnpm install --prod --frozen-lockfile
             pm2 restart proswppp || pm2 start ecosystem.config.js
