@@ -90,7 +90,7 @@ const team = [
   {
     name: 'Sarah Romero',
     title: 'Office Manager / Certified Inspector',
-    photo: '/images/team/sarah-romero.jpg',
+    photo: '/images/Sarah-headshot.webp',
     bio: 'Sarah serves as our certified inspector with a strong focus on ensuring your jobsite is fully compliant from start to finish. Known for her attention to detail, Sarah is a trusted source for both our customers and our team.',
   },
   {
