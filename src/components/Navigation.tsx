@@ -86,7 +86,7 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="announcement-bar">
-        <div className="container flex items-center justify-between gap-4">
+        <div className="w-full px-4 lg:px-6 flex items-center justify-between gap-4">
 
           {/* Left: Phone + Email */}
           <div className="flex items-center gap-4 flex-shrink-0">
