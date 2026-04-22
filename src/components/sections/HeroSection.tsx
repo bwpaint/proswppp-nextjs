@@ -337,6 +337,32 @@ export default function HeroSection() {
           </motion.div>
 
         </div>
+
+        {/* Trust Badges — bottom of hero */}
+        <motion.div
+          custom={0.7}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="flex flex-wrap justify-center items-center gap-8 mt-10 pb-2"
+        >
+          <img
+            src="/images/cpesc-logo-trans.webp"
+            alt="CPESC Certified SWPPP Professional"
+            style={{ height: '60px', width: 'auto' }}
+          />
+          <img
+            src="/images/Guarantee-com-300x300.png"
+            alt="100% Compliance Guaranteed"
+            style={{ height: '60px', width: 'auto' }}
+          />
+          <img
+            src="/images/icon-woman-owned-seal-300x300.png"
+            alt="Woman Owned Business"
+            style={{ height: '60px', width: 'auto' }}
+          />
+        </motion.div>
+
       </div>
     </section>
   );

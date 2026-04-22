@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
 const TrustBadgesSection = dynamic(() => import('@/components/sections/TrustBadgesSection'), { ssr: false });
 const StatsSection = dynamic(() => import('@/components/sections/StatsSection'), { ssr: false });
-const FeaturesShowcaseSection = dynamic(() => import('@/components/sections/FeaturesShowcaseSection'), { ssr: false });
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
 const CEOGuaranteeSection = dynamic(() => import('@/components/sections/CEOGuaranteeSection'), { ssr: false });
 const ClientLogosSection = dynamic(() => import('@/components/sections/ClientLogosSection'), { ssr: false });
@@ -21,7 +20,6 @@ export default function HomePage() {
       <WhoWeAreSection />
       <ClientLogosSection />
       <StatsSection />
-      <FeaturesShowcaseSection />
       <ExperienceSection />
       <CEOGuaranteeSection />
       <FinalCTASection />

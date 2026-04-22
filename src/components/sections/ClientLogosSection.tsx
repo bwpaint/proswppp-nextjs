@@ -23,48 +23,6 @@ const clientLogos = [
 export default function ClientLogosSection() {
   return (
     <>
-      {/* Find Us On */}
-      <section className="bg-[#EF7C3B] py-12 lg:py-14">
-        <div className="container text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="section-heading text-white text-2xl lg:text-3xl mb-8">
-              Find Us On…
-            </h2>
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              {/* BBB Badge */}
-              <div className="bg-white rounded-xl px-6 py-4 flex items-center gap-4 shadow-md">
-                <div className="text-center">
-                  <p className="font-bold text-[#003087] text-lg leading-none">BBB</p>
-                  <p className="text-xs text-gray-500">Accredited</p>
-                  <p className="text-xs text-gray-500">Business</p>
-                </div>
-                <div className="border-l pl-4">
-                  <p className="font-bold text-[#1A3A4A] text-sm">BBB Rating: A+</p>
-                  <p className="text-xs text-gray-500">Click for Profile</p>
-                </div>
-              </div>
-
-              {/* Procore Badge */}
-              <div className="bg-white rounded-xl px-6 py-4 shadow-md">
-                <img
-                  src="https://www.procore.com/network/assets/static/procore-black-badge.svg"
-                  alt="Procore Network Badge"
-                  className="h-12 w-auto"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Client Logos */}
       <section className="py-14 lg:py-16" style={{ background: '#000000' }}>
         <div className="container">
