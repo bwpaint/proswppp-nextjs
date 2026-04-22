@@ -10,8 +10,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'd2xsxph8kpxj0f.cloudfront.net' },
     ],
   },
-  // Uncomment for standalone VPS deployment on XCloud:
-  // output: 'standalone',
+  output: 'standalone',
 };
 
 export default nextConfig;;

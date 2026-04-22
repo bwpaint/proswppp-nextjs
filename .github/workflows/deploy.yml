@@ -41,13 +41,18 @@ jobs:
           WWRM_API_KEY: ${{ secrets.WWRM_API_KEY }}
           REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
 
-      - name: Sync built files to server
+      - name: Copy static assets into standalone
+        run: |
+          cp -r .next/static .next/standalone/.next/static
+          cp -r public .next/standalone/public
+
+      - name: Sync standalone build to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: ".next,public,package.json,pnpm-lock.yaml,next.config.js,next.config.mjs,ecosystem.config.js"
+          source: ".next/standalone,ecosystem.config.js"
           target: "/var/www/www2.proswppp.com"
           overwrite: true
 
@@ -59,6 +64,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/www2.proswppp.com
-            npm install --omit=dev --legacy-peer-deps
             pm2 restart proswppp --env production || pm2 start ecosystem.config.js --env production
             pm2 save
