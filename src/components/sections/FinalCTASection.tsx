@@ -43,7 +43,7 @@ export default function FinalCTASection() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <a
               href="https://proswppp.com/get-your-swppp/"
               className="btn-orange text-base px-10 py-4"
@@ -57,6 +57,12 @@ export default function FinalCTASection() {
               className="btn-outline-white text-base px-8 py-4"
             >
               Schedule My Free SWPPP Consultation
+            </a>
+            <a
+              href="/quiz-form/"
+              className="btn-orange text-base px-8 py-4"
+            >
+              Take the Quiz
             </a>
           </div>
 

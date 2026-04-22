@@ -168,10 +168,10 @@ export default function HeroSection() {
                 Get My SWPPP
               </a>
               <a
-                href=""
+                href="/quiz-form/"
                 className="btn-blue text-base px-8 py-4 inline-block"
               >
-                Start Free Quotation
+                Take the Quiz
               </a>
             </motion.div>
           </div>

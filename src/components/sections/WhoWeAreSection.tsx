@@ -88,6 +88,7 @@ export default function WhoWeAreSection() {
             <div className="mt-8 flex flex-wrap gap-4">
               <a href="/get-your-swppp" className="btn-orange">Get My SWPPP</a>
               <a href="/about" className="btn-blue">Meet the Team</a>
+              <a href="/quiz-form/" className="btn-orange">Take the Quiz</a>
             </div>
           </motion.div>
 
