@@ -55,6 +55,7 @@ jobs:
           source: ".next/standalone,ecosystem.config.js"
           target: "/var/www/www2.proswppp.com"
           overwrite: true
+	  rm: true 
 
       - name: Restart PM2
         uses: appleboy/ssh-action@v1.0.3
