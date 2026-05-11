@@ -45,7 +45,7 @@ export default function PaymentClient() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative py-20 lg:py-28"
+        className="relative pt-20 lg:pt-28 pb-8 lg:pb-10"
         style={{ background: '#000000' }}
       >
         <div className="relative z-10 container text-center">
@@ -81,7 +81,7 @@ export default function PaymentClient() {
       </section>
 
       {/* ── Payment Card ── */}
-      <section className="py-10 lg:py-28" style={{ background: '#000000' }}>
+      <section className="pt-6 lg:pt-12 pb-10 lg:pb-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-lg mx-auto">
             <motion.div
