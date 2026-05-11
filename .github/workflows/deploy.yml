@@ -37,6 +37,14 @@ jobs:
         run: |
           cp -r .next/static .next/standalone/.next/static
           cp -r public .next/standalone/public
+      - name: Clear previous build on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            rm -rf /var/www/www2.proswppp.com/.next/standalone
       - name: Sync standalone build to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -46,7 +54,6 @@ jobs:
           source: ".next/standalone,ecosystem.config.js"
           target: "/var/www/www2.proswppp.com"
           overwrite: true
-          rm: true
       - name: Restart PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
