@@ -81,7 +81,7 @@ export default function PaymentClient() {
       </section>
 
       {/* ── Payment Card ── */}
-      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
+      <section className="py-10 lg:py-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-lg mx-auto">
             <motion.div
