@@ -940,7 +940,7 @@ export default function GetYourSwpppClient() {
 
   // Wizard state
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState<OrderForm>(EMPTY_FORM);
+  const [form, setForm] = useState<OrderForm>(EMPTY_ORDER);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
