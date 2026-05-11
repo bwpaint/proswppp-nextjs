@@ -286,14 +286,14 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
 const inputCls =
-  'w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white ' +
-  'placeholder:text-gray-600 focus:border-orange-500/50 focus:outline-none ' +
-  'focus:ring-1 focus:ring-orange-500/20 transition-all text-sm';
-const selectBg = { background: '#1A1A1F' };
+  'w-full rounded-lg border border-amber-200 bg-white px-4 py-3 text-gray-900 ' +
+  'placeholder:text-gray-400 focus:border-orange-400 focus:outline-none ' +
+  'focus:ring-1 focus:ring-orange-400/25 transition-all text-sm';
+const selectBg = { background: '#FFFFFF', color: '#111111' };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="block text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5">
+    <label htmlFor={htmlFor} className="block text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
       {children}{required && <span className="text-orange-500 ml-1">*</span>}
     </label>
   );
@@ -320,7 +320,7 @@ function Select({ label, id, value, onChange, options, required }: {
     <div>
       <Label htmlFor={id} required={required}>{label}</Label>
       <select id={id} value={value} onChange={e => onChange(e.target.value)}
-        className="w-full rounded-lg border border-white/10 px-4 py-3 text-white focus:border-orange-500/50 focus:outline-none focus:ring-1 focus:ring-orange-500/20 transition-all text-sm appearance-none"
+        className="w-full rounded-lg border border-amber-200 px-4 py-3 text-gray-900 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/25 transition-all text-sm appearance-none"
         style={selectBg}>
         <option value="">Select…</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
@@ -333,16 +333,16 @@ function MonthSelect({ label, id, value, onChange }: { label: string; id: string
     <div>
       <Label htmlFor={id}>{label}</Label>
       <select id={id} value={value} onChange={e => onChange(parseInt(e.target.value))}
-        className="w-full rounded-lg border border-white/10 px-4 py-3 text-white focus:border-orange-500/50 focus:outline-none transition-all text-sm appearance-none"
+        className="w-full rounded-lg border border-amber-200 px-4 py-3 text-gray-900 focus:border-orange-400 focus:outline-none transition-all text-sm appearance-none"
         style={selectBg}>
         {[1, 2, 3, 4, 5, 6, 9, 12].map(m => <option key={m} value={m}>{m} month{m !== 1 ? 's' : ''}</option>)}
       </select>
     </div>
   );
 }
-function Divider() { return <div className="border-t border-white/5 my-5" />; }
+function Divider() { return <div className="border-t border-amber-100 my-5" />; }
 function SecLabel({ children }: { children: ReactNode }) {
-  return <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-3">{children}</p>;
+  return <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-3">{children}</p>;
 }
 
 // ─── US Map SVG ────────────────────────────────────────────────────────────────
@@ -604,21 +604,21 @@ function Step2({
   return (
     <div className="space-y-4">
       {hasSpecialCats && (
-        <div className="rounded-xl border border-orange-500/30 p-4" style={{ background: 'rgba(249,115,22,0.05)' }}>
-          <p className="text-sm font-bold text-orange-400 mb-3">Do any of these apply to your project?</p>
+        <div className="rounded-xl border border-orange-200 p-4" style={{ background: 'rgba(249,115,22,0.06)' }}>
+          <p className="text-sm font-bold text-orange-600 mb-3">Do any of these apply to your project?</p>
           <div className="space-y-2">
             <label className="flex items-center gap-3 cursor-pointer">
               <input type="radio" name="specialCategory" value="" checked={form.specialCategory === ''}
                 onChange={() => set('specialCategory', '')} className="w-4 h-4 accent-orange-500" />
-              <span className="text-sm text-gray-300">None of the below</span>
+              <span className="text-sm text-gray-700">None of the below</span>
             </label>
             {regionData!.special_categories.map(cat => (
               <label key={cat.id} className="flex items-center gap-3 cursor-pointer">
                 <input type="radio" name="specialCategory" value={cat.slug} checked={form.specialCategory === cat.slug}
                   onChange={() => set('specialCategory', cat.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-white">{cat.name}</span>
+                <span className="text-sm text-gray-900">{cat.name}</span>
                 {cat.certified_price && (
-                  <span className="text-xs text-orange-400 ml-auto">{fmt(cat.certified_price)}</span>
+                  <span className="text-xs text-orange-600 ml-auto">{fmt(cat.certified_price)}</span>
                 )}
               </label>
             ))}
@@ -627,17 +627,17 @@ function Step2({
       )}
 
       {hasSubRegions && (
-        <div className="rounded-xl border border-white/10 p-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
-          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Select Your Region</p>
+        <div className="rounded-xl border border-amber-200 p-4" style={{ background: '#FFFBF4' }}>
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-3">Select Your Region</p>
           <div className="space-y-2">
             {regionData!.sub_regions.map(sub => (
               <label key={sub.id} className="flex items-center gap-3 cursor-pointer">
                 <input type="radio" name="subRegion" value={sub.slug}
                   checked={form.specialCategory === sub.slug}
                   onChange={() => set('specialCategory', sub.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-white">{sub.name}</span>
+                <span className="text-sm text-gray-900">{sub.name}</span>
                 {sub.certified_price && (
-                  <span className="text-xs text-orange-400 ml-auto">{fmt(sub.certified_price)}</span>
+                  <span className="text-xs text-orange-600 ml-auto">{fmt(sub.certified_price)}</span>
                 )}
               </label>
             ))}
@@ -650,10 +650,10 @@ function Step2({
       <Field label="Project Name" id="projectName" value={form.projectName} onChange={v => set('projectName', v)}
         placeholder="Lakeview Road Expansion — Phase 2" required />
 
-      <div className="rounded-xl border border-white/10 p-4 space-y-3" style={{ background: 'rgba(255,255,255,0.02)' }}>
+      <div className="rounded-xl border border-amber-200 p-4 space-y-3" style={{ background: '#FFFBF4' }}>
         <div className="flex items-center gap-2 mb-1">
-          <MapPin className="w-4 h-4 text-orange-400 flex-shrink-0" />
-          <p className="text-sm font-semibold text-white">Project Location</p>
+          <MapPin className="w-4 h-4 text-orange-500 flex-shrink-0" />
+          <p className="text-sm font-semibold text-gray-900">Project Location</p>
         </div>
         <Field label="Street Address" id="projectStreet" value={form.projectStreet} onChange={v => set('projectStreet', v)} placeholder="456 Construction Blvd" required />
         <div className="grid grid-cols-5 gap-3">
@@ -663,7 +663,7 @@ function Step2({
           <div className="col-span-2">
             <Label htmlFor="projectState" required>State</Label>
             <input id="projectState" value={stateName ?? form.projectState} disabled
-              className={inputCls + ' opacity-70 cursor-not-allowed'} />
+              className={inputCls + ' opacity-60 cursor-not-allowed'} />
           </div>
           <div className="col-span-1">
             <Field label="Zip" id="projectZip" value={form.projectZip} onChange={v => set('projectZip', v)} placeholder="77001" required />
@@ -671,16 +671,16 @@ function Step2({
         </div>
 
         {pricingLoading && (
-          <div className="flex items-center gap-2 text-xs text-gray-400 pt-1">
+          <div className="flex items-center gap-2 text-xs text-gray-500 pt-1">
             <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
             Loading pricing for {stateName}…
           </div>
         )}
         {regionData && !pricingLoading && (
           <div className="flex items-center gap-2 pt-1">
-            <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-            <span className="text-sm text-green-400">
-              Base price for <strong className="text-green-300">{regionData.region.name}</strong>:{' '}
+            <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+            <span className="text-sm text-green-700">
+              Base price for <strong className="text-green-800">{regionData.region.name}</strong>:{' '}
               <strong>{fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}</strong>
             </span>
           </div>
@@ -721,24 +721,24 @@ function Step3({ form, set, regionData }: {
 
   const addonCls = (checked: boolean) =>
     `block rounded-xl border p-5 cursor-pointer transition-all ${checked
-      ? 'border-orange-500/40'
-      : 'border-white/10 hover:border-white/20'
+      ? 'border-orange-400'
+      : 'border-amber-200 hover:border-amber-300'
     }`;
 
   return (
     <div className="space-y-4">
       <SecLabel>Optional Add-ons</SecLabel>
 
-      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.ePortal} onChange={e => set('ePortal', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">E-Portal Access</span>
-              <span className="text-sm font-bold text-orange-400">{fmt(ep_price)}/mo</span>
+              <span className="font-bold text-gray-900 text-sm">E-Portal Access</span>
+              <span className="text-sm font-bold text-orange-600">{fmt(ep_price)}/mo</span>
             </div>
-            <ul className="text-sm text-gray-400 space-y-0.5 mb-2">
+            <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
               <li>• Custom inspection portal — mobile compatible</li>
               <li>• Cloud-stored docs emailed to all parties</li>
             </ul>
@@ -746,23 +746,23 @@ function Step3({ form, set, regionData }: {
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
                 <MonthSelect label="How many months?" id="ePortalMonths" value={form.ePortalMonths}
                   onChange={v => set('ePortalMonths', v)} />
-                <p className="text-sm font-semibold text-orange-400">Subtotal: {fmt(totals.ep)}</p>
+                <p className="text-sm font-semibold text-orange-600">Subtotal: {fmt(totals.ep)}</p>
               </div>
             )}
           </div>
         </div>
       </label>
 
-      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.cpesc} onChange={e => set('cpesc', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
-              <span className="text-sm font-bold text-orange-400">{fmt(cp_price)}/mo</span>
+              <span className="font-bold text-gray-900 text-sm">CPESC Certified Inspections</span>
+              <span className="text-sm font-bold text-orange-600">{fmt(cp_price)}/mo</span>
             </div>
-            <ul className="text-sm text-gray-400 space-y-0.5 mb-2">
+            <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
               <li>• Custom inspection portal included</li>
               <li>• Remotely coordinated with certified inspectors</li>
             </ul>
@@ -770,40 +770,40 @@ function Step3({ form, set, regionData }: {
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
                 <MonthSelect label="How many months?" id="cpescMonths" value={form.cpescMonths}
                   onChange={v => set('cpescMonths', v)} />
-                <p className="text-sm font-semibold text-orange-400">Subtotal: {fmt(totals.cp)}</p>
+                <p className="text-sm font-semibold text-orange-600">Subtotal: {fmt(totals.cp)}</p>
               </div>
             )}
           </div>
         </div>
       </label>
 
-      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.hardCopy} onChange={e => set('hardCopy', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">Hard Copy Binders</span>
-              <span className="text-sm font-bold text-orange-400">{fmt(bd_price)}</span>
+              <span className="font-bold text-gray-900 text-sm">Hard Copy Binders</span>
+              <span className="text-sm font-bold text-orange-600">{fmt(bd_price)}</span>
             </div>
-            <p className="text-sm text-gray-400">2 professionally printed &amp; bound SWPPP hard copies.</p>
+            <p className="text-sm text-gray-600">2 professionally printed &amp; bound SWPPP hard copies.</p>
           </div>
         </div>
       </label>
 
-      <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Price Summary</p>
+      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-4">Price Summary</p>
         <div className="space-y-2.5 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-400">Base SWPPP</span>
-            <span className="text-white font-medium">{fmt(totals.base)}</span>
+            <span className="text-gray-600">Base SWPPP</span>
+            <span className="text-gray-900 font-medium">{fmt(totals.base)}</span>
           </div>
-          {form.ePortal && <div className="flex justify-between"><span className="text-gray-400">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
-          {form.cpesc && <div className="flex justify-between"><span className="text-gray-400">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
-          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-400">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
-          <div className="flex justify-between border-t border-white/10 pt-3">
-            <span className="font-bold text-white">Total</span>
-            <span className="text-2xl font-black text-orange-500">{fmt(totals.total)}</span>
+          {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-gray-900">{fmt(totals.ep)}</span></div>}
+          {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-gray-900">{fmt(totals.cp)}</span></div>}
+          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-gray-900">{fmt(totals.bd)}</span></div>}
+          <div className="flex justify-between border-t border-amber-200 pt-3">
+            <span className="font-bold text-gray-900">Total</span>
+            <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
           </div>
         </div>
       </div>
@@ -823,62 +823,62 @@ function Step4({ form, regionData, onSubmit, submitting }: {
 
   return (
     <div className="space-y-5">
-      <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
-        <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-4">Order Summary</p>
+      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Order Summary</p>
         <div className="space-y-4 text-sm">
           <div>
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Contact</p>
-            <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
-            <p className="text-gray-400">{form.company}</p>
-            <p className="text-gray-400">{form.email} · {form.phone}</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-gray-900 font-semibold">{form.firstName} {form.lastName}</p>
+            <p className="text-gray-600">{form.company}</p>
+            <p className="text-gray-600">{form.email} · {form.phone}</p>
           </div>
-          <div className="border-t border-white/5 pt-4">
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Project</p>
-            <p className="text-white font-semibold">{form.projectName}</p>
-            <p className="text-gray-400">{form.projectCity}, {stateName} {form.projectZip}</p>
-            <p className="text-gray-400">{form.landDisturbance} · {form.serviceNeeded}</p>
-            {form.startDate && <p className="text-gray-400">Start: {form.startDate}</p>}
+          <div className="border-t border-amber-200 pt-4">
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-gray-900 font-semibold">{form.projectName}</p>
+            <p className="text-gray-600">{form.projectCity}, {stateName} {form.projectZip}</p>
+            <p className="text-gray-600">{form.landDisturbance} · {form.serviceNeeded}</p>
+            {form.startDate && <p className="text-gray-600">Start: {form.startDate}</p>}
           </div>
-          <div className="border-t border-white/5 pt-4 space-y-2">
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-2">Pricing</p>
-            <div className="flex justify-between"><span className="text-gray-400">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
-            {form.ePortal && <div className="flex justify-between"><span className="text-gray-400">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
-            {form.cpesc && <div className="flex justify-between"><span className="text-gray-400">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
-            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-400">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
+          <div className="border-t border-amber-200 pt-4 space-y-2">
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
+            <div className="flex justify-between"><span className="text-gray-600">Base SWPPP</span><span className="text-gray-900">{fmt(totals.base)}</span></div>
+            {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-gray-900">{fmt(totals.ep)}</span></div>}
+            {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-gray-900">{fmt(totals.cp)}</span></div>}
+            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-gray-900">{fmt(totals.bd)}</span></div>}
           </div>
-          <div className="flex justify-between border-t border-orange-500/20 pt-4">
-            <span className="font-bold text-white text-base">Total Due Today</span>
-            <span className="text-2xl font-black text-orange-500">{fmt(totals.total)}</span>
+          <div className="flex justify-between border-t border-orange-300/40 pt-4">
+            <span className="font-bold text-gray-900 text-base">Total Due Today</span>
+            <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
+      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
         <div className="flex items-center justify-between mb-4">
-          <p className="text-xs font-bold uppercase tracking-widest text-orange-500">Payment</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-orange-600">Payment</p>
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <Lock className="w-3 h-3" />Secured by Stripe
           </div>
         </div>
 
-        <div className="rounded-lg border border-dashed border-yellow-500/30 p-3 mb-4" style={{ background: 'rgba(234,179,8,0.05)' }}>
+        <div className="rounded-lg border border-dashed border-yellow-500/50 p-3 mb-4" style={{ background: 'rgba(234,179,8,0.07)' }}>
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-            <span className="text-xs font-semibold text-yellow-400">Demo Mode — Payment not processed</span>
+            <div className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
+            <span className="text-xs font-semibold text-yellow-700">Demo Mode — Payment not processed</span>
           </div>
           <div className="space-y-3">
             <div>
-              <p className="text-xs text-gray-600 mb-1">Card Number</p>
-              <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>4242 4242 4242 4242</div>
+              <p className="text-xs text-gray-500 mb-1">Card Number</p>
+              <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>4242 4242 4242 4242</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-gray-600 mb-1">Expiry</p>
-                <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>12 / 28</div>
+                <p className="text-xs text-gray-500 mb-1">Expiry</p>
+                <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>12 / 28</div>
               </div>
               <div>
-                <p className="text-xs text-gray-600 mb-1">CVC</p>
-                <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>•••</div>
+                <p className="text-xs text-gray-500 mb-1">CVC</p>
+                <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>•••</div>
               </div>
             </div>
           </div>
@@ -894,7 +894,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
             : <><Shield className="w-4 h-4" />Place Order — {fmt(totals.total)}</>}
         </button>
 
-        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-600 flex-wrap">
+        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-500 flex-wrap">
           <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> 256-bit SSL</span>
           <span>·</span>
           <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> 72-hour delivery</span>
@@ -925,14 +925,14 @@ function Confirmation({ form, regionData, onReset }: {
           style={{ background: 'rgba(34,197,94,0.1)' }}>
           <CheckCircle2 className="w-8 h-8 text-green-400" />
         </div>
-        <h2 className="text-3xl font-black text-white mb-2"
+        <h2 className="text-3xl font-black text-gray-900 mb-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
           Order Received!
         </h2>
-        <p className="text-sm text-gray-400 leading-relaxed">
-          Thank you, <span className="font-semibold text-white">{form.firstName}</span>!{' '}
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Thank you, <span className="font-semibold text-gray-900">{form.firstName}</span>!{' '}
           A confirmation has been sent to{' '}
-          <span className="font-semibold text-white">{form.email}</span>.
+          <span className="font-semibold text-gray-900">{form.email}</span>.
         </p>
         <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-mono mt-3"
           style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
@@ -941,71 +941,71 @@ function Confirmation({ form, regionData, onReset }: {
       </div>
 
       {/* ── Receipt ── */}
-      <div className="rounded-xl border border-white/10 p-5 mb-4" style={{ background: '#1A1A1F' }}>
-        <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-4">Receipt</p>
+      <div className="rounded-xl border border-amber-200 p-5 mb-4" style={{ background: '#F5EEE2' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Receipt</p>
 
         <div className="space-y-4 text-sm">
           {/* Contact */}
           <div>
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Contact</p>
-            <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
-            {form.company && <p className="text-gray-400">{form.company}</p>}
-            <p className="text-gray-400">{form.email}</p>
-            {form.phone && <p className="text-gray-400">{form.phone}</p>}
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-gray-900 font-semibold">{form.firstName} {form.lastName}</p>
+            {form.company && <p className="text-gray-600">{form.company}</p>}
+            <p className="text-gray-600">{form.email}</p>
+            {form.phone && <p className="text-gray-600">{form.phone}</p>}
           </div>
 
           {/* Project */}
-          <div className="border-t border-white/5 pt-4">
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Project</p>
-            <p className="text-white font-semibold">{form.projectName}</p>
-            {form.projectStreet && <p className="text-gray-400">{form.projectStreet}</p>}
-            <p className="text-gray-400">
+          <div className="border-t border-amber-200 pt-4">
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-gray-900 font-semibold">{form.projectName}</p>
+            {form.projectStreet && <p className="text-gray-600">{form.projectStreet}</p>}
+            <p className="text-gray-600">
               {form.projectCity ? `${form.projectCity}, ` : ''}{stateName} {form.projectZip}
             </p>
-            <p className="text-gray-400">{form.landDisturbance} · {form.serviceNeeded}</p>
+            <p className="text-gray-600">{form.landDisturbance} · {form.serviceNeeded}</p>
             {form.startDate && (
-              <p className="text-gray-400">
+              <p className="text-gray-600">
                 Start: {form.startDate}{form.endDate ? ` — End: ${form.endDate}` : ''}
               </p>
             )}
           </div>
 
           {/* Pricing breakdown */}
-          <div className="border-t border-white/5 pt-4 space-y-2.5">
-            <p className="text-xs text-gray-600 uppercase tracking-wide mb-2">Pricing</p>
+          <div className="border-t border-amber-200 pt-4 space-y-2.5">
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between">
-              <span className="text-gray-400">Base SWPPP — {stateName}</span>
-              <span className="text-white">{fmt(totals.base)}</span>
+              <span className="text-gray-600">Base SWPPP — {stateName}</span>
+              <span className="text-gray-900">{fmt(totals.base)}</span>
             </div>
             {form.ePortal && (
               <div className="flex justify-between">
-                <span className="text-gray-400">E-Portal Access ({form.ePortalMonths} mo)</span>
-                <span className="text-white">{fmt(totals.ep)}</span>
+                <span className="text-gray-600">E-Portal Access ({form.ePortalMonths} mo)</span>
+                <span className="text-gray-900">{fmt(totals.ep)}</span>
               </div>
             )}
             {form.cpesc && (
               <div className="flex justify-between">
-                <span className="text-gray-400">CPESC Inspections ({form.cpescMonths} mo)</span>
-                <span className="text-white">{fmt(totals.cp)}</span>
+                <span className="text-gray-600">CPESC Inspections ({form.cpescMonths} mo)</span>
+                <span className="text-gray-900">{fmt(totals.cp)}</span>
               </div>
             )}
             {form.hardCopy && (
               <div className="flex justify-between">
-                <span className="text-gray-400">Hard Copy Binders</span>
-                <span className="text-white">{fmt(totals.bd)}</span>
+                <span className="text-gray-600">Hard Copy Binders</span>
+                <span className="text-gray-900">{fmt(totals.bd)}</span>
               </div>
             )}
-            <div className="flex justify-between border-t border-orange-500/20 pt-3">
-              <span className="font-bold text-white">Total Charged</span>
-              <span className="text-2xl font-black text-orange-500">{fmt(totals.total)}</span>
+            <div className="flex justify-between border-t border-orange-300/40 pt-3">
+              <span className="font-bold text-gray-900">Total Charged</span>
+              <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* ── What happens next ── */}
-      <div className="rounded-xl border border-white/10 p-5 mb-6" style={{ background: '#1A1A1F' }}>
-        <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-3">What Happens Next</p>
+      <div className="rounded-xl border border-amber-200 p-5 mb-6" style={{ background: '#F5EEE2' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-3">What Happens Next</p>
         <div className="space-y-3">
           {[
             { icon: CheckCircle2, text: 'You\'ll receive an email confirmation within minutes.' },
@@ -1014,8 +1014,8 @@ function Confirmation({ form, regionData, onReset }: {
             { icon: Shield,       text: '100% compliant or we revise it free of charge — guaranteed.' },
           ].map(({ icon: Icon, text }) => (
             <div key={text} className="flex items-start gap-3">
-              <Icon className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300">{text}</span>
+              <Icon className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+              <span className="text-sm text-gray-700">{text}</span>
             </div>
           ))}
         </div>
@@ -1024,8 +1024,8 @@ function Confirmation({ form, regionData, onReset }: {
       {/* ── Actions ── */}
       <div className="flex flex-col sm:flex-row items-center gap-3">
         <a href="tel:8554387977"
-          className="flex items-center justify-center gap-2 rounded-lg border border-white/10 px-5 py-3 text-sm font-semibold text-gray-300 hover:text-white hover:border-white/20 transition-all w-full sm:w-auto"
-          style={{ background: 'rgba(255,255,255,0.03)' }}>
+          className="flex items-center justify-center gap-2 rounded-lg border border-amber-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:border-amber-300 transition-all w-full sm:w-auto"
+          style={{ background: '#FFFBF4' }}>
           <Phone className="w-4 h-4" />Call Us: 855-GET-SWPPP
         </a>
         <button onClick={onReset}
@@ -1318,16 +1318,16 @@ export default function GetYourSwpppClient() {
           {!submitted && <ProgressBar step={step} submitted={submitted} />}
 
           <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl border border-white/10 p-6 sm:p-8" style={{ background: '#111115' }}>
+            <div className="rounded-2xl border border-amber-200/70 p-6 sm:p-8" style={{ background: '#FCF7EF' }}>
               {submitted ? (
                 <Confirmation form={form} regionData={regionData} onReset={handleReset} />
               ) : (
                 <>
                   <div className="mb-6">
-                    <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
+                    <h2 className="text-xl font-black text-gray-900" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
                       {stepTitle}
                     </h2>
-                    <p className="text-xs text-gray-600 mt-0.5">Step {step} of {STEPS.length}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">Step {step} of {STEPS.length}</p>
                   </div>
 
                   {step === 1 && <Step1 form={form} set={set} />}
@@ -1336,8 +1336,8 @@ export default function GetYourSwpppClient() {
                   {step === 4 && <Step4 form={form} regionData={regionData} onSubmit={handleSubmit} submitting={submitting} />}
 
                   {step < 4 && (
-                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
-                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-amber-100">
+                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors">
                         <ChevronLeft className="w-4 h-4" />
                         {step === 1 ? 'Change State' : 'Back'}
                       </button>
