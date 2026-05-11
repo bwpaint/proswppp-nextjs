@@ -15,7 +15,6 @@
  */
 
 import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, CheckCircle2, Building2, FileText,
   Shield, CreditCard, MapPin, Clock, Lock, X, Phone,
@@ -83,7 +82,6 @@ const STATE_INFO: { code: string; name: string; slug: string }[] = [
 ];
 
 // ─── US SVG state paths (standard 959×593 projection) ─────────────────────────
-// Path data from the public-domain Wikimedia blank US states map.
 const STATE_SVG_PATHS: Record<string, string> = {
   AL: 'M 680.61 441.07 L 669.46 440.41 L 669.78 408.54 L 672.39 396.41 L 682.35 397.04 L 697.05 399.05 L 701.09 406.28 L 699.73 439.75 Z',
   AK: 'M 188.54 518.76 L 179.99 507.11 L 182.48 494.79 L 188.54 487.83 L 198.1 488.06 L 205.04 501.34 L 201.01 514.62 Z M 152 529 L 133 527 L 119 516 L 119 500 L 133 491 L 148 496 L 158 510 Z',
@@ -137,7 +135,6 @@ const STATE_SVG_PATHS: Record<string, string> = {
   WY: 'M 275.38 199.07 L 298.4 170.55 L 333.5 168.22 L 362.66 157.9 L 385.32 148.59 L 393.41 195.48 L 393.41 229.48 L 367.99 231.49 L 298.4 229.48 L 275.38 228.48 Z',
 };
 
-// Label positions (cx, cy) for each state abbreviation on the SVG
 const STATE_LABELS: Record<string, [number, number]> = {
   AL: [684, 450], AK: [175, 502], AZ: [187, 375], AR: [543, 335],
   CA: [157, 260], CO: [333, 262], CT: [830, 195], DE: [797, 228],
@@ -155,6 +152,8 @@ const STATE_LABELS: Record<string, [number, number]> = {
 };
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
+type Phase = 'hero' | 'map' | 'wizard' | 'done';
+
 interface SopRegion {
   id: number;
   name: string;
@@ -177,14 +176,11 @@ interface RegionPricing {
 }
 
 interface OrderForm {
-  // Step 1
   firstName: string; lastName: string; company: string; email: string; phone: string;
-  // Step 2
   specialCategory: string;
   projectName: string; projectStreet: string; projectCity: string;
   projectState: string; projectZip: string; landDisturbance: string;
   serviceNeeded: string; startDate: string; endDate: string; drawingsLink: string;
-  // Step 3 add-ons
   ePortal: boolean; ePortalMonths: number;
   cpesc: boolean; cpescMonths: number;
   hardCopy: boolean;
@@ -330,7 +326,6 @@ function USOrderMap({
         </div>
       )}
 
-      {/* Legend */}
       <div className="flex items-center justify-center gap-6 mb-4 text-xs text-gray-400">
         <span className="flex items-center gap-2">
           <span className="inline-block w-3 h-3 rounded-sm" style={{ background: '#ea6010' }} />
@@ -342,11 +337,7 @@ function USOrderMap({
         </span>
       </div>
 
-      <svg
-        viewBox="0 0 959 593"
-        className="w-full rounded-xl"
-        style={{ maxHeight: '480px' }}
-      >
+      <svg viewBox="0 0 959 593" className="w-full rounded-xl" style={{ maxHeight: '480px' }}>
         <rect width="959" height="593" fill="#0d1117" rx="12" />
 
         {Object.entries(STATE_SVG_PATHS).map(([code, path]) => {
@@ -368,7 +359,9 @@ function USOrderMap({
                 }}
                 onMouseEnter={e => {
                   setHovered(code);
-                  const svgRect = (e.currentTarget.closest('svg') as SVGElement).getBoundingClientRect();
+                  const svgEl = e.currentTarget.closest('svg');
+                  if (!svgEl) return;
+                  const svgRect = svgEl.getBoundingClientRect();
                   const pathRect = (e.currentTarget as SVGPathElement).getBoundingClientRect();
                   setTooltip({
                     x: pathRect.left - svgRect.left + pathRect.width / 2,
@@ -396,7 +389,6 @@ function USOrderMap({
           );
         })}
 
-        {/* Tooltip */}
         {tooltip && (
           <g transform={`translate(${tooltip.x},${tooltip.y})`} style={{ pointerEvents: 'none' }}>
             <rect x="-40" y="-22" width="80" height="20" rx="4" fill="#1f2937" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
@@ -411,13 +403,7 @@ function USOrderMap({
 }
 
 // ─── Blue-state lead modal ──────────────────────────────────────────────────────
-function InactiveStateModal({
-  stateName,
-  onClose,
-}: {
-  stateName: string;
-  onClose: () => void;
-}) {
+function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose: () => void }) {
   const [lead, setLead] = useState<LeadForm>({ name: '', company: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -441,13 +427,7 @@ function InactiveStateModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
-        className="w-full max-w-md rounded-2xl border border-white/10 p-6 relative"
-        style={{ background: '#111115' }}
-      >
+      <div className="w-full max-w-md rounded-2xl border border-white/10 p-6 relative" style={{ background: '#111115' }}>
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
           <X className="w-5 h-5" />
         </button>
@@ -473,7 +453,7 @@ function InactiveStateModal({
                 </h3>
               </div>
               <p className="text-sm text-gray-400 leading-relaxed">
-                We're not actively providing services in <strong className="text-white">{stateName}</strong> at this time.
+                We&apos;re not actively providing services in <strong className="text-white">{stateName}</strong> at this time.
                 Leave your info below and our team will contact you manually to discuss your options.
               </p>
             </div>
@@ -499,17 +479,19 @@ function InactiveStateModal({
               className="mt-5 w-full rounded-lg py-3.5 text-sm font-bold text-white flex items-center justify-center gap-2 transition-all"
               style={{ background: (!lead.name || !lead.email) ? 'rgba(249,115,22,0.35)' : '#f97316', cursor: (!lead.name || !lead.email) ? 'not-allowed' : 'pointer' }}
             >
-              {sending ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Sending…</> : <>Send Inquiry <ChevronRight className="w-4 h-4" /></>}
+              {sending
+                ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Sending…</>
+                : <>Send Inquiry <ChevronRight className="w-4 h-4" /></>}
             </button>
           </>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }
 
 // ─── Step 1 — Contact Info ─────────────────────────────────────────────────────
-function Step1({ form, set }: { form: OrderForm; set: (k: keyof OrderForm, v: any) => void }) {
+function Step1({ form, set }: { form: OrderForm; set: (k: keyof OrderForm, v: string | boolean | number) => void }) {
   return (
     <div className="space-y-4">
       <SecLabel>Contact Information</SecLabel>
@@ -531,7 +513,7 @@ function Step2({
   form, set, regionData, pricingLoading,
 }: {
   form: OrderForm;
-  set: (k: keyof OrderForm, v: any) => void;
+  set: (k: keyof OrderForm, v: string | boolean | number) => void;
   regionData: RegionPricing | null;
   pricingLoading: boolean;
 }) {
@@ -541,22 +523,19 @@ function Step2({
 
   return (
     <div className="space-y-4">
-      {/* Special categories prompt — shown at top if applicable */}
       {hasSpecialCats && (
-        <div className="rounded-xl border border-orange-500/30 bg-orange-500/8 p-4">
+        <div className="rounded-xl border border-orange-500/30 p-4" style={{ background: 'rgba(249,115,22,0.05)' }}>
           <p className="text-sm font-bold text-orange-400 mb-3">Do any of these apply to your project?</p>
           <div className="space-y-2">
             <label className="flex items-center gap-3 cursor-pointer">
               <input type="radio" name="specialCategory" value="" checked={form.specialCategory === ''}
-                onChange={() => set('specialCategory', '')}
-                className="w-4 h-4 accent-orange-500" />
+                onChange={() => set('specialCategory', '')} className="w-4 h-4 accent-orange-500" />
               <span className="text-sm text-gray-300">None of the below</span>
             </label>
             {regionData!.special_categories.map(cat => (
               <label key={cat.id} className="flex items-center gap-3 cursor-pointer">
                 <input type="radio" name="specialCategory" value={cat.slug} checked={form.specialCategory === cat.slug}
-                  onChange={() => set('specialCategory', cat.slug)}
-                  className="w-4 h-4 accent-orange-500" />
+                  onChange={() => set('specialCategory', cat.slug)} className="w-4 h-4 accent-orange-500" />
                 <span className="text-sm text-white">{cat.name}</span>
                 {cat.certified_price && (
                   <span className="text-xs text-orange-400 ml-auto">{fmt(cat.certified_price)}</span>
@@ -567,17 +546,15 @@ function Step2({
         </div>
       )}
 
-      {/* Sub-region selector */}
       {hasSubRegions && (
-        <div className="rounded-xl border border-white/10 bg-white/3 p-4">
+        <div className="rounded-xl border border-white/10 p-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Select Your Region</p>
           <div className="space-y-2">
             {regionData!.sub_regions.map(sub => (
               <label key={sub.id} className="flex items-center gap-3 cursor-pointer">
                 <input type="radio" name="subRegion" value={sub.slug}
                   checked={form.specialCategory === sub.slug}
-                  onChange={() => set('specialCategory', sub.slug)}
-                  className="w-4 h-4 accent-orange-500" />
+                  onChange={() => set('specialCategory', sub.slug)} className="w-4 h-4 accent-orange-500" />
                 <span className="text-sm text-white">{sub.name}</span>
                 {sub.certified_price && (
                   <span className="text-xs text-orange-400 ml-auto">{fmt(sub.certified_price)}</span>
@@ -593,8 +570,7 @@ function Step2({
       <Field label="Project Name" id="projectName" value={form.projectName} onChange={v => set('projectName', v)}
         placeholder="Lakeview Road Expansion — Phase 2" required />
 
-      {/* Project address */}
-      <div className="rounded-xl border border-white/10 bg-white/3 p-4 space-y-3">
+      <div className="rounded-xl border border-white/10 p-4 space-y-3" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="w-4 h-4 text-orange-400 flex-shrink-0" />
           <p className="text-sm font-semibold text-white">Project Location</p>
@@ -605,18 +581,15 @@ function Step2({
             <Field label="City" id="projectCity" value={form.projectCity} onChange={v => set('projectCity', v)} placeholder="Houston" required />
           </div>
           <div className="col-span-2">
-            <div>
-              <Label htmlFor="projectState" required>State</Label>
-              <input id="projectState" value={stateName ?? form.projectState} disabled
-                className={inputCls + ' opacity-70 cursor-not-allowed'} />
-            </div>
+            <Label htmlFor="projectState" required>State</Label>
+            <input id="projectState" value={stateName ?? form.projectState} disabled
+              className={inputCls + ' opacity-70 cursor-not-allowed'} />
           </div>
           <div className="col-span-1">
             <Field label="Zip" id="projectZip" value={form.projectZip} onChange={v => set('projectZip', v)} placeholder="77001" required />
           </div>
         </div>
 
-        {/* Pricing status */}
         {pricingLoading && (
           <div className="flex items-center gap-2 text-xs text-gray-400 pt-1">
             <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
@@ -656,21 +629,30 @@ function Step2({
 }
 
 // ─── Step 3 — Add-ons ──────────────────────────────────────────────────────────
-function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof OrderForm, v: any) => void; regionData: RegionPricing | null }) {
+function Step3({ form, set, regionData }: {
+  form: OrderForm;
+  set: (k: keyof OrderForm, v: string | boolean | number) => void;
+  regionData: RegionPricing | null;
+}) {
   const totals = calcTotal(form, regionData);
   const ep_price = regionData?.pricing?.eportal_price ?? 197;
   const cp_price = regionData?.pricing?.inspection_price ?? 297;
   const bd_price = regionData?.pricing?.binder_price ?? 300;
 
-  const addon = (checked: boolean) => `block rounded-xl border p-5 cursor-pointer transition-all ${checked ? 'border-orange-500/40' : 'border-white/10 bg-white/3 hover:border-white/20'}`;
+  const addonCls = (checked: boolean) =>
+    `block rounded-xl border p-5 cursor-pointer transition-all ${checked
+      ? 'border-orange-500/40'
+      : 'border-white/10 hover:border-white/20'
+    }`;
+
   return (
     <div className="space-y-4">
       <SecLabel>Optional Add-ons</SecLabel>
 
-      {/* E-Portal */}
-      <label className={addon(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.05)' } : {}}>
         <div className="flex items-start gap-4">
-          <input type="checkbox" checked={form.ePortal} onChange={e => set('ePortal', e.target.checked)} className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
+          <input type="checkbox" checked={form.ePortal} onChange={e => set('ePortal', e.target.checked)}
+            className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">E-Portal Access</span>
@@ -682,7 +664,8 @@ function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof Orde
             </ul>
             {form.ePortal && (
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
-                <MonthSelect label="How many months?" id="ePortalMonths" value={form.ePortalMonths} onChange={v => set('ePortalMonths', v)} />
+                <MonthSelect label="How many months?" id="ePortalMonths" value={form.ePortalMonths}
+                  onChange={v => set('ePortalMonths', v)} />
                 <p className="text-sm font-semibold text-orange-400">Subtotal: {fmt(totals.ep)}</p>
               </div>
             )}
@@ -690,10 +673,10 @@ function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof Orde
         </div>
       </label>
 
-      {/* CPESC */}
-      <label className={addon(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.05)' } : {}}>
         <div className="flex items-start gap-4">
-          <input type="checkbox" checked={form.cpesc} onChange={e => set('cpesc', e.target.checked)} className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
+          <input type="checkbox" checked={form.cpesc} onChange={e => set('cpesc', e.target.checked)}
+            className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
@@ -705,7 +688,8 @@ function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof Orde
             </ul>
             {form.cpesc && (
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
-                <MonthSelect label="How many months?" id="cpescMonths" value={form.cpescMonths} onChange={v => set('cpescMonths', v)} />
+                <MonthSelect label="How many months?" id="cpescMonths" value={form.cpescMonths}
+                  onChange={v => set('cpescMonths', v)} />
                 <p className="text-sm font-semibold text-orange-400">Subtotal: {fmt(totals.cp)}</p>
               </div>
             )}
@@ -713,21 +697,20 @@ function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof Orde
         </div>
       </label>
 
-      {/* Hard Copy */}
-      <label className={addon(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.05)' } : {}}>
+      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.05)' } : {}}>
         <div className="flex items-start gap-4">
-          <input type="checkbox" checked={form.hardCopy} onChange={e => set('hardCopy', e.target.checked)} className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
+          <input type="checkbox" checked={form.hardCopy} onChange={e => set('hardCopy', e.target.checked)}
+            className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">Hard Copy Binders</span>
               <span className="text-sm font-bold text-orange-400">{fmt(bd_price)}</span>
             </div>
-            <p className="text-sm text-gray-400">2 professionally printed & bound SWPPP hard copies.</p>
+            <p className="text-sm text-gray-400">2 professionally printed &amp; bound SWPPP hard copies.</p>
           </div>
         </div>
       </label>
 
-      {/* Price Summary */}
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Price Summary</p>
         <div className="space-y-2.5 text-sm">
@@ -750,14 +733,16 @@ function Step3({ form, set, regionData }: { form: OrderForm; set: (k: keyof Orde
 
 // ─── Step 4 — Review & Payment ─────────────────────────────────────────────────
 function Step4({ form, regionData, onSubmit, submitting }: {
-  form: OrderForm; regionData: RegionPricing | null; onSubmit: () => void; submitting: boolean;
+  form: OrderForm;
+  regionData: RegionPricing | null;
+  onSubmit: () => void;
+  submitting: boolean;
 }) {
   const totals = calcTotal(form, regionData);
   const stateName = STATE_INFO.find(s => s.code === form.projectState)?.name ?? form.projectState;
 
   return (
     <div className="space-y-5">
-      {/* Order Summary */}
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-4">Order Summary</p>
         <div className="space-y-4 text-sm">
@@ -778,7 +763,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
             <p className="text-xs text-gray-600 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between"><span className="text-gray-400">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
             {form.ePortal && <div className="flex justify-between"><span className="text-gray-400">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
-            {form.cpesc && <div className="flex justify-between"><span className="text-gray-400">CPESC Inspections ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
+            {form.cpesc && <div className="flex justify-between"><span className="text-gray-400">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
             {form.hardCopy && <div className="flex justify-between"><span className="text-gray-400">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
           </div>
           <div className="flex justify-between border-t border-orange-500/20 pt-4">
@@ -788,7 +773,6 @@ function Step4({ form, regionData, onSubmit, submitting }: {
         </div>
       </div>
 
-      {/* Mock Payment */}
       <div className="rounded-xl border border-white/10 p-5" style={{ background: '#1A1A1F' }}>
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs font-bold uppercase tracking-widest text-orange-500">Payment</p>
@@ -797,8 +781,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           </div>
         </div>
 
-        {/* Demo banner */}
-        <div className="rounded-lg border border-dashed border-yellow-500/30 bg-yellow-500/5 p-3 mb-4">
+        <div className="rounded-lg border border-dashed border-yellow-500/30 p-3 mb-4" style={{ background: 'rgba(234,179,8,0.05)' }}>
           <div className="flex items-center gap-2 mb-3">
             <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
             <span className="text-xs font-semibold text-yellow-400">Demo Mode — Payment not processed</span>
@@ -806,16 +789,16 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           <div className="space-y-3">
             <div>
               <p className="text-xs text-gray-600 mb-1">Card Number</p>
-              <div className="rounded-lg border border-white/10 bg-white/3 px-4 py-3 font-mono text-sm text-gray-600">4242 4242 4242 4242</div>
+              <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>4242 4242 4242 4242</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-xs text-gray-600 mb-1">Expiry</p>
-                <div className="rounded-lg border border-white/10 bg-white/3 px-4 py-3 font-mono text-sm text-gray-600">12 / 28</div>
+                <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>12 / 28</div>
               </div>
               <div>
                 <p className="text-xs text-gray-600 mb-1">CVC</p>
-                <div className="rounded-lg border border-white/10 bg-white/3 px-4 py-3 font-mono text-sm text-gray-600">•••</div>
+                <div className="rounded-lg border border-white/10 px-4 py-3 font-mono text-sm text-gray-600" style={{ background: 'rgba(255,255,255,0.03)' }}>•••</div>
               </div>
             </div>
           </div>
@@ -847,14 +830,14 @@ function Step4({ form, regionData, onSubmit, submitting }: {
 function Confirmation({ form }: { form: OrderForm }) {
   return (
     <div className="text-center py-10">
-      <div className="w-16 h-16 rounded-full border border-green-500/30 bg-green-500/10 flex items-center justify-center mx-auto mb-6">
+      <div className="w-16 h-16 rounded-full border border-green-500/30 flex items-center justify-center mx-auto mb-6" style={{ background: 'rgba(34,197,94,0.1)' }}>
         <CheckCircle2 className="w-8 h-8 text-green-400" />
       </div>
       <h2 className="text-3xl font-black text-white mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
         Order Submitted!
       </h2>
       <p className="text-gray-400 max-w-sm mx-auto mb-8 text-sm leading-relaxed">
-        Thank you, <span className="font-semibold text-white">{form.firstName}</span>. We've received your order and will begin within 24 hours.
+        Thank you, <span className="font-semibold text-white">{form.firstName}</span>. We&apos;ve received your order and will begin within 24 hours.
         Confirmation sent to <span className="font-semibold text-white">{form.email}</span>.
       </p>
       <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
@@ -863,7 +846,7 @@ function Confirmation({ form }: { form: OrderForm }) {
           { icon: Shield, label: '100%', sub: 'Compliance guaranteed' },
           { icon: CheckCircle2, label: '17+ Years', sub: 'Industry experience' },
         ].map(({ icon: Icon, label, sub }) => (
-          <div key={label} className="rounded-xl border border-white/10 bg-white/3 p-4">
+          <div key={label} className="rounded-xl border border-white/10 p-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
             <Icon className="w-5 h-5 text-orange-500 mx-auto mb-2" />
             <p className="text-sm font-bold text-white">{label}</p>
             <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
@@ -920,35 +903,22 @@ function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) 
 
 // ─── Main export ───────────────────────────────────────────────────────────────
 export default function GetYourSwpppClient() {
-  // Phase: 'hero' | 'map' | 'wizard' | 'done'
-  const [phase, setPhase] = useState<'hero' | 'map' | 'wizard' | 'done'>('hero');
-
-  // Map data
+  const [phase, setPhase] = useState<Phase>('hero');
   const [regions, setRegions] = useState<SopRegion[]>([]);
   const [mapLoading, setMapLoading] = useState(false);
-
-  // Selected state
   const [selectedCode, setSelectedCode] = useState('');
   const [selectedSlug, setSelectedSlug] = useState('');
-
-  // Inactive state modal
   const [inactiveModal, setInactiveModal] = useState<{ name: string } | null>(null);
-
-  // Region pricing (for wizard)
   const [regionData, setRegionData] = useState<RegionPricing | null>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
-
-  // Wizard state
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<OrderForm>(EMPTY_ORDER);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Scroll ref
   const topRef = useRef<HTMLDivElement>(null);
   const scrollToTop = () => topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // Load regions when map phase starts
   useEffect(() => {
     if (phase !== 'map') return;
     setMapLoading(true);
@@ -959,7 +929,6 @@ export default function GetYourSwpppClient() {
       .finally(() => setMapLoading(false));
   }, [phase]);
 
-  // Fetch pricing when state selected
   useEffect(() => {
     if (!selectedSlug) return;
     setPricingLoading(true);
@@ -970,12 +939,9 @@ export default function GetYourSwpppClient() {
       .finally(() => setPricingLoading(false));
   }, [selectedSlug]);
 
-  const set = useCallback((k: keyof OrderForm, v: any) => setForm(f => ({ ...f, [k]: v })), []);
+  const set = useCallback((k: keyof OrderForm, v: string | boolean | number) => setForm(f => ({ ...f, [k]: v })), []);
 
-  const handleStartOrder = () => {
-    setPhase('map');
-    setTimeout(() => scrollToTop(), 100);
-  };
+  const handleStartOrder = () => { setPhase('map'); setTimeout(scrollToTop, 100); };
 
   const handleStateClick = (code: string, slug: string, active: boolean) => {
     if (!active) {
@@ -987,7 +953,7 @@ export default function GetYourSwpppClient() {
     setSelectedSlug(slug);
     setForm(f => ({ ...f, projectState: code }));
     setPhase('wizard');
-    setTimeout(() => scrollToTop(), 100);
+    setTimeout(scrollToTop, 100);
   };
 
   const canProceed = () => {
@@ -1038,217 +1004,170 @@ export default function GetYourSwpppClient() {
   return (
     <div ref={topRef} className="min-h-screen" style={{ background: '#0A0A0C', color: '#F2F2F0', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {phase === 'hero' && (
-          <motion.div
-            key="hero"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4 }}
+      {/* ── Hero ── */}
+      {phase === 'hero' && (
+        <div
+          className="relative min-h-screen flex flex-col items-center justify-center px-4 py-24 text-center"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(10,10,12,0.55) 0%, rgba(10,10,12,0.9) 70%, #0A0A0C 100%), url(${HERO_BG})`,
+            backgroundSize: 'cover', backgroundPosition: 'center',
+          }}
+        >
+          <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6"
+            style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#fb923c' }} />
+            72-Hour Guaranteed Delivery
+          </div>
+
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-1px', lineHeight: 1.1 }}>
+            Get Your <span style={{ color: '#f97316' }}>SWPPP</span> Now
+          </h1>
+          <p className="text-gray-300 max-w-lg mx-auto text-lg leading-relaxed mb-10">
+            Select your state below to get started. Your fully compliant SWPPP delivered within 72 hours — guaranteed.
+          </p>
+
+          <button
+            onClick={handleStartOrder}
+            className="flex items-center justify-center gap-3 rounded-xl text-white font-black text-lg py-5 px-16 transition-all hover:scale-105 active:scale-100 shadow-2xl"
+            style={{ background: '#f97316', minWidth: '340px', letterSpacing: '0.3px' }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}
           >
-            <div
-              className="relative min-h-screen flex flex-col items-center justify-center px-4 py-24 text-center"
-              style={{
-                backgroundImage: `linear-gradient(to bottom, rgba(10,10,12,0.55) 0%, rgba(10,10,12,0.9) 70%, #0A0A0C 100%), url(${HERO_BG})`,
-                backgroundSize: 'cover', backgroundPosition: 'center',
-              }}
-            >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6"
+            Start My Order
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          <div className="flex items-center justify-center gap-8 mt-12 text-sm text-gray-400 flex-wrap">
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-orange-500" />100% Compliant</span>
+            <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-orange-500" />72-Hour Delivery</span>
+            <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-orange-500" />17+ Years Experience</span>
+            <a href="tel:8554387977" className="flex items-center gap-2 text-orange-400 font-semibold no-underline hover:text-orange-300">
+              <Phone className="w-4 h-4" />855-GET-SWPPP
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* ── Map Phase ── */}
+      {phase === 'map' && (
+        <div className="min-h-screen px-4 py-20">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
+                style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
+                <MapPin className="w-3.5 h-3.5" />Select Your State
+              </div>
+              <h2 className="text-4xl sm:text-5xl font-black text-white mb-3"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
+                Where Is Your Project?
+              </h2>
+              <p className="text-gray-400 max-w-md mx-auto text-sm">
+                Click your state to see pricing and begin your order.
+                <span className="text-orange-400"> Orange states</span> are available now.
+              </p>
+            </div>
+
+            <USOrderMap regions={regions} loading={mapLoading} onStateClick={handleStateClick} />
+
+            <div className="text-center mt-8">
+              <button onClick={() => setPhase('hero')} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+                ← Back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Wizard Phase ── */}
+      {(phase === 'wizard' || phase === 'done') && (
+        <div className="min-h-screen px-4 py-16">
+          {!submitted && (
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
                 style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#fb923c' }} />
-                72-Hour Guaranteed Delivery
+                72-Hour SWPPP Delivery
               </div>
-
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-1px', lineHeight: 1.1 }}>
+              <h1 className="text-4xl sm:text-5xl font-black text-white mb-2"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
                 Get Your <span style={{ color: '#f97316' }}>SWPPP</span> Now
               </h1>
-              <p className="text-gray-300 max-w-lg mx-auto text-lg leading-relaxed mb-10">
-                Select your state below to get started. Your fully compliant SWPPP delivered within 72 hours — guaranteed.
-              </p>
-
-              {/* CTA — 2× wide */}
-              <button
-                onClick={handleStartOrder}
-                className="flex items-center justify-center gap-3 rounded-xl text-white font-black text-lg py-5 px-16 transition-all hover:scale-105 active:scale-100 shadow-2xl"
-                style={{ background: '#f97316', minWidth: '340px', letterSpacing: '0.3px' }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}
-              >
-                Start My Order
-                <ChevronRight className="w-6 h-6" />
-              </button>
-
-              {/* Trust row */}
-              <div className="flex items-center justify-center gap-8 mt-12 text-sm text-gray-400 flex-wrap">
-                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-orange-500" />100% Compliant</span>
-                <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-orange-500" />72-Hour Delivery</span>
-                <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-orange-500" />17+ Years Experience</span>
-                <a href="tel:8554387977" className="flex items-center gap-2 text-orange-400 font-semibold no-underline hover:text-orange-300">
-                  <Phone className="w-4 h-4" />855-GET-SWPPP
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Map Phase ────────────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {phase === 'map' && (
-          <motion.div
-            key="map"
-            initial={{ opacity: 0, scale: 0.94, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 1.04, y: -40 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-screen px-4 py-20"
-          >
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
-                  style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
-                  <MapPin className="w-3.5 h-3.5" />Select Your State
-                </div>
-                <h2 className="text-4xl sm:text-5xl font-black text-white mb-3"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
-                  Where Is Your Project?
-                </h2>
-                <p className="text-gray-400 max-w-md mx-auto text-sm">
-                  Click your state to see pricing and begin your order.
-                  <span className="text-orange-400"> Orange states</span> are available now.
+              {selectedCode && (
+                <p className="text-sm text-gray-500 flex items-center justify-center gap-1.5 mt-1">
+                  <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                  {STATE_INFO.find(s => s.code === selectedCode)?.name}
+                  <button onClick={() => { setPhase('map'); setStep(1); }}
+                    className="text-orange-400 underline underline-offset-2 ml-1 hover:text-orange-300">change</button>
                 </p>
-              </div>
-
-              <USOrderMap regions={regions} loading={mapLoading} onStateClick={handleStateClick} />
-
-              <div className="text-center mt-8">
-                <button onClick={() => setPhase('hero')} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
-                  ← Back
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Wizard Phase ─────────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {(phase === 'wizard' || phase === 'done') && (
-          <motion.div
-            key="wizard"
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -60 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-screen px-4 py-16"
-          >
-            {/* Header */}
-            {!submitted && (
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
-                  style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
-                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#fb923c' }} />
-                  72-Hour SWPPP Delivery
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-black text-white mb-2"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
-                  Get Your <span style={{ color: '#f97316' }}>SWPPP</span> Now
-                </h1>
-                {selectedCode && (
-                  <p className="text-sm text-gray-500 flex items-center justify-center gap-1.5 mt-1">
-                    <MapPin className="w-3.5 h-3.5 text-orange-400" />
-                    {STATE_INFO.find(s => s.code === selectedCode)?.name}
-                    <button onClick={() => { setPhase('map'); setStep(1); }}
-                      className="text-orange-400 underline underline-offset-2 ml-1 hover:text-orange-300">change</button>
-                  </p>
-                )}
-              </div>
-            )}
-
-            {/* Progress bar */}
-            {!submitted && <ProgressBar step={step} submitted={submitted} />}
-
-            {/* Form card */}
-            <div className="max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-white/8 p-6 sm:p-8" style={{ background: '#111115' }}>
-                {submitted ? (
-                  <Confirmation form={form} />
-                ) : (
-                  <>
-                    <div className="mb-6">
-                      <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
-                        {stepTitle}
-                      </h2>
-                      <p className="text-xs text-gray-600 mt-0.5">Step {step} of {STEPS.length}</p>
-                    </div>
-
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={step}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {step === 1 && <Step1 form={form} set={set} />}
-                        {step === 2 && <Step2 form={form} set={set} regionData={regionData} pricingLoading={pricingLoading} />}
-                        {step === 3 && <Step3 form={form} set={set} regionData={regionData} />}
-                        {step === 4 && <Step4 form={form} regionData={regionData} onSubmit={handleSubmit} submitting={submitting} />}
-                      </motion.div>
-                    </AnimatePresence>
-
-                    {/* Navigation */}
-                    {step < 4 && (
-                      <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
-                        <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
-                          <ChevronLeft className="w-4 h-4" />
-                          {step === 1 ? 'Change State' : 'Back'}
-                        </button>
-                        <button
-                          onClick={goNext}
-                          disabled={!canProceed()}
-                          className="flex items-center gap-2 rounded-lg text-white font-bold px-6 py-3 text-sm transition-all"
-                          style={{
-                            background: canProceed() ? '#f97316' : 'rgba(249,115,22,0.35)',
-                            cursor: canProceed() ? 'pointer' : 'not-allowed',
-                          }}
-                          onMouseEnter={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#ea6010'; }}
-                          onMouseLeave={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#f97316'; }}
-                        >
-                          {step === 3 ? 'Review Order' : 'Continue'}
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-
-              {/* Trust footer */}
-              {!submitted && (
-                <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-600 flex-wrap">
-                  <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-gray-500" />SSL Encrypted</span>
-                  <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-gray-500" />72-Hour Delivery</span>
-                  <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-gray-500" />100% Compliant or FREE</span>
-                </div>
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
 
-      {/* ── Inactive state modal ──────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {inactiveModal && (
-          <InactiveStateModal
-            stateName={inactiveModal.name}
-            onClose={() => setInactiveModal(null)}
-          />
-        )}
-      </AnimatePresence>
+          {!submitted && <ProgressBar step={step} submitted={submitted} />}
+
+          <div className="max-w-2xl mx-auto">
+            <div className="rounded-2xl border border-white/10 p-6 sm:p-8" style={{ background: '#111115' }}>
+              {submitted ? (
+                <Confirmation form={form} />
+              ) : (
+                <>
+                  <div className="mb-6">
+                    <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
+                      {stepTitle}
+                    </h2>
+                    <p className="text-xs text-gray-600 mt-0.5">Step {step} of {STEPS.length}</p>
+                  </div>
+
+                  {step === 1 && <Step1 form={form} set={set} />}
+                  {step === 2 && <Step2 form={form} set={set} regionData={regionData} pricingLoading={pricingLoading} />}
+                  {step === 3 && <Step3 form={form} set={set} regionData={regionData} />}
+                  {step === 4 && <Step4 form={form} regionData={regionData} onSubmit={handleSubmit} submitting={submitting} />}
+
+                  {step < 4 && (
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/5">
+                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                        <ChevronLeft className="w-4 h-4" />
+                        {step === 1 ? 'Change State' : 'Back'}
+                      </button>
+                      <button
+                        onClick={goNext}
+                        disabled={!canProceed()}
+                        className="flex items-center gap-2 rounded-lg text-white font-bold px-6 py-3 text-sm transition-all"
+                        style={{
+                          background: canProceed() ? '#f97316' : 'rgba(249,115,22,0.35)',
+                          cursor: canProceed() ? 'pointer' : 'not-allowed',
+                        }}
+                        onMouseEnter={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#ea6010'; }}
+                        onMouseLeave={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#f97316'; }}
+                      >
+                        {step === 3 ? 'Review Order' : 'Continue'}
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {!submitted && (
+              <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-600 flex-wrap">
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-gray-500" />SSL Encrypted</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-gray-500" />72-Hour Delivery</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-gray-500" />100% Compliant or FREE</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── Inactive state modal ── */}
+      {inactiveModal && (
+        <InactiveStateModal
+          stateName={inactiveModal.name}
+          onClose={() => setInactiveModal(null)}
+        />
+      )}
     </div>
   );
 }
