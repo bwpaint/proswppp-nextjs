@@ -158,8 +158,8 @@ interface SopRegion {
   id: number;
   name: string;
   slug: string;
-  is_active: string | boolean;
-  has_sub_regions: string | boolean;
+  is_active: string | boolean | number;
+  has_sub_regions: string | boolean | number;
 }
 
 interface RegionPricing {
