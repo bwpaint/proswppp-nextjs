@@ -81,7 +81,57 @@ const STATE_INFO: { code: string; name: string; slug: string }[] = [
   { code: 'WY', name: 'Wyoming',        slug: 'wyoming'        },
 ];
 
-// ─── US SVG state paths (standard 959×593 projection) ─────────────────────────
+// ─── TopoJSON decoder — same approach as /locations page (no external packages) ─
+type RawArc   = [number, number][];
+type ScreenPt = [number, number];
+
+function decodeArcs(topology: any): ScreenPt[][] {
+  const { scale = [1, 1], translate = [0, 0] } = topology.transform ?? {};
+  return (topology.arcs as RawArc[]).map(arc => {
+    let x = 0, y = 0;
+    return arc.map(([dx, dy]) => {
+      x += dx; y += dy;
+      return [x * scale[0] + translate[0], y * scale[1] + translate[1]] as ScreenPt;
+    });
+  });
+}
+
+function ringToD(decoded: ScreenPt[][], indices: number[]): string {
+  const pts: ScreenPt[] = [];
+  for (const idx of indices) {
+    const arc = idx >= 0 ? decoded[idx] : [...decoded[~idx]].reverse();
+    pts.length === 0 ? pts.push(...arc) : pts.push(...arc.slice(1));
+  }
+  if (!pts.length) return '';
+  let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) d += `L${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`;
+  return d + 'Z';
+}
+
+function geoToD(geo: any, decoded: ScreenPt[][]): string {
+  if (geo.type === 'Polygon')
+    return (geo.arcs as number[][]).map(r => ringToD(decoded, r)).join(' ');
+  if (geo.type === 'MultiPolygon')
+    return (geo.arcs as number[][][]).map(poly => poly.map(r => ringToD(decoded, r)).join(' ')).join(' ');
+  return '';
+}
+
+interface StatePath { abbr: string; name: string; d: string; }
+
+const NAME_TO_ABBR: Record<string, string> = {
+  'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+  'Colorado':'CO','Connecticut':'CT','Delaware':'DE','Florida':'FL','Georgia':'GA',
+  'Hawaii':'HI','Idaho':'ID','Illinois':'IL','Indiana':'IN','Iowa':'IA','Kansas':'KS',
+  'Kentucky':'KY','Louisiana':'LA','Maine':'ME','Maryland':'MD','Massachusetts':'MA',
+  'Michigan':'MI','Minnesota':'MN','Mississippi':'MS','Missouri':'MO','Montana':'MT',
+  'Nebraska':'NE','Nevada':'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM',
+  'New York':'NY','North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK',
+  'Oregon':'OR','Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC',
+  'South Dakota':'SD','Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT',
+  'Virginia':'VA','Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY',
+};
+
+// ─── (STATE_SVG_PATHS removed — map now uses /us-states.json TopoJSON) ──────────
 const STATE_SVG_PATHS: Record<string, string> = {
   AL: 'M 680.61 441.07 L 669.46 440.41 L 669.78 408.54 L 672.39 396.41 L 682.35 397.04 L 697.05 399.05 L 701.09 406.28 L 699.73 439.75 Z',
   AK: 'M 188.54 518.76 L 179.99 507.11 L 182.48 494.79 L 188.54 487.83 L 198.1 488.06 L 205.04 501.34 L 201.01 514.62 Z M 152 529 L 133 527 L 119 516 L 119 500 L 133 491 L 148 496 L 158 510 Z',
@@ -190,6 +240,18 @@ interface LeadForm {
   name: string; company: string; email: string; phone: string; message: string;
 }
 
+// ─── Pricing from ProSWPPP-Pricing-Master.xlsx ────────────────────────────────
+const STATE_PRICES: Record<string, number> = {
+  AL: 2497, AK: 3897, AZ: 2497, AR: 1997, CA: 5997, CO: 1997, CT: 3497,
+  DE: 3497, FL: 1997, GA: 2497, HI: 3897, ID: 2497, IL: 4997, IN: 7997,
+  IA: 2997, KS: 2497, KY: 2497, LA: 1797, ME: 3497, MD: 3497, MA: 3497,
+  MI: 3497, MN: 2497, MS: 1897, MO: 2497, MT: 3497, NE: 2497, NV: 2497,
+  NH: 3497, NJ: 3897, NM: 2497, NY: 3997, NC: 2497, ND: 2497, OH: 2897,
+  OK: 1797, OR: 3497, PA: 3497, RI: 3497, SC: 2497, SD: 2497, TN: 1997,
+  TX: 1797, UT: 2797, VT: 3897, VA: 5997, WA: 2797, WV: 2497, WI: 2897,
+  WY: 2497,
+};
+
 const LAND_OPTIONS = [
   'Under 1 Acre', '1 to 5 Acres', '5 to 10 Acres', '10 to 25 Acres', '25+ Acres',
 ];
@@ -197,7 +259,7 @@ const SERVICE_OPTIONS = [
   'New SWPPP', 'SWPPP Revision / Update', 'SWPPP Inspection',
   'Annual Report', 'SWPPP Training', 'General Question',
 ];
-const FALLBACK_PRICE = 2497;
+const FALLBACK_PRICE = 2497; // used only if state not in STATE_PRICES
 
 const EMPTY_ORDER: OrderForm = {
   firstName: '', lastName: '', company: '', email: '', phone: '',
@@ -215,7 +277,7 @@ const fmt = (n: number) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
 function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
-  const base = pricing?.pricing?.certified_price ?? FALLBACK_PRICE;
+  const base = pricing?.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE;
   const ep = form.ePortal ? (pricing?.pricing?.eportal_price ?? 197) * form.ePortalMonths : 0;
   const cp = form.cpesc ? (pricing?.pricing?.inspection_price ?? 297) * form.cpescMonths : 0;
   const bd = form.hardCopy ? (pricing?.pricing?.binder_price ?? 300) : 0;
@@ -293,111 +355,129 @@ function USOrderMap({
   loading: boolean;
   onStateClick: (code: string, slug: string, active: boolean) => void;
 }) {
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; name: string } | null>(null);
+  const [statePaths, setStatePaths] = useState<StatePath[]>([]);
+  const [hovered, setHovered]       = useState<string | null>(null);
+  const [tooltip, setTooltip]       = useState<{ name: string; cx: number; cy: number } | null>(null);
 
   const activeSlugSet = new Set(
     regions.filter(r => r.is_active == 1 || r.is_active === true || r.is_active === '1').map(r => r.slug)
   );
 
-  const getStateColor = (code: string) => {
-    const info = STATE_INFO.find(s => s.code === code);
-    if (!info) return '#334155';
-    const active = activeSlugSet.has(info.slug);
-    if (hovered === code) return active ? '#f97316' : '#475569';
-    return active ? '#ea6010' : '#1e3a5f';
-  };
-
-  const handleClick = (code: string) => {
-    const info = STATE_INFO.find(s => s.code === code);
-    if (!info) return;
-    const active = activeSlugSet.has(info.slug);
-    onStateClick(code, info.slug, active);
-  };
+  // Fetch the same /us-states.json used by the /locations page
+  useEffect(() => {
+    fetch('/us-states.json')
+      .then(r => r.json())
+      .then((topology: any) => {
+        const decoded = decodeArcs(topology);
+        const features: StatePath[] = topology.objects.states.geometries
+          .map((geo: any) => {
+            const name = geo.properties?.name ?? '';
+            const abbr = NAME_TO_ABBR[name] ?? '';
+            const d    = geoToD(geo, decoded);
+            return { abbr, name, d };
+          })
+          .filter((s: StatePath) => s.abbr && s.d);
+        setStatePaths(features);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
-    <div className="relative w-full">
+    <div style={{ width: '80%', margin: '0 auto' }}>
+      {/* Loading overlay for SOP API */}
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 rounded-xl" style={{ background: 'rgba(10,10,12,0.7)' }}>
-          <div className="flex items-center gap-3 text-sm text-gray-300">
-            <div className="w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
             Loading state availability…
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-center gap-6 mb-4 text-xs text-gray-400">
-        <span className="flex items-center gap-2">
-          <span className="inline-block w-3 h-3 rounded-sm" style={{ background: '#ea6010' }} />
-          Available — click to order
-        </span>
-        <span className="flex items-center gap-2">
-          <span className="inline-block w-3 h-3 rounded-sm" style={{ background: '#1e3a5f' }} />
-          Contact us for service
-        </span>
-      </div>
-
-      <svg viewBox="0 0 959 593" className="w-full rounded-xl" style={{ maxHeight: '480px' }}>
-        <rect width="959" height="593" fill="#0d1117" rx="12" />
-
-        {Object.entries(STATE_SVG_PATHS).map(([code, path]) => {
-          const info = STATE_INFO.find(s => s.code === code);
-          const active = info ? activeSlugSet.has(info.slug) : false;
-          const isHovered = hovered === code;
-
-          return (
-            <g key={code}>
-              <path
-                d={path}
-                fill={getStateColor(code)}
-                stroke="#0d1117"
-                strokeWidth="1.5"
-                style={{
-                  cursor: 'pointer',
-                  transition: 'fill 0.15s ease',
-                  filter: isHovered ? 'brightness(1.2)' : 'none',
-                }}
-                onMouseEnter={e => {
-                  setHovered(code);
-                  const svgEl = e.currentTarget.closest('svg');
-                  if (!svgEl) return;
-                  const svgRect = svgEl.getBoundingClientRect();
-                  const pathRect = (e.currentTarget as SVGPathElement).getBoundingClientRect();
-                  setTooltip({
-                    x: pathRect.left - svgRect.left + pathRect.width / 2,
-                    y: pathRect.top - svgRect.top - 8,
-                    name: info?.name ?? code,
-                  });
-                }}
-                onMouseLeave={() => { setHovered(null); setTooltip(null); }}
-                onClick={() => handleClick(code)}
-              />
-              {STATE_LABELS[code] && (
-                <text
-                  x={STATE_LABELS[code][0]}
-                  y={STATE_LABELS[code][1]}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="9"
-                  fill={active ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)'}
-                  style={{ pointerEvents: 'none', userSelect: 'none', fontWeight: 600, letterSpacing: '0.5px' }}
-                >
-                  {code}
-                </text>
-              )}
-            </g>
-          );
-        })}
-
-        {tooltip && (
-          <g transform={`translate(${tooltip.x},${tooltip.y})`} style={{ pointerEvents: 'none' }}>
-            <rect x="-40" y="-22" width="80" height="20" rx="4" fill="#1f2937" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-            <text x="0" y="-10" textAnchor="middle" dominantBaseline="middle" fontSize="8.5" fill="white" fontWeight="600">
-              {tooltip.name}
-            </text>
-          </g>
+      {/* Map container — identical to /locations page */}
+      <div
+        className="rounded-2xl overflow-hidden"
+        style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)' }}
+      >
+        {statePaths.length === 0 && (
+          <div className="flex items-center justify-center" style={{ minHeight: 400 }}>
+            <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.9rem' }}>Loading map…</p>
+          </div>
         )}
-      </svg>
+
+        {statePaths.length > 0 && (
+          <svg
+            viewBox="0 0 975 610"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+            aria-label="Interactive map of US states"
+            onMouseLeave={() => { setTooltip(null); setHovered(null); }}
+          >
+            {statePaths.map(({ abbr, name, d }) => {
+              const info   = STATE_INFO.find(s => s.code === abbr);
+              const active = info ? activeSlugSet.has(info.slug) : false;
+              const isHov  = hovered === abbr;
+              const fill   = active ? (isHov ? '#d4692a' : '#EF7C3B') : '#6B9ED1';
+              return (
+                <path
+                  key={abbr}
+                  d={d}
+                  fill={fill}
+                  stroke={active ? '#000' : '#555555'}
+                  strokeWidth={active ? 0.8 : 0.5}
+                  style={{ cursor: 'pointer', transition: 'fill 0.15s ease' }}
+                  onMouseEnter={e => {
+                    if (active) setHovered(abbr);
+                    const box = (e.currentTarget as SVGPathElement).getBBox();
+                    setTooltip({ name, cx: box.x + box.width / 2, cy: box.y });
+                  }}
+                  onMouseLeave={() => { setHovered(null); setTooltip(null); }}
+                  onClick={() => {
+                    if (!info) return;
+                    onStateClick(abbr, info.slug, active);
+                  }}
+                />
+              );
+            })}
+
+            {tooltip && (
+              <g style={{ pointerEvents: 'none' }}>
+                <rect
+                  x={tooltip.cx - 56} y={tooltip.cy - 32}
+                  width={112} height={24} rx={4}
+                  fill="rgba(0,0,0,0.88)"
+                  stroke="rgba(239,124,59,0.6)"
+                  strokeWidth={0.75}
+                />
+                <text
+                  x={tooltip.cx} y={tooltip.cy - 16}
+                  textAnchor="middle" fill="#fff"
+                  fontSize={9.5}
+                  fontFamily="'Inter','Helvetica Neue',Arial,sans-serif"
+                  fontWeight={700}
+                >
+                  {tooltip.name}
+                </text>
+              </g>
+            )}
+          </svg>
+        )}
+
+        {/* Legend — identical to /locations page */}
+        <div
+          className="flex flex-wrap items-center gap-6 px-6 py-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <div className="flex items-center gap-2">
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#EF7C3B' }} />
+            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)' }}>Available — click to order</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#6B9ED1', border: '1px solid #5a7ab0' }} />
+            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)' }}>Contact us for service</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -601,7 +681,7 @@ function Step2({
             <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
             <span className="text-sm text-green-400">
               Base price for <strong className="text-green-300">{regionData.region.name}</strong>:{' '}
-              <strong>{fmt(regionData.pricing?.certified_price ?? FALLBACK_PRICE)}</strong>
+              <strong>{fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}</strong>
             </span>
           </div>
         )}
@@ -826,32 +906,135 @@ function Step4({ form, regionData, onSubmit, submitting }: {
   );
 }
 
-// ─── Confirmation ──────────────────────────────────────────────────────────────
-function Confirmation({ form }: { form: OrderForm }) {
+// ─── Confirmation / Receipt ────────────────────────────────────────────────────
+function Confirmation({ form, regionData, onReset }: {
+  form: OrderForm;
+  regionData: RegionPricing | null;
+  onReset: () => void;
+}) {
+  const totals   = calcTotal(form, regionData);
+  const stateName = STATE_INFO.find(s => s.code === form.projectState)?.name ?? form.projectState;
+  // Generate a short reference ID — in production this would come from the API response
+  const orderId  = `SWP-${Date.now().toString().slice(-7)}`;
+
   return (
-    <div className="text-center py-10">
-      <div className="w-16 h-16 rounded-full border border-green-500/30 flex items-center justify-center mx-auto mb-6" style={{ background: 'rgba(34,197,94,0.1)' }}>
-        <CheckCircle2 className="w-8 h-8 text-green-400" />
+    <div className="py-4">
+      {/* ── Success header ── */}
+      <div className="text-center mb-8">
+        <div className="w-16 h-16 rounded-full border border-green-500/30 flex items-center justify-center mx-auto mb-4"
+          style={{ background: 'rgba(34,197,94,0.1)' }}>
+          <CheckCircle2 className="w-8 h-8 text-green-400" />
+        </div>
+        <h2 className="text-3xl font-black text-white mb-2"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
+          Order Received!
+        </h2>
+        <p className="text-sm text-gray-400 leading-relaxed">
+          Thank you, <span className="font-semibold text-white">{form.firstName}</span>!{' '}
+          A confirmation has been sent to{' '}
+          <span className="font-semibold text-white">{form.email}</span>.
+        </p>
+        <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-mono mt-3"
+          style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
+          Order {orderId}
+        </div>
       </div>
-      <h2 className="text-3xl font-black text-white mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
-        Order Submitted!
-      </h2>
-      <p className="text-gray-400 max-w-sm mx-auto mb-8 text-sm leading-relaxed">
-        Thank you, <span className="font-semibold text-white">{form.firstName}</span>. We&apos;ve received your order and will begin within 24 hours.
-        Confirmation sent to <span className="font-semibold text-white">{form.email}</span>.
-      </p>
-      <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
-        {[
-          { icon: Clock, label: '72-Hour', sub: 'Delivery guaranteed' },
-          { icon: Shield, label: '100%', sub: 'Compliance guaranteed' },
-          { icon: CheckCircle2, label: '17+ Years', sub: 'Industry experience' },
-        ].map(({ icon: Icon, label, sub }) => (
-          <div key={label} className="rounded-xl border border-white/10 p-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
-            <Icon className="w-5 h-5 text-orange-500 mx-auto mb-2" />
-            <p className="text-sm font-bold text-white">{label}</p>
-            <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
+
+      {/* ── Receipt ── */}
+      <div className="rounded-xl border border-white/10 p-5 mb-4" style={{ background: '#1A1A1F' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-4">Receipt</p>
+
+        <div className="space-y-4 text-sm">
+          {/* Contact */}
+          <div>
+            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
+            {form.company && <p className="text-gray-400">{form.company}</p>}
+            <p className="text-gray-400">{form.email}</p>
+            {form.phone && <p className="text-gray-400">{form.phone}</p>}
           </div>
-        ))}
+
+          {/* Project */}
+          <div className="border-t border-white/5 pt-4">
+            <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-white font-semibold">{form.projectName}</p>
+            {form.projectStreet && <p className="text-gray-400">{form.projectStreet}</p>}
+            <p className="text-gray-400">
+              {form.projectCity ? `${form.projectCity}, ` : ''}{stateName} {form.projectZip}
+            </p>
+            <p className="text-gray-400">{form.landDisturbance} · {form.serviceNeeded}</p>
+            {form.startDate && (
+              <p className="text-gray-400">
+                Start: {form.startDate}{form.endDate ? ` — End: ${form.endDate}` : ''}
+              </p>
+            )}
+          </div>
+
+          {/* Pricing breakdown */}
+          <div className="border-t border-white/5 pt-4 space-y-2.5">
+            <p className="text-xs text-gray-600 uppercase tracking-wide mb-2">Pricing</p>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Base SWPPP — {stateName}</span>
+              <span className="text-white">{fmt(totals.base)}</span>
+            </div>
+            {form.ePortal && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">E-Portal Access ({form.ePortalMonths} mo)</span>
+                <span className="text-white">{fmt(totals.ep)}</span>
+              </div>
+            )}
+            {form.cpesc && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">CPESC Inspections ({form.cpescMonths} mo)</span>
+                <span className="text-white">{fmt(totals.cp)}</span>
+              </div>
+            )}
+            {form.hardCopy && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">Hard Copy Binders</span>
+                <span className="text-white">{fmt(totals.bd)}</span>
+              </div>
+            )}
+            <div className="flex justify-between border-t border-orange-500/20 pt-3">
+              <span className="font-bold text-white">Total Charged</span>
+              <span className="text-2xl font-black text-orange-500">{fmt(totals.total)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── What happens next ── */}
+      <div className="rounded-xl border border-white/10 p-5 mb-6" style={{ background: '#1A1A1F' }}>
+        <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-3">What Happens Next</p>
+        <div className="space-y-3">
+          {[
+            { icon: CheckCircle2, text: 'You\'ll receive an email confirmation within minutes.' },
+            { icon: Clock,        text: 'Our team begins preparation within 24 hours of your order.' },
+            { icon: FileText,     text: 'Your completed SWPPP is delivered within 72 hours.' },
+            { icon: Shield,       text: '100% compliant or we revise it free of charge — guaranteed.' },
+          ].map(({ icon: Icon, text }) => (
+            <div key={text} className="flex items-start gap-3">
+              <Icon className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
+              <span className="text-sm text-gray-300">{text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Actions ── */}
+      <div className="flex flex-col sm:flex-row items-center gap-3">
+        <a href="tel:8554387977"
+          className="flex items-center justify-center gap-2 rounded-lg border border-white/10 px-5 py-3 text-sm font-semibold text-gray-300 hover:text-white hover:border-white/20 transition-all w-full sm:w-auto"
+          style={{ background: 'rgba(255,255,255,0.03)' }}>
+          <Phone className="w-4 h-4" />Call Us: 855-GET-SWPPP
+        </a>
+        <button onClick={onReset}
+          className="flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold text-white w-full sm:w-auto transition-all"
+          style={{ background: '#f97316' }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}>
+          Start a New Order <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );
@@ -999,10 +1182,38 @@ export default function GetYourSwpppClient() {
     scrollToTop();
   };
 
+  // ── Reset — clears all state and returns to hero ──────────────────────────────
+  const handleReset = () => {
+    setPhase('hero');
+    setStep(1);
+    setForm(EMPTY_ORDER);
+    setSelectedCode('');
+    setSelectedSlug('');
+    setRegionData(null);
+    setSubmitting(false);
+    setSubmitted(false);
+    setInactiveModal(null);
+    setTimeout(scrollToTop, 50);
+  };
+
   const stepTitle = ['', 'Contact Information', 'Project Details', 'Services & Add-ons', 'Review & Payment'][step];
 
   return (
     <div ref={topRef} className="min-h-screen" style={{ background: '#0A0A0C', color: '#F2F2F0', fontFamily: "'Inter', system-ui, sans-serif" }}>
+
+      {/* ── Reset button — fixed top-right, visible on all non-hero phases ── */}
+      {phase !== 'hero' && (
+        <div className="fixed top-4 right-4 z-50">
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-gray-400 hover:text-white hover:border-white/20 transition-all"
+            style={{ background: 'rgba(10,10,12,0.92)', backdropFilter: 'blur(8px)' }}
+            title="Start over from the beginning"
+          >
+            <X className="w-3.5 h-3.5" />Start Over
+          </button>
+        </div>
+      )}
 
       {/* ── Hero ── */}
       {phase === 'hero' && (
@@ -1109,7 +1320,7 @@ export default function GetYourSwpppClient() {
           <div className="max-w-2xl mx-auto">
             <div className="rounded-2xl border border-white/10 p-6 sm:p-8" style={{ background: '#111115' }}>
               {submitted ? (
-                <Confirmation form={form} />
+                <Confirmation form={form} regionData={regionData} onReset={handleReset} />
               ) : (
                 <>
                   <div className="mb-6">
