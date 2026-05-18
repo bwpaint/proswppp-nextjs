@@ -108,6 +108,23 @@ export default function HeroSection() {
         }}
       />
 
+      {/* CSS keyframes for the risk-score needle — runs whenever the
+          `.ww-needle` element is in the DOM. More reliable than SMIL. */}
+      <style>{`
+        @keyframes wwNeedleSweep {
+          0%   { transform: rotate(-30deg); }
+          25%  { transform: rotate(15deg); }
+          50%  { transform: rotate(-10deg); }
+          75%  { transform: rotate(65deg); }
+          100% { transform: rotate(-30deg); }
+        }
+        .ww-needle {
+          transform-box: view-box;
+          transform-origin: 100px 100px;
+          animation: wwNeedleSweep 10s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* Two-column content */}
       <div className="relative z-10 container py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -427,10 +444,11 @@ export default function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                       />
-                      {/* Needle — clean line with the dot at the pivot (base),
-                          not the tip. Native SVG animateTransform pivots
-                          around (100,100) explicitly via 'angle cx cy'. */}
-                      <g>
+                      {/* Needle — CSS keyframe animation (more reliable than
+                          SMIL on dynamic mount). transform-box: view-box +
+                          transform-origin: 100px 100px pins the rotation at
+                          the gauge base. */}
+                      <g className="ww-needle">
                         <line
                           x1="100"
                           y1="100"
@@ -439,18 +457,6 @@ export default function HeroSection() {
                           stroke="#EF7C3B"
                           strokeWidth="3"
                           strokeLinecap="round"
-                        />
-                        <animateTransform
-                          attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          values="-30 100 100; 15 100 100; -10 100 100; 65 100 100; -30 100 100"
-                          keyTimes="0; 0.25; 0.5; 0.75; 1"
-                          begin="0s"
-                          dur="10s"
-                          repeatCount="indefinite"
-                          calcMode="spline"
-                          keySplines="0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1"
                         />
                       </g>
                       {/* Center pivot cap */}
