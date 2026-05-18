@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const ROTATE_MS = 4000;
+const ROTATE_MS = 8000;
 const PHASES = ["photo", "text", "risk"] as const;
 type Phase = (typeof PHASES)[number];
 
@@ -429,7 +429,7 @@ export default function HeroSection() {
                             paused
                               ? { duration: 0.4, ease: "easeOut" }
                               : {
-                                  duration: 4,
+                                  duration: 8,
                                   repeat: Infinity,
                                   ease: "easeInOut",
                                   times: [0, 0.25, 0.5, 0.75, 1],
