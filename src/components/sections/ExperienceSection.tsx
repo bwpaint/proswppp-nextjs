@@ -28,24 +28,11 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-gray-300 max-w-2xl mx-auto mb-12"
+          className="text-gray-300 max-w-2xl mx-auto"
         >
           20+ years of experience with a long-standing track record of delivering
           fully compliant SWPPP solutions on time, every time.
         </motion.p>
-
-        {/* 17+ stat */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className="stat-number text-8xl lg:text-9xl mb-4">20+</div>
-          <h3 className="section-heading text-white text-2xl lg:text-3xl">
-            Years of Experience
-          </h3>
-        </motion.div>
 
       </div>
     </section>
