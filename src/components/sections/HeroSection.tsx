@@ -245,6 +245,7 @@ export default function HeroSection() {
                 fontWeight: 900,
                 letterSpacing: "0.2em",
                 color: "#EF7C3B",
+                textAlign: "center",
               }}
             >
               Who We Are
@@ -258,6 +259,7 @@ export default function HeroSection() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
+                textAlign: "center",
               }}
             >
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
