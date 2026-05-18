@@ -21,6 +21,37 @@ import { useEffect, useState } from "react";
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
 const ROTATE_MS = 4000;
+const PHASES = ["photo", "text", "risk"] as const;
+type Phase = (typeof PHASES)[number];
+
+// US states for the Live Risk Score dropdown — selecting one jumps to the quiz.
+const US_STATES: { code: string; name: string }[] = [
+  { code: "AL", name: "Alabama" }, { code: "AK", name: "Alaska" },
+  { code: "AZ", name: "Arizona" }, { code: "AR", name: "Arkansas" },
+  { code: "CA", name: "California" }, { code: "CO", name: "Colorado" },
+  { code: "CT", name: "Connecticut" }, { code: "DE", name: "Delaware" },
+  { code: "FL", name: "Florida" }, { code: "GA", name: "Georgia" },
+  { code: "HI", name: "Hawaii" }, { code: "ID", name: "Idaho" },
+  { code: "IL", name: "Illinois" }, { code: "IN", name: "Indiana" },
+  { code: "IA", name: "Iowa" }, { code: "KS", name: "Kansas" },
+  { code: "KY", name: "Kentucky" }, { code: "LA", name: "Louisiana" },
+  { code: "ME", name: "Maine" }, { code: "MD", name: "Maryland" },
+  { code: "MA", name: "Massachusetts" }, { code: "MI", name: "Michigan" },
+  { code: "MN", name: "Minnesota" }, { code: "MS", name: "Mississippi" },
+  { code: "MO", name: "Missouri" }, { code: "MT", name: "Montana" },
+  { code: "NE", name: "Nebraska" }, { code: "NV", name: "Nevada" },
+  { code: "NH", name: "New Hampshire" }, { code: "NJ", name: "New Jersey" },
+  { code: "NM", name: "New Mexico" }, { code: "NY", name: "New York" },
+  { code: "NC", name: "North Carolina" }, { code: "ND", name: "North Dakota" },
+  { code: "OH", name: "Ohio" }, { code: "OK", name: "Oklahoma" },
+  { code: "OR", name: "Oregon" }, { code: "PA", name: "Pennsylvania" },
+  { code: "RI", name: "Rhode Island" }, { code: "SC", name: "South Carolina" },
+  { code: "SD", name: "South Dakota" }, { code: "TN", name: "Tennessee" },
+  { code: "TX", name: "Texas" }, { code: "UT", name: "Utah" },
+  { code: "VT", name: "Vermont" }, { code: "VA", name: "Virginia" },
+  { code: "WA", name: "Washington" }, { code: "WV", name: "West Virginia" },
+  { code: "WI", name: "Wisconsin" }, { code: "WY", name: "Wyoming" },
+];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -32,16 +63,25 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  // Right-column rotating card: true = photo, false = descriptive text.
-  // Rotation pauses while the user is hovering over the card.
-  const [showPhoto, setShowPhoto] = useState(true);
+  // Right-column rotating card cycles photo -> descriptive text -> live risk score.
+  // Rotation pauses while the user is hovering or focused inside the card.
+  const [phaseIdx, setPhaseIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  const phase: Phase = PHASES[phaseIdx];
 
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(() => setShowPhoto((p) => !p), ROTATE_MS);
+    const id = setInterval(
+      () => setPhaseIdx((i) => (i + 1) % PHASES.length),
+      ROTATE_MS
+    );
     return () => clearInterval(id);
   }, [paused]);
+
+  const handleStatePick = (code: string) => {
+    if (!code) return;
+    window.location.href = `/quiz-form/?state=${encodeURIComponent(code)}`;
+  };
 
   return (
     <section
@@ -244,7 +284,7 @@ export default function HeroSection() {
               }}
             >
               <AnimatePresence mode="wait" initial={false}>
-                {showPhoto ? (
+                {phase === "photo" && (
                   <motion.div
                     key="photo"
                     initial={{ opacity: 0 }}
@@ -264,7 +304,9 @@ export default function HeroSection() {
                       }}
                     />
                   </motion.div>
-                ) : (
+                )}
+
+                {phase === "text" && (
                   <motion.div
                     key="text"
                     initial={{ opacity: 0 }}
@@ -308,6 +350,185 @@ export default function HeroSection() {
                       No waiting weeks. No confusing templates. Just a permit-ready
                       plan in your inbox.
                     </p>
+                  </motion.div>
+                )}
+
+                {phase === "risk" && (
+                  <motion.div
+                    key="risk"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      padding: "1.25rem 1.5rem",
+                      background:
+                        "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    {/* Header */}
+                    <div style={{ textAlign: "center" }}>
+                      <p
+                        style={{
+                          color: "#EF7C3B",
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontSize: "0.7rem",
+                          fontWeight: 900,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          margin: "0 0 0.35rem",
+                        }}
+                      >
+                        Live SWPPP Risk Score
+                      </p>
+                      <h3
+                        style={{
+                          color: "#fff",
+                          fontFamily:
+                            "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                          fontSize: "1.45rem",
+                          fontWeight: 900,
+                          margin: 0,
+                          letterSpacing: "-0.01em",
+                          lineHeight: 1.15,
+                        }}
+                      >
+                        Is Your Project at Risk?
+                      </h3>
+                    </div>
+
+                    {/* Animated gauge — smooth needle sweep */}
+                    <svg
+                      viewBox="0 0 200 130"
+                      style={{ width: "100%", maxWidth: "300px", height: "auto" }}
+                      aria-hidden="true"
+                    >
+                      {/* LOW arc (left, green) */}
+                      <path
+                        d="M 30 100 A 70 70 0 0 1 100 30"
+                        stroke="#22C55E"
+                        strokeWidth="14"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      {/* HIGH arc (right, red) */}
+                      <path
+                        d="M 100 30 A 70 70 0 0 1 170 100"
+                        stroke="#EF4444"
+                        strokeWidth="14"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      {/* Needle group — translate to pivot point, then rotate */}
+                      <g transform="translate(100, 100)">
+                        <motion.g
+                          animate={
+                            paused
+                              ? { rotate: 0 }
+                              : { rotate: [-30, 15, -10, 65, -30] }
+                          }
+                          transition={
+                            paused
+                              ? { duration: 0.4, ease: "easeOut" }
+                              : {
+                                  duration: 4,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                  times: [0, 0.25, 0.5, 0.75, 1],
+                                }
+                          }
+                        >
+                          <line
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="-58"
+                            stroke="#EF7C3B"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                          />
+                          <circle cx="0" cy="-58" r="4" fill="#EF7C3B" />
+                        </motion.g>
+                      </g>
+                      {/* Center pivot cap */}
+                      <circle
+                        cx="100"
+                        cy="100"
+                        r="9"
+                        fill="#0D1F2B"
+                        stroke="#EF7C3B"
+                        strokeWidth="2"
+                      />
+                      {/* Labels */}
+                      <text
+                        x="22"
+                        y="120"
+                        fill="#22C55E"
+                        fontSize="11"
+                        fontWeight="800"
+                        fontFamily="'Inter', Arial, sans-serif"
+                      >
+                        LOW
+                      </text>
+                      <text
+                        x="178"
+                        y="120"
+                        textAnchor="end"
+                        fill="#EF4444"
+                        fontSize="11"
+                        fontWeight="800"
+                        fontFamily="'Inter', Arial, sans-serif"
+                      >
+                        HIGH
+                      </text>
+                    </svg>
+
+                    {/* State dropdown */}
+                    <div style={{ width: "100%", textAlign: "center" }}>
+                      <p
+                        style={{
+                          color: "rgba(255,255,255,0.78)",
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontSize: "0.82rem",
+                          margin: "0 0 0.5rem",
+                        }}
+                      >
+                        Pick your state to check your risk:
+                      </p>
+                      <select
+                        defaultValue=""
+                        onChange={(e) => handleStatePick(e.target.value)}
+                        style={{
+                          width: "100%",
+                          maxWidth: "260px",
+                          background: "rgba(255,255,255,0.08)",
+                          border: "1px solid rgba(239,124,59,0.45)",
+                          borderRadius: "8px",
+                          color: "#fff",
+                          padding: "0.6rem 0.85rem",
+                          fontSize: "0.9rem",
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontWeight: 600,
+                          outline: "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <option value="" style={{ color: "#222" }}>
+                          Select your state…
+                        </option>
+                        {US_STATES.map((s) => (
+                          <option key={s.code} value={s.code} style={{ color: "#222" }}>
+                            {s.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
