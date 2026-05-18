@@ -142,7 +142,7 @@ export default function HeroSection() {
       `}</style>
 
       {/* Two-column content */}
-      <div className="relative z-10 container py-10 lg:py-16">
+      <div className="relative z-10 container pt-20 lg:pt-32 pb-16 lg:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────

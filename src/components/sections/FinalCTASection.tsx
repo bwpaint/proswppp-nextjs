@@ -13,7 +13,7 @@ import { Phone } from "lucide-react";
 
 export default function FinalCTASection() {
   return (
-    <section className="py-16 lg:py-20" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
+    <section className="pt-8 lg:pt-10 pb-16 lg:pb-20" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
       <div className="container text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

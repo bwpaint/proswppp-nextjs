@@ -16,9 +16,9 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-10 lg:py-12" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
+    <section className="py-14 lg:py-16" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
       <div className="container">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
