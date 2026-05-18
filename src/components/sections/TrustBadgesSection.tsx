@@ -110,44 +110,42 @@ export default function TrustBadgesSection() {
         overflow: "hidden",
       }}
     >
-      {/* Section label */}
+      {/* Section heading — big "What Our Customers Are Saying" */}
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "1rem",
-          marginBottom: "3rem",
+          maxWidth: "48rem",
+          margin: "0 auto 3rem",
+          padding: "0 1rem",
+          textAlign: "center",
         }}
       >
-        <span
+        <p
           style={{
-            display: "block",
-            width: "3rem",
-            height: "2px",
-            background: "#EF7C3B",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontFamily: "'Roboto', Arial, sans-serif",
             fontWeight: 900,
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
             color: "#EF7C3B",
             textTransform: "uppercase",
+            margin: "0 0 0.9rem",
           }}
         >
-          Client Reviews
-        </span>
-        <span
+          Testimonials
+        </p>
+        <h2
           style={{
-            display: "block",
-            width: "3rem",
-            height: "2px",
-            background: "#EF7C3B",
+            fontSize: "clamp(2rem, 4vw, 3rem)",
+            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+            color: "#ffffff",
+            textTransform: "uppercase",
+            margin: 0,
           }}
-        />
+        >
+          What Our <span style={{ color: "#EF7C3B" }}>Customers</span> Are Saying
+        </h2>
       </div>
 
       {/* Scrolling review cards */}

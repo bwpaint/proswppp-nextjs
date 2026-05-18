@@ -12,10 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Dynamic imports with ssr:false for framer-motion components
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
-const TrustBadgesSection = dynamic(() => import('@/components/sections/TrustBadgesSection'), { ssr: false });
 const StatsSection = dynamic(() => import('@/components/sections/StatsSection'), { ssr: false });
+const TrustBadgesSection = dynamic(() => import('@/components/sections/TrustBadgesSection'), { ssr: false });
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'), { ssr: false });
 const CEOGuaranteeSection = dynamic(() => import('@/components/sections/CEOGuaranteeSection'), { ssr: false });
 const ClientLogosSection = dynamic(() => import('@/components/sections/ClientLogosSection'), { ssr: false });
 const FinalCTASection = dynamic(() => import('@/components/sections/FinalCTASection'), { ssr: false });
@@ -28,16 +27,17 @@ export default function HomePage() {
       {/* Hero with rotating Built-for-Builders card */}
       <HeroSection />
 
-      {/* 20+ years stats — moved up directly under hero */}
+      {/* 20-year stats (20+ years, 100% compliance, 72 hours, 5-star reviews) */}
       <StatsSection />
-      <ExperienceSection />
 
-      {/* Trust badges */}
+      {/* Scrolling Google reviews with "What Our Customers Are Saying" heading
+          (formerly the "Client Reviews" section — TrustBadgesSection is the
+          file name kept for compatibility, but its content is the reviews
+          ticker). Sits between the stat tiles and the Experience copy. */}
       <TrustBadgesSection />
 
-      {/* Testimonials — "What Our Customers Are Saying"
-          (Replaces the previous Who-We-Work-With logo strip in this slot.) */}
-      <TestimonialsSection />
+      {/* Experience — "Confidence in your SWPPP expertise and compliance" */}
+      <ExperienceSection />
 
       {/* CEO Guarantee — Derek photo (white) + blue guarantee panel */}
       <CEOGuaranteeSection />
