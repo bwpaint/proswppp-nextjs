@@ -577,7 +577,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 style={{
                   position: "absolute",
-                  left: "-12px",
+                  left: "-22px",
                   bottom: "50px",
                   pointerEvents: manualMode ? "auto" : "none",
                   width: "42px",
@@ -619,7 +619,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 style={{
                   position: "absolute",
-                  right: "-12px",
+                  right: "-22px",
                   bottom: "50px",
                   pointerEvents: manualMode ? "auto" : "none",
                   width: "42px",
