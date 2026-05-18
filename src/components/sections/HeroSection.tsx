@@ -568,14 +568,18 @@ export default function HeroSection() {
                   aligned with the "Select your state" dropdown row. Sit
                   slightly outside the rounded card to draw the eye. Always
                   present; click forces manual mode. */}
-              <button
+              <motion.button
                 type="button"
                 onClick={goPrev}
                 aria-label="Previous"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: manualMode ? 1 : 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
                 style={{
                   position: "absolute",
                   left: "-12px",
                   bottom: "50px",
+                  pointerEvents: manualMode ? "auto" : "none",
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
@@ -604,16 +608,20 @@ export default function HeroSection() {
                 }}
               >
                 <ChevronLeft size={24} strokeWidth={2.5} />
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
                 type="button"
                 onClick={goNext}
                 aria-label="Next"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: manualMode ? 1 : 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
                 style={{
                   position: "absolute",
                   right: "-12px",
                   bottom: "50px",
+                  pointerEvents: manualMode ? "auto" : "none",
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
@@ -642,7 +650,7 @@ export default function HeroSection() {
                 }}
               >
                 <ChevronRight size={24} strokeWidth={2.5} />
-              </button>
+              </motion.button>
             </div>
 
             {/* Subheading below the rotating card */}
