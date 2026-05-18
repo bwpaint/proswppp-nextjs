@@ -20,9 +20,16 @@ import { useEffect, useState } from "react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const ROTATE_MS = 8000;
 const PHASES = ["photo", "text", "risk"] as const;
 type Phase = (typeof PHASES)[number];
+// Dwell time per phase, in ms — photo brief, text moderate, risk long
+// enough that the visitor can read it and pick a state.
+const PHASE_DURATIONS_MS: Record<Phase, number> = {
+  photo: 4000,
+  text: 6000,
+  risk: 10000,
+};
+const NEEDLE_LOOP_MS = 10000;
 
 // US states for the Live Risk Score dropdown — selecting one jumps to the quiz.
 const US_STATES: { code: string; name: string }[] = [
@@ -71,12 +78,12 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(
+    const t = setTimeout(
       () => setPhaseIdx((i) => (i + 1) % PHASES.length),
-      ROTATE_MS
+      PHASE_DURATIONS_MS[phase]
     );
-    return () => clearInterval(id);
-  }, [paused]);
+    return () => clearTimeout(t);
+  }, [paused, phase, phaseIdx]);
 
   const handleStatePick = (code: string) => {
     if (!code) return;
@@ -419,43 +426,43 @@ export default function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                       />
-                      {/* Needle group — translate to pivot, motion.g rotates
-                          around its bottom-center via transform-box: fill-box */}
-                      <g transform="translate(100, 100)">
-                        <motion.g
-                          initial={{ rotate: -30 }}
-                          animate={
-                            paused
-                              ? { rotate: 0 }
-                              : { rotate: [-30, 15, -10, 65, -30] }
-                          }
-                          transition={
-                            paused
-                              ? { duration: 0.4, ease: "easeOut" }
-                              : {
-                                  duration: 8,
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                  times: [0, 0.25, 0.5, 0.75, 1],
-                                }
-                          }
-                          style={{
-                            transformBox: "fill-box",
-                            transformOrigin: "50% 100%",
-                          }}
-                        >
-                          <line
-                            x1="0"
-                            y1="0"
-                            x2="0"
-                            y2="-58"
-                            stroke="#EF7C3B"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                          />
-                          <circle cx="0" cy="-58" r="4" fill="#EF7C3B" />
-                        </motion.g>
-                      </g>
+                      {/* Needle — drawn in absolute viewBox coords from the
+                          pivot at (100,100) up to (100,42). Rotation pivots
+                          around (100,100) via transform-box: view-box so the
+                          base stays fixed and the tip sweeps the arc. */}
+                      <motion.g
+                        initial={{ rotate: -30 }}
+                        animate={
+                          paused
+                            ? { rotate: 0 }
+                            : { rotate: [-30, 15, -10, 65, -30] }
+                        }
+                        transition={
+                          paused
+                            ? { duration: 0.4, ease: "easeOut" }
+                            : {
+                                duration: NEEDLE_LOOP_MS / 1000,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                times: [0, 0.25, 0.5, 0.75, 1],
+                              }
+                        }
+                        style={{
+                          transformBox: "view-box",
+                          transformOrigin: "100px 100px",
+                        }}
+                      >
+                        <line
+                          x1="100"
+                          y1="100"
+                          x2="100"
+                          y2="42"
+                          stroke="#EF7C3B"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="100" cy="42" r="4" fill="#EF7C3B" />
+                      </motion.g>
                       {/* Center pivot cap */}
                       <circle
                         cx="100"
