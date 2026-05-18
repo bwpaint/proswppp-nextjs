@@ -1,4 +1,14 @@
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import { getSeoMetadata } from '@/lib/seo';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getSeoMetadata('/', {
+    title: "Pro SWPPP — America's #1 Storm Water Pollution Prevention Plan",
+    description:
+      "Get your SWPPP in 72 hours or it's FREE. Fast, affordable, and 100% compliant SWPPP solutions nationwide.",
+  });
+}
 
 // Dynamic imports with ssr:false for framer-motion components
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });

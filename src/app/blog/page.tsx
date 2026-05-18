@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import BlogClient from './BlogClient';
+import { getSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'SWPPP Blog — Expert Stormwater Compliance Guides | Pro SWPPP',
-  description: "State-specific SWPPP guides, compliance tips, and stormwater management resources from America's #1 SWPPP experts.",
-  openGraph: {
-    title: 'SWPPP Blog | Pro SWPPP',
-    description: 'Expert stormwater compliance guides and SWPPP resources.',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return getSeoMetadata('/blog/', {
+    title: 'SWPPP Blog — Expert Stormwater Compliance Guides | Pro SWPPP',
+    description:
+      "State-specific SWPPP guides, compliance tips, and stormwater management resources from America's #1 SWPPP experts.",
+    openGraph: {
+      title: 'SWPPP Blog | Pro SWPPP',
+      description: 'Expert stormwater compliance guides and SWPPP resources.',
+    },
+  });
+}
 
 const BASE = process.env.NEXT_PUBLIC_WP_API_BASE ?? 'https://cms.proswppp.com/wp-json';
 const OPTS = { next: { revalidate: 3600 } };

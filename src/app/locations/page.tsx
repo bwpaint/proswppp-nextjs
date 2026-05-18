@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import USMapClient from './USMapClient';
+import { getSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'SWPPP Services by Location | Pro SWPPP',
-  description:
-    'Find SWPPP services for your state. Pro SWPPP delivers fully compliant stormwater plans in 72 hours across the United States.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return getSeoMetadata('/locations/', {
+    title: 'SWPPP Services by Location | Pro SWPPP',
+    description:
+      'Find SWPPP services for your state. Pro SWPPP delivers fully compliant stormwater plans in 72 hours across the United States.',
+  });
+}
 
 export const dynamic = 'force-dynamic';
 
