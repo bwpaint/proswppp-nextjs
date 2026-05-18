@@ -24,7 +24,7 @@ export default function ClientLogosSection() {
   return (
     <>
       {/* Client Logos */}
-      <section className="py-14 lg:py-16" style={{ background: '#000000' }}>
+      <section className="py-28 lg:py-32" style={{ background: '#000000' }}>
         <div className="container">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

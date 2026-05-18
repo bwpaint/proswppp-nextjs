@@ -66,48 +66,79 @@ export default function CEOGuaranteeSection() {
       style={{ minHeight: "560px" }}
     >
       {/* ─────────────────────────────────────────────────────────────
-          LEFT: White background — Derek's headline + photo + quote
+          LEFT: Dark navy background — Derek's headline + photo + quote
+          (Larger type, inverted colors so the column fills its height.)
           ───────────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="bg-white px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
+        className="px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
+        style={{ background: "#1A3A4A" }}
       >
-        <div style={{ maxWidth: "75%", marginLeft: "12%" }}>
-          <h2 className="section-heading text-[#1A3A4A] text-2xl lg:text-3xl mb-1 leading-tight">
+        <div style={{ maxWidth: "88%", marginLeft: "6%" }}>
+          <h2
+            className="section-heading text-white leading-[1.05] mb-3"
+            style={{
+              fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
+              letterSpacing: "-0.02em",
+            }}
+          >
             Order Your SWPPP Now and Your Site Will Be
           </h2>
-          <h3 className="section-heading text-[#EF7C3B] text-xl lg:text-2xl mb-8">
+          <h3
+            className="section-heading text-[#EF7C3B] mb-10"
+            style={{
+              fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+            }}
+          >
             Fully Compliant in Just 72 Hours, Guaranteed
           </h3>
 
           {/* Derek photo + quote */}
-          <div className="flex flex-col sm:flex-row items-start gap-6 bg-gray-50 rounded-2xl p-6">
+          <div
+            className="flex flex-col sm:flex-row items-start gap-6 rounded-2xl p-7"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.10)",
+            }}
+          >
             <div className="flex-shrink-0">
               <img
                 src={CEO_PHOTO}
                 alt="Derek – CEO, Pro SWPPP"
-                className="w-24 h-24 rounded-full object-cover shadow-lg border-4 border-[#EF7C3B]"
+                className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#EF7C3B]"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = "none";
                   const div = document.createElement("div");
                   div.className =
-                    "w-24 h-24 rounded-full bg-[#1A3A4A] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#EF7C3B]";
+                    "w-28 h-28 rounded-full bg-[#0D1F2B] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#EF7C3B]";
                   div.textContent = "D";
                   target.parentNode?.insertBefore(div, target);
                 }}
               />
             </div>
             <div className="flex-1">
-              <blockquote className="text-gray-700 italic leading-relaxed mb-3">
+              <blockquote
+                className="italic leading-relaxed mb-3"
+                style={{
+                  fontSize: "1.15rem",
+                  lineHeight: 1.6,
+                  color: "rgba(255,255,255,0.92)",
+                }}
+              >
                 &ldquo;I guarantee full service &amp; support throughout the
                 duration of your project. At ProSWPPP our #1 Goal is to take
                 care of our Customers. We stand by our customers 110%.&rdquo;
               </blockquote>
-              <p className="font-bold text-[#1A3A4A] uppercase tracking-wide text-sm">
+              <p
+                className="font-bold uppercase tracking-wide"
+                style={{ fontSize: "0.95rem", color: "#FFD9A8" }}
+              >
                 Derek – CEO, Pro SWPPP
               </p>
             </div>
@@ -230,12 +261,35 @@ export default function CEOGuaranteeSection() {
             })}
           </div>
 
-          {/* CTA */}
+          {/* CTA — sized to match the "Beyond the 72-Hour Delivery" headline */}
           <a
             href="tel:8334387977"
-            className="btn-black-hover-orange inline-flex items-center gap-2 self-start"
+            className="inline-flex items-center gap-3 self-start"
+            style={{
+              fontFamily:
+                "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
+              fontWeight: 900,
+              color: "#ffffff",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+              textDecoration: "none",
+              borderBottom: "2px solid rgba(255,255,255,0.55)",
+              paddingBottom: "0.35rem",
+              transition: "color 0.2s, border-color 0.2s",
+            }}
+            onMouseOver={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = "#FFD9A8";
+              el.style.borderBottomColor = "#FFD9A8";
+            }}
+            onMouseOut={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = "#ffffff";
+              el.style.borderBottomColor = "rgba(255,255,255,0.55)";
+            }}
           >
-            <Phone size={16} />
+            <Phone size={30} strokeWidth={2.5} />
             Or Call Us Today
           </a>
         </div>
