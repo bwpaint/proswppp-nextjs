@@ -263,8 +263,10 @@ export default function HeroSection() {
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
             </h2>
 
-            {/* Rotating card: photo ↔ descriptive text every 4 seconds.
-                Hovering over the card pauses the rotation. */}
+            {/* Rotating card: photo ↔ descriptive text ↔ risk score, every 4
+                seconds. Hovering pauses the rotation. The team photo is always
+                mounted at its natural aspect so it controls the card's height;
+                the text and risk-score panels overlay it when active. */}
             <div
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
@@ -274,38 +276,27 @@ export default function HeroSection() {
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "5 / 4",
-                borderRadius: "16px",
                 overflow: "hidden",
-                border: "2px solid rgba(239,124,59,0.35)",
-                boxShadow: "0 30px 70px rgba(0,0,0,0.6)",
                 marginBottom: "1.25rem",
                 outline: "none",
               }}
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {phase === "photo" && (
-                  <motion.div
-                    key="photo"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    style={{ position: "absolute", inset: 0 }}
-                  >
-                    <img
-                      src={TEAM_PHOTO}
-                      alt="The Pro SWPPP Team"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
-                      }}
-                    />
-                  </motion.div>
-                )}
+              {/* Photo — always in the DOM so it dictates the card height at
+                  its natural aspect. Fades out when another phase is active. */}
+              <motion.img
+                src={TEAM_PHOTO}
+                alt="The Pro SWPPP Team"
+                initial={false}
+                animate={{ opacity: phase === "photo" ? 1 : 0 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                }}
+              />
 
+              <AnimatePresence mode="wait" initial={false}>
                 {phase === "text" && (
                   <motion.div
                     key="text"
@@ -363,13 +354,14 @@ export default function HeroSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      padding: "1.25rem 1.5rem",
+                      padding: "1rem 1.25rem",
                       background:
                         "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "space-between",
+                      justifyContent: "center",
+                      gap: "0.5rem",
                     }}
                   >
                     {/* Header */}
@@ -378,11 +370,11 @@ export default function HeroSection() {
                         style={{
                           color: "#EF7C3B",
                           fontFamily: "'Roboto', Arial, sans-serif",
-                          fontSize: "0.7rem",
+                          fontSize: "0.85rem",
                           fontWeight: 900,
                           letterSpacing: "0.22em",
                           textTransform: "uppercase",
-                          margin: "0 0 0.35rem",
+                          margin: "0 0 0.25rem",
                         }}
                       >
                         Live SWPPP Risk Score
@@ -392,11 +384,11 @@ export default function HeroSection() {
                           color: "#fff",
                           fontFamily:
                             "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                          fontSize: "1.45rem",
+                          fontSize: "1.85rem",
                           fontWeight: 900,
                           margin: 0,
                           letterSpacing: "-0.01em",
-                          lineHeight: 1.15,
+                          lineHeight: 1.1,
                         }}
                       >
                         Is Your Project at Risk?
@@ -406,7 +398,7 @@ export default function HeroSection() {
                     {/* Animated gauge — smooth needle sweep */}
                     <svg
                       viewBox="0 0 200 130"
-                      style={{ width: "100%", maxWidth: "300px", height: "auto" }}
+                      style={{ width: "100%", maxWidth: "380px", height: "auto" }}
                       aria-hidden="true"
                     >
                       {/* LOW arc (left, green) */}
@@ -493,10 +485,11 @@ export default function HeroSection() {
                     <div style={{ width: "100%", textAlign: "center" }}>
                       <p
                         style={{
-                          color: "rgba(255,255,255,0.78)",
+                          color: "rgba(255,255,255,0.85)",
                           fontFamily: "'Roboto', Arial, sans-serif",
-                          fontSize: "0.82rem",
-                          margin: "0 0 0.5rem",
+                          fontSize: "1rem",
+                          fontWeight: 500,
+                          margin: "0 0 0.4rem",
                         }}
                       >
                         Pick your state to check your risk:
@@ -506,13 +499,13 @@ export default function HeroSection() {
                         onChange={(e) => handleStatePick(e.target.value)}
                         style={{
                           width: "100%",
-                          maxWidth: "260px",
+                          maxWidth: "320px",
                           background: "rgba(255,255,255,0.08)",
                           border: "1px solid rgba(239,124,59,0.45)",
                           borderRadius: "8px",
                           color: "#fff",
-                          padding: "0.6rem 0.85rem",
-                          fontSize: "0.9rem",
+                          padding: "0.7rem 0.95rem",
+                          fontSize: "1rem",
                           fontFamily: "'Roboto', Arial, sans-serif",
                           fontWeight: 600,
                           outline: "none",
