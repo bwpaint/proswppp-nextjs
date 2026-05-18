@@ -533,16 +533,20 @@ export default function HeroSection() {
                         style={{
                           width: "100%",
                           maxWidth: "320px",
-                          background: "rgba(255,255,255,0.08)",
+                          background:
+                            "rgba(255,255,255,0.08) url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='white'><path d='M2 4l4 4 4-4z'/></svg>\") no-repeat right 20px center",
                           border: "1px solid rgba(239,124,59,0.45)",
                           borderRadius: "8px",
                           color: "#fff",
-                          padding: "0.7rem 0.95rem",
+                          padding: "0.7rem 40px 0.7rem 0.95rem",
                           fontSize: "1rem",
                           fontFamily: "'Roboto', Arial, sans-serif",
                           fontWeight: 600,
                           outline: "none",
                           cursor: "pointer",
+                          appearance: "none",
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
                         }}
                       >
                         <option value="" style={{ color: "#222" }}>
