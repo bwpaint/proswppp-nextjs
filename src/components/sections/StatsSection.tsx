@@ -16,7 +16,7 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-28 lg:py-32" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
+    <section className="pt-28 lg:pt-32 pb-8 lg:pb-10" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
       <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2">
           {stats.map((stat, i) => (
