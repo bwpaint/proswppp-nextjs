@@ -46,9 +46,23 @@ export default function ContactClient() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = '/get-your-swppp/';
+    try {
+      const res = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form_slug: 'contact', fields: form }),
+      });
+      if (res.ok) {
+        alert("Thanks — we'll be in touch shortly!");
+        setForm({ firstName: '', lastName: '', email: '', phone: '', interest: '', message: '' });
+      } else {
+        alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
+      }
+    } catch {
+      alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
+    }
   };
 
   return (

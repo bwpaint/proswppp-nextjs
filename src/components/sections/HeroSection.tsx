@@ -45,10 +45,23 @@ export default function HeroSection() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Will be wired to Fluent Forms REST API endpoint
-    window.location.href = "https://proswppp.com/get-your-swppp/";
+    try {
+      const res = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form_slug: 'footer', fields: formData }),
+      });
+      if (res.ok) {
+        alert("Thanks — we'll be in touch shortly!");
+        setFormData({ firstName: "", lastName: "", company: "", email: "", phone: "", interest: "" });
+      } else {
+        alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
+      }
+    } catch {
+      alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
+    }
   };
 
   return (
