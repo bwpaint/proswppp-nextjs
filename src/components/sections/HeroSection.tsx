@@ -32,13 +32,16 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  // Right-column rotating card: true = photo, false = descriptive text
+  // Right-column rotating card: true = photo, false = descriptive text.
+  // Rotation pauses while the user is hovering over the card.
   const [showPhoto, setShowPhoto] = useState(true);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (paused) return;
     const id = setInterval(() => setShowPhoto((p) => !p), ROTATE_MS);
     return () => clearInterval(id);
-  }, []);
+  }, [paused]);
 
   return (
     <section
@@ -220,8 +223,14 @@ export default function HeroSection() {
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
             </h2>
 
-            {/* Rotating card: photo ↔ descriptive text every 4 seconds */}
+            {/* Rotating card: photo ↔ descriptive text every 4 seconds.
+                Hovering over the card pauses the rotation. */}
             <div
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+              onFocus={() => setPaused(true)}
+              onBlur={() => setPaused(false)}
+              tabIndex={0}
               style={{
                 position: "relative",
                 width: "100%",
@@ -231,6 +240,7 @@ export default function HeroSection() {
                 border: "2px solid rgba(239,124,59,0.35)",
                 boxShadow: "0 30px 70px rgba(0,0,0,0.6)",
                 marginBottom: "1.25rem",
+                outline: "none",
               }}
             >
               <AnimatePresence mode="wait" initial={false}>
