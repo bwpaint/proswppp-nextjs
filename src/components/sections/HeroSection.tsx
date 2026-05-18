@@ -579,7 +579,7 @@ export default function HeroSection() {
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
-                  background: "rgba(239,124,59,0.92)",
+                  background: "rgba(40, 70, 90, 0.92)",
                   border: "2px solid rgba(255,255,255,0.85)",
                   color: "#fff",
                   cursor: "pointer",
@@ -592,13 +592,13 @@ export default function HeroSection() {
                 }}
                 onMouseOver={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "#d8651e";
+                    "rgba(70, 110, 135, 0.95)";
                   (e.currentTarget as HTMLButtonElement).style.transform =
                     "scale(1.08)";
                 }}
                 onMouseOut={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(239,124,59,0.92)";
+                    "rgba(40, 70, 90, 0.92)";
                   (e.currentTarget as HTMLButtonElement).style.transform =
                     "scale(1)";
                 }}
@@ -617,7 +617,7 @@ export default function HeroSection() {
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
-                  background: "rgba(239,124,59,0.92)",
+                  background: "rgba(40, 70, 90, 0.92)",
                   border: "2px solid rgba(255,255,255,0.85)",
                   color: "#fff",
                   cursor: "pointer",
@@ -630,13 +630,13 @@ export default function HeroSection() {
                 }}
                 onMouseOver={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "#d8651e";
+                    "rgba(70, 110, 135, 0.95)";
                   (e.currentTarget as HTMLButtonElement).style.transform =
                     "scale(1.08)";
                 }}
                 onMouseOut={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(239,124,59,0.92)";
+                    "rgba(40, 70, 90, 0.92)";
                   (e.currentTarget as HTMLButtonElement).style.transform =
                     "scale(1)";
                 }}
