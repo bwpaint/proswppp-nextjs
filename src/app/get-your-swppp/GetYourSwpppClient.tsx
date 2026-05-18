@@ -1155,26 +1155,35 @@ export default function GetYourSwpppClient() {
     setSubmitting(true);
     try {
       const totals = calcTotal(form, regionData);
-      await fetch(`${SOP_BASE}/orders`, {
+      // PATCH: Route SWPPP order through Fluent Forms for lead capture.
+      // When the WebWize Connect Orders plugin + Stripe are installed,
+      // this can switch back to `${SOP_BASE}/orders` for full e-commerce.
+      await fetch('/api/submit-form', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(SOP_KEY ? { 'X-API-Key': SOP_KEY } : {}) },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          first_name: form.firstName, last_name: form.lastName,
-          email: form.email, phone: form.phone, company: form.company,
-          region_slug: selectedSlug, state_code: selectedCode,
-          project_name: form.projectName, project_street: form.projectStreet,
-          project_city: form.projectCity, project_zip: form.projectZip,
-          land_disturbance: form.landDisturbance, service_needed: form.serviceNeeded,
-          start_date: form.startDate, end_date: form.endDate,
-          drawings_link: form.drawingsLink, special_category: form.specialCategory,
-          addon_eportal: form.ePortal, eportal_months: form.ePortalMonths,
-          addon_cpesc: form.cpesc, cpesc_months: form.cpescMonths,
-          addon_hard_copy: form.hardCopy,
-          total_amount: totals.total,
-          demo_mode: true,
+          form_slug: 'get-swppp',
+          fields: {
+            first_name: form.firstName, last_name: form.lastName,
+            email: form.email, phone: form.phone, company: form.company,
+            region_slug: selectedSlug, state_code: selectedCode,
+            project_name: form.projectName, project_street: form.projectStreet,
+            project_city: form.projectCity, project_zip: form.projectZip,
+            land_disturbance: form.landDisturbance,
+            service_needed: form.serviceNeeded,
+            start_date: form.startDate, end_date: form.endDate,
+            drawings_link: form.drawingsLink,
+            special_category: form.specialCategory,
+            addon_eportal: form.ePortal ? 'yes' : 'no',
+            eportal_months: String(form.ePortalMonths ?? ''),
+            addon_cpesc: form.cpesc ? 'yes' : 'no',
+            cpesc_months: String(form.cpescMonths ?? ''),
+            addon_hard_copy: form.hardCopy ? 'yes' : 'no',
+            total_amount: String(totals.total),
+          },
         }),
       });
-    } catch { /* non-blocking in demo */ }
+    } catch { /* non-blocking */ }
     await new Promise(r => setTimeout(r, 1800));
     setSubmitting(false);
     setSubmitted(true);

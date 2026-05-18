@@ -244,23 +244,29 @@ export default function QuizClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const payload = {
+
+    // Flatten answers as quiz_q1, quiz_q2, ... (WebWize Forms plugin skips nested arrays)
+    const answerFields: Record<string, string> = {};
+    answers.forEach((a) => {
+      answerFields[`quiz_${a.questionId}`] = String(a.value);
+    });
+
+    const fields = {
       ...leadData,
-      riskScore,
-      riskLevel: riskScore >= 70 ? 'HIGH' : riskScore >= 40 ? 'MEDIUM' : 'LOW',
-      answers: answers.map((a) => ({ question: a.questionId, answer: a.value })),
+      quiz_risk_score: String(riskScore),
+      quiz_risk_level: riskScore >= 70 ? 'HIGH' : riskScore >= 40 ? 'MEDIUM' : 'LOW',
+      ...answerFields,
     };
-    // TODO: Wire to Fluent Forms when configured:
-    // const url = process.env.NEXT_PUBLIC_FLUENT_FORMS_URL;
-    // const formId = process.env.NEXT_PUBLIC_QUIZ_FORM_ID;
-    // if (url && formId) {
-    //   const fd = new FormData();
-    //   fd.append('form_id', formId);
-    //   Object.entries(payload).forEach(([k, v]) => fd.append(k, String(v)));
-    //   await fetch(url, { method: 'POST', body: fd });
-    // }
-    await new Promise((res) => setTimeout(res, 1200));
-    console.log('[Quiz] Submitted:', payload);
+
+    try {
+      await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form_slug: 'quiz', fields }),
+      });
+    } catch {
+      // fail open — show thank-you screen even if WP unreachable
+    }
     setSubmitted(true);
     setSubmitting(false);
   };
