@@ -286,6 +286,7 @@ export default function HeroSection() {
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
+                borderRadius: "10px",
                 marginBottom: "1.25rem",
                 outline: "none",
               }}
@@ -324,8 +325,8 @@ export default function HeroSection() {
                       justifyContent: "center",
                       color: "rgba(255,255,255,0.92)",
                       fontFamily: "'Roboto', Arial, sans-serif",
-                      lineHeight: 1.65,
-                      fontSize: "1.05rem",
+                      lineHeight: 1.6,
+                      fontSize: "1.15rem",
                     }}
                   >
                     <p style={{ margin: "0 0 0.875rem" }}>
