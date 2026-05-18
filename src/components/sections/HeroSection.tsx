@@ -563,33 +563,32 @@ export default function HeroSection() {
                 style={{
                   position: "absolute",
                   left: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: "44px",
-                  height: "44px",
+                  bottom: "10px",
+                  width: "42px",
+                  height: "42px",
                   borderRadius: "9999px",
-                  background: "rgba(13, 31, 43, 0.7)",
-                  border: "1px solid rgba(255,255,255,0.25)",
+                  background: "rgba(239,124,59,0.92)",
+                  border: "2px solid rgba(255,255,255,0.85)",
                   color: "#fff",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   zIndex: 5,
-                  backdropFilter: "blur(8px)",
-                  transition: "background 0.2s, border-color 0.2s",
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.45)",
+                  transition: "background 0.2s, transform 0.15s",
                 }}
                 onMouseOver={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(239,124,59,0.85)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor =
-                    "rgba(239,124,59,0.95)";
+                    "#d8651e";
+                  (e.currentTarget as HTMLButtonElement).style.transform =
+                    "scale(1.08)";
                 }}
                 onMouseOut={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(13, 31, 43, 0.7)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor =
-                    "rgba(255,255,255,0.25)";
+                    "rgba(239,124,59,0.92)";
+                  (e.currentTarget as HTMLButtonElement).style.transform =
+                    "scale(1)";
                 }}
               >
                 <ChevronLeft size={24} strokeWidth={2.5} />
@@ -602,33 +601,32 @@ export default function HeroSection() {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  width: "44px",
-                  height: "44px",
+                  bottom: "10px",
+                  width: "42px",
+                  height: "42px",
                   borderRadius: "9999px",
-                  background: "rgba(13, 31, 43, 0.7)",
-                  border: "1px solid rgba(255,255,255,0.25)",
+                  background: "rgba(239,124,59,0.92)",
+                  border: "2px solid rgba(255,255,255,0.85)",
                   color: "#fff",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   zIndex: 5,
-                  backdropFilter: "blur(8px)",
-                  transition: "background 0.2s, border-color 0.2s",
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.45)",
+                  transition: "background 0.2s, transform 0.15s",
                 }}
                 onMouseOver={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(239,124,59,0.85)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor =
-                    "rgba(239,124,59,0.95)";
+                    "#d8651e";
+                  (e.currentTarget as HTMLButtonElement).style.transform =
+                    "scale(1.08)";
                 }}
                 onMouseOut={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(13, 31, 43, 0.7)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor =
-                    "rgba(255,255,255,0.25)";
+                    "rgba(239,124,59,0.92)";
+                  (e.currentTarget as HTMLButtonElement).style.transform =
+                    "scale(1)";
                 }}
               >
                 <ChevronRight size={24} strokeWidth={2.5} />
