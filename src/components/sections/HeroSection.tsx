@@ -324,8 +324,8 @@ export default function HeroSection() {
                       justifyContent: "center",
                       color: "rgba(255,255,255,0.92)",
                       fontFamily: "'Roboto', Arial, sans-serif",
-                      lineHeight: 1.7,
-                      fontSize: "0.95rem",
+                      lineHeight: 1.65,
+                      fontSize: "1.05rem",
                     }}
                   >
                     <p style={{ margin: "0 0 0.875rem" }}>
