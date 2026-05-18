@@ -109,7 +109,7 @@ export default function CEOGuaranteeSection() {
             <div className="flex-shrink-0">
               <img
                 src={CEO_PHOTO}
-                alt="Derek – CEO, Pro SWPPP"
+                alt="Derek E. Chinners – CEO, Pro SWPPP"
                 className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#EF7C3B]"
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -139,7 +139,7 @@ export default function CEOGuaranteeSection() {
                 className="font-bold uppercase tracking-wide"
                 style={{ fontSize: "0.95rem", color: "#FFD9A8" }}
               >
-                Derek – CEO, Pro SWPPP
+                Derek E. Chinners – CEO, Pro SWPPP
               </p>
             </div>
           </div>
