@@ -426,32 +426,13 @@ export default function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                       />
-                      {/* Needle — drawn in absolute viewBox coords from the
-                          pivot at (100,100) up to (100,42). Rotation pivots
-                          around (100,100) via transform-box: view-box so the
-                          base stays fixed and the tip sweeps the arc. */}
-                      <motion.g
-                        initial={{ rotate: -30 }}
-                        animate={
-                          paused
-                            ? { rotate: 0 }
-                            : { rotate: [-30, 15, -10, 65, -30] }
-                        }
-                        transition={
-                          paused
-                            ? { duration: 0.4, ease: "easeOut" }
-                            : {
-                                duration: NEEDLE_LOOP_MS / 1000,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                times: [0, 0.25, 0.5, 0.75, 1],
-                              }
-                        }
-                        style={{
-                          transformBox: "view-box",
-                          transformOrigin: "100px 100px",
-                        }}
-                      >
+                      {/* Needle — uses native SVG <animateTransform> with
+                          explicit rotation center (cx=100, cy=100). Pivots at
+                          the base no matter what the browser does with CSS
+                          transform-origin. Always animating; the surrounding
+                          panel still pauses on hover so the user can read
+                          and pick a state. */}
+                      <g>
                         <line
                           x1="100"
                           y1="100"
@@ -462,7 +443,18 @@ export default function HeroSection() {
                           strokeLinecap="round"
                         />
                         <circle cx="100" cy="42" r="4" fill="#EF7C3B" />
-                      </motion.g>
+                        <animateTransform
+                          attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          values="-30 100 100; 15 100 100; -10 100 100; 65 100 100; -30 100 100"
+                          keyTimes="0; 0.25; 0.5; 0.75; 1"
+                          dur="10s"
+                          repeatCount="indefinite"
+                          calcMode="spline"
+                          keySplines="0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1; 0.42 0 0.58 1"
+                        />
+                      </g>
                       {/* Center pivot cap */}
                       <circle
                         cx="100"
