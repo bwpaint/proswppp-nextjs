@@ -15,7 +15,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
@@ -71,19 +71,35 @@ const fadeUp: Variants = {
 
 export default function HeroSection() {
   // Right-column rotating card cycles photo -> descriptive text -> live risk score.
-  // Rotation pauses while the user is hovering or focused inside the card.
+  // Auto-plays once through all 3 phases, then hands control to the user via
+  // the left/right nav dots. Hovering inside the card pauses auto-rotation.
   const [phaseIdx, setPhaseIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [manualMode, setManualMode] = useState(false);
   const phase: Phase = PHASES[phaseIdx];
 
   useEffect(() => {
-    if (paused) return;
-    const t = setTimeout(
-      () => setPhaseIdx((i) => (i + 1) % PHASES.length),
-      PHASE_DURATIONS_MS[phase]
-    );
+    if (paused || manualMode) return;
+    const t = setTimeout(() => {
+      // After the last phase (risk) finishes its dwell, stop auto-rotating
+      // and stay on the risk panel — the user takes over via the nav dots.
+      if (phaseIdx === PHASES.length - 1) {
+        setManualMode(true);
+      } else {
+        setPhaseIdx((i) => i + 1);
+      }
+    }, PHASE_DURATIONS_MS[phase]);
     return () => clearTimeout(t);
-  }, [paused, phase, phaseIdx]);
+  }, [paused, manualMode, phase, phaseIdx]);
+
+  const goPrev = () => {
+    setManualMode(true);
+    setPhaseIdx((i) => (i - 1 + PHASES.length) % PHASES.length);
+  };
+  const goNext = () => {
+    setManualMode(true);
+    setPhaseIdx((i) => (i + 1) % PHASES.length);
+  };
 
   const handleStatePick = (code: string) => {
     if (!code) return;
@@ -536,6 +552,87 @@ export default function HeroSection() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* Manual navigation dots — left/right. Always present; click
+                  forces manual mode (auto-rotation stops once the user takes
+                  control, and stops on its own after the first full cycle). */}
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Previous"
+                style={{
+                  position: "absolute",
+                  left: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "9999px",
+                  background: "rgba(13, 31, 43, 0.7)",
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  color: "#fff",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 5,
+                  backdropFilter: "blur(8px)",
+                  transition: "background 0.2s, border-color 0.2s",
+                }}
+                onMouseOver={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background =
+                    "rgba(239,124,59,0.85)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor =
+                    "rgba(239,124,59,0.95)";
+                }}
+                onMouseOut={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background =
+                    "rgba(13, 31, 43, 0.7)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor =
+                    "rgba(255,255,255,0.25)";
+                }}
+              >
+                <ChevronLeft size={24} strokeWidth={2.5} />
+              </button>
+
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next"
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "9999px",
+                  background: "rgba(13, 31, 43, 0.7)",
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  color: "#fff",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 5,
+                  backdropFilter: "blur(8px)",
+                  transition: "background 0.2s, border-color 0.2s",
+                }}
+                onMouseOver={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background =
+                    "rgba(239,124,59,0.85)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor =
+                    "rgba(239,124,59,0.95)";
+                }}
+                onMouseOut={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background =
+                    "rgba(13, 31, 43, 0.7)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor =
+                    "rgba(255,255,255,0.25)";
+                }}
+              >
+                <ChevronRight size={24} strokeWidth={2.5} />
+              </button>
             </div>
 
             {/* Subheading below the rotating card */}
