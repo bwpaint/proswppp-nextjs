@@ -155,17 +155,15 @@ export default function CEOGuaranteeSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
         className="relative overflow-hidden px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
-        style={{
-          background: "linear-gradient(135deg, #6B9ED1 0%, #4A7DA8 60%, #355E83 100%)",
-        }}
+        style={{ background: "#1A3A4A" }}
       >
-        {/* Subtle radial light source for depth */}
+        {/* Subtle radial light source for depth on the flat navy */}
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle at 85% 15%, rgba(255,255,255,0.18) 0%, transparent 45%)",
+              "radial-gradient(circle at 85% 15%, rgba(255,255,255,0.07) 0%, transparent 50%)",
           }}
         />
 
