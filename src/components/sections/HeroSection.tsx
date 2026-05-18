@@ -1,18 +1,26 @@
 'use client';
 /*
- * Hero Section — ProSWPPP Redesign
+ * Hero Section — ProSWPPP Redesign (v2 — Built for Builders / Team rotation)
  * Design: Full-bleed construction site background, two-column layout
- * LEFT (50%): Brand headline copy + star rating + two CTAs (orange + light blue)
- * RIGHT (50%): Eyebrow line + Contact form — First/Last, Company, Email/Phone, Interest
- * Both columns flush to top with items-start alignment
+ *   LEFT  (50%): Brand headline + star rating + two CTAs (Get My SWPPP, Take the Quiz)
+ *   RIGHT (50%): "Who We Are — Built for Builders" panel with a rotating card that
+ *                cycles between the team photo and the descriptive "Pro SWPPP is a
+ *                nationwide stormwater pollution prevention plan service..." copy
+ *                every 4 seconds, then "Construction doesn't wait..." subhead and
+ *                a "Meet Our Team" CTA.
+ *
+ * Backup of the previous form-on-the-right design lives at:
+ *   /backups/HeroSection-v1-with-contact-form.tsx
  */
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Star } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
+const TEAM_PHOTO = "/images/proswppp-team-800.webp";
+const ROTATE_MS = 4000;
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -23,57 +31,14 @@ const fadeUp: Variants = {
   }),
 };
 
-const INTEREST_OPTIONS = [
-  "New SWPPP",
-  "SWPPP Revision",
-  "SWPPP Inspection",
-  "Annual Report",
-  "General Question",
-];
-
 export default function HeroSection() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    company: "",
-    email: "",
-    phone: "",
-    interest: "",
-  });
+  // Right-column rotating card: true = photo, false = descriptive text
+  const [showPhoto, setShowPhoto] = useState(true);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      // Fluent Footer Form (#1) has no `company` field — pack it into `message` so it's preserved.
-      const res = await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          form_slug: 'footer',
-          fields: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            phone: formData.phone,
-            interest: formData.interest,
-            message: formData.company ? `Company: ${formData.company}` : '',
-          },
-        }),
-      });
-      if (res.ok) {
-        alert("Thanks — we'll be in touch shortly!");
-        setFormData({ firstName: "", lastName: "", company: "", email: "", phone: "", interest: "" });
-      } else {
-        alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
-      }
-    } catch {
-      alert("Sorry, something went wrong. Please call us at 833-GET-SWPP or try again.");
-    }
-  };
+  useEffect(() => {
+    const id = setInterval(() => setShowPhoto((p) => !p), ROTATE_MS);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <section
@@ -85,22 +50,35 @@ export default function HeroSection() {
       }}
     >
       {/* Dark gradient overlay — lightest top-left, darkest toward bottom-right center */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(158deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.68) 35%, rgba(0,0,0,0.78) 65%, rgba(0,0,0,0.88) 100%)' }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(158deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.68) 35%, rgba(0,0,0,0.78) 65%, rgba(0,0,0,0.88) 100%)",
+        }}
+      />
 
-      {/* Two-column content — items-start so both columns flush to top */}
+      {/* Two-column content */}
       <div className="relative z-10 container py-10 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-          {/* ── LEFT: Copy ── */}
+          {/* ────────────────────────────────────────────────────────────────
+              LEFT: Brand copy + star rating + CTAs (unchanged from v1)
+              ──────────────────────────────────────────────────────────────── */}
           <div>
-            {/* Eyebrow — same style as right column eyebrow */}
+            {/* Eyebrow */}
             <motion.p
               custom={0}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
               className="uppercase tracking-widest text-sm mb-4"
-              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em", color: "#FFB800" }}
+              style={{
+                fontFamily: "'Roboto', Arial, sans-serif",
+                fontWeight: 400,
+                letterSpacing: "0.2em",
+                color: "#FFB800",
+              }}
             >
               Fast, Affordable, and 100% Compliant<br />
               SWPPP Solution
@@ -123,7 +101,7 @@ export default function HeroSection() {
               Get Your <span style={{ fontSize: "130%", display: "inline-block" }}>SWPPP</span>
             </motion.h1>
 
-            {/* Subheadline — mixed case */}
+            {/* Subheadline */}
             <motion.h2
               custom={0.2}
               initial="hidden"
@@ -138,7 +116,7 @@ export default function HeroSection() {
                 color: "#EF7C3B",
               }}
             >
-              In 72 hrs.,<br />or it's FREE!
+              In 72 hrs.,<br />or it&apos;s FREE!
             </motion.h2>
 
             {/* Supporting text */}
@@ -149,12 +127,16 @@ export default function HeroSection() {
               variants={fadeUp}
               className="mb-5"
             >
-              <p className="text-white uppercase tracking-wide text-base mb-1"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}>
-                Order Now… Because We're America's #1 SWPPP
+              <p
+                className="text-white uppercase tracking-wide text-base mb-1"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
+              >
+                Order Now… Because We&apos;re America&apos;s #1 SWPPP
               </p>
-              <p className="text-gray-300 uppercase tracking-wide text-sm"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}>
+              <p
+                className="text-gray-300 uppercase tracking-wide text-sm"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
+              >
                 5-Star Rated Google Business
               </p>
             </motion.div>
@@ -172,12 +154,15 @@ export default function HeroSection() {
                   <Star key={i} size={22} className="fill-[#FFB800] text-[#FFB800]" />
                 ))}
               </div>
-              <span className="text-white text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}>
+              <span
+                className="text-white text-sm"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
+              >
                 5.0 Google Reviews
               </span>
             </motion.div>
 
-            {/* CTAs — two buttons side by side */}
+            {/* CTAs */}
             <motion.div
               custom={0.5}
               initial="hidden"
@@ -186,7 +171,7 @@ export default function HeroSection() {
               className="flex flex-wrap gap-4"
             >
               <a
-                href="https://proswppp.com/get-your-swppp/"
+                href="/get-your-swppp/"
                 className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block"
               >
                 Get My SWPPP
@@ -200,169 +185,155 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── RIGHT: Eyebrow + Contact Form ── */}
+          {/* ────────────────────────────────────────────────────────────────
+              RIGHT: Who We Are — Built for Builders (with rotating card)
+              ──────────────────────────────────────────────────────────────── */}
           <motion.div
             custom={0.3}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
           >
-            {/* Eyebrow above form — same size/style as left column eyebrow */}
+            {/* Eyebrow */}
             <p
-              className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-4 text-center"
-              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em" }}
+              className="uppercase tracking-widest text-sm mb-3"
+              style={{
+                fontFamily: "'Roboto', Arial, sans-serif",
+                fontWeight: 900,
+                letterSpacing: "0.2em",
+                color: "#EF7C3B",
+              }}
             >
-              Number One Stormwater Pollution Prevention<br />
-              Plan Service in the U.S.
+              Who We Are
             </p>
 
-            <div
-              className="rounded-2xl p-6 lg:p-8"
-              style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.12)" }}
+            {/* Heading: Built for Builders */}
+            <h2
+              className="text-white uppercase leading-none mb-6"
+              style={{
+                fontSize: "clamp(2rem, 3.8vw, 3rem)",
+                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                fontWeight: 900,
+                letterSpacing: "-0.03em",
+              }}
             >
-              <h3
-                className="text-white mb-1 uppercase"
-                style={{
-                  fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                  fontWeight: 900,
-                  fontSize: "1.25rem",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Contact for FREE Consultation
-              </h3>
-              <p className="text-gray-400 text-sm mb-5" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>
-                We'll get back to you within 1 business hour.
-              </p>
+              Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
+            </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-3">
-                {/* Row 1: First + Last name */}
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder="First Name"
-                    className="hero-input"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    placeholder="Last Name"
-                    className="hero-input"
-                    required
-                  />
-                </div>
-
-                {/* Row 2: Company (full width) */}
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder="Company"
-                  className="hero-input w-full"
-                />
-
-                {/* Row 3: Email + Phone */}
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    className="hero-input"
-                    required
-                  />
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Phone"
-                    className="hero-input"
-                  />
-                </div>
-
-                {/* Row 4: Interest (full width) */}
-                <select
-                  name="interest"
-                  value={formData.interest}
-                  onChange={handleChange}
-                  className="hero-input w-full"
-                  style={{ color: formData.interest ? "white" : "rgba(255,255,255,0.45)" }}
-                >
-                  <option value="" disabled>Interest</option>
-                  {INTEREST_OPTIONS.map((opt) => (
-                    <option key={opt} value={opt} style={{ color: "#000" }}>{opt}</option>
-                  ))}
-                </select>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  className="w-full btn-orange text-base py-3.5 mt-1"
-                >
-                  Get My Free Estimate
-                </button>
-              </form>
-
-              {/* Catchphrase below form */}
-              <p
-                style={{
-                  fontFamily: "'Roboto', Arial, sans-serif",
-                  fontWeight: 400,
-                  fontStyle: "italic",
-                  fontSize: "0.9375rem",
-                  textAlign: "center",
-                  marginTop: "1rem",
-                  background: "linear-gradient(90deg, #EF7C3B 0%, #6B9ED1 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                Get Compliant Today. Stay Compliant Tomorrow.
-              </p>
-
-              {/* SWPPP definition paragraph */}
-              <div style={{ marginTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.10)", paddingTop: "1rem" }}>
-                <p
-                  style={{
-                    fontFamily: "'Roboto', Arial, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "calc(11rem / 16)",
-                    color: "rgba(200,210,220,0.85)",
-                    lineHeight: "1.65",
-                    margin: 0,
-                  }}
-                >
-                  A Stormwater Pollution Prevention Plan (SWPPP) is a site-specific document designed to minimize environmental impact from construction or industrial projects. It identifies potential pollutant sources and outlines Best Management Practices (BMPs) to control erosion and runoff. Regulated under NPDES standards, it ensures compliance through site mapping and regular inspections.{" "}
-                  <a
-                    href="/swppp-glossary/"
+            {/* Rotating card: photo ↔ descriptive text every 4 seconds */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "5 / 4",
+                borderRadius: "16px",
+                overflow: "hidden",
+                border: "2px solid rgba(239,124,59,0.35)",
+                boxShadow: "0 30px 70px rgba(0,0,0,0.6)",
+                marginBottom: "1.25rem",
+              }}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {showPhoto ? (
+                  <motion.div
+                    key="photo"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    style={{ position: "absolute", inset: 0 }}
+                  >
+                    <img
+                      src={TEAM_PHOTO}
+                      alt="The Pro SWPPP Team"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="text"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
                     style={{
-                      color: "#EF7C3B",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      whiteSpace: "nowrap",
+                      position: "absolute",
+                      inset: 0,
+                      padding: "1.75rem 2rem",
+                      background:
+                        "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      color: "rgba(255,255,255,0.92)",
+                      fontFamily: "'Roboto', Arial, sans-serif",
+                      lineHeight: 1.7,
+                      fontSize: "0.95rem",
                     }}
                   >
-                    Read More →
-                  </a>
-                </p>
-              </div>
+                    <p style={{ margin: "0 0 0.875rem" }}>
+                      Pro SWPPP is a nationwide stormwater pollution prevention plan
+                      service built for contractors, developers, and site managers who
+                      need compliance fast — without the runaround.
+                    </p>
+                    <p style={{ margin: "0 0 0.875rem" }}>
+                      Federal law requires a SWPPP on every project disturbing one or
+                      more acres. We deliver fully compliant, site-specific plans in
+                      72 hours — engineered to meet EPA and state NPDES permit
+                      requirements, across 48 states.
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontStyle: "italic",
+                        color: "#EF7C3B",
+                        fontWeight: 700,
+                      }}
+                    >
+                      No waiting weeks. No confusing templates. Just a permit-ready
+                      plan in your inbox.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Subheading below the rotating card */}
+            <p
+              style={{
+                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
+                fontWeight: 700,
+                color: "#fff",
+                textAlign: "center",
+                fontStyle: "italic",
+                marginBottom: "1.25rem",
+                lineHeight: 1.4,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Construction Doesn&apos;t Wait. Neither Should Your{" "}
+              <span style={{ color: "#EF7C3B" }}>Stormwater Compliance.</span>
+            </p>
+
+            {/* Meet Our Team button */}
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="/about/"
+                className="btn-orange text-base px-8 py-3.5 inline-block"
+              >
+                Meet Our Team
+              </a>
             </div>
           </motion.div>
-
         </div>
 
-        {/* Trust Badges — bottom of hero */}
+        {/* Trust Badges — bottom of hero (unchanged) */}
         <motion.div
           custom={0.7}
           initial="hidden"
@@ -373,20 +344,19 @@ export default function HeroSection() {
           <img
             src="/images/cpesc-logo-trans.webp"
             alt="CPESC Certified SWPPP Professional"
-            style={{ height: '60px', width: 'auto' }}
+            style={{ height: "60px", width: "auto" }}
           />
           <img
             src="/images/Guarantee-com-300x300.png"
             alt="100% Compliance Guaranteed"
-            style={{ height: '60px', width: 'auto' }}
+            style={{ height: "60px", width: "auto" }}
           />
           <img
             src="/images/icon-woman-owned-seal-300x300.png"
             alt="Woman Owned Business"
-            style={{ height: '60px', width: 'auto' }}
+            style={{ height: "60px", width: "auto" }}
           />
         </motion.div>
-
       </div>
     </section>
   );
