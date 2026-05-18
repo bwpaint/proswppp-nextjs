@@ -305,10 +305,10 @@ export default function HeroSection() {
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
             </h2>
 
-            {/* Rotating card: photo ↔ descriptive text ↔ risk score, every 4
-                seconds. Hovering pauses the rotation. The team photo is always
-                mounted at its natural aspect so it controls the card's height;
-                the text and risk-score panels overlay it when active. */}
+            {/* Rotating card. Outer wrapper has overflow: visible so the
+                nav arrows can sit slightly outside the rounded card edges.
+                Inner div has overflow: hidden + border-radius so the photo
+                and panels stay clipped to the rounded shape. */}
             <div
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
@@ -318,12 +318,18 @@ export default function HeroSection() {
               style={{
                 position: "relative",
                 width: "100%",
-                overflow: "hidden",
-                borderRadius: "10px",
                 marginBottom: "1.25rem",
                 outline: "none",
               }}
             >
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                  borderRadius: "10px",
+                }}
+              >
               {/* Photo — always in the DOM so it dictates the card height at
                   its natural aspect. Fades out when another phase is active. */}
               <motion.img
@@ -552,18 +558,20 @@ export default function HeroSection() {
                   </motion.div>
                 )}
               </AnimatePresence>
+              </div>
 
-              {/* Manual navigation dots — left/right. Always present; click
-                  forces manual mode (auto-rotation stops once the user takes
-                  control, and stops on its own after the first full cycle). */}
+              {/* Manual navigation dots — left/right at the bottom corners,
+                  aligned with the "Select your state" dropdown row. Sit
+                  slightly outside the rounded card to draw the eye. Always
+                  present; click forces manual mode. */}
               <button
                 type="button"
                 onClick={goPrev}
                 aria-label="Previous"
                 style={{
                   position: "absolute",
-                  left: "10px",
-                  bottom: "10px",
+                  left: "-12px",
+                  bottom: "50px",
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
@@ -600,8 +608,8 @@ export default function HeroSection() {
                 aria-label="Next"
                 style={{
                   position: "absolute",
-                  right: "10px",
-                  bottom: "10px",
+                  right: "-12px",
+                  bottom: "50px",
                   width: "42px",
                   height: "42px",
                   borderRadius: "9999px",
