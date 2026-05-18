@@ -106,7 +106,7 @@ export default function TrustBadgesSection() {
     <section
       style={{
         background: "#000000",
-        padding: "5rem 0",
+        padding: "3.3rem 0",
         overflow: "hidden",
       }}
     >

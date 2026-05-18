@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function ExperienceSection() {
   return (
-    <section className="py-16 lg:py-20" style={{ background: '#000000' }}>
+    <section className="py-28 lg:py-32" style={{ background: '#000000' }}>
       <div className="container text-center">
 
         {/* Confidence headline */}
