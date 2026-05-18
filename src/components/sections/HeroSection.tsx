@@ -427,12 +427,9 @@ export default function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                       />
-                      {/* Needle — uses native SVG <animateTransform> with
-                          explicit rotation center (cx=100, cy=100). Pivots at
-                          the base no matter what the browser does with CSS
-                          transform-origin. Always animating; the surrounding
-                          panel still pauses on hover so the user can read
-                          and pick a state. */}
+                      {/* Needle — clean line with the dot at the pivot (base),
+                          not the tip. Native SVG animateTransform pivots
+                          around (100,100) explicitly via 'angle cx cy'. */}
                       <g>
                         <line
                           x1="100"
@@ -443,13 +440,13 @@ export default function HeroSection() {
                           strokeWidth="3"
                           strokeLinecap="round"
                         />
-                        <circle cx="100" cy="42" r="4" fill="#EF7C3B" />
                         <animateTransform
                           attributeName="transform"
                           attributeType="XML"
                           type="rotate"
                           values="-30 100 100; 15 100 100; -10 100 100; 65 100 100; -30 100 100"
                           keyTimes="0; 0.25; 0.5; 0.75; 1"
+                          begin="0s"
                           dur="10s"
                           repeatCount="indefinite"
                           calcMode="spline"
