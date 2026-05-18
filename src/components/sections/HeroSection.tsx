@@ -309,7 +309,7 @@ export default function HeroSection() {
                       inset: 0,
                       padding: "1.75rem 2rem",
                       background:
-                        "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)",
+                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center",
@@ -356,7 +356,7 @@ export default function HeroSection() {
                       inset: 0,
                       padding: "1rem 1.25rem",
                       background:
-                        "linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)",
+                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
@@ -417,9 +417,11 @@ export default function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                       />
-                      {/* Needle group — translate to pivot point, then rotate */}
+                      {/* Needle group — translate to pivot, motion.g rotates
+                          around its bottom-center via transform-box: fill-box */}
                       <g transform="translate(100, 100)">
                         <motion.g
+                          initial={{ rotate: -30 }}
                           animate={
                             paused
                               ? { rotate: 0 }
@@ -435,6 +437,10 @@ export default function HeroSection() {
                                   times: [0, 0.25, 0.5, 0.75, 1],
                                 }
                           }
+                          style={{
+                            transformBox: "fill-box",
+                            transformOrigin: "50% 100%",
+                          }}
                         >
                           <line
                             x1="0"
@@ -531,17 +537,19 @@ export default function HeroSection() {
             <p
               style={{
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
+                fontSize: "clamp(1.2rem, 1.7vw, 1.45rem)",
                 fontWeight: 700,
                 color: "#fff",
                 textAlign: "center",
                 fontStyle: "italic",
                 marginBottom: "1.25rem",
-                lineHeight: 1.4,
+                lineHeight: 1.35,
                 letterSpacing: "-0.01em",
               }}
             >
-              Construction Doesn&apos;t Wait. Neither Should Your{" "}
+              Construction Doesn&apos;t Wait.
+              <br />
+              Neither Should Your{" "}
               <span style={{ color: "#EF7C3B" }}>Stormwater Compliance.</span>
             </p>
 
