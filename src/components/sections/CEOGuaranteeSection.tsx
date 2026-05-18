@@ -190,7 +190,7 @@ export default function CEOGuaranteeSection() {
               letterSpacing: "-0.01em",
             }}
           >
-            Beyond the <span className="text-[#FFD9A8]">72-Hour</span> Delivery
+            Beyond the <span className="text-[#EF7C3B]">72-Hour</span> Delivery
           </h3>
 
           {/* Subhead */}
@@ -259,7 +259,8 @@ export default function CEOGuaranteeSection() {
             })}
           </div>
 
-          {/* CTA — sized to match the "Beyond the 72-Hour Delivery" headline */}
+          {/* CTA — orange to match the "72-Hour" accent, sized to match
+              the "Beyond the 72-Hour Delivery" headline. No underline. */}
           <a
             href="tel:8334387977"
             className="inline-flex items-center gap-3 self-start"
@@ -268,23 +269,17 @@ export default function CEOGuaranteeSection() {
                 "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
               fontWeight: 900,
-              color: "#ffffff",
+              color: "#EF7C3B",
               letterSpacing: "-0.01em",
               lineHeight: 1.1,
               textDecoration: "none",
-              borderBottom: "2px solid rgba(255,255,255,0.55)",
-              paddingBottom: "0.35rem",
-              transition: "color 0.2s, border-color 0.2s",
+              transition: "color 0.2s",
             }}
             onMouseOver={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.color = "#FFD9A8";
-              el.style.borderBottomColor = "#FFD9A8";
+              (e.currentTarget as HTMLAnchorElement).style.color = "#FF9456";
             }}
             onMouseOut={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.color = "#ffffff";
-              el.style.borderBottomColor = "rgba(255,255,255,0.55)";
+              (e.currentTarget as HTMLAnchorElement).style.color = "#EF7C3B";
             }}
           >
             <Phone size={30} strokeWidth={2.5} />
