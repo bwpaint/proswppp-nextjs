@@ -48,10 +48,21 @@ export default function HeroSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Fluent Footer Form (#1) has no `company` field — pack it into `message` so it's preserved.
       const res = await fetch('/api/submit-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ form_slug: 'footer', fields: formData }),
+        body: JSON.stringify({
+          form_slug: 'footer',
+          fields: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            interest: formData.interest,
+            message: formData.company ? `Company: ${formData.company}` : '',
+          },
+        }),
       });
       if (res.ok) {
         alert("Thanks — we'll be in touch shortly!");

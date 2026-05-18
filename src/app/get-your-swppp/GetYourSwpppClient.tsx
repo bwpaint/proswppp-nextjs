@@ -1155,31 +1155,46 @@ export default function GetYourSwpppClient() {
     setSubmitting(true);
     try {
       const totals = calcTotal(form, regionData);
-      // PATCH: Route SWPPP order through Fluent Forms for lead capture.
-      // When the WebWize Connect Orders plugin + Stripe are installed,
-      // this can switch back to `${SOP_BASE}/orders` for full e-commerce.
+
+      // Map the rich order form into the EXISTING Fluent Form #3 (13 camelCase fields).
+      // Extra data (dates, addons, totals, region info) is packed into `notes` as a
+      // formatted summary so nothing is lost on the WP side.
+      // When the WebWize Connect Orders plugin + Stripe go in, this switches back to
+      // `${SOP_BASE}/orders` for the full e-commerce flow.
+      const projectAddress = [form.projectStreet, form.projectCity, form.projectZip]
+        .filter(Boolean).join(', ');
+
+      const notes = [
+        form.specialCategory ? `Special Category: ${form.specialCategory}` : '',
+        form.startDate ? `Start Date: ${form.startDate}` : '',
+        form.endDate ? `End Date: ${form.endDate}` : '',
+        `E-Portal Add-on: ${form.ePortal ? `yes${form.ePortalMonths ? ` (${form.ePortalMonths} months)` : ''}` : 'no'}`,
+        `CPESC Add-on: ${form.cpesc ? `yes${form.cpescMonths ? ` (${form.cpescMonths} months)` : ''}` : 'no'}`,
+        `Hard Copy Add-on: ${form.hardCopy ? 'yes' : 'no'}`,
+        `Region: ${selectedSlug || ''} (${selectedCode || ''})`,
+        `─────────────────────`,
+        `Total Amount: $${totals.total}`,
+      ].filter(Boolean).join('\n');
+
       await fetch('/api/submit-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           form_slug: 'get-swppp',
           fields: {
-            first_name: form.firstName, last_name: form.lastName,
-            email: form.email, phone: form.phone, company: form.company,
-            region_slug: selectedSlug, state_code: selectedCode,
-            project_name: form.projectName, project_street: form.projectStreet,
-            project_city: form.projectCity, project_zip: form.projectZip,
-            land_disturbance: form.landDisturbance,
-            service_needed: form.serviceNeeded,
-            start_date: form.startDate, end_date: form.endDate,
-            drawings_link: form.drawingsLink,
-            special_category: form.specialCategory,
-            addon_eportal: form.ePortal ? 'yes' : 'no',
-            eportal_months: String(form.ePortalMonths ?? ''),
-            addon_cpesc: form.cpesc ? 'yes' : 'no',
-            cpesc_months: String(form.cpescMonths ?? ''),
-            addon_hard_copy: form.hardCopy ? 'yes' : 'no',
-            total_amount: String(totals.total),
+            firstName:        form.firstName,
+            lastName:         form.lastName,
+            company:          form.company,
+            email:            form.email,
+            phone:            form.phone,
+            projectName:      form.projectName,
+            projectAddress:   projectAddress,
+            state:            selectedCode || '',
+            Zip:              form.projectZip,
+            acreage:          form.landDisturbance,
+            service:          form.serviceNeeded,
+            civilDrawingsUrl: form.drawingsLink,
+            notes:            notes,
           },
         }),
       });
