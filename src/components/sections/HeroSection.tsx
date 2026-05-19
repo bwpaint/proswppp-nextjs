@@ -20,11 +20,15 @@ import { useEffect, useState } from "react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const PHASES = ["photo", "text", "risk"] as const;
+const PHASES = ["cta", "photo", "text", "risk"] as const;
 type Phase = (typeof PHASES)[number];
-// Dwell time per phase, in ms — photo brief, text moderate, risk long
-// enough that the visitor can read it and pick a state.
+// Dwell time per phase, in ms.
+//   cta   — 'Get Your SWPPP Now' call-to-action slide (first)
+//   photo — team photo
+//   text  — descriptive copy
+//   risk  — live risk-score gauge with state dropdown
 const PHASE_DURATIONS_MS: Record<Phase, number> = {
+  cta: 8000,
   photo: 4000,
   text: 6000,
   risk: 10000,
@@ -81,9 +85,10 @@ export default function HeroSection() {
   useEffect(() => {
     if (paused || manualMode) return;
     const t = setTimeout(() => {
-      // After the last phase (risk) finishes its dwell, stop auto-rotating
-      // and stay on the risk panel — the user takes over via the nav dots.
+      // After the last phase (risk), loop back to the CTA slide and stop
+      // auto-rotating. The user takes over via the nav arrows from there.
       if (phaseIdx === PHASES.length - 1) {
+        setPhaseIdx(0);
         setManualMode(true);
       } else {
         setPhaseIdx((i) => i + 1);
@@ -346,6 +351,133 @@ export default function HeroSection() {
               />
 
               <AnimatePresence mode="wait" initial={false}>
+                {phase === "cta" && (
+                  <motion.div
+                    key="cta"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      padding: "1.5rem 1.75rem",
+                      background:
+                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    {/* Eyebrow */}
+                    <p
+                      style={{
+                        color: "#EF7C3B",
+                        fontFamily: "'Roboto', Arial, sans-serif",
+                        fontSize: "0.75rem",
+                        fontWeight: 900,
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                        margin: "0 0 0.6rem",
+                      }}
+                    >
+                      Get Started
+                    </p>
+
+                    {/* Headline */}
+                    <h3
+                      style={{
+                        color: "#ffffff",
+                        fontFamily:
+                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        fontSize: "1.95rem",
+                        fontWeight: 900,
+                        letterSpacing: "-0.01em",
+                        lineHeight: 1.1,
+                        margin: "0 0 0.75rem",
+                      }}
+                    >
+                      Get Your{" "}
+                      <span style={{ color: "#EF7C3B" }}>SWPPP</span> Now
+                    </h3>
+
+                    {/* Body */}
+                    <p
+                      style={{
+                        fontFamily: "'Roboto', Arial, sans-serif",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.5,
+                        color: "rgba(255,255,255,0.88)",
+                        margin: "0 0 1.1rem",
+                        maxWidth: "92%",
+                      }}
+                    >
+                      Select your state below to get started. Your fully
+                      compliant SWPPP delivered within 72 hours — guaranteed.
+                    </p>
+
+                    {/* Primary CTA */}
+                    <a
+                      href="/get-your-swppp/"
+                      style={{
+                        display: "inline-block",
+                        background: "#EF7C3B",
+                        color: "#ffffff",
+                        padding: "0.7rem 1.6rem",
+                        borderRadius: "10px",
+                        fontFamily:
+                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        fontWeight: 800,
+                        fontSize: "0.95rem",
+                        letterSpacing: "0.04em",
+                        textTransform: "uppercase",
+                        textDecoration: "none",
+                        marginBottom: "1rem",
+                        boxShadow: "0 6px 18px rgba(239,124,59,0.35)",
+                      }}
+                    >
+                      Start My Order →
+                    </a>
+
+                    {/* Trust points */}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        gap: "0.4rem 1.1rem",
+                        fontFamily: "'Roboto', Arial, sans-serif",
+                        fontSize: "0.78rem",
+                        fontWeight: 600,
+                        color: "rgba(255,255,255,0.82)",
+                        marginBottom: "0.9rem",
+                      }}
+                    >
+                      <span>✓ 100% Compliant</span>
+                      <span>✓ 72-Hour Delivery</span>
+                      <span>✓ 20+ Years Experience</span>
+                    </div>
+
+                    {/* Phone */}
+                    <a
+                      href="tel:8334387977"
+                      style={{
+                        color: "#EF7C3B",
+                        fontFamily:
+                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        fontWeight: 900,
+                        fontSize: "1.05rem",
+                        textDecoration: "none",
+                        letterSpacing: "0.02em",
+                      }}
+                    >
+                      📞 833-GET-SWPP
+                    </a>
+                  </motion.div>
+                )}
+
                 {phase === "text" && (
                   <motion.div
                     key="text"
