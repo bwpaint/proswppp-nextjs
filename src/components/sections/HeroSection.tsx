@@ -701,14 +701,17 @@ export default function HeroSection() {
             {
               src: "/images/Guarantee-com-300x300.png",
               label: "100% Compliance Guaranteed",
+              whiteBg: false,
             },
             {
               src: "/images/cpesc-logo-trans.webp",
               label: "Certified SWPPP",
+              whiteBg: true,
             },
             {
               src: "/images/icon-woman-owned-seal-300x300.png",
               label: "Women-Owned Business",
+              whiteBg: false,
             },
           ].map((badge) => (
             <div
@@ -716,16 +719,32 @@ export default function HeroSection() {
               className="flex flex-col items-center"
               style={{ width: "120px" }}
             >
-              <img
-                src={badge.src}
-                alt={badge.label}
+              <div
                 style={{
                   width: "80px",
                   height: "80px",
-                  objectFit: "contain",
-                  display: "block",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: badge.whiteBg ? "#ffffff" : "transparent",
+                  borderRadius: badge.whiteBg ? "50%" : "0",
+                  padding: badge.whiteBg ? "4px" : "0",
+                  boxShadow: badge.whiteBg
+                    ? "0 2px 10px rgba(0,0,0,0.25)"
+                    : "none",
                 }}
-              />
+              >
+                <img
+                  src={badge.src}
+                  alt={badge.label}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              </div>
               <p
                 style={{
                   marginTop: "8px",
