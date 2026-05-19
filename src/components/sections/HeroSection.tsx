@@ -713,6 +713,11 @@ export default function HeroSection() {
               label: "Women-Owned Business",
               whiteBg: false,
             },
+            {
+              src: "/images/BBB_PrimaryLogo_White.svg",
+              label: "BBB Accredited Business",
+              whiteBg: false,
+            },
           ].map((badge) => (
             <div
               key={badge.label}
