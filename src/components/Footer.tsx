@@ -78,11 +78,13 @@ export default function Footer() {
 
           {/* ── Col 1: Company Info ── */}
           <div className="lg:col-span-1">
-            <img
-              src="https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png"
-              alt="Pro SWPPP Logo"
-              className="h-10 w-auto mb-4"
-            />
+            <a href="/" aria-label="Pro SWPPP — Home" className="inline-block mb-4">
+              <img
+                src="https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png"
+                alt="Pro SWPPP Logo"
+                className="h-10 w-auto"
+              />
+            </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               America's #1 SWPPP Service. Fast, affordable, and 100% compliant — delivered in 72 hours or it's FREE.
             </p>
@@ -124,6 +126,7 @@ export default function Footer() {
                 { label: "Make a Payment", href: "/make-a-payment/" },
                 { label: "Blog", href: "/blog/" },
                 { label: "Contact Us", href: "/contact-us/" },
+                { label: "Home", href: "/" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
