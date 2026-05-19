@@ -359,6 +359,11 @@ function USOrderMap({
   const [hovered, setHovered]       = useState<string | null>(null);
   const [tooltip, setTooltip]       = useState<{ name: string; cx: number; cy: number } | null>(null);
 
+  // When the Storm Order Pro plugin REST endpoint is unavailable, `regions`
+  // arrives empty. Fall back to treating every state as active so the map
+  // remains clickable (rather than painting every state blue + popping the
+  // 'we don't serve this state' modal on every click).
+  const hasRegionData = regions.length > 0;
   const activeSlugSet = new Set(
     regions.filter(r => r.is_active == 1 || r.is_active === true || r.is_active === '1').map(r => r.slug)
   );
@@ -415,7 +420,11 @@ function USOrderMap({
           >
             {statePaths.map(({ abbr, name, d }) => {
               const info   = STATE_INFO.find(s => s.code === abbr);
-              const active = info ? activeSlugSet.has(info.slug) : false;
+              // If the region API didn't return data, treat every known
+              // state as active so the visitor can still select one.
+              const active = hasRegionData
+                ? (info ? activeSlugSet.has(info.slug) : false)
+                : !!info;
               const isHov  = hovered === abbr;
               const fill   = active ? (isHov ? '#d4692a' : '#EF7C3B') : '#6B9ED1';
               return (
