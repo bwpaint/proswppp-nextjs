@@ -78,25 +78,32 @@ export default function CEOGuaranteeSection() {
         style={{ background: "#1A3A4A" }}
       >
         <div style={{ maxWidth: "88%", marginLeft: "6%" }}>
-          <h2
-            className="section-heading text-white leading-[1.05] mb-3"
-            style={{
-              fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
-              letterSpacing: "-0.02em",
-            }}
+          {/* Headline block is a single clickable link to the order page. */}
+          <a
+            href="/get-your-swppp/"
+            style={{ textDecoration: "none", display: "block" }}
+            className="group"
           >
-            Order Your SWPPP Now and Your Site Will Be
-          </h2>
-          <h3
-            className="section-heading text-[#EF7C3B] mb-10"
-            style={{
-              fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.1,
-            }}
-          >
-            Fully Compliant in Just 72 Hours, Guaranteed
-          </h3>
+            <h2
+              className="section-heading text-white leading-[1.05] mb-3 transition-colors group-hover:text-[#FFD9A8]"
+              style={{
+                fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Order Your SWPPP Now and Your Site Will Be
+            </h2>
+            <h3
+              className="section-heading text-[#EF7C3B] mb-10 transition-colors group-hover:text-[#FF9456]"
+              style={{
+                fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.1,
+              }}
+            >
+              Fully Compliant in Just 72 Hours, Guaranteed
+            </h3>
+          </a>
 
           {/* Derek photo + quote */}
           <div

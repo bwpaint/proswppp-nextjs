@@ -418,19 +418,20 @@ export default function HeroSection() {
                       compliant SWPPP delivered within 72 hours — guaranteed.
                     </p>
 
-                    {/* Primary CTA */}
+                    {/* Primary CTA — gradient sweep animation matches the
+                        "Get My SWPPP" hero button in the left column. */}
                     <a
                       href="/get-your-swppp/?start=map"
+                      className="btn-hero-sweep"
                       style={{
                         display: "inline-block",
-                        background: "#EF7C3B",
                         color: "#ffffff",
-                        padding: "0.7rem 1.6rem",
+                        padding: "1rem 2.2rem",
                         borderRadius: "10px",
                         fontFamily:
                           "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         fontWeight: 800,
-                        fontSize: "0.95rem",
+                        fontSize: "1.9rem",
                         letterSpacing: "0.04em",
                         textTransform: "uppercase",
                         textDecoration: "none",
