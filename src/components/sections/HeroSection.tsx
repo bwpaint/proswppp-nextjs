@@ -685,29 +685,65 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Trust Badges — bottom of hero (unchanged) */}
+        {/* Trust Badges — bottom of hero. Three uniformly-sized icons with
+            a small caption underneath each.
+              Left:   100% Compliance Guaranteed
+              Middle: Certified SWPPP
+              Right:  Women-Owned Business */}
         <motion.div
           custom={0.7}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-center gap-8 mt-10 pb-2"
+          className="flex flex-wrap justify-center items-start gap-12 mt-10 pb-2"
         >
-          <img
-            src="/images/cpesc-logo-trans.webp"
-            alt="CPESC Certified SWPPP Professional"
-            style={{ height: "60px", width: "auto" }}
-          />
-          <img
-            src="/images/Guarantee-com-300x300.png"
-            alt="100% Compliance Guaranteed"
-            style={{ height: "60px", width: "auto" }}
-          />
-          <img
-            src="/images/icon-woman-owned-seal-300x300.png"
-            alt="Woman Owned Business"
-            style={{ height: "60px", width: "auto" }}
-          />
+          {[
+            {
+              src: "/images/Guarantee-com-300x300.png",
+              label: "100% Compliance Guaranteed",
+            },
+            {
+              src: "/images/cpesc-logo-trans.webp",
+              label: "Certified SWPPP",
+            },
+            {
+              src: "/images/icon-woman-owned-seal-300x300.png",
+              label: "Women-Owned Business",
+            },
+          ].map((badge) => (
+            <div
+              key={badge.label}
+              className="flex flex-col items-center"
+              style={{ width: "120px" }}
+            >
+              <img
+                src={badge.src}
+                alt={badge.label}
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
+              <p
+                style={{
+                  marginTop: "8px",
+                  fontFamily: "'Roboto', Arial, sans-serif",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#ffffff",
+                  textAlign: "center",
+                  lineHeight: 1.3,
+                  margin: "8px 0 0",
+                }}
+              >
+                {badge.label}
+              </p>
+            </div>
+          ))}
         </motion.div>
 
         {/* Tagline H2 — sits ~10px above the bottom edge of the hero section,
