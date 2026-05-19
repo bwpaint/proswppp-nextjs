@@ -414,8 +414,8 @@ export default function HeroSection() {
                         maxWidth: "92%",
                       }}
                     >
-                      Select your state below to get started. Your fully
-                      compliant SWPPP delivered within 72 hours — guaranteed.
+                      CLICK &ldquo;Start My Order&rdquo; to Receive your Compliant
+                      SWPPP delivered within 72 hours — guaranteed.
                     </p>
 
                     {/* Primary CTA — gradient sweep animation matches the
