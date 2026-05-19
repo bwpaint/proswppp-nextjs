@@ -259,7 +259,7 @@ export default function HeroSection() {
               className="flex flex-wrap gap-4"
             >
               <a
-                href="/get-your-swppp/"
+                href="/get-your-swppp/?start=map"
                 className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block"
               >
                 Get My SWPPP
@@ -420,7 +420,7 @@ export default function HeroSection() {
 
                     {/* Primary CTA */}
                     <a
-                      href="/get-your-swppp/"
+                      href="/get-your-swppp/?start=map"
                       style={{
                         display: "inline-block",
                         background: "#EF7C3B",
@@ -827,7 +827,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-start gap-12 mt-10 pb-2"
+          className="flex flex-wrap justify-center items-start gap-12 mt-14 pb-2"
         >
           {([
             {

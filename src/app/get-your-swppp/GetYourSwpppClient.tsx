@@ -1121,6 +1121,17 @@ export default function GetYourSwpppClient() {
       .finally(() => setMapLoading(false));
   }, [phase]);
 
+  // ?start=map in the URL skips the hero landing and drops the visitor
+  // straight onto the state-selection map. Used by the home-page CTAs
+  // ('Get My SWPPP' / 'Start My Order') that already signal order intent.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('start') === 'map') {
+      setPhase('map');
+    }
+  }, []);
+
   useEffect(() => {
     if (!selectedSlug) return;
     setPricingLoading(true);
