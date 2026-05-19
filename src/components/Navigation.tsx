@@ -39,9 +39,9 @@ type NavItem = {
 
 const navLinks: NavItem[] = [
   { label: "HOME", href: "/" },
+  { label: "ABOUT US", href: "/about/" },
   { label: "GET MY SWPPP", href: "/get-your-swppp/" },
   { label: "DO I NEED A SWPPP?", href: "/quiz-form/" },
-  { label: "ABOUT US", href: "/about/" },
   { label: "LOCATIONS", href: "/locations/" },
   {
     label: "RESOURCES",
@@ -52,7 +52,6 @@ const navLinks: NavItem[] = [
       { label: "SWPPP Links", href: "/resources/links/" },
     ],
   },
-  { label: "MAKE A PAYMENT", href: "/make-a-payment/" },
   { label: "BLOG", href: "/blog/" },
   { label: "CONTACT US", href: "/contact-us/" },
 ];
@@ -182,6 +181,14 @@ export default function Navigation() {
                       </div>
                     )}
                   </div>
+                ) : link.href === "/get-your-swppp/" ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-white font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#6B9ED1] hover:text-white hover:shadow-md"
+                  >
+                    {link.label}
+                  </a>
                 ) : (
                   <a
                     key={link.label}

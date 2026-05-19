@@ -105,7 +105,7 @@ export default function ContactClient() {
       </section>
 
       {/* ── Main Content ── */}
-      <section className="py-16 lg:py-24" style={{ background: '#000000' }}>
+      <section className="pt-6 lg:pt-10 pb-16 lg:pb-24" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
 

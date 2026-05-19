@@ -251,7 +251,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── Team Bios ── */}
-      <section className="py-20 lg:py-28" style={{ background: '#000000' }}>
+      <section className="pt-10 lg:pt-14 pb-20 lg:pb-28" style={{ background: '#000000' }}>
         <div className="container">
           <div className="text-center mb-14">
             <motion.p
