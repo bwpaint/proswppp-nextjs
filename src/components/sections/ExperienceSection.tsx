@@ -19,8 +19,8 @@ export default function ExperienceSection() {
           transition={{ duration: 0.6 }}
           className="section-heading text-white text-2xl lg:text-4xl leading-tight mb-4"
         >
-          Confidence in Your SWPPP Expertise,<br />
-          Compliance, and Full Support.
+          Confidence Built In: Expert SWPPPs,<br />
+          Full Compliance, Lifetime Support.
         </motion.h2>
 
         <motion.p
