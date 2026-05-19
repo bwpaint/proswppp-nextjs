@@ -827,7 +827,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-start gap-12 mt-14 pb-2"
+          className="flex flex-wrap justify-center items-start gap-12 mt-28 pb-2"
         >
           {([
             {
