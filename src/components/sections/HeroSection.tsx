@@ -142,7 +142,7 @@ export default function HeroSection() {
       `}</style>
 
       {/* Two-column content */}
-      <div className="relative z-10 container pt-20 lg:pt-32 pb-16 lg:pb-24">
+      <div className="relative z-10 container pt-20 lg:pt-32 pb-2.5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────
@@ -709,6 +709,27 @@ export default function HeroSection() {
             style={{ height: "60px", width: "auto" }}
           />
         </motion.div>
+
+        {/* Tagline H2 — sits ~10px above the bottom edge of the hero section,
+            matched in size/weight to the right-column "Built for Builders". */}
+        <motion.h2
+          custom={0.8}
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          className="text-center uppercase mt-8"
+          style={{
+            fontSize: "clamp(2rem, 3.8vw, 3rem)",
+            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.1,
+            color: "#EF7C3B",
+            margin: "2rem 0 0",
+          }}
+        >
+          Number One Stormwater Pollution Prevention Plan Service in the U.S.
+        </motion.h2>
       </div>
     </section>
   );
