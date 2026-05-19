@@ -697,77 +697,101 @@ export default function HeroSection() {
           variants={fadeUp}
           className="flex flex-wrap justify-center items-start gap-12 mt-10 pb-2"
         >
-          {[
+          {([
             {
               src: "/images/Guarantee-com-300x300.png",
               label: "100% Compliance Guaranteed",
               whiteBg: false,
+              href: null,
             },
             {
               src: "/images/cpesc-logo-trans.webp",
               label: "Certified SWPPP",
               whiteBg: true,
+              href: null,
             },
             {
               src: "/images/icon-woman-owned-seal-300x300.png",
               label: "Women-Owned Business",
               whiteBg: false,
+              href: null,
             },
             {
               src: "/images/BBB_PrimaryLogo_White.svg",
               label: "BBB Accredited Business",
               whiteBg: false,
+              href: "https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436",
             },
-          ].map((badge) => (
-            <div
-              key={badge.label}
-              className="flex flex-col items-center"
-              style={{ width: "120px" }}
-            >
-              <div
-                style={{
-                  width: "80px",
-                  height: "80px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: badge.whiteBg ? "#ffffff" : "transparent",
-                  borderRadius: badge.whiteBg ? "50%" : "0",
-                  padding: badge.whiteBg ? "4px" : "0",
-                  boxShadow: badge.whiteBg
-                    ? "0 2px 10px rgba(0,0,0,0.25)"
-                    : "none",
-                }}
-              >
-                <img
-                  src={badge.src}
-                  alt={badge.label}
+          ] as const).map((badge) => {
+            const inner = (
+              <>
+                <div
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    display: "block",
+                    width: "80px",
+                    height: "80px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: badge.whiteBg ? "#ffffff" : "transparent",
+                    borderRadius: badge.whiteBg ? "50%" : "0",
+                    padding: badge.whiteBg ? "4px" : "0",
+                    boxShadow: badge.whiteBg
+                      ? "0 2px 10px rgba(0,0,0,0.25)"
+                      : "none",
                   }}
-                />
-              </div>
-              <p
-                style={{
-                  marginTop: "8px",
-                  fontFamily: "'Roboto', Arial, sans-serif",
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#ffffff",
-                  textAlign: "center",
-                  lineHeight: 1.3,
-                  margin: "8px 0 0",
-                }}
+                >
+                  <img
+                    src={badge.src}
+                    alt={badge.label}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                </div>
+                <p
+                  style={{
+                    marginTop: "8px",
+                    fontFamily: "'Roboto', Arial, sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#ffffff",
+                    textAlign: "center",
+                    lineHeight: 1.3,
+                    margin: "8px 0 0",
+                  }}
+                >
+                  {badge.label}
+                </p>
+              </>
+            );
+
+            return badge.href ? (
+              <a
+                key={badge.label}
+                href={badge.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center"
+                style={{ width: "120px", textDecoration: "none" }}
+                aria-label={`${badge.label} (opens in a new tab)`}
               >
-                {badge.label}
-              </p>
-            </div>
-          ))}
+                {inner}
+              </a>
+            ) : (
+              <div
+                key={badge.label}
+                className="flex flex-col items-center"
+                style={{ width: "120px" }}
+              >
+                {inner}
+              </div>
+            );
+          })}
         </motion.div>
 
         {/* Tagline H2 — sits ~10px above the bottom edge of the hero section,
