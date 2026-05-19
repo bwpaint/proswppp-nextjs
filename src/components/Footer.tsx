@@ -260,18 +260,20 @@ export default function Footer() {
 
         {/* Badge row — BBB + Procore, flush left */}
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-wrap items-center gap-6">
-          {/* BBB Badge */}
-          <div className="flex items-center gap-3 bg-white rounded-lg px-4 py-2.5">
-            <div className="text-center leading-none">
-              <p className="font-black text-[#003087] text-base leading-none">BBB</p>
-              <p className="text-[9px] text-gray-500 leading-tight">Accredited</p>
-              <p className="text-[9px] text-gray-500 leading-tight">Business</p>
-            </div>
-            <div className="border-l border-gray-200 pl-3">
-              <p className="font-bold text-[#1A3A4A] text-xs">Rating: A+</p>
-              <p className="text-[9px] text-gray-400">Click for Profile</p>
-            </div>
-          </div>
+          {/* BBB Badge — official Accredited Business seal, links to profile */}
+          <a
+            href="https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="BBB Accredited Business (opens in a new tab)"
+            className="inline-flex items-center"
+          >
+            <img
+              src="/images/Accredited_Business_Seal_NoRating_RGB.svg.svg"
+              alt="BBB Accredited Business"
+              style={{ height: "60px", width: "auto", display: "block" }}
+            />
+          </a>
 
           {/* Procore Badge */}
           <div className="bg-white rounded-lg px-4 py-2.5">
