@@ -42,28 +42,36 @@ const wwProofScript = `(function () {
     document.cookie = name + '=; max-age=0; path=/; SameSite=Lax';
   }
 
-  // 1. URL params (highest priority — refreshes the session)
-  var p      = new URLSearchParams(window.location.search);
-  var proof  = p.get('proof')  || '';
-  var review = p.get('review') || '';
+  // 1. URL params win outright. A token in the URL is an explicit choice of
+  //    mode, so it RESETS the other mode -- otherwise a stale review cookie
+  //    would hijack a ?proof= link (and vice versa) and boot the wrong UI.
+  var p         = new URLSearchParams(window.location.search);
+  var urlProof  = p.get('proof')  || '';
+  var urlReview = p.get('review') || '';
+  var proof, review;
 
-  // 2. Cookie fallback (cross-tab, survives full page reloads)
-  if (!proof)  proof  = getCookie(CKP);
-  if (!review) review = getCookie(CKR);
-
-  // 3. sessionStorage fallback (same-tab soft-nav in Next.js)
-  if (!proof && !review) {
-    try {
-      var stored = sessionStorage.getItem(SK);
-      if (stored) { var s = JSON.parse(stored); proof = s.proof || ''; review = s.review || ''; }
-    } catch(e) {}
+  if (urlProof || urlReview) {
+    proof  = urlProof;
+    review = urlReview;
+    if (urlProof && !urlReview) { clearCookie(CKR); review = ''; }  // proof link clears review
+    if (urlReview && !urlProof) { clearCookie(CKP); proof  = ''; }  // review link clears proof
+  } else {
+    // 2. No token in URL -- fall back to cookie, then sessionStorage
+    proof  = getCookie(CKP);
+    review = getCookie(CKR);
+    if (!proof && !review) {
+      try {
+        var stored = sessionStorage.getItem(SK);
+        if (stored) { var s = JSON.parse(stored); proof = s.proof || ''; review = s.review || ''; }
+      } catch(e) {}
+    }
   }
 
   if (!proof && !review) return;
 
-  // Write both persistence layers
-  if (proof)  setCookie(CKP, proof);
-  if (review) setCookie(CKR, review);
+  // Persist the active mode; clear the other so it can never resurface
+  if (proof)  { setCookie(CKP, proof);  } else { clearCookie(CKP); }
+  if (review) { setCookie(CKR, review); } else { clearCookie(CKR); }
   try { sessionStorage.setItem(SK, JSON.stringify({ proof: proof, review: review })); } catch(e) {}
 
   window.wwpsConfig = {
