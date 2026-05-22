@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Dynamic imports with ssr:false for framer-motion components
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
+const HowItWorksSection = dynamic(() => import('@/components/sections/HowItWorksSection'), { ssr: false });
 const StatsSection = dynamic(() => import('@/components/sections/StatsSection'), { ssr: false });
 const TrustBadgesSection = dynamic(() => import('@/components/sections/TrustBadgesSection'), { ssr: false });
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
@@ -26,6 +27,9 @@ export default function HomePage() {
     <main>
       {/* Hero with rotating Built-for-Builders card */}
       <HeroSection />
+
+      {/* How It Works — 4-step process, guarantee callout, CTA */}
+      <HowItWorksSection />
 
       {/* 20-year stats (20+ years, 100% compliance, 72 hours, 5-star reviews) */}
       <StatsSection />

@@ -1,21 +1,24 @@
 'use client';
 /*
- * Hero Section — ProSWPPP Redesign (v3)
- * - Orange tagline banner directly under the nav, full-width: "America's Number
- *   One Stormwater Pollution Prevention Plan Service"
- * - Two-column layout below:
- *     LEFT  (50%): Stars + Google review count (moved to TOP) + brand
- *                  headline + "Get My SWPPP" CTA (single CTA; no Take the Quiz)
- *     RIGHT (50%): "Who We Are — Built for Builders" panel with a 2-slide
- *                  rotating card:
- *                    Slide 1 — Derek Chinners promise card
- *                              (headline + photo + quote + signature)
- *                    Slide 2 — Team photo with descriptive text overlay
- * - Trust badges row at the bottom; no separate tagline below the badges
- *   (that tagline now lives in the orange banner at the top).
- *
- * Backup of the previous design lives at:
- *   /backups/HeroSection-v2-rotating-team-card.tsx (if needed for revert)
+ * Hero Section — ProSWPPP Redesign (v4)
+ * - Orange-TYPE tagline directly under the orange announcement bar:
+ *   "America's Number One Stormwater Pollution Prevention Plan Service"
+ *   (orange #EF7C3B text on the dark hero, no orange band)
+ * - LEFT column:
+ *     stars + 200+ 5-Star Google Reviews
+ *     H1 "Get Your SWPPP" — the SWPPP word is in brand blue
+ *     H2 "In 72 hrs., or it's FREE!"
+ *     "Get My SWPPP" CTA with an attention-grabbing animated SVG circle +
+ *     curved arrow that draws after the page loads
+ * - RIGHT column: "Built for Builders" headline + 2-slide rotator:
+ *     Slide A — TEAM photo. Descriptive text overlay FADES IN then FADES OUT
+ *               within the slide window so the photo is the final state.
+ *     Slide B — DEREK card (full-card replacement, not laid over the photo).
+ *               Larger Derek photo + larger quote + new single-line headline:
+ *               "Order your SWPPP now, and your site will be fully compliant
+ *                in just 72 hours, guaranteed!"
+ * - Trust badges row at the bottom. No tagline below the badges (that
+ *   content now lives in the orange-type line at the top).
  */
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,12 +31,11 @@ const HERO_BG =
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
 const CEO_PHOTO = "https://proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg";
 
-// TODO: wire this to Google Places API for live count. Hard-coded for now.
+// TODO: wire to Google Places API for live count. Hard-coded placeholder.
 const GOOGLE_REVIEW_COUNT = "200+";
 
 const PHASES = ["derek", "team"] as const;
 type Phase = (typeof PHASES)[number];
-// Dwell time per phase, in ms.
 const PHASE_DURATIONS_MS: Record<Phase, number> = {
   derek: 8000,
   team: 8000,
@@ -49,8 +51,6 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  // Right-column rotating card cycles two slides (Derek card -> Team photo
-  // with text) on a continuous loop. Hovering pauses rotation.
   const [phaseIdx, setPhaseIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const phase: Phase = PHASES[phaseIdx];
@@ -72,7 +72,7 @@ export default function HeroSection() {
         backgroundPosition: "center top",
       }}
     >
-      {/* Dark gradient overlay — lightest top-left, darkest toward bottom-right center */}
+      {/* Dark gradient overlay */}
       <div
         className="absolute inset-0"
         style={{
@@ -82,20 +82,18 @@ export default function HeroSection() {
       />
 
       {/* ────────────────────────────────────────────────────────────────
-          Orange tagline banner — directly under the navigation, full-width
+          Tagline — orange TYPE on the dark hero, directly under the nav
           ──────────────────────────────────────────────────────────────── */}
-      <div
-        className="relative z-10 w-full"
-        style={{ background: "#EF7C3B" }}
-      >
-        <div className="container py-2.5">
+      <div className="relative z-10 w-full">
+        <div className="container pt-5 pb-1">
           <p
-            className="text-center text-white uppercase"
+            className="text-center uppercase"
             style={{
+              color: "#EF7C3B",
               fontFamily: "'Roboto', Arial, sans-serif",
               fontWeight: 900,
               fontSize: "clamp(0.85rem, 1.15vw, 1rem)",
-              letterSpacing: "0.18em",
+              letterSpacing: "0.2em",
               lineHeight: 1.3,
               margin: 0,
             }}
@@ -108,14 +106,14 @@ export default function HeroSection() {
       {/* ────────────────────────────────────────────────────────────────
           Two-column hero content
           ──────────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 container pt-12 lg:pt-20 pb-2.5">
+      <div className="relative z-10 container pt-8 lg:pt-14 pb-2.5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────
-              LEFT: Stars + reviews (top) + headline + single CTA
+              LEFT
               ──────────────────────────────────────────────────────────── */}
           <div>
-            {/* Stars + Google review count — moved to TOP per owner */}
+            {/* Stars + Google review count — TOP */}
             <motion.div
               custom={0}
               initial="hidden"
@@ -136,7 +134,7 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            {/* Main Headline */}
+            {/* Main Headline — SWPPP in brand blue */}
             <motion.h1
               custom={0.1}
               initial="hidden"
@@ -150,7 +148,16 @@ export default function HeroSection() {
                 letterSpacing: "-0.03em",
               }}
             >
-              Get Your <span style={{ fontSize: "130%", display: "inline-block" }}>SWPPP</span>
+              Get Your{" "}
+              <span
+                style={{
+                  fontSize: "130%",
+                  display: "inline-block",
+                  color: "#6B9ED1",
+                }}
+              >
+                SWPPP
+              </span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -171,7 +178,8 @@ export default function HeroSection() {
               In 72 hrs.,<br />or it&apos;s FREE!
             </motion.h2>
 
-            {/* Single CTA — "Get My SWPPP" (no Take the Quiz) */}
+            {/* Single CTA — wrapped in a relative container that hosts the
+                animated SVG circle + arrow overlay. */}
             <motion.div
               custom={0.3}
               initial="hidden"
@@ -179,17 +187,82 @@ export default function HeroSection() {
               variants={fadeUp}
               className="flex flex-wrap gap-4"
             >
-              <a
-                href="/get-your-swppp/?start=map"
-                className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block"
-              >
-                Get My SWPPP
-              </a>
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <a
+                  href="/get-your-swppp/?start=map"
+                  className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block relative z-10"
+                >
+                  Get My SWPPP
+                </a>
+
+                {/* Attention-grabbing circle + arrow that draws after a
+                    short delay once the page is loaded. */}
+                <svg
+                  aria-hidden="true"
+                  width="380"
+                  height="220"
+                  viewBox="0 0 380 220"
+                  style={{
+                    position: "absolute",
+                    left: "-60px",
+                    top: "-80px",
+                    pointerEvents: "none",
+                    overflow: "visible",
+                  }}
+                >
+                  {/* Ellipse "circle" around the CTA */}
+                  <motion.ellipse
+                    cx="170"
+                    cy="110"
+                    rx="135"
+                    ry="46"
+                    fill="none"
+                    stroke="#FFB800"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{
+                      delay: 1.8,
+                      duration: 1.3,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  {/* Curved arrow shaft — comes in from the upper right */}
+                  <motion.path
+                    d="M 345 15 C 370 70, 360 105, 305 110"
+                    fill="none"
+                    stroke="#FFB800"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{
+                      delay: 3.2,
+                      duration: 0.9,
+                      ease: "easeOut",
+                    }}
+                  />
+                  {/* Arrowhead — appears once the shaft finishes drawing */}
+                  <motion.polygon
+                    points="305,110 320,100 320,120"
+                    fill="#FFB800"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      delay: 4.1,
+                      duration: 0.3,
+                      ease: "backOut",
+                    }}
+                    style={{ transformOrigin: "305px 110px" }}
+                  />
+                </svg>
+              </div>
             </motion.div>
           </div>
 
           {/* ────────────────────────────────────────────────────────────
-              RIGHT: Who We Are — Built for Builders (2-slide rotator)
+              RIGHT — Built for Builders + 2-slide rotator
               ──────────────────────────────────────────────────────────── */}
           <motion.div
             custom={0.3}
@@ -197,21 +270,7 @@ export default function HeroSection() {
             animate="visible"
             variants={fadeUp}
           >
-            {/* Eyebrow */}
-            <p
-              className="uppercase tracking-widest text-sm mb-3"
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                fontWeight: 900,
-                letterSpacing: "0.2em",
-                color: "#EF7C3B",
-                textAlign: "center",
-              }}
-            >
-              Who We Are
-            </p>
-
-            {/* Heading: Built for Builders */}
+            {/* Heading — "Who We Are" eyebrow removed per owner */}
             <h2
               className="text-white uppercase leading-none mb-6"
               style={{
@@ -225,9 +284,6 @@ export default function HeroSection() {
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
             </h2>
 
-            {/* Rotating card. Team photo stays in the DOM at all times so
-                it dictates the card height at its natural aspect ratio.
-                Slides fade in/out on top of it. */}
             <div
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
@@ -249,8 +305,7 @@ export default function HeroSection() {
                   borderRadius: "10px",
                 }}
               >
-                {/* Team photo — always in the DOM. Visible only on the "team"
-                    slide; otherwise sits behind the Derek overlay. */}
+                {/* Team photo — always in the DOM, dictates card height */}
                 <img
                   src={TEAM_PHOTO}
                   alt="The Pro SWPPP Team"
@@ -274,100 +329,94 @@ export default function HeroSection() {
                         inset: 0,
                         padding: "1.5rem 1.75rem",
                         background:
-                          "linear-gradient(135deg, rgba(13,31,43,0.92) 0%, rgba(26,58,74,0.92) 100%)",
+                          "linear-gradient(135deg, rgba(13,31,43,0.96) 0%, rgba(26,58,74,0.96) 100%)",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
+                        gap: "1.1rem",
                       }}
                     >
-                      {/* Headline links to the order page */}
+                      {/* Headline — single line, linked to the order page */}
                       <a
                         href="/get-your-swppp/"
-                        style={{ textDecoration: "none", display: "block", marginBottom: "1.1rem" }}
+                        style={{ textDecoration: "none", display: "block" }}
                       >
                         <h3
                           style={{
                             color: "#ffffff",
                             fontFamily:
                               "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                            fontSize: "clamp(1.15rem, 1.7vw, 1.55rem)",
+                            fontSize: "clamp(1.05rem, 1.55vw, 1.45rem)",
                             fontWeight: 900,
-                            lineHeight: 1.15,
-                            letterSpacing: "-0.01em",
-                            margin: "0 0 0.4rem",
-                          }}
-                        >
-                          Order Your SWPPP Now and Your Site Will Be
-                        </h3>
-                        <h4
-                          style={{
-                            color: "#EF7C3B",
-                            fontFamily:
-                              "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                            fontSize: "clamp(1rem, 1.45vw, 1.3rem)",
-                            fontWeight: 900,
-                            lineHeight: 1.15,
+                            lineHeight: 1.2,
                             letterSpacing: "-0.01em",
                             margin: 0,
+                            textAlign: "center",
                           }}
                         >
-                          Fully Compliant in Just 72 Hours, Guaranteed
-                        </h4>
+                          Order your{" "}
+                          <span style={{ color: "#EF7C3B" }}>SWPPP</span> now,
+                          and your site will be fully compliant in just{" "}
+                          <span style={{ color: "#EF7C3B" }}>72 hours</span>,
+                          guaranteed!
+                        </h3>
                       </a>
 
-                      {/* Derek photo + quote */}
+                      {/* Larger Derek photo + larger quote, centered */}
                       <div
                         style={{
                           display: "flex",
-                          gap: "1rem",
-                          alignItems: "flex-start",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: "0.8rem",
                           background: "rgba(255,255,255,0.06)",
                           border: "1px solid rgba(255,255,255,0.10)",
-                          borderRadius: "12px",
-                          padding: "0.9rem 1rem",
+                          borderRadius: "14px",
+                          padding: "1.1rem 1.25rem",
                         }}
                       >
                         <img
                           src={CEO_PHOTO}
                           alt="Derek E. Chinners – CEO, Pro SWPPP"
                           style={{
-                            width: "72px",
-                            height: "72px",
+                            width: "120px",
+                            height: "120px",
                             borderRadius: "9999px",
                             objectFit: "cover",
-                            border: "3px solid #EF7C3B",
+                            border: "4px solid #EF7C3B",
                             flexShrink: 0,
+                            boxShadow: "0 6px 22px rgba(0,0,0,0.45)",
                           }}
                         />
-                        <div style={{ flex: 1 }}>
-                          <p
-                            style={{
-                              fontFamily: "'Roboto', Arial, sans-serif",
-                              fontStyle: "italic",
-                              fontSize: "0.85rem",
-                              lineHeight: 1.45,
-                              color: "rgba(255,255,255,0.92)",
-                              margin: "0 0 0.4rem",
-                            }}
-                          >
-                            &ldquo;I guarantee full service &amp; support
-                            throughout the duration of your project.&rdquo;
-                          </p>
-                          <p
-                            style={{
-                              fontFamily:
-                                "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                              fontWeight: 800,
-                              fontSize: "0.72rem",
-                              letterSpacing: "0.04em",
-                              textTransform: "uppercase",
-                              color: "#FFD9A8",
-                              margin: 0,
-                            }}
-                          >
-                            Derek E. Chinners – CEO, Pro SWPPP
-                          </p>
-                        </div>
+                        <blockquote
+                          style={{
+                            fontFamily: "'Roboto', Arial, sans-serif",
+                            fontStyle: "italic",
+                            fontSize: "1.02rem",
+                            lineHeight: 1.5,
+                            color: "rgba(255,255,255,0.95)",
+                            margin: 0,
+                            textAlign: "center",
+                          }}
+                        >
+                          &ldquo;I guarantee full service &amp; support
+                          throughout the duration of your project.&rdquo;
+                        </blockquote>
+                        <p
+                          style={{
+                            fontFamily:
+                              "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                            fontWeight: 800,
+                            fontSize: "0.78rem",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            color: "#FFD9A8",
+                            margin: 0,
+                            textAlign: "center",
+                          }}
+                        >
+                          Derek E. Chinners – CEO, Pro SWPPP
+                        </p>
                       </div>
                     </motion.div>
                   )}
@@ -378,7 +427,7 @@ export default function HeroSection() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                       style={{
                         position: "absolute",
                         inset: 0,
@@ -388,8 +437,16 @@ export default function HeroSection() {
                         pointerEvents: "none",
                       }}
                     >
-                      {/* Dark gradient at the bottom for text readability */}
-                      <div
+                      {/* Text fades IN, holds, then fades OUT within the
+                          slide window — leaving just the team photo. */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 1, 1, 0] }}
+                        transition={{
+                          duration: 7.5,
+                          times: [0, 0.18, 0.72, 1],
+                          ease: "easeInOut",
+                        }}
                         style={{
                           padding: "2.5rem 1.5rem 1.25rem",
                           background:
@@ -423,7 +480,7 @@ export default function HeroSection() {
                           No waiting weeks. No confusing templates. Just a
                           permit-ready plan in your inbox.
                         </p>
-                      </div>
+                      </motion.div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -432,8 +489,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Trust Badges — bottom of hero. Four uniformly-sized icons with
-            a small caption underneath each. */}
+        {/* Trust Badges */}
         <motion.div
           custom={0.7}
           initial="hidden"
