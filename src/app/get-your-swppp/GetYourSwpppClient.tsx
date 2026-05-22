@@ -1289,7 +1289,7 @@ export default function GetYourSwpppClient() {
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}
           >
-            Start My Order
+            Get My SWPPP
             <ChevronRight className="w-6 h-6" />
           </button>
 

@@ -1,68 +1,43 @@
 'use client';
 /*
- * Hero Section — ProSWPPP Redesign (v2 — Built for Builders / Team rotation)
- * Design: Full-bleed construction site background, two-column layout
- *   LEFT  (50%): Brand headline + star rating + two CTAs (Get My SWPPP, Take the Quiz)
- *   RIGHT (50%): "Who We Are — Built for Builders" panel with a rotating card that
- *                cycles between the team photo and the descriptive "Pro SWPPP is a
- *                nationwide stormwater pollution prevention plan service..." copy
- *                every 4 seconds, then "Construction doesn't wait..." subhead and
- *                a "Meet Our Team" CTA.
+ * Hero Section — ProSWPPP Redesign (v3)
+ * - Orange tagline banner directly under the nav, full-width: "America's Number
+ *   One Stormwater Pollution Prevention Plan Service"
+ * - Two-column layout below:
+ *     LEFT  (50%): Stars + Google review count (moved to TOP) + brand
+ *                  headline + "Get My SWPPP" CTA (single CTA; no Take the Quiz)
+ *     RIGHT (50%): "Who We Are — Built for Builders" panel with a 2-slide
+ *                  rotating card:
+ *                    Slide 1 — Derek Chinners promise card
+ *                              (headline + photo + quote + signature)
+ *                    Slide 2 — Team photo with descriptive text overlay
+ * - Trust badges row at the bottom; no separate tagline below the badges
+ *   (that tagline now lives in the orange banner at the top).
  *
- * Backup of the previous form-on-the-right design lives at:
- *   /backups/HeroSection-v1-with-contact-form.tsx
+ * Backup of the previous design lives at:
+ *   /backups/HeroSection-v2-rotating-team-card.tsx (if needed for revert)
  */
 
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
+const HERO_BG =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const PHASES = ["cta", "photo", "text", "risk"] as const;
+const CEO_PHOTO = "https://proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg";
+
+// TODO: wire this to Google Places API for live count. Hard-coded for now.
+const GOOGLE_REVIEW_COUNT = "200+";
+
+const PHASES = ["derek", "team"] as const;
 type Phase = (typeof PHASES)[number];
 // Dwell time per phase, in ms.
-//   cta   — 'Get Your SWPPP Now' call-to-action slide (first)
-//   photo — team photo
-//   text  — descriptive copy
-//   risk  — live risk-score gauge with state dropdown
 const PHASE_DURATIONS_MS: Record<Phase, number> = {
-  cta: 8000,
-  photo: 4000,
-  text: 6000,
-  risk: 10000,
+  derek: 8000,
+  team: 8000,
 };
-const NEEDLE_LOOP_MS = 10000;
-
-// US states for the Live Risk Score dropdown — selecting one jumps to the quiz.
-const US_STATES: { code: string; name: string }[] = [
-  { code: "AL", name: "Alabama" }, { code: "AK", name: "Alaska" },
-  { code: "AZ", name: "Arizona" }, { code: "AR", name: "Arkansas" },
-  { code: "CA", name: "California" }, { code: "CO", name: "Colorado" },
-  { code: "CT", name: "Connecticut" }, { code: "DE", name: "Delaware" },
-  { code: "FL", name: "Florida" }, { code: "GA", name: "Georgia" },
-  { code: "HI", name: "Hawaii" }, { code: "ID", name: "Idaho" },
-  { code: "IL", name: "Illinois" }, { code: "IN", name: "Indiana" },
-  { code: "IA", name: "Iowa" }, { code: "KS", name: "Kansas" },
-  { code: "KY", name: "Kentucky" }, { code: "LA", name: "Louisiana" },
-  { code: "ME", name: "Maine" }, { code: "MD", name: "Maryland" },
-  { code: "MA", name: "Massachusetts" }, { code: "MI", name: "Michigan" },
-  { code: "MN", name: "Minnesota" }, { code: "MS", name: "Mississippi" },
-  { code: "MO", name: "Missouri" }, { code: "MT", name: "Montana" },
-  { code: "NE", name: "Nebraska" }, { code: "NV", name: "Nevada" },
-  { code: "NH", name: "New Hampshire" }, { code: "NJ", name: "New Jersey" },
-  { code: "NM", name: "New Mexico" }, { code: "NY", name: "New York" },
-  { code: "NC", name: "North Carolina" }, { code: "ND", name: "North Dakota" },
-  { code: "OH", name: "Ohio" }, { code: "OK", name: "Oklahoma" },
-  { code: "OR", name: "Oregon" }, { code: "PA", name: "Pennsylvania" },
-  { code: "RI", name: "Rhode Island" }, { code: "SC", name: "South Carolina" },
-  { code: "SD", name: "South Dakota" }, { code: "TN", name: "Tennessee" },
-  { code: "TX", name: "Texas" }, { code: "UT", name: "Utah" },
-  { code: "VT", name: "Vermont" }, { code: "VA", name: "Virginia" },
-  { code: "WA", name: "Washington" }, { code: "WV", name: "West Virginia" },
-  { code: "WI", name: "Wisconsin" }, { code: "WY", name: "Wyoming" },
-];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -74,46 +49,23 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  // Right-column rotating card cycles photo -> descriptive text -> live risk score.
-  // Auto-plays once through all 3 phases, then hands control to the user via
-  // the left/right nav dots. Hovering inside the card pauses auto-rotation.
+  // Right-column rotating card cycles two slides (Derek card -> Team photo
+  // with text) on a continuous loop. Hovering pauses rotation.
   const [phaseIdx, setPhaseIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [manualMode, setManualMode] = useState(false);
   const phase: Phase = PHASES[phaseIdx];
 
   useEffect(() => {
-    if (paused || manualMode) return;
+    if (paused) return;
     const t = setTimeout(() => {
-      // After the last phase (risk), loop back to the CTA slide and stop
-      // auto-rotating. The user takes over via the nav arrows from there.
-      if (phaseIdx === PHASES.length - 1) {
-        setPhaseIdx(0);
-        setManualMode(true);
-      } else {
-        setPhaseIdx((i) => i + 1);
-      }
+      setPhaseIdx((i) => (i + 1) % PHASES.length);
     }, PHASE_DURATIONS_MS[phase]);
     return () => clearTimeout(t);
-  }, [paused, manualMode, phase, phaseIdx]);
-
-  const goPrev = () => {
-    setManualMode(true);
-    setPhaseIdx((i) => (i - 1 + PHASES.length) % PHASES.length);
-  };
-  const goNext = () => {
-    setManualMode(true);
-    setPhaseIdx((i) => (i + 1) % PHASES.length);
-  };
-
-  const handleStatePick = (code: string) => {
-    if (!code) return;
-    window.location.href = `/quiz-form/?state=${encodeURIComponent(code)}`;
-  };
+  }, [paused, phase, phaseIdx]);
 
   return (
     <section
-      className="relative min-h-[70vh] flex items-center"
+      className="relative min-h-[70vh] flex flex-col"
       style={{
         backgroundImage: `url(${HERO_BG})`,
         backgroundSize: "cover",
@@ -129,48 +81,60 @@ export default function HeroSection() {
         }}
       />
 
-      {/* CSS keyframes for the risk-score needle — runs whenever the
-          `.ww-needle` element is in the DOM. More reliable than SMIL. */}
-      <style>{`
-        @keyframes wwNeedleSweep {
-          0%   { transform: rotate(-30deg); }
-          25%  { transform: rotate(15deg); }
-          50%  { transform: rotate(-10deg); }
-          75%  { transform: rotate(65deg); }
-          100% { transform: rotate(-30deg); }
-        }
-        .ww-needle {
-          transform-box: view-box;
-          transform-origin: 100px 100px;
-          animation: wwNeedleSweep 10s ease-in-out infinite;
-        }
-      `}</style>
+      {/* ────────────────────────────────────────────────────────────────
+          Orange tagline banner — directly under the navigation, full-width
+          ──────────────────────────────────────────────────────────────── */}
+      <div
+        className="relative z-10 w-full"
+        style={{ background: "#EF7C3B" }}
+      >
+        <div className="container py-2.5">
+          <p
+            className="text-center text-white uppercase"
+            style={{
+              fontFamily: "'Roboto', Arial, sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(0.85rem, 1.15vw, 1rem)",
+              letterSpacing: "0.18em",
+              lineHeight: 1.3,
+              margin: 0,
+            }}
+          >
+            America&apos;s Number One Stormwater Pollution Prevention Plan Service
+          </p>
+        </div>
+      </div>
 
-      {/* Two-column content */}
-      <div className="relative z-10 container pt-20 lg:pt-32 pb-2.5">
+      {/* ────────────────────────────────────────────────────────────────
+          Two-column hero content
+          ──────────────────────────────────────────────────────────────── */}
+      <div className="relative z-10 container pt-12 lg:pt-20 pb-2.5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-          {/* ────────────────────────────────────────────────────────────────
-              LEFT: Brand copy + star rating + CTAs (unchanged from v1)
-              ──────────────────────────────────────────────────────────────── */}
+          {/* ────────────────────────────────────────────────────────────
+              LEFT: Stars + reviews (top) + headline + single CTA
+              ──────────────────────────────────────────────────────────── */}
           <div>
-            {/* Eyebrow */}
-            <motion.p
+            {/* Stars + Google review count — moved to TOP per owner */}
+            <motion.div
               custom={0}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="uppercase tracking-widest text-sm mb-4"
-              style={{
-                fontFamily: "'Roboto', Arial, sans-serif",
-                fontWeight: 400,
-                letterSpacing: "0.2em",
-                color: "#FFB800",
-              }}
+              className="flex items-center gap-2 mb-5"
             >
-              Fast, Affordable, and 100% Compliant<br />
-              SWPPP Solution
-            </motion.p>
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={22} className="fill-[#FFB800] text-[#FFB800]" />
+                ))}
+              </div>
+              <span
+                className="text-white text-sm"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 600 }}
+              >
+                {GOOGLE_REVIEW_COUNT} 5-Star Google Reviews
+              </span>
+            </motion.div>
 
             {/* Main Headline */}
             <motion.h1
@@ -195,7 +159,7 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="leading-none mb-6"
+              className="leading-none mb-10"
               style={{
                 fontSize: "clamp(2rem, 4.5vw, 4rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -207,52 +171,9 @@ export default function HeroSection() {
               In 72 hrs.,<br />or it&apos;s FREE!
             </motion.h2>
 
-            {/* Supporting text */}
+            {/* Single CTA — "Get My SWPPP" (no Take the Quiz) */}
             <motion.div
               custom={0.3}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="mb-5"
-            >
-              <p
-                className="text-white uppercase tracking-wide text-base mb-1"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
-              >
-                Order Now… Because We&apos;re America&apos;s #1 SWPPP
-              </p>
-              <p
-                className="text-gray-300 uppercase tracking-wide text-sm"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
-              >
-                5-Star Rated Google Business
-              </p>
-            </motion.div>
-
-            {/* Star Rating */}
-            <motion.div
-              custom={0.4}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="flex items-center gap-2 mb-8"
-            >
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={22} className="fill-[#FFB800] text-[#FFB800]" />
-                ))}
-              </div>
-              <span
-                className="text-white text-sm"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
-              >
-                5.0 Google Reviews
-              </span>
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              custom={0.5}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
@@ -264,18 +185,12 @@ export default function HeroSection() {
               >
                 Get My SWPPP
               </a>
-              <a
-                href="/quiz-form/"
-                className="btn-blue text-base px-8 py-4 inline-block"
-              >
-                Take the Quiz
-              </a>
             </motion.div>
           </div>
 
-          {/* ────────────────────────────────────────────────────────────────
-              RIGHT: Who We Are — Built for Builders (with rotating card)
-              ──────────────────────────────────────────────────────────────── */}
+          {/* ────────────────────────────────────────────────────────────
+              RIGHT: Who We Are — Built for Builders (2-slide rotator)
+              ──────────────────────────────────────────────────────────── */}
           <motion.div
             custom={0.3}
             initial="hidden"
@@ -310,10 +225,9 @@ export default function HeroSection() {
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
             </h2>
 
-            {/* Rotating card. Outer wrapper has overflow: visible so the
-                nav arrows can sit slightly outside the rounded card edges.
-                Inner div has overflow: hidden + border-radius so the photo
-                and panels stay clipped to the rounded shape. */}
+            {/* Rotating card. Team photo stays in the DOM at all times so
+                it dictates the card height at its natural aspect ratio.
+                Slides fade in/out on top of it. */}
             <div
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
@@ -335,500 +249,197 @@ export default function HeroSection() {
                   borderRadius: "10px",
                 }}
               >
-              {/* Photo — always in the DOM so it dictates the card height at
-                  its natural aspect. Fades out when another phase is active. */}
-              <motion.img
-                src={TEAM_PHOTO}
-                alt="The Pro SWPPP Team"
-                initial={false}
-                animate={{ opacity: phase === "photo" ? 1 : 0 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  display: "block",
-                }}
-              />
+                {/* Team photo — always in the DOM. Visible only on the "team"
+                    slide; otherwise sits behind the Derek overlay. */}
+                <img
+                  src={TEAM_PHOTO}
+                  alt="The Pro SWPPP Team"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
 
-              <AnimatePresence mode="wait" initial={false}>
-                {phase === "cta" && (
-                  <motion.div
-                    key="cta"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      padding: "1.5rem 1.75rem",
-                      background:
-                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      textAlign: "center",
-                    }}
-                  >
-                    {/* Eyebrow */}
-                    <p
+                <AnimatePresence mode="wait" initial={false}>
+                  {phase === "derek" && (
+                    <motion.div
+                      key="derek"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
                       style={{
-                        color: "#EF7C3B",
-                        fontFamily: "'Roboto', Arial, sans-serif",
-                        fontSize: "0.75rem",
-                        fontWeight: 900,
-                        letterSpacing: "0.22em",
-                        textTransform: "uppercase",
-                        margin: "0 0 0.6rem",
-                      }}
-                    >
-                      Get Started
-                    </p>
-
-                    {/* Headline */}
-                    <h3
-                      style={{
-                        color: "#ffffff",
-                        fontFamily:
-                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontSize: "1.95rem",
-                        fontWeight: 900,
-                        letterSpacing: "-0.01em",
-                        lineHeight: 1.1,
-                        margin: "0 0 0.75rem",
-                      }}
-                    >
-                      Get Your{" "}
-                      <span style={{ color: "#EF7C3B" }}>SWPPP</span> Now
-                    </h3>
-
-                    {/* Body */}
-                    <p
-                      style={{
-                        fontFamily: "'Roboto', Arial, sans-serif",
-                        fontSize: "0.95rem",
-                        lineHeight: 1.5,
-                        color: "rgba(255,255,255,0.88)",
-                        margin: "0 0 1.1rem",
-                        maxWidth: "92%",
-                      }}
-                    >
-                      CLICK &ldquo;Start My Order&rdquo; to Receive your Compliant
-                      SWPPP delivered within 72 hours — guaranteed.
-                    </p>
-
-                    {/* Primary CTA — gradient sweep animation matches the
-                        "Get My SWPPP" hero button in the left column. */}
-                    <a
-                      href="/get-your-swppp/?start=map"
-                      className="btn-hero-sweep"
-                      style={{
-                        display: "inline-block",
-                        color: "#ffffff",
-                        padding: "1rem 2.2rem",
-                        borderRadius: "10px",
-                        fontFamily:
-                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontWeight: 800,
-                        fontSize: "1.9rem",
-                        letterSpacing: "0.04em",
-                        textTransform: "uppercase",
-                        textDecoration: "none",
-                        marginBottom: "1rem",
-                        boxShadow: "0 6px 18px rgba(239,124,59,0.35)",
-                      }}
-                    >
-                      Start My Order →
-                    </a>
-
-                    {/* Trust points */}
-                    <div
-                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        padding: "1.5rem 1.75rem",
+                        background:
+                          "linear-gradient(135deg, rgba(13,31,43,0.92) 0%, rgba(26,58,74,0.92) 100%)",
                         display: "flex",
-                        flexWrap: "wrap",
+                        flexDirection: "column",
                         justifyContent: "center",
-                        gap: "0.4rem 1.1rem",
-                        fontFamily: "'Roboto', Arial, sans-serif",
-                        fontSize: "0.78rem",
-                        fontWeight: 600,
-                        color: "rgba(255,255,255,0.82)",
-                        marginBottom: "0.9rem",
                       }}
                     >
-                      <span>✓ 100% Compliant</span>
-                      <span>✓ 72-Hour Delivery</span>
-                      <span>✓ 20+ Years Experience</span>
-                    </div>
+                      {/* Headline links to the order page */}
+                      <a
+                        href="/get-your-swppp/"
+                        style={{ textDecoration: "none", display: "block", marginBottom: "1.1rem" }}
+                      >
+                        <h3
+                          style={{
+                            color: "#ffffff",
+                            fontFamily:
+                              "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                            fontSize: "clamp(1.15rem, 1.7vw, 1.55rem)",
+                            fontWeight: 900,
+                            lineHeight: 1.15,
+                            letterSpacing: "-0.01em",
+                            margin: "0 0 0.4rem",
+                          }}
+                        >
+                          Order Your SWPPP Now and Your Site Will Be
+                        </h3>
+                        <h4
+                          style={{
+                            color: "#EF7C3B",
+                            fontFamily:
+                              "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                            fontSize: "clamp(1rem, 1.45vw, 1.3rem)",
+                            fontWeight: 900,
+                            lineHeight: 1.15,
+                            letterSpacing: "-0.01em",
+                            margin: 0,
+                          }}
+                        >
+                          Fully Compliant in Just 72 Hours, Guaranteed
+                        </h4>
+                      </a>
 
-                    {/* Phone */}
-                    <a
-                      href="tel:8334387977"
-                      style={{
-                        color: "#EF7C3B",
-                        fontFamily:
-                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                        fontWeight: 900,
-                        fontSize: "1.05rem",
-                        textDecoration: "none",
-                        letterSpacing: "0.02em",
-                      }}
-                    >
-                      📞 833-GET-SWPP
-                    </a>
-                  </motion.div>
-                )}
-
-                {phase === "text" && (
-                  <motion.div
-                    key="text"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      padding: "1.75rem 2rem",
-                      background:
-                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      color: "rgba(255,255,255,0.92)",
-                      fontFamily: "'Roboto', Arial, sans-serif",
-                      lineHeight: 1.6,
-                      fontSize: "1.15rem",
-                    }}
-                  >
-                    <p style={{ margin: "0 0 0.875rem" }}>
-                      Pro SWPPP is a nationwide stormwater pollution prevention plan
-                      service built for contractors, developers, and site managers who
-                      need compliance fast — without the runaround.
-                    </p>
-                    <p style={{ margin: "0 0 0.875rem" }}>
-                      Federal law requires a SWPPP on every project disturbing one or
-                      more acres. We deliver fully compliant, site-specific plans in
-                      72 hours — engineered to meet EPA and state NPDES permit
-                      requirements, across 48 states.
-                    </p>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontStyle: "italic",
-                        color: "#EF7C3B",
-                        fontWeight: 700,
-                      }}
-                    >
-                      No waiting weeks. No confusing templates. Just a permit-ready
-                      plan in your inbox.
-                    </p>
-                  </motion.div>
-                )}
-
-                {phase === "risk" && (
-                  <motion.div
-                    key="risk"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      padding: "1rem 1.25rem",
-                      background:
-                        "linear-gradient(135deg, rgba(13,31,43,0.85) 0%, rgba(26,58,74,0.85) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    {/* Header */}
-                    <div style={{ textAlign: "center" }}>
-                      <p
+                      {/* Derek photo + quote */}
+                      <div
                         style={{
-                          color: "#EF7C3B",
-                          fontFamily: "'Roboto', Arial, sans-serif",
-                          fontSize: "0.85rem",
-                          fontWeight: 900,
-                          letterSpacing: "0.22em",
-                          textTransform: "uppercase",
-                          margin: "0 0 0.25rem",
+                          display: "flex",
+                          gap: "1rem",
+                          alignItems: "flex-start",
+                          background: "rgba(255,255,255,0.06)",
+                          border: "1px solid rgba(255,255,255,0.10)",
+                          borderRadius: "12px",
+                          padding: "0.9rem 1rem",
                         }}
                       >
-                        Live SWPPP Risk Score
-                      </p>
-                      <h3
-                        style={{
-                          color: "#fff",
-                          fontFamily:
-                            "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                          fontSize: "1.85rem",
-                          fontWeight: 900,
-                          margin: 0,
-                          letterSpacing: "-0.01em",
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        Is Your Project at Risk?
-                      </h3>
-                    </div>
-
-                    {/* Animated gauge — smooth needle sweep */}
-                    <svg
-                      viewBox="0 0 200 130"
-                      style={{ width: "100%", maxWidth: "380px", height: "auto" }}
-                      aria-hidden="true"
-                    >
-                      {/* LOW arc (left, green) */}
-                      <path
-                        d="M 30 100 A 70 70 0 0 1 100 30"
-                        stroke="#22C55E"
-                        strokeWidth="14"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                      {/* HIGH arc (right, red) */}
-                      <path
-                        d="M 100 30 A 70 70 0 0 1 170 100"
-                        stroke="#EF4444"
-                        strokeWidth="14"
-                        strokeLinecap="round"
-                        fill="none"
-                      />
-                      {/* Needle — CSS keyframe animation (more reliable than
-                          SMIL on dynamic mount). transform-box: view-box +
-                          transform-origin: 100px 100px pins the rotation at
-                          the gauge base. */}
-                      <g className="ww-needle">
-                        <line
-                          x1="100"
-                          y1="100"
-                          x2="100"
-                          y2="42"
-                          stroke="#EF7C3B"
-                          strokeWidth="3"
-                          strokeLinecap="round"
+                        <img
+                          src={CEO_PHOTO}
+                          alt="Derek E. Chinners – CEO, Pro SWPPP"
+                          style={{
+                            width: "72px",
+                            height: "72px",
+                            borderRadius: "9999px",
+                            objectFit: "cover",
+                            border: "3px solid #EF7C3B",
+                            flexShrink: 0,
+                          }}
                         />
-                      </g>
-                      {/* Center pivot cap */}
-                      <circle
-                        cx="100"
-                        cy="100"
-                        r="9"
-                        fill="#0D1F2B"
-                        stroke="#EF7C3B"
-                        strokeWidth="2"
-                      />
-                      {/* Labels */}
-                      <text
-                        x="22"
-                        y="120"
-                        fill="#22C55E"
-                        fontSize="11"
-                        fontWeight="800"
-                        fontFamily="'Inter', Arial, sans-serif"
-                      >
-                        LOW
-                      </text>
-                      <text
-                        x="178"
-                        y="120"
-                        textAnchor="end"
-                        fill="#EF4444"
-                        fontSize="11"
-                        fontWeight="800"
-                        fontFamily="'Inter', Arial, sans-serif"
-                      >
-                        HIGH
-                      </text>
-                    </svg>
+                        <div style={{ flex: 1 }}>
+                          <p
+                            style={{
+                              fontFamily: "'Roboto', Arial, sans-serif",
+                              fontStyle: "italic",
+                              fontSize: "0.85rem",
+                              lineHeight: 1.45,
+                              color: "rgba(255,255,255,0.92)",
+                              margin: "0 0 0.4rem",
+                            }}
+                          >
+                            &ldquo;I guarantee full service &amp; support
+                            throughout the duration of your project.&rdquo;
+                          </p>
+                          <p
+                            style={{
+                              fontFamily:
+                                "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                              fontWeight: 800,
+                              fontSize: "0.72rem",
+                              letterSpacing: "0.04em",
+                              textTransform: "uppercase",
+                              color: "#FFD9A8",
+                              margin: 0,
+                            }}
+                          >
+                            Derek E. Chinners – CEO, Pro SWPPP
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
 
-                    {/* State dropdown */}
-                    <div style={{ width: "100%", textAlign: "center" }}>
-                      <p
+                  {phase === "team" && (
+                    <motion.div
+                      key="team"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.7, ease: "easeInOut" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-end",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {/* Dark gradient at the bottom for text readability */}
+                      <div
                         style={{
-                          color: "rgba(255,255,255,0.85)",
-                          fontFamily: "'Roboto', Arial, sans-serif",
-                          fontSize: "1rem",
-                          fontWeight: 500,
-                          margin: "0 0 0.4rem",
-                        }}
-                      >
-                        Pick your state to check your risk:
-                      </p>
-                      <select
-                        defaultValue=""
-                        onChange={(e) => handleStatePick(e.target.value)}
-                        style={{
-                          width: "100%",
-                          maxWidth: "320px",
+                          padding: "2.5rem 1.5rem 1.25rem",
                           background:
-                            "rgba(255,255,255,0.08) url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='white'><path d='M2 4l4 4 4-4z'/></svg>\") no-repeat right 20px center",
-                          border: "1px solid rgba(239,124,59,0.45)",
-                          borderRadius: "8px",
-                          color: "#fff",
-                          padding: "0.7rem 40px 0.7rem 0.95rem",
-                          fontSize: "1rem",
+                            "linear-gradient(180deg, rgba(13,31,43,0) 0%, rgba(13,31,43,0.78) 35%, rgba(13,31,43,0.95) 100%)",
+                          color: "rgba(255,255,255,0.95)",
                           fontFamily: "'Roboto', Arial, sans-serif",
-                          fontWeight: 600,
-                          outline: "none",
-                          cursor: "pointer",
-                          appearance: "none",
-                          WebkitAppearance: "none",
-                          MozAppearance: "none",
                         }}
                       >
-                        <option value="" style={{ color: "#222" }}>
-                          Select your state…
-                        </option>
-                        {US_STATES.map((s) => (
-                          <option key={s.code} value={s.code} style={{ color: "#222" }}>
-                            {s.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                        <p
+                          style={{
+                            fontSize: "0.92rem",
+                            lineHeight: 1.5,
+                            margin: "0 0 0.55rem",
+                          }}
+                        >
+                          Pro SWPPP is a nationwide stormwater pollution
+                          prevention plan service built for contractors,
+                          developers, and site managers who need compliance
+                          fast — without the runaround.
+                        </p>
+                        <p
+                          style={{
+                            margin: 0,
+                            fontStyle: "italic",
+                            color: "#EF7C3B",
+                            fontWeight: 700,
+                            fontSize: "0.92rem",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          No waiting weeks. No confusing templates. Just a
+                          permit-ready plan in your inbox.
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-
-              {/* Manual navigation dots — left/right at the bottom corners,
-                  aligned with the "Select your state" dropdown row. Sit
-                  slightly outside the rounded card to draw the eye. Always
-                  present; click forces manual mode. */}
-              <motion.button
-                type="button"
-                onClick={goPrev}
-                aria-label="Previous"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: manualMode ? 1 : 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  left: "-22px",
-                  bottom: "50px",
-                  pointerEvents: manualMode ? "auto" : "none",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "9999px",
-                  background: "rgba(40, 70, 90, 0.92)",
-                  border: "2px solid rgba(255,255,255,0.85)",
-                  color: "#fff",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 5,
-                  boxShadow: "0 4px 14px rgba(0,0,0,0.45)",
-                  transition: "background 0.2s, transform 0.15s",
-                }}
-                onMouseOver={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(70, 110, 135, 0.95)";
-                  (e.currentTarget as HTMLButtonElement).style.transform =
-                    "scale(1.08)";
-                }}
-                onMouseOut={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(40, 70, 90, 0.92)";
-                  (e.currentTarget as HTMLButtonElement).style.transform =
-                    "scale(1)";
-                }}
-              >
-                <ChevronLeft size={24} strokeWidth={2.5} />
-              </motion.button>
-
-              <motion.button
-                type="button"
-                onClick={goNext}
-                aria-label="Next"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: manualMode ? 1 : 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  right: "-22px",
-                  bottom: "50px",
-                  pointerEvents: manualMode ? "auto" : "none",
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "9999px",
-                  background: "rgba(40, 70, 90, 0.92)",
-                  border: "2px solid rgba(255,255,255,0.85)",
-                  color: "#fff",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 5,
-                  boxShadow: "0 4px 14px rgba(0,0,0,0.45)",
-                  transition: "background 0.2s, transform 0.15s",
-                }}
-                onMouseOver={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(70, 110, 135, 0.95)";
-                  (e.currentTarget as HTMLButtonElement).style.transform =
-                    "scale(1.08)";
-                }}
-                onMouseOut={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
-                    "rgba(40, 70, 90, 0.92)";
-                  (e.currentTarget as HTMLButtonElement).style.transform =
-                    "scale(1)";
-                }}
-              >
-                <ChevronRight size={24} strokeWidth={2.5} />
-              </motion.button>
-            </div>
-
-            {/* Subheading below the rotating card */}
-            <p
-              style={{
-                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontSize: "clamp(1.2rem, 1.7vw, 1.45rem)",
-                fontWeight: 700,
-                color: "#fff",
-                textAlign: "center",
-                fontStyle: "italic",
-                marginBottom: "1.25rem",
-                lineHeight: 1.35,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Construction Doesn&apos;t Wait.
-              <br />
-              Neither Should Your{" "}
-              <span style={{ color: "#EF7C3B" }}>Stormwater Compliance.</span>
-            </p>
-
-            {/* Meet Our Team button */}
-            <div style={{ textAlign: "center" }}>
-              <a
-                href="/about/"
-                className="btn-orange text-base px-8 py-3.5 inline-block"
-              >
-                Meet Our Team
-              </a>
             </div>
           </motion.div>
         </div>
 
-        {/* Trust Badges — bottom of hero. Three uniformly-sized icons with
-            a small caption underneath each.
-              Left:   100% Compliance Guaranteed
-              Middle: Certified SWPPP
-              Right:  Women-Owned Business */}
+        {/* Trust Badges — bottom of hero. Four uniformly-sized icons with
+            a small caption underneath each. */}
         <motion.div
           custom={0.7}
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-start gap-12 mt-28 pb-2"
+          className="flex flex-wrap justify-center items-start gap-12 mt-20 pb-2"
         >
           {([
             {
@@ -926,25 +537,6 @@ export default function HeroSection() {
             );
           })}
         </motion.div>
-
-        {/* Tagline H2 — sits ~10px above the bottom edge of the hero section,
-            matched in size/style to the right-column "Who We Are" eyebrow. */}
-        <motion.h2
-          custom={0.8}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="text-center uppercase tracking-widest text-sm mt-8"
-          style={{
-            fontFamily: "'Roboto', Arial, sans-serif",
-            fontWeight: 900,
-            letterSpacing: "0.2em",
-            color: "#EF7C3B",
-            margin: "2rem 0 0",
-          }}
-        >
-          Number One Stormwater Pollution Prevention Plan Service in the U.S.
-        </motion.h2>
       </div>
     </section>
   );
