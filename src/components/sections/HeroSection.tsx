@@ -113,7 +113,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[70vh] flex items-center"
+      className="relative min-h-[70vh] flex flex-col"
       style={{
         backgroundImage: `url(${HERO_BG})`,
         backgroundSize: "cover",
@@ -146,8 +146,8 @@ export default function HeroSection() {
         }
       `}</style>
 
-      {/* Two-column content */}
-      <div className="relative z-10 container pt-20 lg:pt-32 pb-2.5">
+      {/* Two-column content — sits ~1px below the nav, every gap collapsed */}
+      <div className="relative z-10 container pt-px pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────
@@ -160,12 +160,13 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="uppercase tracking-widest text-sm mb-4"
+              className="uppercase tracking-widest text-sm mb-0"
               style={{
                 fontFamily: "'Roboto', Arial, sans-serif",
                 fontWeight: 400,
                 letterSpacing: "0.2em",
                 color: "#FFB800",
+                lineHeight: 1,
               }}
             >
               Fast, Affordable, and 100% Compliant<br />
@@ -178,15 +179,16 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-white uppercase leading-none mb-2"
+              className="text-white uppercase leading-none mb-0"
               style={{
                 fontSize: "clamp(3.36rem, 6.6vw, 6rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
+                lineHeight: 0.9,
               }}
             >
-              Get Your <span style={{ fontSize: "130%", display: "inline-block" }}>SWPPP</span>
+              Get Your <span style={{ fontSize: "130%", display: "inline-block", lineHeight: 0.9 }}>SWPPP</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -195,13 +197,14 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="leading-none mb-6"
+              className="leading-none mb-0"
               style={{
                 fontSize: "clamp(2rem, 4.5vw, 4rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
                 color: "#EF7C3B",
+                lineHeight: 0.9,
               }}
             >
               In 72 hrs.,<br />or it&apos;s FREE!
@@ -213,17 +216,17 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="mb-5"
+              className="mb-0"
             >
               <p
-                className="text-white uppercase tracking-wide text-base mb-1"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
+                className="text-white uppercase tracking-wide text-base mb-0"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, lineHeight: 1 }}
               >
                 Order Now… Because We&apos;re America&apos;s #1 SWPPP
               </p>
               <p
-                className="text-gray-300 uppercase tracking-wide text-sm"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
+                className="text-gray-300 uppercase tracking-wide text-sm mb-0"
+                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, lineHeight: 1 }}
               >
                 5-Star Rated Google Business
               </p>
@@ -235,7 +238,7 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="flex items-center gap-2 mb-8"
+              className="flex items-center gap-2 mb-0"
             >
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
@@ -284,13 +287,14 @@ export default function HeroSection() {
           >
             {/* Eyebrow */}
             <p
-              className="uppercase tracking-widest text-sm mb-3"
+              className="uppercase tracking-widest text-sm mb-0"
               style={{
                 fontFamily: "'Roboto', Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "0.2em",
                 color: "#EF7C3B",
                 textAlign: "center",
+                lineHeight: 1,
               }}
             >
               Who We Are
@@ -298,13 +302,14 @@ export default function HeroSection() {
 
             {/* Heading: Built for Builders */}
             <h2
-              className="text-white uppercase leading-none mb-6"
+              className="text-white uppercase leading-none mb-0"
               style={{
                 fontSize: "clamp(2rem, 3.8vw, 3rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
                 textAlign: "center",
+                lineHeight: 0.9,
               }}
             >
               Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
@@ -323,7 +328,7 @@ export default function HeroSection() {
               style={{
                 position: "relative",
                 width: "100%",
-                marginBottom: "1.25rem",
+                marginBottom: "0",
                 outline: "none",
               }}
             >
@@ -795,8 +800,9 @@ export default function HeroSection() {
                 color: "#fff",
                 textAlign: "center",
                 fontStyle: "italic",
-                marginBottom: "1.25rem",
-                lineHeight: 1.35,
+                marginTop: "0",
+                marginBottom: "0",
+                lineHeight: 1,
                 letterSpacing: "-0.01em",
               }}
             >
@@ -828,7 +834,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-start gap-12 mt-28 pb-2"
+          className="flex flex-wrap justify-center items-start gap-12 mt-1 pb-0"
         >
           {([
             {
@@ -934,13 +940,14 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="text-center uppercase tracking-widest text-sm mt-8"
+          className="text-center uppercase tracking-widest text-sm mt-1"
           style={{
             fontFamily: "'Roboto', Arial, sans-serif",
             fontWeight: 900,
             letterSpacing: "0.2em",
             color: "#EF7C3B",
-            margin: "2rem 0 0",
+            margin: "0",
+            lineHeight: 1,
           }}
         >
           Number One Stormwater Pollution Prevention Plan Service in the U.S.
