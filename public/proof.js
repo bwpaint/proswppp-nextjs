@@ -1053,7 +1053,13 @@
 
             pin.addEventListener('mouseenter', function(){ if (activePin !== pin) pin.style.transform = 'scale(1.2)'; });
             pin.addEventListener('mouseleave', function(){ if (activePin !== pin) pin.style.transform = 'scale(1)'; });
+            // When the pin sits inside an <a> or <button>, the browser will
+            // still fire that element's default action (navigate / submit)
+            // after our click handler runs unless we explicitly preventDefault.
+            // mousedown is suppressed too so the link doesn't even get focus.
+            pin.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
             pin.addEventListener('click', function(e) {
+                e.preventDefault();
                 e.stopPropagation();
                 // Toggle: if this pin's card is already open, close it
                 var existing = document.getElementById('wwps-task-card');
