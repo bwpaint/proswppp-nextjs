@@ -211,7 +211,7 @@ export default function Navigation() {
                 href="/get-your-swppp/#order_swppp_form"
                 className="nav-order-btn bg-white text-[#EF7C3B] font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-orange-50 transition-all duration-200 hover:shadow-lg whitespace-nowrap"
               >
-                GET MY SWPPP
+                ORDER NOW
               </a>
               <a
                 href="tel:8334387977"
@@ -270,7 +270,7 @@ export default function Navigation() {
                   href="/get-your-swppp/#order_swppp_form"
                   className="btn-orange text-center"
                 >
-                  GET MY SWPPP
+                  ORDER NOW
                 </a>
                 <a
                   href="tel:8334387977"
