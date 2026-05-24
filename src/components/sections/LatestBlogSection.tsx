@@ -10,7 +10,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const CATEGORY_COLORS: Record<string, string> = {
-  compliance: "#EF7C3B",
+  compliance: "#DE863F",
   guides: "#154FC1",
   inspections: "#6B9ED1",
   "best-practices": "#2D7D46",
@@ -34,7 +34,7 @@ const FALLBACK_POSTS: PostCard[] = [
   {
     id: 1,
     category: "COMPLIANCE",
-    categoryColor: "#EF7C3B",
+    categoryColor: "#DE863F",
     title: "Does My Construction Project Actually Need a SWPPP?",
     excerpt: "If your project disturbs 1 acre or more of land, federal law requires a Stormwater Pollution Prevention Plan. Here's how to know for sure.",
     date: "Mar 18, 2025",
@@ -161,7 +161,7 @@ export default function LatestBlogSection() {
             display: "block",
             width: "3rem",
             height: "2px",
-            background: "#EF7C3B",
+            background: "#DE863F",
           }}
         />
         <span
@@ -170,7 +170,7 @@ export default function LatestBlogSection() {
             fontWeight: 900,
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
-            color: "#EF7C3B",
+            color: "#DE863F",
             textTransform: "uppercase",
           }}
         >
@@ -181,7 +181,7 @@ export default function LatestBlogSection() {
             display: "block",
             width: "3rem",
             height: "2px",
-            background: "#EF7C3B",
+            background: "#DE863F",
           }}
         />
       </motion.div>
@@ -246,7 +246,7 @@ export default function LatestBlogSection() {
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
-                el.style.borderColor = "rgba(239,124,59,0.5)";
+                el.style.borderColor = "rgba(222,134,63,0.5)";
                 el.style.transform = "translateY(-4px)";
                 el.style.boxShadow = "0 12px 40px rgba(0,0,0,0.4)";
               }}
@@ -397,9 +397,9 @@ export default function LatestBlogSection() {
             gap: "0.5rem",
             padding: "0.75rem 2rem",
             borderRadius: "2rem",
-            border: "2px solid #EF7C3B",
+            border: "2px solid #DE863F",
             backgroundColor: "transparent",
-            color: "#EF7C3B",
+            color: "#DE863F",
             fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 700,
             fontSize: "0.8125rem",
@@ -410,14 +410,14 @@ export default function LatestBlogSection() {
           }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLAnchorElement;
-            el.style.backgroundColor = "#EF7C3B";
+            el.style.backgroundColor = "#DE863F";
             el.style.color = "#ffffff";
             el.style.transform = "translateY(-1px)";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLAnchorElement;
             el.style.backgroundColor = "transparent";
-            el.style.color = "#EF7C3B";
+            el.style.color = "#DE863F";
             el.style.transform = "translateY(0)";
           }}
         >

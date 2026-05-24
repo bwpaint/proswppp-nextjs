@@ -204,7 +204,7 @@ export default function HeroSection() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
-                color: "#EF7C3B",
+                color: "#DE863F",
                 lineHeight: 0.9,
               }}
             >
@@ -293,7 +293,7 @@ export default function HeroSection() {
                 fontFamily: "'Roboto', Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "0.2em",
-                color: "#EF7C3B",
+                color: "#DE863F",
                 textAlign: "center",
                 lineHeight: 1,
               }}
@@ -313,7 +313,7 @@ export default function HeroSection() {
                 lineHeight: 0.9,
               }}
             >
-              Built for <span style={{ color: "#EF7C3B" }}>Builders</span>
+              Built for <span style={{ color: "#DE863F" }}>Builders</span>
             </h2>
 
             {/* Rotating card. Outer wrapper has overflow: visible so the
@@ -380,7 +380,7 @@ export default function HeroSection() {
                     {/* Eyebrow */}
                     <p
                       style={{
-                        color: "#EF7C3B",
+                        color: "#DE863F",
                         fontFamily: "'Roboto', Arial, sans-serif",
                         fontSize: "0.75rem",
                         fontWeight: 900,
@@ -406,7 +406,7 @@ export default function HeroSection() {
                       }}
                     >
                       Get Your{" "}
-                      <span style={{ color: "#EF7C3B" }}>SWPPP</span> Now
+                      <span style={{ color: "#DE863F" }}>SWPPP</span> Now
                     </h3>
 
                     {/* Body */}
@@ -442,7 +442,7 @@ export default function HeroSection() {
                         textTransform: "uppercase",
                         textDecoration: "none",
                         marginBottom: "1rem",
-                        boxShadow: "0 6px 18px rgba(239,124,59,0.35)",
+                        boxShadow: "0 6px 18px rgba(222,134,63,0.35)",
                       }}
                     >
                       Start My Order →
@@ -471,7 +471,7 @@ export default function HeroSection() {
                     <a
                       href="tel:8334387977"
                       style={{
-                        color: "#EF7C3B",
+                        color: "#DE863F",
                         fontFamily:
                           "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         fontWeight: 900,
@@ -522,7 +522,7 @@ export default function HeroSection() {
                       style={{
                         margin: 0,
                         fontStyle: "italic",
-                        color: "#EF7C3B",
+                        color: "#DE863F",
                         fontWeight: 700,
                       }}
                     >
@@ -556,7 +556,7 @@ export default function HeroSection() {
                     <div style={{ textAlign: "center" }}>
                       <p
                         style={{
-                          color: "#EF7C3B",
+                          color: "#DE863F",
                           fontFamily: "'Roboto', Arial, sans-serif",
                           fontSize: "0.85rem",
                           fontWeight: 900,
@@ -615,7 +615,7 @@ export default function HeroSection() {
                           y1="100"
                           x2="100"
                           y2="42"
-                          stroke="#EF7C3B"
+                          stroke="#DE863F"
                           strokeWidth="3"
                           strokeLinecap="round"
                         />
@@ -626,7 +626,7 @@ export default function HeroSection() {
                         cy="100"
                         r="9"
                         fill="#0D1F2B"
-                        stroke="#EF7C3B"
+                        stroke="#DE863F"
                         strokeWidth="2"
                       />
                       {/* Labels */}
@@ -674,7 +674,7 @@ export default function HeroSection() {
                           maxWidth: "320px",
                           background:
                             "rgba(255,255,255,0.08) url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='white'><path d='M2 4l4 4 4-4z'/></svg>\") no-repeat right 20px center",
-                          border: "1px solid rgba(239,124,59,0.45)",
+                          border: "1px solid rgba(222,134,63,0.45)",
                           borderRadius: "8px",
                           color: "#fff",
                           padding: "0.7rem 40px 0.7rem 0.95rem",
@@ -810,7 +810,7 @@ export default function HeroSection() {
               Construction Doesn&apos;t Wait.
               <br />
               Neither Should Your{" "}
-              <span style={{ color: "#EF7C3B" }}>Stormwater Compliance.</span>
+              <span style={{ color: "#DE863F" }}>Stormwater Compliance.</span>
             </p>
 
             {/* Meet Our Team button */}
@@ -946,7 +946,7 @@ export default function HeroSection() {
             fontFamily: "'Roboto', Arial, sans-serif",
             fontWeight: 900,
             letterSpacing: "0.2em",
-            color: "#EF7C3B",
+            color: "#DE863F",
             margin: "0",
             lineHeight: 1,
           }}

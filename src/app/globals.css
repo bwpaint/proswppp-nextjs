@@ -1,7 +1,7 @@
 /*
  * ProSWPPP — Next.js 14 App Router
  * Design Philosophy: Clean Authority (Modern Professional Services)
- * Brand: Orange #EF7C3B | Royal Blue #154FC1 | Sky Blue #6B9ED1 | Navy #1A3A4A
+ * Brand: Orange #DE863F | SWPPP Blue #7B9CD1 | Sky Blue #6B9ED1 | Navy #1A3A4A
  * Typography: Inter 900 (display) | Roboto 400 (body)
  */
 
@@ -10,7 +10,7 @@
 @tailwind utilities;
 
 :root {
-  --brand-orange:        #EF7C3B;
+  --brand-orange:        #DE863F;
   --brand-orange-dark:   #D4631F;
   --brand-orange-light:  #F5A06A;
   --brand-secondary:     #154FC1;
@@ -78,7 +78,7 @@
   .btn-orange:hover {
     background-color: var(--brand-orange-dark);
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(239,124,59,0.4);
+    box-shadow: 0 8px 24px rgba(222,134,63,0.4);
     color: white;
   }
   .btn-secondary {
@@ -226,7 +226,7 @@
     appearance: none;
   }
   .order-input::placeholder { color: rgba(160, 170, 185, 0.85); }
-  .order-input:focus { border-color: #EF7C3B; }
+  .order-input:focus { border-color: #DE863F; }
   .order-input option { color: #000; background: #fff; }
 }
 
@@ -258,7 +258,7 @@
   100% { background-position: 0% 50%; }
 }
 .btn-hero-sweep {
-  background: linear-gradient(90deg, #EF7C3B, #F5A06A, #D96820, #EF7C3B, #F5A06A);
+  background: linear-gradient(90deg, #E29455, #E6A26B, #E29455, #E6A26B, #E29455);
   background-size: 250% 100%;
   animation: heroSweep 7s ease infinite;
 }
@@ -298,7 +298,7 @@
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .nav-glass {
-  background: rgba(239, 124, 59, 0.97);
+  background: rgba(222,134,63, 0.97);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -346,7 +346,7 @@
 .wp-content h3 { font-size: 1.3rem; }
 .wp-content h4 { font-size: 1.1rem; }
 .wp-content p { margin-bottom: 1.25rem; }
-.wp-content a { color: #EF7C3B; text-decoration: underline; text-underline-offset: 3px; }
+.wp-content a { color: #DE863F; text-decoration: underline; text-underline-offset: 3px; }
 .wp-content a:hover { color: #f9974f; }
 .wp-content ul,
 .wp-content ol {
@@ -357,10 +357,10 @@
 .wp-content ol { list-style: decimal; }
 .wp-content li { margin-bottom: 0.4rem; }
 .wp-content blockquote {
-  border-left: 4px solid #EF7C3B;
+  border-left: 4px solid #DE863F;
   padding: 0.75rem 1.25rem;
   margin: 1.5rem 0;
-  background: rgba(239, 124, 59, 0.07);
+  background: rgba(222,134,63, 0.07);
   border-radius: 0 0.5rem 0.5rem 0;
   color: rgba(255, 255, 255, 0.7);
   font-style: italic;
@@ -379,12 +379,12 @@
   font-size: 0.9rem;
 }
 .wp-content th {
-  background: rgba(239, 124, 59, 0.15);
-  color: #EF7C3B;
+  background: rgba(222,134,63, 0.15);
+  color: #DE863F;
   font-weight: 700;
   padding: 0.6rem 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(239, 124, 59, 0.3);
+  border-bottom: 1px solid rgba(222,134,63, 0.3);
 }
 .wp-content td {
   padding: 0.6rem 1rem;
@@ -393,7 +393,7 @@
 .wp-content tr:last-child td { border-bottom: none; }
 .wp-content code {
   background: rgba(255, 255, 255, 0.08);
-  color: #EF7C3B;
+  color: #DE863F;
   padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.875em;

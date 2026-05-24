@@ -71,7 +71,7 @@ export default function StatePageClient({ state }: Props) {
         <ol className="flex items-center gap-2" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontSize: '0.8rem' }}>
           <li><a href="/locations" style={{ color: 'rgba(255,255,255,0.5)' }} className="hover:text-white transition-colors">Locations</a></li>
           <li style={{ color: 'rgba(255,255,255,0.3)' }}>/</li>
-          <li style={{ color: '#EF7C3B' }}>{state.name}</li>
+          <li style={{ color: '#DE863F' }}>{state.name}</li>
         </ol>
       </nav>
 
@@ -94,7 +94,7 @@ export default function StatePageClient({ state }: Props) {
                   fontSize: '0.75rem',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  color: '#EF7C3B',
+                  color: '#DE863F',
                 }}
               >
                 Stormwater Pollution Prevention Plan Service
@@ -109,7 +109,7 @@ export default function StatePageClient({ state }: Props) {
                 }}
               >
                 {state.name}{' '}
-                <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
+                <span style={{ color: '#DE863F' }}>SWPPP Services</span>
               </h1>
               <p
                 style={{
@@ -172,7 +172,7 @@ export default function StatePageClient({ state }: Props) {
                         textDecoration: 'none',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                        e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
                       }}
                       onMouseLeave={(e) => {
@@ -195,7 +195,7 @@ export default function StatePageClient({ state }: Props) {
                         style={{
                           fontFamily: "'Roboto', Arial, sans-serif",
                           fontSize: '0.7rem',
-                          color: '#EF7C3B',
+                          color: '#DE863F',
                         }}
                       >
                         View Details →
@@ -245,13 +245,13 @@ export default function StatePageClient({ state }: Props) {
                       textDecoration: 'none',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                      e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
                     }}
                   >
-                    <FileText size={20} style={{ color: '#EF7C3B', flexShrink: 0 }} />
+                    <FileText size={20} style={{ color: '#DE863F', flexShrink: 0 }} />
                     <span
                       style={{
                         fontFamily: "'Roboto', Arial, sans-serif",

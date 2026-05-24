@@ -94,7 +94,7 @@ export default function CEOGuaranteeSection() {
               Order Your SWPPP Now and Your Site Will Be
             </h2>
             <h3
-              className="section-heading text-[#EF7C3B] mb-10 transition-colors group-hover:text-[#FF9456]"
+              className="section-heading text-[#DE863F] mb-10 transition-colors group-hover:text-[#FF9456]"
               style={{
                 fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
                 letterSpacing: "-0.01em",
@@ -117,13 +117,13 @@ export default function CEOGuaranteeSection() {
               <img
                 src={CEO_PHOTO}
                 alt="Derek E. Chinners – CEO, Pro SWPPP"
-                className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#EF7C3B]"
+                className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#DE863F]"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = "none";
                   const div = document.createElement("div");
                   div.className =
-                    "w-28 h-28 rounded-full bg-[#0D1F2B] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#EF7C3B]";
+                    "w-28 h-28 rounded-full bg-[#0D1F2B] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#DE863F]";
                   div.textContent = "D";
                   target.parentNode?.insertBefore(div, target);
                 }}
@@ -197,7 +197,7 @@ export default function CEOGuaranteeSection() {
               letterSpacing: "-0.01em",
             }}
           >
-            Beyond the <span className="text-[#EF7C3B]">72-Hour</span> Delivery
+            Beyond the <span className="text-[#DE863F]">72-Hour</span> Delivery
           </h3>
 
           {/* Subhead */}
@@ -276,7 +276,7 @@ export default function CEOGuaranteeSection() {
                 "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
               fontWeight: 900,
-              color: "#EF7C3B",
+              color: "#DE863F",
               letterSpacing: "-0.01em",
               lineHeight: 1.1,
               textDecoration: "none",
@@ -286,7 +286,7 @@ export default function CEOGuaranteeSection() {
               (e.currentTarget as HTMLAnchorElement).style.color = "#FF9456";
             }}
             onMouseOut={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = "#EF7C3B";
+              (e.currentTarget as HTMLAnchorElement).style.color = "#DE863F";
             }}
           >
             <Phone size={30} strokeWidth={2.5} />

@@ -52,10 +52,10 @@ export default function PaymentClient() {
           <motion.div
             custom={0} initial="hidden" animate="visible" variants={fadeUp}
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5"
-            style={{ background: 'rgba(239,124,59,0.15)', border: '1px solid rgba(239,124,59,0.3)' }}
+            style={{ background: 'rgba(222,134,63,0.15)', border: '1px solid rgba(222,134,63,0.3)' }}
           >
-            <Lock size={13} style={{ color: '#EF7C3B' }} />
-            <span className="text-[#EF7C3B] text-xs font-bold uppercase tracking-widest">Secure Payment Portal</span>
+            <Lock size={13} style={{ color: '#DE863F' }} />
+            <span className="text-[#DE863F] text-xs font-bold uppercase tracking-widest">Secure Payment Portal</span>
           </motion.div>
 
           <motion.h1
@@ -68,7 +68,7 @@ export default function PaymentClient() {
               letterSpacing: '-0.03em',
             }}
           >
-            Make a <span style={{ color: '#EF7C3B' }}>Payment</span>
+            Make a <span style={{ color: '#DE863F' }}>Payment</span>
           </motion.h1>
           <motion.p
             custom={0.2} initial="hidden" animate="visible" variants={fadeUp}
@@ -100,7 +100,7 @@ export default function PaymentClient() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#EF7C3B' }}>Pro SWPPP</p>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#DE863F' }}>Pro SWPPP</p>
                     <h2
                       className="font-black text-xl uppercase"
                       style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em', color: '#111111' }}
@@ -109,7 +109,7 @@ export default function PaymentClient() {
                     </h2>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Shield size={20} style={{ color: '#EF7C3B' }} />
+                    <Shield size={20} style={{ color: '#DE863F' }} />
                     <Lock size={16} style={{ color: '#555555' }} />
                   </div>
                 </div>
@@ -118,7 +118,7 @@ export default function PaymentClient() {
               {/* Card body */}
               <div className="px-8 py-8" style={{ background: '#F8F6F2' }}>
                 <div className="flex items-start gap-4 mb-6 p-4 rounded-xl" style={{ background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.08)' }}>
-                  <CreditCard size={22} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 2 }} />
+                  <CreditCard size={22} style={{ color: '#DE863F', flexShrink: 0, marginTop: 2 }} />
                   <div>
                     <p className="font-bold text-sm mb-1" style={{ fontFamily: "'Inter', sans-serif", color: '#111111' }}>
                       All Major Cards Accepted
@@ -137,7 +137,7 @@ export default function PaymentClient() {
                     'No stored card data',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2">
-                      <CheckCircle2 size={15} style={{ color: '#EF7C3B', flexShrink: 0 }} />
+                      <CheckCircle2 size={15} style={{ color: '#DE863F', flexShrink: 0 }} />
                       <span className="text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", color: '#333333' }}>{item}</span>
                     </div>
                   ))}
@@ -197,7 +197,7 @@ export default function PaymentClient() {
                 color: '#ffffff',
               }}
             >
-              Payment <span style={{ color: '#EF7C3B' }}>FAQs</span>
+              Payment <span style={{ color: '#DE863F' }}>FAQs</span>
             </h2>
             <div className="space-y-4">
               {faqs.map((faq, i) => (

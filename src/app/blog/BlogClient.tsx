@@ -44,7 +44,7 @@ function PostCard({ post }: { post: WPPost }) {
     <article
       className="group rounded-2xl overflow-hidden flex flex-col"
       style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)', transition: 'border-color 0.2s, transform 0.2s' }}
-      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)'; e.currentTarget.style.transform = 'translateY(0)'; }}
     >
       <a href={`/blog/${post.slug}/`} className="block overflow-hidden aspect-video bg-black flex-shrink-0">
@@ -52,7 +52,7 @@ function PostCard({ post }: { post: WPPost }) {
           <img src={image.source_url} alt={image.alt_text || title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ background: '#111111' }}>
-            <BookOpen size={36} style={{ color: '#EF7C3B', opacity: 0.4 }} />
+            <BookOpen size={36} style={{ color: '#DE863F', opacity: 0.4 }} />
           </div>
         )}
       </a>
@@ -60,14 +60,14 @@ function PostCard({ post }: { post: WPPost }) {
         {cats.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {cats.slice(0, 2).map((cat) => (
-              <span key={cat.id} className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style={{ background: 'rgba(239,124,59,0.15)', color: '#EF7C3B' }}>
+              <span key={cat.id} className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style={{ background: 'rgba(222,134,63,0.15)', color: '#DE863F' }}>
                 {cat.name}
               </span>
             ))}
           </div>
         )}
         <a href={`/blog/${post.slug}/`} className="block flex-1">
-          <h2 className="font-black text-base leading-snug mb-2 text-white group-hover:text-[#EF7C3B] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}
+          <h2 className="font-black text-base leading-snug mb-2 text-white group-hover:text-[#DE863F] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}
             dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
           <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Roboto', Arial, sans-serif" }}>{excerpt}</p>
         </a>
@@ -75,7 +75,7 @@ function PostCard({ post }: { post: WPPost }) {
           <span className="flex items-center gap-1.5 text-gray-500 text-xs">
             <Calendar size={12} />{formatDate(post.date)}
           </span>
-          <a href={`/blog/${post.slug}/`} className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#EF7C3B] hover:gap-2 transition-all">
+          <a href={`/blog/${post.slug}/`} className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#DE863F] hover:gap-2 transition-all">
             Read More <ArrowRight size={12} />
           </a>
         </div>
@@ -108,7 +108,7 @@ function BlogSidebar({
             placeholder="Search articles..."
             className="w-full pl-9 pr-3 py-2.5 text-white text-sm outline-none rounded-lg"
             style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: "'Roboto', Arial, sans-serif" }}
-            onFocus={(e) => (e.target.style.borderColor = '#EF7C3B')}
+            onFocus={(e) => (e.target.style.borderColor = '#DE863F')}
             onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
           />
         </div>
@@ -118,19 +118,19 @@ function BlogSidebar({
       {categories.length > 0 && (
         <div style={sideCard}>
           <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-            <FolderOpen size={14} style={{ color: '#EF7C3B' }} /> Categories
+            <FolderOpen size={14} style={{ color: '#DE863F' }} /> Categories
           </h3>
           <ul className="space-y-1">
             <li>
               <button onClick={() => setActiveCategory('All')} className="w-full text-left flex items-center justify-between py-1.5 px-2 rounded-lg text-sm transition-colors"
-                style={{ color: activeCategory === 'All' ? '#EF7C3B' : 'rgba(255,255,255,0.7)', background: activeCategory === 'All' ? 'rgba(239,124,59,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
+                style={{ color: activeCategory === 'All' ? '#DE863F' : 'rgba(255,255,255,0.7)', background: activeCategory === 'All' ? 'rgba(222,134,63,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
                 All Posts
               </button>
             </li>
             {categories.map((cat) => (
               <li key={cat.id}>
                 <button onClick={() => setActiveCategory(cat.name)} className="w-full text-left flex items-center justify-between py-1.5 px-2 rounded-lg text-sm transition-colors"
-                  style={{ color: activeCategory === cat.name ? '#EF7C3B' : 'rgba(255,255,255,0.7)', background: activeCategory === cat.name ? 'rgba(239,124,59,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
+                  style={{ color: activeCategory === cat.name ? '#DE863F' : 'rgba(255,255,255,0.7)', background: activeCategory === cat.name ? 'rgba(222,134,63,0.1)' : 'transparent', fontFamily: "'Roboto', sans-serif" }}>
                   <span>{cat.name}</span>
                   <span className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{cat.count}</span>
                 </button>
@@ -144,16 +144,16 @@ function BlogSidebar({
       {tags.length > 0 && (
         <div style={sideCard}>
           <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-            <Tag size={14} style={{ color: '#EF7C3B' }} /> Tags
+            <Tag size={14} style={{ color: '#DE863F' }} /> Tags
           </h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <button key={tag.id} onClick={() => setActiveTag(activeTag === tag.name ? '' : tag.name)}
                 className="text-xs px-3 py-1 rounded-full transition-all"
                 style={{
-                  background: activeTag === tag.name ? '#EF7C3B' : 'rgba(255,255,255,0.07)',
+                  background: activeTag === tag.name ? '#DE863F' : 'rgba(255,255,255,0.07)',
                   color: activeTag === tag.name ? '#fff' : 'rgba(255,255,255,0.6)',
-                  border: `1px solid ${activeTag === tag.name ? '#EF7C3B' : 'rgba(255,255,255,0.12)'}`,
+                  border: `1px solid ${activeTag === tag.name ? '#DE863F' : 'rgba(255,255,255,0.12)'}`,
                   fontFamily: "'Roboto', sans-serif",
                 }}>
                 {tag.name}
@@ -205,7 +205,7 @@ export default function BlogClient({ posts, categories, tags }: Props) {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-white uppercase leading-none mb-4"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: "'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}>
-            SWPPP <span style={{ color: '#EF7C3B' }}>Blog</span>
+            SWPPP <span style={{ color: '#DE863F' }}>Blog</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-gray-400 text-lg max-w-xl mx-auto"
@@ -234,7 +234,7 @@ export default function BlogClient({ posts, categories, tags }: Props) {
                     {posts.length === 0 ? 'Blog posts coming soon.' : 'No posts match your search.'}
                   </p>
                   {(search || activeTag) && (
-                    <button onClick={() => { setSearch(''); setActiveTag(''); }} className="mt-4 text-[#EF7C3B] text-sm font-semibold underline">
+                    <button onClick={() => { setSearch(''); setActiveTag(''); }} className="mt-4 text-[#DE863F] text-sm font-semibold underline">
                       Clear filters
                     </button>
                   )}

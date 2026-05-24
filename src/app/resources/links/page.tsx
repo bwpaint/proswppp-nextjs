@@ -53,11 +53,11 @@ export default function SWPPPLinksPage() {
       <section className="py-20 lg:py-24" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="section-label mb-4" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 900, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#EF7C3B' }}>
+            <p className="section-label mb-4" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 900, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#DE863F' }}>
               Resources
             </p>
             <h1 className="text-white uppercase leading-none mb-5" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}>
-              Regulatory <span style={{ color: '#EF7C3B' }}>Links</span>
+              Regulatory <span style={{ color: '#DE863F' }}>Links</span>
             </h1>
             <p style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7 }}>
               Direct links to federal agencies, state environmental departments, permit portals, and professional standards organizations — curated for construction professionals.
@@ -72,13 +72,13 @@ export default function SWPPPLinksPage() {
           <div className="space-y-14 max-w-4xl mx-auto">
             {LINK_CATEGORIES.map((cat) => (
               <div key={cat.title}>
-                <h2 className="text-white font-black uppercase mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em', borderBottom: '1px solid rgba(239,124,59,0.3)', paddingBottom: '0.75rem' }}>
+                <h2 className="text-white font-black uppercase mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em', borderBottom: '1px solid rgba(222,134,63,0.3)', paddingBottom: '0.75rem' }}>
                   {cat.title}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {cat.links.map((link) => (
-                    <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 rounded-xl p-5 transition-all group border border-white/[0.08] hover:border-[rgba(239,124,59,0.4)]" style={{ background: 'rgba(255,255,255,0.04)', textDecoration: 'none' }}>
-                      <Globe size={16} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 3 }} />
+                    <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 rounded-xl p-5 transition-all group border border-white/[0.08] hover:border-[rgba(222,134,63,0.4)]" style={{ background: 'rgba(255,255,255,0.04)', textDecoration: 'none' }}>
+                      <Globe size={16} style={{ color: '#DE863F', flexShrink: 0, marginTop: 3 }} />
                       <div>
                         <div className="flex items-center gap-1.5 mb-1">
                           <span className="text-white font-bold text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>{link.name}</span>

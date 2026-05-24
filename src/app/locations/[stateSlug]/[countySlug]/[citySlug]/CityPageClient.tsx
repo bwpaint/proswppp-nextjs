@@ -54,7 +54,7 @@ function FileBadge({ type }: { type: string }) {
 }
 
 const LEVEL_CONFIG: Record<string, { label: string; bg: string; color: string }> = {
-  city:   { label: 'City Resource',   bg: 'rgba(239,124,59,0.15)',  color: '#EF7C3B' },
+  city:   { label: 'City Resource',   bg: 'rgba(222,134,63,0.15)',  color: '#DE863F' },
   county: { label: 'County Resource', bg: 'rgba(107,158,209,0.15)', color: '#6B9ED1' },
   state:  { label: 'State Resource',  bg: 'rgba(45,125,70,0.15)',   color: '#2D7D46' },
 };
@@ -99,7 +99,7 @@ export default function CityPageClient({ city }: Props) {
           <li style={{ color: 'rgba(255,255,255,0.3)' }}>/</li>
           <li><a href={`/locations/${state.slug}/${county.slug}`} style={{ color: 'rgba(255,255,255,0.5)' }} className="hover:text-white transition-colors">{county.name}</a></li>
           <li style={{ color: 'rgba(255,255,255,0.3)' }}>/</li>
-          <li style={{ color: '#EF7C3B' }}>{city.name}</li>
+          <li style={{ color: '#DE863F' }}>{city.name}</li>
         </ol>
       </nav>
 
@@ -120,7 +120,7 @@ export default function CityPageClient({ city }: Props) {
                 fontSize: '0.75rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                color: '#EF7C3B',
+                color: '#DE863F',
               }}
             >
               Stormwater Pollution Prevention Plan Service
@@ -135,7 +135,7 @@ export default function CityPageClient({ city }: Props) {
               }}
             >
               {city.name}, {state.abbreviation}{' '}
-              <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
+              <span style={{ color: '#DE863F' }}>SWPPP Services</span>
             </h1>
             <p
               style={{
@@ -196,13 +196,13 @@ export default function CityPageClient({ city }: Props) {
                       textDecoration: 'none',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                      e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
                     }}
                   >
-                    <FileText size={20} style={{ color: '#EF7C3B', flexShrink: 0 }} />
+                    <FileText size={20} style={{ color: '#DE863F', flexShrink: 0 }} />
                     <span
                       style={{
                         fontFamily: "'Roboto', Arial, sans-serif",

@@ -28,7 +28,7 @@ export default function SiteWideCTA() {
               letterSpacing: '-0.02em',
             }}
           >
-            Ready to Get <span style={{ color: '#EF7C3B' }}>Compliant?</span>
+            Ready to Get <span style={{ color: '#DE863F' }}>Compliant?</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -61,7 +61,7 @@ export default function SiteWideCTA() {
       </section>
 
       {/* ── 72-Hour Guarantee Banner ── */}
-      <section style={{ background: '#EF7C3B', padding: '3rem 0' }}>
+      <section style={{ background: '#DE863F', padding: '3rem 0' }}>
         <div className="container">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left">
             <Shield size={48} className="text-white flex-shrink-0" />
@@ -79,7 +79,7 @@ export default function SiteWideCTA() {
             <a
               href="tel:8334387977"
               className="flex-shrink-0 inline-flex items-center gap-2 bg-white font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-full transition-all duration-200 hover:shadow-lg"
-              style={{ color: '#EF7C3B', fontFamily: "'Roboto', sans-serif" }}
+              style={{ color: '#DE863F', fontFamily: "'Roboto', sans-serif" }}
             >
               <Phone size={14} />
               Call Now

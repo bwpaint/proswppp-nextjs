@@ -117,7 +117,7 @@ export default function USMapClient({ liveStates }: Props) {
               const isActive = liveSet.has(abbr);
               const slug     = slugMap.get(abbr);
               const isHov    = hovered === abbr;
-              const fill     = isActive ? (isHov ? '#d4692a' : '#EF7C3B') : '#6B9ED1';
+              const fill     = isActive ? (isHov ? '#d4692a' : '#DE863F') : '#6B9ED1';
 
               const pathEl = (
                 <path
@@ -150,7 +150,7 @@ export default function USMapClient({ liveStates }: Props) {
                   width={112} height={24}
                   rx={4}
                   fill="rgba(0,0,0,0.88)"
-                  stroke="rgba(239,124,59,0.6)"
+                  stroke="rgba(222,134,63,0.6)"
                   strokeWidth={0.75}
                 />
                 <text
@@ -174,7 +174,7 @@ export default function USMapClient({ liveStates }: Props) {
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
           <div className="flex items-center gap-2">
-            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#EF7C3B' }} />
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#DE863F' }} />
             <span style={{ fontFamily:"'Roboto',Arial,sans-serif", fontSize:'0.8rem', color:'rgba(255,255,255,0.7)' }}>
               Active — click to explore
             </span>

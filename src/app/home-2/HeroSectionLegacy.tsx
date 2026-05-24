@@ -135,7 +135,7 @@ export default function HeroSection() {
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
-                color: "#EF7C3B",
+                color: "#DE863F",
               }}
             >
               In 72 hrs.,<br />or it's FREE!
@@ -209,7 +209,7 @@ export default function HeroSection() {
           >
             {/* Eyebrow above form — same size/style as left column eyebrow */}
             <p
-              className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-4 text-center"
+              className="text-[#DE863F] uppercase tracking-widest text-sm mb-4 text-center"
               style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: "0.2em" }}
             >
               Number One Stormwater Pollution Prevention<br />
@@ -321,7 +321,7 @@ export default function HeroSection() {
                   fontSize: "0.9375rem",
                   textAlign: "center",
                   marginTop: "1rem",
-                  background: "linear-gradient(90deg, #EF7C3B 0%, #6B9ED1 100%)",
+                  background: "linear-gradient(90deg, #E29455 0%, #6B9ED1 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -347,7 +347,7 @@ export default function HeroSection() {
                   <a
                     href="/swppp-glossary/"
                     style={{
-                      color: "#EF7C3B",
+                      color: "#DE863F",
                       fontWeight: 600,
                       textDecoration: "none",
                       whiteSpace: "nowrap",

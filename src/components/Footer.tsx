@@ -67,7 +67,7 @@ export default function Footer() {
   };
 
   const inputClass =
-    "w-full bg-white/5 border border-white/15 rounded-lg text-white text-sm placeholder-white/40 px-3 py-2.5 outline-none focus:border-[#EF7C3B] focus:bg-white/10 transition-all";
+    "w-full bg-white/5 border border-white/15 rounded-lg text-white text-sm placeholder-white/40 px-3 py-2.5 outline-none focus:border-[#DE863F] focus:bg-white/10 transition-all";
 
   return (
     <footer className="bg-black text-white">
@@ -91,18 +91,18 @@ export default function Footer() {
             <div className="space-y-2 text-sm">
               <a
                 href="tel:8334387977"
-                className="flex items-center gap-2 text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                className="flex items-center gap-2 text-gray-400 hover:text-[#DE863F] transition-colors"
               >
-                <Phone size={13} className="text-[#EF7C3B] flex-shrink-0" />
+                <Phone size={13} className="text-[#DE863F] flex-shrink-0" />
                 833-GET-SWPP
               </a>
               <a
                 href="https://maps.app.goo.gl/rKcDY3vvTKsJTqnQ9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-2 text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                className="flex items-start gap-2 text-gray-400 hover:text-[#DE863F] transition-colors"
               >
-                <MapPin size={13} className="text-[#EF7C3B] flex-shrink-0 mt-0.5" />
+                <MapPin size={13} className="text-[#DE863F] flex-shrink-0 mt-0.5" />
                 <span>
                   17904 W Lake Houston Pkwy.<br />
                   STE 303<br />
@@ -114,7 +114,7 @@ export default function Footer() {
 
           {/* ── Col 2: Site Links ── */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
               Site Links
             </h3>
             <ul className="space-y-2 text-sm">
@@ -131,7 +131,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                    className="text-gray-400 hover:text-[#DE863F] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -142,7 +142,7 @@ export default function Footer() {
 
           {/* ── Col 3: Resource Links ── */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
               Resource Links
             </h3>
             <ul className="space-y-2 text-sm">
@@ -155,7 +155,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-[#EF7C3B] transition-colors"
+                    className="text-gray-400 hover:text-[#DE863F] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -166,7 +166,7 @@ export default function Footer() {
 
           {/* ── Col 4–5: Contact Form (span 2) ── */}
           <div className="lg:col-span-2">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#EF7C3B] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
               Get In Touch
             </h3>
             <form onSubmit={handleSubmit} className="space-y-3">
@@ -292,10 +292,10 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-6 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
           <p>© {new Date().getFullYear()} Pro SWPPP. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="/privacy" className="hover:text-[#EF7C3B] transition-colors">
+            <a href="/privacy" className="hover:text-[#DE863F] transition-colors">
               Privacy
             </a>
-            <a href="/terms" className="hover:text-[#EF7C3B] transition-colors">
+            <a href="/terms" className="hover:text-[#DE863F] transition-colors">
               Terms
             </a>
           </div>

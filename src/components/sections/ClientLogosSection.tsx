@@ -31,7 +31,7 @@ export default function ClientLogosSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="section-heading text-[#EF7C3B] text-2xl lg:text-3xl text-center mb-10"
+            className="section-heading text-[#DE863F] text-2xl lg:text-3xl text-center mb-10"
           >
             Who We Work With
           </motion.h2>

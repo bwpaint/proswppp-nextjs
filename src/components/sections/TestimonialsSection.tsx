@@ -69,7 +69,7 @@ export default function TestimonialsSection() {
               fontWeight: 900,
               fontSize: '0.75rem',
               letterSpacing: '0.2em',
-              color: '#EF7C3B',
+              color: '#DE863F',
             }}
           >
             Testimonials
@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
               letterSpacing: '-0.03em',
             }}
           >
-            What Our <span style={{ color: '#EF7C3B' }}>Customers</span> Are Saying
+            What Our <span style={{ color: '#DE863F' }}>Customers</span> Are Saying
           </motion.h2>
         </div>
 
@@ -105,7 +105,7 @@ export default function TestimonialsSection() {
               style={{
                 background:
                   'linear-gradient(160deg, rgba(26,58,74,0.6) 0%, rgba(13,31,43,0.85) 100%)',
-                border: '1px solid rgba(239,124,59,0.25)',
+                border: '1px solid rgba(222,134,63,0.25)',
                 boxShadow: '0 18px 48px rgba(0,0,0,0.4)',
               }}
             >
@@ -113,7 +113,7 @@ export default function TestimonialsSection() {
               <Quote
                 size={36}
                 style={{
-                  color: '#EF7C3B',
+                  color: '#DE863F',
                   opacity: 0.85,
                   marginBottom: '12px',
                 }}
@@ -166,7 +166,7 @@ export default function TestimonialsSection() {
                   }}
                 >
                   {t.title} &middot;{' '}
-                  <span style={{ color: '#EF7C3B', fontWeight: 600 }}>{t.company}</span>
+                  <span style={{ color: '#DE863F', fontWeight: 600 }}>{t.company}</span>
                 </p>
               </div>
             </motion.div>

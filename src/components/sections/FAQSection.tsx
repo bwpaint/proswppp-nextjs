@@ -63,7 +63,7 @@ export default function FAQSection() {
         >
           <p
             className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold"
-            style={{ color: "#EF7C3B" }}
+            style={{ color: "#DE863F" }}
           >
             Got Questions?
           </p>
@@ -74,9 +74,9 @@ export default function FAQSection() {
             Stormwater Compliance Done Right.
           </h2>
           <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="h-px w-16 bg-[#EF7C3B]/40" />
-            <span className="text-[#EF7C3B] text-xl">✦</span>
-            <span className="h-px w-16 bg-[#EF7C3B]/40" />
+            <span className="h-px w-16 bg-[#DE863F]/40" />
+            <span className="text-[#DE863F] text-xl">✦</span>
+            <span className="h-px w-16 bg-[#DE863F]/40" />
           </div>
         </motion.div>
 
@@ -94,10 +94,10 @@ export default function FAQSection() {
                 className="overflow-hidden rounded-[11px]"
                 style={{
                   border: isOpen
-                    ? "1px solid #EF7C3B"
+                    ? "1px solid #DE863F"
                     : "1px solid rgba(255,255,255,0.08)",
                   backgroundColor: isOpen
-                    ? "rgba(239,124,59,0.06)"
+                    ? "rgba(222,134,63,0.06)"
                     : "rgba(255,255,255,0.03)",
                   transition: "border-color 0.25s, background-color 0.25s",
                 }}
@@ -109,7 +109,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                 >
                   <span
-                    className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#EF7C3B] transition-colors"
+                    className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#DE863F] transition-colors"
                     style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                   >
                     {faq.q}
@@ -117,13 +117,13 @@ export default function FAQSection() {
                   <span
                     className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
                     style={{
-                      backgroundColor: isOpen ? "#EF7C3B" : "rgba(239,124,59,0.15)",
+                      backgroundColor: isOpen ? "#DE863F" : "rgba(222,134,63,0.15)",
                     }}
                   >
                     {isOpen ? (
                       <Minus size={14} className="text-white" />
                     ) : (
-                      <Plus size={14} style={{ color: "#EF7C3B" }} />
+                      <Plus size={14} style={{ color: "#DE863F" }} />
                     )}
                   </span>
                 </button>
@@ -142,7 +142,7 @@ export default function FAQSection() {
                       <div className="px-6 pb-6">
                         <div
                           className="h-px w-full mb-4"
-                          style={{ backgroundColor: "rgba(239,124,59,0.2)" }}
+                          style={{ backgroundColor: "rgba(222,134,63,0.2)" }}
                         />
                         <p
                           className="text-gray-300 leading-relaxed"

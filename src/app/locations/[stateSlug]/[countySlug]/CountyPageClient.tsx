@@ -68,7 +68,7 @@ function LevelBadge({ level }: { level: string }) {
   const colors: Record<string, { bg: string; color: string }> = {
     county: { bg: 'rgba(107,158,209,0.15)', color: '#6B9ED1' },
     state:  { bg: 'rgba(45,125,70,0.15)',   color: '#2D9E5B' },
-    city:   { bg: 'rgba(239,124,59,0.15)',  color: '#EF7C3B' },
+    city:   { bg: 'rgba(222,134,63,0.15)',  color: '#DE863F' },
   };
   const style = colors[level] ?? colors.state;
   return (
@@ -107,7 +107,7 @@ export default function CountyPageClient({ county }: Props) {
           <li style={{ color: 'rgba(255,255,255,0.3)' }}>/</li>
           <li><a href={`/locations/${state.slug}`} style={{ color: 'rgba(255,255,255,0.5)' }} className="hover:text-white transition-colors">{state.name}</a></li>
           <li style={{ color: 'rgba(255,255,255,0.3)' }}>/</li>
-          <li style={{ color: '#EF7C3B' }}>{county.name}</li>
+          <li style={{ color: '#DE863F' }}>{county.name}</li>
         </ol>
       </nav>
 
@@ -130,7 +130,7 @@ export default function CountyPageClient({ county }: Props) {
                   fontSize: '0.75rem',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  color: '#EF7C3B',
+                  color: '#DE863F',
                 }}
               >
                 Stormwater Pollution Prevention Plan Service
@@ -145,7 +145,7 @@ export default function CountyPageClient({ county }: Props) {
                 }}
               >
                 {county.name}, {state.abbreviation}{' '}
-                <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
+                <span style={{ color: '#DE863F' }}>SWPPP Services</span>
               </h1>
               <p
                 style={{
@@ -208,7 +208,7 @@ export default function CountyPageClient({ county }: Props) {
                         textDecoration: 'none',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                        e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
                       }}
                       onMouseLeave={(e) => {
@@ -231,7 +231,7 @@ export default function CountyPageClient({ county }: Props) {
                         style={{
                           fontFamily: "'Roboto', Arial, sans-serif",
                           fontSize: '0.7rem',
-                          color: '#EF7C3B',
+                          color: '#DE863F',
                         }}
                       >
                         View Details →
@@ -281,13 +281,13 @@ export default function CountyPageClient({ county }: Props) {
                       textDecoration: 'none',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(239,124,59,0.5)';
+                      e.currentTarget.style.borderColor = 'rgba(222,134,63,0.5)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)';
                     }}
                   >
-                    <FileText size={20} style={{ color: '#EF7C3B', flexShrink: 0 }} />
+                    <FileText size={20} style={{ color: '#DE863F', flexShrink: 0 }} />
                     <span
                       style={{
                         fontFamily: "'Roboto', Arial, sans-serif",
@@ -329,7 +329,7 @@ export default function CountyPageClient({ county }: Props) {
               }}
             >
               Get My{' '}
-              <span style={{ color: '#EF7C3B' }}>SWPPP</span>
+              <span style={{ color: '#DE863F' }}>SWPPP</span>
             </h2>
             <a href="/get-your-swppp" className="btn-orange" style={{ display: 'inline-block' }}>
               Get My SWPPP

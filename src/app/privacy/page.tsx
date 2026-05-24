@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <div className="max-w-3xl mx-auto">
             <p
               className="section-label mb-4"
-              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#EF7C3B' }}
+              style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#DE863F' }}
             >
               Legal
             </p>

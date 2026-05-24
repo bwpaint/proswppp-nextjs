@@ -159,7 +159,7 @@ export default function GlossaryClient() {
       <div className="py-16 lg:py-20" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="container">
           <p
-            className="text-[#EF7C3B] uppercase tracking-widest text-sm mb-3"
+            className="text-[#DE863F] uppercase tracking-widest text-sm mb-3"
             style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, letterSpacing: '0.2em' }}
           >
             Reference Guide
@@ -173,7 +173,7 @@ export default function GlossaryClient() {
               letterSpacing: '-0.03em',
             }}
           >
-            SWPPP <span style={{ color: '#EF7C3B' }}>Glossary</span>
+            SWPPP <span style={{ color: '#DE863F' }}>Glossary</span>
           </h1>
           <p
             className="text-gray-400 max-w-2xl"
@@ -220,10 +220,10 @@ export default function GlossaryClient() {
               <div key={letter}>
                 <div
                   className="flex items-center gap-4 mb-6"
-                  style={{ borderBottom: '2px solid rgba(239,124,59,0.3)', paddingBottom: '0.5rem' }}
+                  style={{ borderBottom: '2px solid rgba(222,134,63,0.3)', paddingBottom: '0.5rem' }}
                 >
                   <span
-                    className="text-[#EF7C3B]"
+                    className="text-[#DE863F]"
                     style={{
                       fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                       fontWeight: 900,
@@ -238,7 +238,7 @@ export default function GlossaryClient() {
                   {grouped[letter].map((item) => (
                     <div
                       key={item.term}
-                      className="rounded-xl p-5 transition-all duration-200 hover:border-[#EF7C3B]/40"
+                      className="rounded-xl p-5 transition-all duration-200 hover:border-[#DE863F]/40"
                       style={{
                         background: 'rgba(255,255,255,0.04)',
                         border: '1px solid rgba(255,255,255,0.08)',
@@ -257,7 +257,7 @@ export default function GlossaryClient() {
                         </h3>
                         {item.full && (
                           <p
-                            className="text-[#EF7C3B] text-xs mt-0.5"
+                            className="text-[#DE863F] text-xs mt-0.5"
                             style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
                           >
                             {item.full}

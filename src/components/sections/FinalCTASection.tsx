@@ -21,7 +21,7 @@ export default function FinalCTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-[#EF7C3B] font-semibold uppercase tracking-widest text-sm mb-3">
+          <p className="text-[#DE863F] font-semibold uppercase tracking-widest text-sm mb-3">
             Fast, Affordable, &amp; 100% Compliant SWPPP Solution
           </p>
           <h2 className="section-heading text-white text-3xl lg:text-5xl mb-4 leading-tight">

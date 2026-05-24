@@ -70,7 +70,7 @@ const questions = [
     id: 'acreage',
     step: 2,
     icon: HardHat,
-    color: '#EF7C3B',
+    color: '#DE863F',
     title: 'Total land disturbance area?',
     subtitle: 'Federal law requires a SWPPP for sites disturbing 1+ acres.',
     type: 'tiles' as const,
@@ -98,7 +98,7 @@ const questions = [
     id: 'phase',
     step: 4,
     icon: HardHat,
-    color: '#EF7C3B',
+    color: '#DE863F',
     title: 'Current site stage?',
     subtitle: 'Active construction phases carry the highest compliance risk.',
     type: 'tiles' as const,
@@ -197,7 +197,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
     <div className="w-full bg-white/10 rounded-full h-1.5 mb-6">
       <motion.div
         className="h-1.5 rounded-full"
-        style={{ background: 'linear-gradient(90deg, #EF7C3B, #6B9ED1)' }}
+        style={{ background: 'linear-gradient(90deg, #E29455, #6B9ED1)' }}
         initial={{ width: 0 }}
         animate={{ width: `${pct}%` }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -283,13 +283,13 @@ export default function QuizClient() {
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#EF7C3B]/15 border border-[#EF7C3B]/30 rounded-full px-4 py-1.5 mb-4">
-            <Shield size={14} className="text-[#EF7C3B]" />
-            <span className="text-[#EF7C3B] text-xs font-bold uppercase tracking-widest">Free Risk Assessment</span>
+          <div className="inline-flex items-center gap-2 bg-[#DE863F]/15 border border-[#DE863F]/30 rounded-full px-4 py-1.5 mb-4">
+            <Shield size={14} className="text-[#DE863F]" />
+            <span className="text-[#DE863F] text-xs font-bold uppercase tracking-widest">Free Risk Assessment</span>
           </div>
           <h1 className="text-white uppercase leading-none mb-3" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontFamily: 'Inter, sans-serif', fontWeight: 900, letterSpacing: '-0.02em' }}>
             SWPPP Compliance<br />
-            <span style={{ color: '#EF7C3B' }}>Risk Diagnostic</span>
+            <span style={{ color: '#DE863F' }}>Risk Diagnostic</span>
           </h1>
           <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
             Answer 5 quick questions. We will calculate your site compliance risk score and send you a personalized 72-Hour Compliance Roadmap — free.
@@ -391,7 +391,7 @@ export default function QuizClient() {
                 <div className="lg:col-span-2">
                   <div className="rounded-2xl p-6 sticky top-24" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)' }}>
                     <div className="flex items-center gap-2 mb-4">
-                      <Zap size={16} className="text-[#EF7C3B]" />
+                      <Zap size={16} className="text-[#DE863F]" />
                       <span className="text-white text-xs font-bold uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>Live Risk Score</span>
                     </div>
                     <RiskGauge score={riskScore} />
@@ -478,7 +478,7 @@ export default function QuizClient() {
                     <CheckCircle2 size={36} className="text-green-400" />
                   </div>
                   <h2 className="text-white text-3xl font-black uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em' }}>
-                    You are All Set, <span style={{ color: '#EF7C3B' }}>{leadData.firstName}!</span>
+                    You are All Set, <span style={{ color: '#DE863F' }}>{leadData.firstName}!</span>
                   </h2>
                   <p className="text-gray-400 text-base leading-relaxed mb-2 max-w-md mx-auto">
                     Your <strong className="text-white">72-Hour Compliance Roadmap</strong> is on its way to <strong className="text-white">{leadData.email}</strong>.
@@ -494,8 +494,8 @@ export default function QuizClient() {
                       <p className="text-gray-400 text-xs">{riskLevel === 'HIGH' ? 'Immediate action recommended' : riskLevel === 'MEDIUM' ? 'SWPPP likely required' : 'Low risk — plan ahead'}</p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center gap-3 mb-8 p-4 rounded-xl bg-[#EF7C3B]/10 border border-[#EF7C3B]/25">
-                    <Shield size={24} className="text-[#EF7C3B]" />
+                  <div className="flex items-center justify-center gap-3 mb-8 p-4 rounded-xl bg-[#DE863F]/10 border border-[#DE863F]/25">
+                    <Shield size={24} className="text-[#DE863F]" />
                     <div className="text-left">
                       <p className="text-white font-black text-sm uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>72-Hour Delivery Guarantee</p>
                       <p className="text-gray-400 text-xs">Your SWPPP delivered in 72 hours or it is FREE.</p>
@@ -557,16 +557,16 @@ function QuizFAQSection() {
     <section style={{ background: '#000000' }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         <div className="text-center mb-14">
-          <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#EF7C3B" }}>
+          <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#DE863F" }}>
             SWPPP Compliance
           </p>
           <h2 className="text-4xl lg:text-5xl font-black leading-tight text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
             Frequently Asked Questions
           </h2>
           <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="h-px w-16 bg-[#EF7C3B]/40" />
-            <span className="text-[#EF7C3B] text-xl">✦</span>
-            <span className="h-px w-16 bg-[#EF7C3B]/40" />
+            <span className="h-px w-16 bg-[#DE863F]/40" />
+            <span className="text-[#DE863F] text-xl">✦</span>
+            <span className="h-px w-16 bg-[#DE863F]/40" />
           </div>
         </div>
 
@@ -578,8 +578,8 @@ function QuizFAQSection() {
                 key={i}
                 className="overflow-hidden rounded-[11px]"
                 style={{
-                  border: isOpen ? "1px solid #EF7C3B" : "1px solid rgba(255,255,255,0.08)",
-                  backgroundColor: isOpen ? "rgba(239,124,59,0.06)" : "rgba(255,255,255,0.03)",
+                  border: isOpen ? "1px solid #DE863F" : "1px solid rgba(255,255,255,0.08)",
+                  backgroundColor: isOpen ? "rgba(222,134,63,0.06)" : "rgba(255,255,255,0.03)",
                   transition: "border-color 0.25s, background-color 0.25s",
                 }}
               >
@@ -587,19 +587,19 @@ function QuizFAQSection() {
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
                 >
-                  <span className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#EF7C3B] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <span className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#DE863F] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
                     {faq.q}
                   </span>
                   <span
                     className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors text-lg leading-none"
-                    style={{ backgroundColor: isOpen ? "#EF7C3B" : "rgba(239,124,59,0.15)", color: isOpen ? "white" : "#EF7C3B" }}
+                    style={{ backgroundColor: isOpen ? "#DE863F" : "rgba(222,134,63,0.15)", color: isOpen ? "white" : "#DE863F" }}
                   >
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>
                 {isOpen && (
                   <div className="px-6 pb-6">
-                    <div className="h-px w-full mb-4" style={{ backgroundColor: "rgba(239,124,59,0.2)" }} />
+                    <div className="h-px w-full mb-4" style={{ backgroundColor: "rgba(222,134,63,0.2)" }} />
                     <p className="text-gray-300 leading-relaxed" style={{ fontFamily: "'Roboto', sans-serif", fontSize: "0.9375rem" }}>
                       {faq.a}
                     </p>
@@ -615,7 +615,7 @@ function QuizFAQSection() {
           <a
             href="tel:8334387977"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-[11px] font-bold text-white uppercase tracking-wide transition-all hover:opacity-90 hover:scale-105"
-            style={{ backgroundColor: "#EF7C3B", fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: "0.9375rem" }}
+            style={{ backgroundColor: "#DE863F", fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: "0.9375rem" }}
           >
             Call Derek at 833-GET-SWPP
           </a>

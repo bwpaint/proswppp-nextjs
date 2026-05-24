@@ -45,11 +45,11 @@ export default function SWPPPDocumentsPage() {
       <section className="py-20 lg:py-24" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="section-label mb-4" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 900, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#EF7C3B' }}>
+            <p className="section-label mb-4" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 900, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#DE863F' }}>
               Resources
             </p>
             <h1 className="text-white uppercase leading-none mb-5" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}>
-              SWPPP <span style={{ color: '#EF7C3B' }}>Documents</span>
+              SWPPP <span style={{ color: '#DE863F' }}>Documents</span>
             </h1>
             <p style={{ fontFamily: "'Roboto', Arial, sans-serif", color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7 }}>
               Federal forms, state permit portals, plan templates, and inspection logs — everything you need for stormwater compliance in one place.
@@ -64,27 +64,27 @@ export default function SWPPPDocumentsPage() {
           <div className="space-y-14 max-w-4xl mx-auto">
             {CATEGORIES.map((cat) => (
               <div key={cat.title}>
-                <h2 className="text-white font-black uppercase mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em', borderBottom: '1px solid rgba(239,124,59,0.3)', paddingBottom: '0.75rem' }}>
+                <h2 className="text-white font-black uppercase mb-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: '1.1rem', letterSpacing: '0.05em', borderBottom: '1px solid rgba(222,134,63,0.3)', paddingBottom: '0.75rem' }}>
                   {cat.title}
                 </h2>
                 <div className="space-y-3">
                   {cat.docs.map((doc) => (
                     <div key={doc.name} className="flex items-start gap-4 rounded-xl p-5 transition-all" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                      <FileText size={18} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 2 }} />
+                      <FileText size={18} style={{ color: '#DE863F', flexShrink: 0, marginTop: 2 }} />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
                           <span className="text-white font-bold text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>{doc.name}</span>
-                          {doc.external && <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(239,124,59,0.15)', color: '#EF7C3B', fontFamily: "'Roboto', sans-serif" }}>External</span>}
+                          {doc.external && <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(222,134,63,0.15)', color: '#DE863F', fontFamily: "'Roboto', sans-serif" }}>External</span>}
                           {!doc.url && <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.4)', fontFamily: "'Roboto', sans-serif" }}>Contact Us</span>}
                         </div>
                         <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: "'Roboto', sans-serif", lineHeight: 1.6 }}>{doc.desc}</p>
                         {doc.url && (
-                          <a href={doc.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors" style={{ color: '#EF7C3B', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}>
+                          <a href={doc.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors" style={{ color: '#DE863F', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}>
                             Visit Portal <ExternalLink size={11} />
                           </a>
                         )}
                         {!doc.url && (
-                          <a href="/get-your-swppp/" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors" style={{ color: '#EF7C3B', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}>
+                          <a href="/get-your-swppp/" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors" style={{ color: '#DE863F', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}>
                             Get This With Your SWPPP →
                           </a>
                         )}

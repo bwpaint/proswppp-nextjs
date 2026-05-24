@@ -172,7 +172,7 @@ export default function Navigation() {
                           <a
                             key={item.label}
                             href={item.href}
-                            className="block px-4 py-2.5 text-white text-sm font-medium hover:bg-[#EF7C3B] hover:text-white transition-colors"
+                            className="block px-4 py-2.5 text-white text-sm font-medium hover:bg-[#DE863F] hover:text-white transition-colors"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {item.label}
@@ -209,7 +209,7 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
               <a
                 href="/get-your-swppp/#order_swppp_form"
-                className="nav-order-btn bg-white text-[#EF7C3B] font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-orange-50 transition-all duration-200 hover:shadow-lg whitespace-nowrap"
+                className="nav-order-btn bg-white text-[#DE863F] font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-orange-50 transition-all duration-200 hover:shadow-lg whitespace-nowrap"
               >
                 ORDER NOW
               </a>

@@ -60,10 +60,10 @@ function PostSidebar({
             placeholder="Search articles..."
             className="w-full pl-9 pr-10 py-2.5 text-white text-sm outline-none rounded-lg"
             style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: "'Roboto', Arial, sans-serif" }}
-            onFocus={(e) => (e.target.style.borderColor = '#EF7C3B')}
+            onFocus={(e) => (e.target.style.borderColor = '#DE863F')}
             onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
           />
-          <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded" style={{ color: '#EF7C3B' }}>
+          <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded" style={{ color: '#DE863F' }}>
             <ArrowRight size={14} />
           </button>
         </form>
@@ -73,7 +73,7 @@ function PostSidebar({
       {allCategories.length > 0 && (
         <div style={sideCard}>
           <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-            <FolderOpen size={14} style={{ color: '#EF7C3B' }} /> Categories
+            <FolderOpen size={14} style={{ color: '#DE863F' }} /> Categories
           </h3>
           <ul className="space-y-1">
             <li>
@@ -88,7 +88,7 @@ function PostSidebar({
                   href={`/blog?category=${encodeURIComponent(cat.name)}`}
                   className="w-full text-left flex items-center justify-between py-1.5 px-2 rounded-lg text-sm transition-colors"
                   style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'Roboto', sans-serif", display: 'flex' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#EF7C3B'; (e.currentTarget as HTMLElement).style.background = 'rgba(239,124,59,0.1)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#DE863F'; (e.currentTarget as HTMLElement).style.background = 'rgba(222,134,63,0.1)'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
                 >
                   <span>{cat.name}</span>
@@ -104,7 +104,7 @@ function PostSidebar({
       {allTags.length > 0 && (
         <div style={sideCard}>
           <h3 className="text-white font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-            <Tag size={14} style={{ color: '#EF7C3B' }} /> Tags
+            <Tag size={14} style={{ color: '#DE863F' }} /> Tags
           </h3>
           <div className="flex flex-wrap gap-2">
             {allTags.map((tag) => (
@@ -119,7 +119,7 @@ function PostSidebar({
                   fontFamily: "'Roboto', sans-serif",
                   textDecoration: 'none',
                 }}
-                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = '#EF7C3B'; el.style.color = '#fff'; el.style.borderColor = '#EF7C3B'; }}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = '#DE863F'; el.style.color = '#fff'; el.style.borderColor = '#DE863F'; }}
                 onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,0.07)'; el.style.color = 'rgba(255,255,255,0.6)'; el.style.borderColor = 'rgba(255,255,255,0.12)'; }}
               >
                 {tag.name}
@@ -133,7 +133,7 @@ function PostSidebar({
       <a
         href="/blog"
         className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-colors"
-        style={{ color: '#EF7C3B', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}
+        style={{ color: '#DE863F', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}
         onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = '0.8'; }}
         onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = '1'; }}
       >
@@ -157,9 +157,9 @@ export default function PostClient({ title, date, content, categories, tags, all
             className="flex items-center gap-2 text-xs mb-8"
             style={{ color: 'rgba(255,255,255,0.4)', fontFamily: "'Roboto', Arial, sans-serif" }}
           >
-            <a href="/" className="hover:text-[#EF7C3B] transition-colors">Home</a>
+            <a href="/" className="hover:text-[#DE863F] transition-colors">Home</a>
             <span>/</span>
-            <a href="/blog" className="hover:text-[#EF7C3B] transition-colors">Blog</a>
+            <a href="/blog" className="hover:text-[#DE863F] transition-colors">Blog</a>
             <span>/</span>
             <span style={{ color: 'rgba(255,255,255,0.6)' }} className="truncate max-w-[200px]">{title}</span>
           </motion.div>
@@ -172,7 +172,7 @@ export default function PostClient({ title, date, content, categories, tags, all
             >
               {categories.map((cat) => (
                 <span key={cat.id} className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
-                  style={{ background: 'rgba(239,124,59,0.15)', color: '#EF7C3B', fontFamily: "'Inter', sans-serif" }}>
+                  style={{ background: 'rgba(222,134,63,0.15)', color: '#DE863F', fontFamily: "'Inter', sans-serif" }}>
                   {cat.name}
                 </span>
               ))}
@@ -194,7 +194,7 @@ export default function PostClient({ title, date, content, categories, tags, all
             style={{ color: 'rgba(255,255,255,0.45)', fontFamily: "'Roboto', Arial, sans-serif" }}
           >
             <span className="flex items-center gap-1.5">
-              <Calendar size={13} style={{ color: '#EF7C3B' }} />
+              <Calendar size={13} style={{ color: '#DE863F' }} />
               {formatDate(date)}
             </span>
             {authorName && <span>By {authorName}</span>}
@@ -255,7 +255,7 @@ export default function PostClient({ title, date, content, categories, tags, all
                 <a
                   href="/blog"
                   className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-all"
-                  style={{ color: '#EF7C3B', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}
+                  style={{ color: '#DE863F', textDecoration: 'none', fontFamily: "'Inter', sans-serif" }}
                 >
                   <ArrowLeft size={14} /> Back to All Articles
                 </a>

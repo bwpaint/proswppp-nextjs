@@ -50,7 +50,7 @@ export default async function LocationsPage() {
                 fontSize: '0.75rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                color: '#EF7C3B',
+                color: '#DE863F',
               }}
             >
               Where We Serve
@@ -65,7 +65,7 @@ export default async function LocationsPage() {
               }}
             >
               Serving 48 States With{' '}
-              <span style={{ color: '#EF7C3B' }}>SWPPP Services</span>
+              <span style={{ color: '#DE863F' }}>SWPPP Services</span>
             </h1>
             <p
               style={{

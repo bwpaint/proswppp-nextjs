@@ -28,7 +28,7 @@ const INTEREST_OPTIONS = [
 ];
 
 const inputClass =
-  'w-full bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder-white/40 px-4 py-3 outline-none focus:border-[#EF7C3B] focus:bg-white/10 transition-all';
+  'w-full bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder-white/40 px-4 py-3 outline-none focus:border-[#DE863F] focus:bg-white/10 transition-all';
 
 export default function ContactClient() {
   const [form, setForm] = useState({
@@ -76,10 +76,10 @@ export default function ContactClient() {
           <motion.div
             custom={0} initial="hidden" animate="visible" variants={fadeUp}
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5"
-            style={{ background: 'rgba(239,124,59,0.15)', border: '1px solid rgba(239,124,59,0.3)' }}
+            style={{ background: 'rgba(222,134,63,0.15)', border: '1px solid rgba(222,134,63,0.3)' }}
           >
-            <MessageSquare size={13} style={{ color: '#EF7C3B' }} />
-            <span className="text-[#EF7C3B] text-xs font-bold uppercase tracking-widest">We&apos;re Here to Help</span>
+            <MessageSquare size={13} style={{ color: '#DE863F' }} />
+            <span className="text-[#DE863F] text-xs font-bold uppercase tracking-widest">We&apos;re Here to Help</span>
           </motion.div>
 
           <motion.h1
@@ -92,7 +92,7 @@ export default function ContactClient() {
               letterSpacing: '-0.03em',
             }}
           >
-            Contact <span style={{ color: '#EF7C3B' }}>Us</span>
+            Contact <span style={{ color: '#DE863F' }}>Us</span>
           </motion.h1>
           <motion.p
             custom={0.2} initial="hidden" animate="visible" variants={fadeUp}
@@ -119,8 +119,8 @@ export default function ContactClient() {
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(239,124,59,0.15)' }}>
-                    <Phone size={16} style={{ color: '#EF7C3B' }} />
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(222,134,63,0.15)' }}>
+                    <Phone size={16} style={{ color: '#DE863F' }} />
                   </div>
                   <h3
                     className="font-black text-sm uppercase"
@@ -131,7 +131,7 @@ export default function ContactClient() {
                 </div>
                 <a
                   href="tel:8334387977"
-                  className="text-white font-bold text-xl hover:text-[#EF7C3B] transition-colors"
+                  className="text-white font-bold text-xl hover:text-[#DE863F] transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   833-GET-SWPP
@@ -148,8 +148,8 @@ export default function ContactClient() {
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(239,124,59,0.15)' }}>
-                    <Clock size={16} style={{ color: '#EF7C3B' }} />
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(222,134,63,0.15)' }}>
+                    <Clock size={16} style={{ color: '#DE863F' }} />
                   </div>
                   <h3
                     className="font-black text-sm uppercase"
@@ -171,8 +171,8 @@ export default function ContactClient() {
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(239,124,59,0.15)' }}>
-                    <MapPin size={16} style={{ color: '#EF7C3B' }} />
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(222,134,63,0.15)' }}>
+                    <MapPin size={16} style={{ color: '#DE863F' }} />
                   </div>
                   <h3
                     className="font-black text-sm uppercase"
@@ -185,7 +185,7 @@ export default function ContactClient() {
                   href="https://maps.app.goo.gl/rKcDY3vvTKsJTqnQ9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm leading-relaxed hover:text-[#EF7C3B] transition-colors"
+                  className="text-sm leading-relaxed hover:text-[#DE863F] transition-colors"
                   style={{ color: 'rgba(255,255,255,0.75)', fontFamily: "'Roboto', sans-serif" }}
                 >
                   17904 W Lake Houston Pkwy.<br />
@@ -198,10 +198,10 @@ export default function ContactClient() {
               <motion.div
                 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.24}
                 className="rounded-2xl p-5"
-                style={{ background: 'rgba(239,124,59,0.08)', border: '1px solid rgba(239,124,59,0.25)' }}
+                style={{ background: 'rgba(222,134,63,0.08)', border: '1px solid rgba(222,134,63,0.25)' }}
               >
                 <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)', fontFamily: "'Roboto', sans-serif" }}>
-                  <span className="font-bold" style={{ color: '#EF7C3B' }}>Need your SWPPP fast?</span> Most plans are delivered within 72 hours of order — or it&apos;s FREE.
+                  <span className="font-bold" style={{ color: '#DE863F' }}>Need your SWPPP fast?</span> Most plans are delivered within 72 hours of order — or it&apos;s FREE.
                 </p>
               </motion.div>
 

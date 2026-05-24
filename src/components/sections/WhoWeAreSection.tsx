@@ -41,7 +41,7 @@ export default function WhoWeAreSection() {
                 fontSize: '0.75rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                color: '#EF7C3B',
+                color: '#DE863F',
               }}
             >
               Who We Are
@@ -55,7 +55,7 @@ export default function WhoWeAreSection() {
                 letterSpacing: '-0.03em',
               }}
             >
-              Built for <span style={{ color: '#EF7C3B' }}>Builders</span>
+              Built for <span style={{ color: '#DE863F' }}>Builders</span>
             </h2>
             <div
               style={{
@@ -80,7 +80,7 @@ export default function WhoWeAreSection() {
                 No waiting weeks for an engineering firm. No confusing templates. Just a
                 purpose-built SWPPP service that lands a permit-ready plan in your inbox.
               </p>
-              <p style={{ fontStyle: 'italic', color: '#EF7C3B', fontWeight: 700 }}>
+              <p style={{ fontStyle: 'italic', color: '#DE863F', fontWeight: 700 }}>
                 Construction doesn&apos;t wait. Neither should your stormwater compliance.
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function WhoWeAreSection() {
               className="w-full rounded-2xl"
               style={{
                 maxWidth: '520px',
-                border: '2px solid rgba(239,124,59,0.35)',
+                border: '2px solid rgba(222,134,63,0.35)',
                 boxShadow: '0 30px 70px rgba(0,0,0,0.6)',
               }}
             />

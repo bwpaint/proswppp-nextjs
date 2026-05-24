@@ -28,7 +28,7 @@ const testimonials = [
     name: "Travis Robl",
     company: "Site Superintendent",
     initials: "TR",
-    color: "#EF7C3B",
+    color: "#DE863F",
     time: "6 months ago",
     text: "Great service overall. They were very quick with the first version of the SWPPP. Our engineer required a revision to the plan and SWPPP Pros had it back in less than an hour.",
     rating: 5,
@@ -125,7 +125,7 @@ export default function TrustBadgesSection() {
             fontWeight: 900,
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
-            color: "#EF7C3B",
+            color: "#DE863F",
             textTransform: "uppercase",
             margin: "0 0 0.9rem",
           }}
@@ -144,7 +144,7 @@ export default function TrustBadgesSection() {
             margin: 0,
           }}
         >
-          What Our <span style={{ color: "#EF7C3B" }}>Customers</span> Are Saying
+          What Our <span style={{ color: "#DE863F" }}>Customers</span> Are Saying
         </h2>
       </div>
 
@@ -276,7 +276,7 @@ export default function TrustBadgesSection() {
                       fontFamily: "'Roboto', Arial, sans-serif",
                       fontWeight: 400,
                       fontSize: "0.8rem",
-                      color: "#EF7C3B",
+                      color: "#DE863F",
                       margin: 0,
                     }}
                   >
@@ -314,20 +314,20 @@ export default function TrustBadgesSection() {
             fontSize: "0.8125rem",
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: "#EF7C3B",
-            border: "1.5px solid #EF7C3B",
+            color: "#DE863F",
+            border: "1.5px solid #DE863F",
             borderRadius: "11px",
             padding: "0.75rem 2rem",
             textDecoration: "none",
             transition: "background 0.2s, color 0.2s",
           }}
           onMouseEnter={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "#EF7C3B";
+            (e.currentTarget as HTMLAnchorElement).style.background = "#DE863F";
             (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
           }}
           onMouseLeave={e => {
             (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#EF7C3B";
+            (e.currentTarget as HTMLAnchorElement).style.color = "#DE863F";
           }}
         >
           Read All Google Reviews →

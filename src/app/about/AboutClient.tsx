@@ -147,7 +147,7 @@ export default function AboutClient() {
                   letterSpacing: '-0.03em',
                 }}
               >
-                America&apos;s <span style={{ color: '#EF7C3B' }}>#1</span><br />SWPPP Service
+                America&apos;s <span style={{ color: '#DE863F' }}>#1</span><br />SWPPP Service
               </motion.h1>
               <motion.p
                 custom={0.2}
@@ -175,7 +175,7 @@ export default function AboutClient() {
                 className="rounded-2xl w-full"
                 style={{
                   maxWidth: '480px',
-                  border: '2px solid rgba(239,124,59,0.3)',
+                  border: '2px solid rgba(222,134,63,0.3)',
                   boxShadow: '0 30px 60px rgba(0,0,0,0.6)',
                 }}
               />
@@ -214,7 +214,7 @@ export default function AboutClient() {
                 color: '#ffffff',
               }}
             >
-              Our Core <span style={{ color: '#EF7C3B' }}>Values</span>
+              Our Core <span style={{ color: '#DE863F' }}>Values</span>
             </motion.h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -231,9 +231,9 @@ export default function AboutClient() {
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: 'rgba(239,124,59,0.12)' }}
+                  style={{ background: 'rgba(222,134,63,0.12)' }}
                 >
-                  <v.icon size={22} style={{ color: '#EF7C3B' }} />
+                  <v.icon size={22} style={{ color: '#DE863F' }} />
                 </div>
                 <h3
                   className="font-black text-lg uppercase mb-2"
@@ -279,7 +279,7 @@ export default function AboutClient() {
                 color: '#ffffff',
               }}
             >
-              Meet The <span style={{ color: '#EF7C3B' }}>Experts</span>
+              Meet The <span style={{ color: '#DE863F' }}>Experts</span>
             </motion.h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -292,7 +292,7 @@ export default function AboutClient() {
                 variants={fadeUp}
                 custom={i * 0.08}
                 className="rounded-2xl p-6"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(239,124,59,0.2)' }}
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(222,134,63,0.2)' }}
               >
                 <img
                   src={member.photo}
@@ -308,7 +308,7 @@ export default function AboutClient() {
                 </h3>
                 <p
                   className="text-xs uppercase tracking-widest mb-3"
-                  style={{ color: '#EF7C3B', fontFamily: "'Roboto', Arial, sans-serif" }}
+                  style={{ color: '#DE863F', fontFamily: "'Roboto', Arial, sans-serif" }}
                 >
                   {member.title}
                 </p>
@@ -347,7 +347,7 @@ export default function AboutClient() {
                 }}
               >
                 You Get My Personal<br />
-                <span style={{ color: '#EF7C3B' }}>Guarantee</span>
+                <span style={{ color: '#DE863F' }}>Guarantee</span>
               </h2>
               <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: "'Roboto', Arial, sans-serif" }}>
                 When you order from Pro SWPPP, you are not handed off to a junior associate or a call center. I personally oversee every project from start to finish and guarantee your complete satisfaction throughout the permitting process.
@@ -376,7 +376,7 @@ export default function AboutClient() {
                 src="/images/IMG_4484.jpg"
                 alt="Derek E. Chinners — Founder & CEO, Pro SWPPP"
                 className="rounded-2xl w-full"
-                style={{ maxWidth: '420px', border: '2px solid rgba(239,124,59,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
+                style={{ maxWidth: '420px', border: '2px solid rgba(222,134,63,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
               />
             </motion.div>
           </div>
@@ -411,7 +411,7 @@ export default function AboutClient() {
                 letterSpacing: '-0.02em',
               }}
             >
-              What Sets Us <span style={{ color: '#EF7C3B' }}>Apart</span>
+              What Sets Us <span style={{ color: '#DE863F' }}>Apart</span>
             </motion.h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -427,7 +427,7 @@ export default function AboutClient() {
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)' }}
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <CheckCircle2 size={18} style={{ color: '#EF7C3B', flexShrink: 0, marginTop: 2 }} />
+                  <CheckCircle2 size={18} style={{ color: '#DE863F', flexShrink: 0, marginTop: 2 }} />
                   <h3
                     className="text-white font-black text-base uppercase"
                     style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.01em' }}

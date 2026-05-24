@@ -92,9 +92,9 @@ export default function WhyChooseSection() {
       <section className="relative overflow-hidden">
         {/* Full-bleed color bands: 3 columns */}
         <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-[1fr_340px_1fr] pointer-events-none">
-          <div className="bg-[#EF7C3B]" />
+          <div className="bg-[#DE863F]" />
           <div className="bg-[#000000]" />
-          <div className="bg-[#EF7C3B]" />
+          <div className="bg-[#DE863F]" />
         </div>
         {/* Content grid */}
         <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_340px_1fr]">
@@ -169,7 +169,7 @@ export default function WhyChooseSection() {
                   <CheckCircle2
                     size={20}
                     className="flex-shrink-0 mt-0.5"
-                    style={{ color: "#EF7C3B" }}
+                    style={{ color: "#DE863F" }}
                   />
                   <div>
                   <span className="font-bold text-white">{f.title} – </span>
@@ -194,7 +194,7 @@ export default function WhyChooseSection() {
                   <CheckCircle2
                     size={20}
                     className="flex-shrink-0 mt-0.5"
-                    style={{ color: "#EF7C3B" }}
+                    style={{ color: "#DE863F" }}
                   />
                   <div>
                     <span className="font-bold text-white">{f.title} – </span>
