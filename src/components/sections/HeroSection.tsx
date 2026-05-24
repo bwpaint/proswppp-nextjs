@@ -163,14 +163,14 @@ export default function HeroSection() {
               className="uppercase tracking-widest text-sm mb-0"
               style={{
                 fontFamily: "'Roboto', Arial, sans-serif",
-                fontWeight: 400,
+                fontWeight: 900,
+                fontStyle: "italic",
                 letterSpacing: "0.2em",
-                color: "#FFB800",
+                color: "#ffffff",
                 lineHeight: 1,
               }}
             >
-              Fast, Affordable, and 100% Compliant<br />
-              SWPPP Solution
+              America&apos;s #1 SWPPP
             </motion.p>
 
             {/* Main Headline */}
@@ -179,11 +179,12 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="text-white uppercase leading-none mb-0"
+              className="uppercase leading-none mb-0"
               style={{
                 fontSize: "clamp(3.36rem, 6.6vw, 6rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
+                color: "#154FC1",
                 letterSpacing: "-0.03em",
                 lineHeight: 0.9,
               }}
@@ -207,7 +208,7 @@ export default function HeroSection() {
                 lineHeight: 0.9,
               }}
             >
-              In 72 hrs.,<br />or it&apos;s FREE!
+              In 72 hrs., or it&apos;s FREE!
             </motion.h2>
 
             {/* Supporting text */}

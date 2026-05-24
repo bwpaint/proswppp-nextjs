@@ -51,7 +51,7 @@ export default function FAQSection() {
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section style={{ background: "linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)" }} className="py-20 lg:py-24">
+    <section style={{ background: "#154FC1" }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         {/* Section heading */}
         <motion.div
@@ -71,7 +71,7 @@ export default function FAQSection() {
             className="text-4xl lg:text-5xl font-black leading-tight text-white"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900 }}
           >
-            Frequently Asked Questions
+            Stormwater Compliance Done Right.
           </h2>
           <div className="mt-4 flex items-center justify-center gap-3">
             <span className="h-px w-16 bg-[#EF7C3B]/40" />
