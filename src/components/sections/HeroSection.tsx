@@ -184,7 +184,7 @@ export default function HeroSection() {
                 fontSize: "clamp(3.36rem, 6.6vw, 6rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
-                color: "#154FC1",
+                color: "#7B9CD1",
                 letterSpacing: "-0.03em",
                 lineHeight: 0.9,
               }}
