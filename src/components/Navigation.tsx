@@ -89,9 +89,9 @@ export default function Navigation() {
 
           {/* Left: Phone + Email */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            <a href="tel:7134167111" className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
+            <a href="tel:8334387977" className="flex items-center gap-1.5 hover:text-white transition-colors text-xs whitespace-nowrap font-bold" style={{ color: "#7B9CD1" }}>
               <Phone size={12} />
-              713-416-7111
+              833.Get.SWPPP
             </a>
             <a href="mailto:info@proswppp.com" className="hidden sm:flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
               <Mail size={12} />

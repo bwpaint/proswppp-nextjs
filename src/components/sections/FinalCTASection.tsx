@@ -31,14 +31,23 @@ export default function FinalCTASection() {
             Free SWPPP Consultation with Derek, your SWPPP Expert…
           </p>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 max-w-2xl mx-auto mt-8 mb-10">
-            <h3 className="text-white font-bold text-xl mb-3 uppercase tracking-wide">
+          <div className="bg-white border border-white/20 rounded-2xl p-6 lg:p-8 max-w-2xl mx-auto mt-8 mb-10">
+            <h3 className="font-bold text-xl mb-3 uppercase tracking-wide" style={{ color: "#7B9CD1" }}>
               Why Order Now From Pro SWPPP?
             </h3>
-            <p className="text-white/90 text-base mb-2">
-              Because you will have America's #1 SWPPP in 72 hours, or it's FREE.
+            <p className="text-base mb-2 font-semibold" style={{ color: "#7B9CD1" }}>
+              Because... We Are America&apos;s #1 SWPPP
             </p>
-            <p className="text-white font-semibold">
+            <p className="text-base mb-2" style={{ color: "#7B9CD1" }}>
+              Get your SWPPP in 72 hours, or it&apos;s FREE!
+            </p>
+            <p className="text-base mb-2" style={{ color: "#7B9CD1" }}>
+              EXPEDITED 24-hour delivery available
+            </p>
+            <p className="text-base mb-2" style={{ color: "#7B9CD1" }}>
+              We take care of all your compliance requirements, so YOU don&apos;t have to worry about it.
+            </p>
+            <p className="font-semibold" style={{ color: "#7B9CD1" }}>
               We have a perfect, 100% compliance record.
             </p>
           </div>

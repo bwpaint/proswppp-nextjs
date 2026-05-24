@@ -86,7 +86,7 @@ export default function Footer() {
               />
             </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              America's #1 SWPPP Service. Fast, affordable, and 100% compliant — delivered in 72 hours or it's FREE.
+              America's #1 SWPPP. Your SWPPP in 72 hours, or it's FREE.
             </p>
             <div className="space-y-2 text-sm">
               <a

@@ -79,15 +79,16 @@ export default function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.06 }}
-            className="text-white uppercase leading-none"
+            className="uppercase leading-none"
             style={{
               fontSize: 'clamp(2rem, 4vw, 3rem)',
               fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: 900,
               letterSpacing: '-0.03em',
+              color: '#7B9CD1',
             }}
           >
-            What Our <span style={{ color: '#DE863F' }}>Customers</span> Are Saying
+            Don&apos;t believe us... see what our customer&apos;s say...
           </motion.h2>
         </div>
 

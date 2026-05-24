@@ -147,7 +147,7 @@ export default function HeroSection() {
       `}</style>
 
       {/* Two-column content — sits ~1px below the nav, every gap collapsed */}
-      <div className="relative z-10 container pt-px pb-0">
+      <div className="relative z-10 container pt-4 pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────
@@ -166,7 +166,7 @@ export default function HeroSection() {
                 fontWeight: 900,
                 fontStyle: "italic",
                 letterSpacing: "0.2em",
-                color: "#ffffff",
+                color: "#7B9CD1",
                 lineHeight: 1,
               }}
             >
@@ -946,12 +946,12 @@ export default function HeroSection() {
             fontFamily: "'Roboto', Arial, sans-serif",
             fontWeight: 900,
             letterSpacing: "0.2em",
-            color: "#DE863F",
+            color: "#7B9CD1",
             margin: "0",
             lineHeight: 1,
           }}
         >
-          Number One Stormwater Pollution Prevention Plan Service in the U.S.
+          America&apos;s #1 SWPPP
         </motion.h2>
       </div>
     </section>

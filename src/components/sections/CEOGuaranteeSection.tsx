@@ -75,7 +75,7 @@ export default function CEOGuaranteeSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         className="px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
-        style={{ background: "#1A3A4A" }}
+        style={{ background: "#7B9CD1" }}
       >
         <div style={{ maxWidth: "88%", marginLeft: "6%" }}>
           {/* Headline block is a single clickable link to the order page. */}
@@ -116,7 +116,7 @@ export default function CEOGuaranteeSection() {
             <div className="flex-shrink-0">
               <img
                 src={CEO_PHOTO}
-                alt="Derek E. Chinners – CEO, Pro SWPPP"
+                alt="Derek E. Chinners – Founder &amp; Stormwater Consultant, CPESC"
                 className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#DE863F]"
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -138,15 +138,15 @@ export default function CEOGuaranteeSection() {
                   color: "rgba(255,255,255,0.92)",
                 }}
               >
-                &ldquo;I guarantee full service &amp; support throughout the
-                duration of your project. At ProSWPPP our #1 Goal is to take
-                care of our Customers. We stand by our customers 110%.&rdquo;
+                &ldquo;When you pick Pro SWPPP for your project your calls get returned,
+                your questions get answered, and your permitting becomes one less thing
+                to worry about&hellip; Every Time.&rdquo;
               </blockquote>
               <p
                 className="font-bold uppercase tracking-wide"
                 style={{ fontSize: "0.95rem", color: "#FFD9A8" }}
               >
-                Derek E. Chinners – CEO, Pro SWPPP
+                Derek E. Chinners – Founder &amp; Stormwater Consultant, CPESC
               </p>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function CEOGuaranteeSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
         className="relative overflow-hidden px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
-        style={{ background: "#1A3A4A" }}
+        style={{ background: "#7B9CD1" }}
       >
         {/* Subtle radial light source for depth on the flat navy */}
         <div
