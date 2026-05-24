@@ -426,7 +426,7 @@ function USOrderMap({
                 ? (info ? activeSlugSet.has(info.slug) : false)
                 : !!info;
               const isHov  = hovered === abbr;
-              const fill   = active ? (isHov ? '#d4692a' : '#DE863F') : '#6B9ED1';
+              const fill   = active ? (isHov ? '#d4692a' : '#DE863F') : '#7B9CD1';
               return (
                 <path
                   key={abbr}
@@ -482,7 +482,7 @@ function USOrderMap({
             <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)' }}>Available — click to order</span>
           </div>
           <div className="flex items-center gap-2">
-            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#6B9ED1', border: '1px solid #5a7ab0' }} />
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#7B9CD1', border: '1px solid #5a7ab0' }} />
             <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)' }}>Contact us for service</span>
           </div>
         </div>

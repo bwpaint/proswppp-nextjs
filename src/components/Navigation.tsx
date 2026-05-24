@@ -185,7 +185,7 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="text-white font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#6B9ED1] hover:text-white hover:shadow-md"
+                    className="text-white font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#7B9CD1] hover:text-white hover:shadow-md"
                   >
                     {link.label}
                   </a>
@@ -215,7 +215,7 @@ export default function Navigation() {
               </a>
               <a
                 href="tel:8334387977"
-                className="flex items-center gap-1.5 bg-[#6B9ED1] text-white font-bold text-xs uppercase tracking-wider px-3 py-2 rounded-full hover:bg-[#5a8ec1] transition-all duration-200 whitespace-nowrap"
+                className="flex items-center gap-1.5 bg-[#7B9CD1] text-white font-bold text-xs uppercase tracking-wider px-3 py-2 rounded-full hover:bg-[#5a7ab0] transition-all duration-200 whitespace-nowrap"
               >
                 <Phone size={12} />
                 833-GET-SWPP

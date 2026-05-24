@@ -19,7 +19,7 @@ const testimonials = [
     name: "Jeff Martin",
     company: "General Contractor",
     initials: "JM",
-    color: "#154FC1",
+    color: "#7B9CD1",
     time: "6 months ago",
     text: "Great help to get my projects started!!",
     rating: 5,

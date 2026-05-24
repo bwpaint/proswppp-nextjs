@@ -27,7 +27,7 @@ export default function SocialProofSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="section-heading text-[#6B9ED1] text-3xl lg:text-5xl mb-6 leading-tight">
+          <h2 className="section-heading text-[#7B9CD1] text-3xl lg:text-5xl mb-6 leading-tight">
             Don't Believe Us? See What Our Customer's Say…
           </h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">

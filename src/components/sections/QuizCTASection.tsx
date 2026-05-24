@@ -20,7 +20,7 @@ export default function QuizCTASection() {
       }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[#6B9ED1]/80" />
+      <div className="absolute inset-0 bg-[#7B9CD1]/80" />
 
       <div className="relative z-10 container text-center">
         <motion.div

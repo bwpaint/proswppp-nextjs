@@ -56,7 +56,7 @@ const questions = [
     id: 'state',
     step: 1,
     icon: MapPin,
-    color: '#6B9ED1',
+    color: '#7B9CD1',
     title: 'What state is your project in?',
     subtitle: 'Regulations vary significantly by state.',
     type: 'dropdown' as const,
@@ -84,7 +84,7 @@ const questions = [
     id: 'waterway',
     step: 3,
     icon: Droplets,
-    color: '#154FC1',
+    color: '#7B9CD1',
     title: 'Storm drain or waterway within 50 ft?',
     subtitle: 'Proximity to water dramatically increases regulatory scrutiny.',
     type: 'tiles' as const,
@@ -197,7 +197,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
     <div className="w-full bg-white/10 rounded-full h-1.5 mb-6">
       <motion.div
         className="h-1.5 rounded-full"
-        style={{ background: 'linear-gradient(90deg, #E29455, #6B9ED1)' }}
+        style={{ background: 'linear-gradient(90deg, #E29455, #7B9CD1)' }}
         initial={{ width: 0 }}
         animate={{ width: `${pct}%` }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -403,7 +403,7 @@ export default function QuizClient() {
                           return (
                             <div key={a.questionId} className="flex items-center justify-between text-xs">
                               <span className="text-gray-400 capitalize">{q?.title.split('?')[0]}</span>
-                              <span className="font-semibold capitalize" style={{ color: a.points >= 30 ? '#F59E0B' : '#6B9ED1' }}>{a.value.replace(/_/g, ' ')}</span>
+                              <span className="font-semibold capitalize" style={{ color: a.points >= 30 ? '#F59E0B' : '#7B9CD1' }}>{a.value.replace(/_/g, ' ')}</span>
                             </div>
                           );
                         })}

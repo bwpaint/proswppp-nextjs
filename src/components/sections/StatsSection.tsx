@@ -31,7 +31,7 @@ export default function StatsSection() {
               <div className="stat-number text-5xl lg:text-6xl mb-2">
                 {stat.value}
                 {stat.suffix && (
-                  <span className="text-3xl lg:text-4xl text-[#6B9ED1]">{stat.suffix}</span>
+                  <span className="text-3xl lg:text-4xl text-[#7B9CD1]">{stat.suffix}</span>
                 )}
               </div>
               <p className="text-gray-300 font-semibold text-sm uppercase tracking-wide">
