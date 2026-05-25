@@ -1257,12 +1257,13 @@ export default function GetYourSwpppClient() {
   return (
     <div ref={topRef} className="min-h-screen" style={{ background: '#4361AF', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
-      {/* ── Reset button — fixed top-right, visible on all non-hero phases ── */}
+      {/* ── Reset button — fixed BOTTOM-right so it doesn't sit in the
+          same area as the site navigation. Visible on all non-hero phases. ── */}
       {phase !== 'hero' && (
-        <div className="fixed top-4 right-4 z-50">
+        <div className="fixed bottom-4 right-4 z-50">
           <button
             onClick={handleReset}
-            className="flex items-center gap-1.5 rounded-lg border border-white/30 px-3 py-2 text-xs font-semibold text-white hover:border-white/60 transition-all"
+            className="flex items-center gap-1.5 rounded-lg border border-white/30 px-3 py-2 text-xs font-semibold text-white hover:border-white/60 transition-all shadow-lg"
             style={{ background: '#000000', backdropFilter: 'blur(8px)' }}
             title="Start over from the beginning"
           >
