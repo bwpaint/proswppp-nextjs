@@ -11,7 +11,16 @@
  */
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, ChevronDown, Mail } from "lucide-react";
+
+const ANNOUNCEMENT_MESSAGES = [
+  "Get Your SWPPP in 72 Hours or it's FREE!",
+  "America's #1 SWPPP",
+  "Peace of Mind for Your Permitting",
+  "Family Owned and Operated",
+];
+const ANNOUNCEMENT_INTERVAL_MS = 4000;
 
 const IconLinkedIn = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -60,7 +69,16 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [announceIdx, setAnnounceIdx] = useState(0);
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Rotate the announcement bar message every N seconds.
+  useEffect(() => {
+    const t = setInterval(() => {
+      setAnnounceIdx((i) => (i + 1) % ANNOUNCEMENT_MESSAGES.length);
+    }, ANNOUNCEMENT_INTERVAL_MS);
+    return () => clearInterval(t);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -99,10 +117,47 @@ export default function Navigation() {
             </a>
           </div>
 
-          {/* Center: Tagline */}
-          <span className="text-xs font-semibold text-center hidden md:block whitespace-nowrap">
-            Get Your SWPPP in 72 Hours or it&apos;s FREE!&nbsp; &middot; &nbsp;America&apos;s #1 SWPPP&nbsp; &middot; &nbsp;Peace of Mind for Your Permitting&nbsp; &middot; &nbsp;Family Owned and Operated
-          </span>
+          {/* Center: Rotating tagline — cycles through 4 brand promises
+              with a red->black->red flash burst at each transition. */}
+          <div className="relative hidden md:flex items-center justify-center overflow-hidden flex-1 mx-4" style={{ minHeight: '1.25rem' }}>
+            {/* Flash overlay — re-mounts each idx tick and runs its keyframe
+                burst (bright red center -> black -> red solid -> fade out).
+                Positioned absolute so it covers the tagline as it flashes. */}
+            <AnimatePresence>
+              <motion.span
+                key={`flash-${announceIdx}`}
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{
+                  opacity: [0, 1, 1, 1, 0],
+                  scaleX: [0, 1, 1, 1, 1],
+                  backgroundColor: ['#FF0000', '#FF0000', '#000000', '#FF0000', 'rgba(255,0,0,0)'],
+                }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.55,
+                  times: [0, 0.15, 0.45, 0.75, 1],
+                  ease: 'easeInOut',
+                }}
+                style={{ transformOrigin: 'center', boxShadow: '0 0 12px rgba(255,0,0,0.55)' }}
+              />
+            </AnimatePresence>
+
+            {/* Current message — crossfades between cycles */}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={`msg-${announceIdx}`}
+                className="text-xs font-semibold text-center whitespace-nowrap relative z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut', delay: 0.3 }}
+              >
+                {ANNOUNCEMENT_MESSAGES[announceIdx]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
 
           {/* Right: Social Icons */}
           <div className="flex items-center gap-3 flex-shrink-0">

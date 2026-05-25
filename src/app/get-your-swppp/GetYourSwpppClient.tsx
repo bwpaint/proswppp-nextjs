@@ -1363,7 +1363,7 @@ export default function GetYourSwpppClient() {
           {!submitted && <ProgressBar step={step} submitted={submitted} />}
 
           <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl border border-white/20/70 p-6 sm:p-8" style={{ background: '#FCF7EF' }}>
+            <div className="rounded-2xl border border-white/20 p-6 sm:p-8" style={{ background: '#000000' }}>
               {submitted ? (
                 <Confirmation form={form} regionData={regionData} onReset={handleReset} />
               ) : (
