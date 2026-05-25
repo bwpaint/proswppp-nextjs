@@ -283,12 +283,12 @@ export default function QuizClient() {
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#DE863F]/15 border border-[#DE863F]/40 rounded-full px-4 py-1.5 mb-4">
-            <Shield size={14} className="text-[#DE863F]" />
-            <span className="text-[#DE863F] text-xs font-bold uppercase tracking-widest">Free Risk Assessment</span>
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/30 rounded-full px-4 py-1.5 mb-4">
+            <Shield size={14} className="text-white" />
+            <span className="text-white text-xs font-bold uppercase tracking-widest">Free Risk Assessment</span>
           </div>
           <h1 className="text-white leading-none mb-3" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontFamily: 'Inter, sans-serif', fontWeight: 900, letterSpacing: '-0.02em' }}>
-            Do you even need a <span style={{ color: '#DE863F' }}>SWPPP</span>?
+            Do you even need a SWPPP?
           </h1>
           <p className="text-white/90 max-w-xl mx-auto text-lg leading-relaxed font-semibold" style={{ fontFamily: 'Roboto, sans-serif' }}>
             Take our SWPPP quiz.
