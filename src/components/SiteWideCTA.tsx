@@ -65,7 +65,7 @@ export default function SiteWideCTA() {
       </section>
 
       {/* ── 72-Hour Guarantee Banner ── */}
-      <section style={{ background: '#C48E5A', padding: '3rem 0' }}>
+      <section style={{ background: '#DE863F', padding: '3rem 0' }}>
         <div className="container">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left">
             <Shield size={48} className="text-white flex-shrink-0" />
