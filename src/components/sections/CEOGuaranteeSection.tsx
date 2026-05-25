@@ -85,23 +85,35 @@ export default function CEOGuaranteeSection() {
             className="group"
           >
             <h2
-              className="section-heading text-white leading-[1.05] mb-3 transition-colors group-hover:text-[#FFD9A8]"
+              className="section-heading leading-[1.05] mb-1 transition-colors group-hover:text-[#1A1A1A]"
               style={{
                 fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
                 letterSpacing: "-0.02em",
+                color: "#000000",
               }}
             >
-              Order Your SWPPP Now and Your Site Will Be
+              Order now&hellip;
+            </h2>
+            <h2
+              className="section-heading leading-[1.05] mb-1 transition-colors group-hover:text-[#1A1A1A]"
+              style={{
+                fontSize: "clamp(2rem, 3.6vw, 3.25rem)",
+                letterSpacing: "-0.02em",
+                color: "#000000",
+              }}
+            >
+              and your site will be fully compliant&hellip;
             </h2>
             <h3
-              className="section-heading text-[#DE863F] mb-10 transition-colors group-hover:text-[#FF9456]"
+              className="section-heading mb-10 transition-colors group-hover:text-[#FF9456]"
               style={{
                 fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
                 letterSpacing: "-0.01em",
                 lineHeight: 1.1,
+                color: "#DE863F",
               }}
             >
-              Fully Compliant in Just 72 Hours, Guaranteed
+              in just 72 hours, guaranteed.
             </h3>
           </a>
 
