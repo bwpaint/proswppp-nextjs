@@ -123,7 +123,6 @@ export default function Footer() {
                 { label: "SWPPP Quiz", href: "/quiz-form/" },
                 { label: "About Us", href: "/about/" },
                 { label: "Locations", href: "/locations/" },
-                { label: "Make a Payment", href: "/make-a-payment/" },
                 { label: "Blog", href: "/blog/" },
                 { label: "Contact Us", href: "/contact-us/" },
                 { label: "Home", href: "/" },
