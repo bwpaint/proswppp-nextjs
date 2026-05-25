@@ -119,19 +119,6 @@ export default function TrustBadgesSection() {
           textAlign: "center",
         }}
       >
-        <p
-          style={{
-            fontFamily: "'Roboto', Arial, sans-serif",
-            fontWeight: 900,
-            fontSize: "0.75rem",
-            letterSpacing: "0.2em",
-            color: "#DE863F",
-            textTransform: "uppercase",
-            margin: "0 0 0.9rem",
-          }}
-        >
-          Testimonials
-        </p>
         <h2
           style={{
             fontSize: "clamp(2rem, 4vw, 3rem)",
