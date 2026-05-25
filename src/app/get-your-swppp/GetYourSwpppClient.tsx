@@ -286,10 +286,10 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
 const inputCls =
-  'w-full rounded-lg border border-amber-200 bg-white px-4 py-3 text-gray-900 ' +
+  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-white ' +
   'placeholder:text-gray-400 focus:border-orange-400 focus:outline-none ' +
   'focus:ring-1 focus:ring-orange-400/25 transition-all text-sm';
-const selectBg = { background: '#FFFFFF', color: '#111111' };
+const selectBg = { background: '#1A1A1A', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.20)' };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
@@ -320,7 +320,7 @@ function Select({ label, id, value, onChange, options, required }: {
     <div>
       <Label htmlFor={id} required={required}>{label}</Label>
       <select id={id} value={value} onChange={e => onChange(e.target.value)}
-        className="w-full rounded-lg border border-amber-200 px-4 py-3 text-gray-900 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/25 transition-all text-sm appearance-none"
+        className="w-full rounded-lg border border-white/20 px-4 py-3 text-white focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/25 transition-all text-sm appearance-none"
         style={selectBg}>
         <option value="">Select…</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
@@ -333,7 +333,7 @@ function MonthSelect({ label, id, value, onChange }: { label: string; id: string
     <div>
       <Label htmlFor={id}>{label}</Label>
       <select id={id} value={value} onChange={e => onChange(parseInt(e.target.value))}
-        className="w-full rounded-lg border border-amber-200 px-4 py-3 text-gray-900 focus:border-orange-400 focus:outline-none transition-all text-sm appearance-none"
+        className="w-full rounded-lg border border-white/20 px-4 py-3 text-white focus:border-orange-400 focus:outline-none transition-all text-sm appearance-none"
         style={selectBg}>
         {[1, 2, 3, 4, 5, 6, 9, 12].map(m => <option key={m} value={m}>{m} month{m !== 1 ? 's' : ''}</option>)}
       </select>
@@ -517,7 +517,7 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
       <div className="w-full max-w-md rounded-2xl border border-white/10 p-6 relative" style={{ background: '#111115' }}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
           <X className="w-5 h-5" />
         </button>
 
@@ -625,7 +625,7 @@ function Step2({
               <label key={cat.id} className="flex items-center gap-3 cursor-pointer">
                 <input type="radio" name="specialCategory" value={cat.slug} checked={form.specialCategory === cat.slug}
                   onChange={() => set('specialCategory', cat.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-gray-900">{cat.name}</span>
+                <span className="text-sm text-white">{cat.name}</span>
                 {cat.certified_price && (
                   <span className="text-xs text-orange-600 ml-auto">{fmt(cat.certified_price)}</span>
                 )}
@@ -636,7 +636,7 @@ function Step2({
       )}
 
       {hasSubRegions && (
-        <div className="rounded-xl border border-amber-200 p-4" style={{ background: '#FFFBF4' }}>
+        <div className="rounded-xl border border-white/20 p-4" style={{ background: '#1A1A1A' }}>
           <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-3">Select Your Region</p>
           <div className="space-y-2">
             {regionData!.sub_regions.map(sub => (
@@ -644,7 +644,7 @@ function Step2({
                 <input type="radio" name="subRegion" value={sub.slug}
                   checked={form.specialCategory === sub.slug}
                   onChange={() => set('specialCategory', sub.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-gray-900">{sub.name}</span>
+                <span className="text-sm text-white">{sub.name}</span>
                 {sub.certified_price && (
                   <span className="text-xs text-orange-600 ml-auto">{fmt(sub.certified_price)}</span>
                 )}
@@ -659,10 +659,10 @@ function Step2({
       <Field label="Project Name" id="projectName" value={form.projectName} onChange={v => set('projectName', v)}
         placeholder="Lakeview Road Expansion — Phase 2" required />
 
-      <div className="rounded-xl border border-amber-200 p-4 space-y-3" style={{ background: '#FFFBF4' }}>
+      <div className="rounded-xl border border-white/20 p-4 space-y-3" style={{ background: '#1A1A1A' }}>
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="w-4 h-4 text-orange-500 flex-shrink-0" />
-          <p className="text-sm font-semibold text-gray-900">Project Location</p>
+          <p className="text-sm font-semibold text-white">Project Location</p>
         </div>
         <Field label="Street Address" id="projectStreet" value={form.projectStreet} onChange={v => set('projectStreet', v)} placeholder="456 Construction Blvd" required />
         <div className="grid grid-cols-5 gap-3">
@@ -680,7 +680,7 @@ function Step2({
         </div>
 
         {pricingLoading && (
-          <div className="flex items-center gap-2 text-xs text-gray-500 pt-1">
+          <div className="flex items-center gap-2 text-xs text-white/70 pt-1">
             <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
             Loading pricing for {stateName}…
           </div>
@@ -731,20 +731,20 @@ function Step3({ form, set, regionData }: {
   const addonCls = (checked: boolean) =>
     `block rounded-xl border p-5 cursor-pointer transition-all ${checked
       ? 'border-orange-400'
-      : 'border-amber-200 hover:border-amber-300'
+      : 'border-white/20 hover:border-amber-300'
     }`;
 
   return (
     <div className="space-y-4">
       <SecLabel>Optional Add-ons</SecLabel>
 
-      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
+      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.ePortal} onChange={e => set('ePortal', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-gray-900 text-sm">E-Portal Access</span>
+              <span className="font-bold text-white text-sm">E-Portal Access</span>
               <span className="text-sm font-bold text-orange-600">{fmt(ep_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
@@ -762,13 +762,13 @@ function Step3({ form, set, regionData }: {
         </div>
       </label>
 
-      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
+      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.cpesc} onChange={e => set('cpesc', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-gray-900 text-sm">CPESC Certified Inspections</span>
+              <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
               <span className="text-sm font-bold text-orange-600">{fmt(cp_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
@@ -786,13 +786,13 @@ function Step3({ form, set, regionData }: {
         </div>
       </label>
 
-      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.08)' } : { background: '#FFFBF4' }}>
+      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.hardCopy} onChange={e => set('hardCopy', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-gray-900 text-sm">Hard Copy Binders</span>
+              <span className="font-bold text-white text-sm">Hard Copy Binders</span>
               <span className="text-sm font-bold text-orange-600">{fmt(bd_price)}</span>
             </div>
             <p className="text-sm text-gray-600">2 professionally printed &amp; bound SWPPP hard copies.</p>
@@ -800,18 +800,18 @@ function Step3({ form, set, regionData }: {
         </div>
       </label>
 
-      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
+      <div className="rounded-xl border border-white/20 p-5" style={{ background: '#000000' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-4">Price Summary</p>
         <div className="space-y-2.5 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">Base SWPPP</span>
-            <span className="text-gray-900 font-medium">{fmt(totals.base)}</span>
+            <span className="text-white font-medium">{fmt(totals.base)}</span>
           </div>
-          {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-gray-900">{fmt(totals.ep)}</span></div>}
-          {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-gray-900">{fmt(totals.cp)}</span></div>}
-          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-gray-900">{fmt(totals.bd)}</span></div>}
-          <div className="flex justify-between border-t border-amber-200 pt-3">
-            <span className="font-bold text-gray-900">Total</span>
+          {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
+          {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
+          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
+          <div className="flex justify-between border-t border-white/20 pt-3">
+            <span className="font-bold text-white">Total</span>
             <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
           </div>
         </div>
@@ -832,40 +832,40 @@ function Step4({ form, regionData, onSubmit, submitting }: {
 
   return (
     <div className="space-y-5">
-      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
+      <div className="rounded-xl border border-white/20 p-5" style={{ background: '#000000' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Order Summary</p>
         <div className="space-y-4 text-sm">
           <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Contact</p>
-            <p className="text-gray-900 font-semibold">{form.firstName} {form.lastName}</p>
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             <p className="text-gray-600">{form.company}</p>
             <p className="text-gray-600">{form.email} · {form.phone}</p>
           </div>
-          <div className="border-t border-amber-200 pt-4">
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Project</p>
-            <p className="text-gray-900 font-semibold">{form.projectName}</p>
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-white font-semibold">{form.projectName}</p>
             <p className="text-gray-600">{form.projectCity}, {stateName} {form.projectZip}</p>
             <p className="text-gray-600">{form.landDisturbance} · {form.serviceNeeded}</p>
             {form.startDate && <p className="text-gray-600">Start: {form.startDate}</p>}
           </div>
-          <div className="border-t border-amber-200 pt-4 space-y-2">
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
-            <div className="flex justify-between"><span className="text-gray-600">Base SWPPP</span><span className="text-gray-900">{fmt(totals.base)}</span></div>
-            {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-gray-900">{fmt(totals.ep)}</span></div>}
-            {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-gray-900">{fmt(totals.cp)}</span></div>}
-            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-gray-900">{fmt(totals.bd)}</span></div>}
+          <div className="border-t border-white/20 pt-4 space-y-2">
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
+            <div className="flex justify-between"><span className="text-gray-600">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
+            {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
+            {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
+            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
           </div>
           <div className="flex justify-between border-t border-orange-300/40 pt-4">
-            <span className="font-bold text-gray-900 text-base">Total Due Today</span>
+            <span className="font-bold text-white text-base">Total Due Today</span>
             <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-amber-200 p-5" style={{ background: '#F5EEE2' }}>
+      <div className="rounded-xl border border-white/20 p-5" style={{ background: '#000000' }}>
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs font-bold uppercase tracking-widest text-orange-600">Payment</p>
-          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+          <div className="flex items-center gap-1.5 text-xs text-white/70">
             <Lock className="w-3 h-3" />Secured by Stripe
           </div>
         </div>
@@ -877,17 +877,17 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           </div>
           <div className="space-y-3">
             <div>
-              <p className="text-xs text-gray-500 mb-1">Card Number</p>
-              <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>4242 4242 4242 4242</div>
+              <p className="text-xs text-white/70 mb-1">Card Number</p>
+              <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>4242 4242 4242 4242</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-gray-500 mb-1">Expiry</p>
-                <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>12 / 28</div>
+                <p className="text-xs text-white/70 mb-1">Expiry</p>
+                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>12 / 28</div>
               </div>
               <div>
-                <p className="text-xs text-gray-500 mb-1">CVC</p>
-                <div className="rounded-lg border border-amber-200 px-4 py-3 font-mono text-sm text-gray-500" style={{ background: '#FFFBF4' }}>•••</div>
+                <p className="text-xs text-white/70 mb-1">CVC</p>
+                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>•••</div>
               </div>
             </div>
           </div>
@@ -903,7 +903,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
             : <><Shield className="w-4 h-4" />Place Order — {fmt(totals.total)}</>}
         </button>
 
-        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-500 flex-wrap">
+        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-white/70 flex-wrap">
           <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> 256-bit SSL</span>
           <span>·</span>
           <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> 72-hour delivery</span>
@@ -934,14 +934,14 @@ function Confirmation({ form, regionData, onReset }: {
           style={{ background: 'rgba(34,197,94,0.1)' }}>
           <CheckCircle2 className="w-8 h-8 text-green-400" />
         </div>
-        <h2 className="text-3xl font-black text-gray-900 mb-2"
+        <h2 className="text-3xl font-black text-white mb-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
           Order Received!
         </h2>
         <p className="text-sm text-gray-600 leading-relaxed">
-          Thank you, <span className="font-semibold text-gray-900">{form.firstName}</span>!{' '}
+          Thank you, <span className="font-semibold text-white">{form.firstName}</span>!{' '}
           A confirmation has been sent to{' '}
-          <span className="font-semibold text-gray-900">{form.email}</span>.
+          <span className="font-semibold text-white">{form.email}</span>.
         </p>
         <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-mono mt-3"
           style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
@@ -950,23 +950,23 @@ function Confirmation({ form, regionData, onReset }: {
       </div>
 
       {/* ── Receipt ── */}
-      <div className="rounded-xl border border-amber-200 p-5 mb-4" style={{ background: '#F5EEE2' }}>
+      <div className="rounded-xl border border-white/20 p-5 mb-4" style={{ background: '#000000' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Receipt</p>
 
         <div className="space-y-4 text-sm">
           {/* Contact */}
           <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Contact</p>
-            <p className="text-gray-900 font-semibold">{form.firstName} {form.lastName}</p>
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             {form.company && <p className="text-gray-600">{form.company}</p>}
             <p className="text-gray-600">{form.email}</p>
             {form.phone && <p className="text-gray-600">{form.phone}</p>}
           </div>
 
           {/* Project */}
-          <div className="border-t border-amber-200 pt-4">
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Project</p>
-            <p className="text-gray-900 font-semibold">{form.projectName}</p>
+          <div className="border-t border-white/20 pt-4">
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-white font-semibold">{form.projectName}</p>
             {form.projectStreet && <p className="text-gray-600">{form.projectStreet}</p>}
             <p className="text-gray-600">
               {form.projectCity ? `${form.projectCity}, ` : ''}{stateName} {form.projectZip}
@@ -980,32 +980,32 @@ function Confirmation({ form, regionData, onReset }: {
           </div>
 
           {/* Pricing breakdown */}
-          <div className="border-t border-amber-200 pt-4 space-y-2.5">
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Pricing</p>
+          <div className="border-t border-white/20 pt-4 space-y-2.5">
+            <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between">
               <span className="text-gray-600">Base SWPPP — {stateName}</span>
-              <span className="text-gray-900">{fmt(totals.base)}</span>
+              <span className="text-white">{fmt(totals.base)}</span>
             </div>
             {form.ePortal && (
               <div className="flex justify-between">
                 <span className="text-gray-600">E-Portal Access ({form.ePortalMonths} mo)</span>
-                <span className="text-gray-900">{fmt(totals.ep)}</span>
+                <span className="text-white">{fmt(totals.ep)}</span>
               </div>
             )}
             {form.cpesc && (
               <div className="flex justify-between">
                 <span className="text-gray-600">CPESC Inspections ({form.cpescMonths} mo)</span>
-                <span className="text-gray-900">{fmt(totals.cp)}</span>
+                <span className="text-white">{fmt(totals.cp)}</span>
               </div>
             )}
             {form.hardCopy && (
               <div className="flex justify-between">
                 <span className="text-gray-600">Hard Copy Binders</span>
-                <span className="text-gray-900">{fmt(totals.bd)}</span>
+                <span className="text-white">{fmt(totals.bd)}</span>
               </div>
             )}
             <div className="flex justify-between border-t border-orange-300/40 pt-3">
-              <span className="font-bold text-gray-900">Total Charged</span>
+              <span className="font-bold text-white">Total Charged</span>
               <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
             </div>
           </div>
@@ -1013,7 +1013,7 @@ function Confirmation({ form, regionData, onReset }: {
       </div>
 
       {/* ── What happens next ── */}
-      <div className="rounded-xl border border-amber-200 p-5 mb-6" style={{ background: '#F5EEE2' }}>
+      <div className="rounded-xl border border-white/20 p-5 mb-6" style={{ background: '#000000' }}>
         <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-3">What Happens Next</p>
         <div className="space-y-3">
           {[
@@ -1033,8 +1033,8 @@ function Confirmation({ form, regionData, onReset }: {
       {/* ── Actions ── */}
       <div className="flex flex-col sm:flex-row items-center gap-3">
         <a href="tel:8554387977"
-          className="flex items-center justify-center gap-2 rounded-lg border border-amber-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:border-amber-300 transition-all w-full sm:w-auto"
-          style={{ background: '#FFFBF4' }}>
+          className="flex items-center justify-center gap-2 rounded-lg border border-white/20 px-5 py-3 text-sm font-semibold text-gray-700 hover:text-white hover:border-amber-300 transition-all w-full sm:w-auto"
+          style={{ background: '#1A1A1A' }}>
           <Phone className="w-4 h-4" />Call Us: 855-GET-SWPPP
         </a>
         <button onClick={onReset}
@@ -1244,15 +1244,15 @@ export default function GetYourSwpppClient() {
   const stepTitle = ['', 'Contact Information', 'Project Details', 'Services & Add-ons', 'Review & Payment'][step];
 
   return (
-    <div ref={topRef} className="min-h-screen" style={{ background: '#0A0A0C', color: '#F2F2F0', fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div ref={topRef} className="min-h-screen" style={{ background: '#7B9CD1', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
       {/* ── Reset button — fixed top-right, visible on all non-hero phases ── */}
       {phase !== 'hero' && (
         <div className="fixed top-4 right-4 z-50">
           <button
             onClick={handleReset}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-gray-400 hover:text-white hover:border-white/20 transition-all"
-            style={{ background: 'rgba(10,10,12,0.92)', backdropFilter: 'blur(8px)' }}
+            className="flex items-center gap-1.5 rounded-lg border border-white/30 px-3 py-2 text-xs font-semibold text-white hover:border-white/60 transition-all"
+            style={{ background: '#000000', backdropFilter: 'blur(8px)' }}
             title="Start over from the beginning"
           >
             <X className="w-3.5 h-3.5" />Start Over
@@ -1270,14 +1270,14 @@ export default function GetYourSwpppClient() {
           }}
         >
           <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6"
-            style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#fb923c' }} />
+            style={{ borderColor: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF' }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#FFFFFF' }} />
             72-Hour Guaranteed Delivery
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-4"
             style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-1px', lineHeight: 1.1 }}>
-            Get Your <span style={{ color: '#f97316' }}>SWPPP</span> Now
+            Get Your <span style={{ color: '#FFFFFF' }}>SWPPP</span>
           </h1>
           <p className="text-gray-300 max-w-lg mx-auto text-lg leading-relaxed mb-10">
             Select your state below to get started. Your fully compliant SWPPP delivered within 72 hours — guaranteed.
@@ -1311,23 +1311,23 @@ export default function GetYourSwpppClient() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
-                style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
+                style={{ borderColor: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF' }}>
                 <MapPin className="w-3.5 h-3.5" />Select Your State
               </div>
               <h2 className="text-4xl sm:text-5xl font-black text-white mb-3"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
                 Where Is Your Project?
               </h2>
-              <p className="text-gray-400 max-w-md mx-auto text-sm">
+              <p className="text-white/80 max-w-md mx-auto text-sm">
                 Click your state to see pricing and begin your order.
-                <span className="text-orange-400"> Orange states</span> are available now.
+                <span className="text-white font-semibold"> Available states</span> are shown highlighted.
               </p>
             </div>
 
             <USOrderMap regions={regions} loading={mapLoading} onStateClick={handleStateClick} />
 
             <div className="text-center mt-8">
-              <a href="/" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+              <a href="/" className="text-sm text-white/80 hover:text-white transition-colors">
                 ← Back to Home
               </a>
             </div>
@@ -1341,20 +1341,20 @@ export default function GetYourSwpppClient() {
           {!submitted && (
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
-                style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#fb923c' }} />
+                style={{ borderColor: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF' }}>
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#FFFFFF' }} />
                 72-Hour SWPPP Delivery
               </div>
               <h1 className="text-4xl sm:text-5xl font-black text-white mb-2"
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
-                Get Your <span style={{ color: '#f97316' }}>SWPPP</span> Now
+                Get Your <span style={{ color: '#FFFFFF' }}>SWPPP</span>
               </h1>
               {selectedCode && (
-                <p className="text-sm text-gray-500 flex items-center justify-center gap-1.5 mt-1">
-                  <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                <p className="text-sm text-white/80 flex items-center justify-center gap-1.5 mt-1">
+                  <MapPin className="w-3.5 h-3.5 text-white" />
                   {STATE_INFO.find(s => s.code === selectedCode)?.name}
                   <button onClick={() => { setPhase('map'); setStep(1); }}
-                    className="text-orange-400 underline underline-offset-2 ml-1 hover:text-orange-300">change</button>
+                    className="text-white underline underline-offset-2 ml-1 hover:text-white/80">change</button>
                 </p>
               )}
             </div>
@@ -1363,16 +1363,16 @@ export default function GetYourSwpppClient() {
           {!submitted && <ProgressBar step={step} submitted={submitted} />}
 
           <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl border border-amber-200/70 p-6 sm:p-8" style={{ background: '#FCF7EF' }}>
+            <div className="rounded-2xl border border-white/20/70 p-6 sm:p-8" style={{ background: '#FCF7EF' }}>
               {submitted ? (
                 <Confirmation form={form} regionData={regionData} onReset={handleReset} />
               ) : (
                 <>
                   <div className="mb-6">
-                    <h2 className="text-xl font-black text-gray-900" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
+                    <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
                       {stepTitle}
                     </h2>
-                    <p className="text-xs text-gray-500 mt-0.5">Step {step} of {STEPS.length}</p>
+                    <p className="text-xs text-white/70 mt-0.5">Step {step} of {STEPS.length}</p>
                   </div>
 
                   {step === 1 && <Step1 form={form} set={set} />}
@@ -1382,7 +1382,7 @@ export default function GetYourSwpppClient() {
 
                   {step < 4 && (
                     <div className="flex items-center justify-between mt-8 pt-6 border-t border-amber-100">
-                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors">
+                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-white/70 hover:text-gray-800 transition-colors">
                         <ChevronLeft className="w-4 h-4" />
                         {step === 1 ? 'Change State' : 'Back'}
                       </button>
@@ -1408,9 +1408,9 @@ export default function GetYourSwpppClient() {
 
             {!submitted && (
               <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-600 flex-wrap">
-                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-gray-500" />SSL Encrypted</span>
-                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-gray-500" />72-Hour Delivery</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-gray-500" />100% Compliant or FREE</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-white/70" />SSL Encrypted</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-white/70" />72-Hour Delivery</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-white/70" />100% Compliant or FREE</span>
               </div>
             )}
           </div>
