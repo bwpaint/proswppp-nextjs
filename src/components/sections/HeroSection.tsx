@@ -90,7 +90,7 @@ export default function HeroSection() {
                 fontWeight: 900,
                 fontStyle: "italic",
                 letterSpacing: "0.2em",
-                color: "#7B9CD1",
+                color: "#FFFFFF",
                 lineHeight: 1,
               }}
             >
@@ -132,7 +132,7 @@ export default function HeroSection() {
                 lineHeight: 0.9,
               }}
             >
-              In 72 hrs. or it&apos;s FREE!
+              In 72 hrs.<br />Or it&apos;s FREE!
             </motion.h2>
 
             {/* CTA — single big "Get My SWPPP" (uses the same prominent
