@@ -1,14 +1,16 @@
 'use client';
 /*
  * FAQ Section — ProSWPPP Redesign
- * Design: Dark #0F110A background, accordion with orange active state
- * Inter 900 headings, Roboto 400 body, orange checkmark/plus icons
- * Placed above the ClientLogos / FindUsOn section
+ * Layout matches the right-column "Beyond the 72-Hour Delivery" service
+ * cards in CEOGuaranteeSection: brand-blue section bg, each item is a
+ * light-tint card with a dark-navy icon circle (orange icon), white
+ * title, and white/90 body — but with accordion open/close behavior
+ * for the answer.
  */
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { HelpCircle, Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
@@ -47,7 +49,6 @@ const faqs = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
@@ -59,69 +60,103 @@ export default function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="mb-10"
         >
           <p
-            className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold"
-            style={{ color: "#DE863F" }}
+            className="uppercase tracking-widest mb-3"
+            style={{
+              fontFamily: "'Roboto', Arial, sans-serif",
+              fontWeight: 900,
+              fontSize: "0.72rem",
+              letterSpacing: "0.22em",
+              color: "rgba(255,255,255,0.85)",
+            }}
           >
             Got Questions?
           </p>
           <h2
-            className="text-4xl lg:text-5xl font-black leading-tight text-white"
-            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900 }}
+            className="leading-tight text-white"
+            style={{
+              fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
-            Stormwater Compliance Done Right.
+            Stormwater Compliance, Done Right.
           </h2>
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="h-px w-16 bg-[#DE863F]/40" />
-            <span className="text-[#DE863F] text-xl">✦</span>
-            <span className="h-px w-16 bg-[#DE863F]/40" />
-          </div>
         </motion.div>
 
-        {/* Accordion */}
+        {/* FAQ list — each item matches the "Beyond the 72-Hour Delivery"
+            service-card layout: light-tint card, dark-navy icon circle on
+            the left with an orange icon, white title, white/90 body. */}
         <div className="space-y-3">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.4 }}
-                className="overflow-hidden rounded-[11px]"
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                className="rounded-xl"
                 style={{
-                  border: isOpen
-                    ? "1px solid #DE863F"
-                    : "1px solid rgba(255,255,255,0.08)",
-                  backgroundColor: isOpen
-                    ? "rgba(222,134,63,0.06)"
-                    : "rgba(255,255,255,0.03)",
-                  transition: "border-color 0.25s, background-color 0.25s",
+                  background: "rgba(255,255,255,0.10)",
+                  backdropFilter: "blur(4px)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  overflow: "hidden",
                 }}
               >
-                {/* Question row */}
+                {/* Clickable question row */}
                 <button
+                  type="button"
                   onClick={() => toggle(i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
                   aria-expanded={isOpen}
+                  className="w-full flex items-start gap-4 p-3.5 text-left"
                 >
-                  <span
-                    className="text-base lg:text-lg font-bold text-white leading-snug group-hover:text-[#DE863F] transition-colors"
-                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
+                  {/* Icon circle — dark navy with orange icon, matches the
+                      service cards above */}
+                  <div
+                    className="flex-shrink-0 flex items-center justify-center"
+                    style={{
+                      width: 42,
+                      height: 42,
+                      borderRadius: "50%",
+                      background: "#0D1F2B",
+                      border: "1px solid rgba(255,255,255,0.20)",
+                    }}
                   >
-                    {faq.q}
-                  </span>
+                    <HelpCircle size={20} style={{ color: "#DE863F" }} />
+                  </div>
+
+                  {/* Question */}
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      style={{
+                        fontFamily:
+                          "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                        fontWeight: 700,
+                        fontSize: "1rem",
+                        lineHeight: 1.25,
+                        color: "#FFFFFF",
+                        margin: 0,
+                      }}
+                    >
+                      {faq.q}
+                    </h3>
+                  </div>
+
+                  {/* Open/close indicator */}
                   <span
                     className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
                     style={{
-                      backgroundColor: isOpen ? "#DE863F" : "rgba(222,134,63,0.15)",
+                      background: isOpen ? "#0D1F2B" : "rgba(13,31,43,0.5)",
+                      border: "1px solid rgba(255,255,255,0.20)",
                     }}
                   >
                     {isOpen ? (
-                      <Minus size={14} className="text-white" />
+                      <Minus size={14} style={{ color: "#DE863F" }} />
                     ) : (
                       <Plus size={14} style={{ color: "#DE863F" }} />
                     )}
@@ -139,16 +174,20 @@ export default function FAQSection() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       style={{ overflow: "hidden" }}
                     >
-                      <div className="px-6 pb-6">
+                      {/* Answer body — indented to align with the question
+                          text (matches the service-card body alignment) */}
+                      <div className="px-3.5 pb-3.5" style={{ paddingLeft: "calc(3.5rem + 0.875rem)" }}>
                         <div
-                          className="h-px w-full mb-4"
-                          style={{ backgroundColor: "rgba(222,134,63,0.2)" }}
+                          className="h-px w-full mb-3"
+                          style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
                         />
                         <p
-                          className="text-gray-300 leading-relaxed"
                           style={{
-                            fontFamily: "'Roboto', sans-serif",
-                            fontSize: "calc(0.9375rem)",
+                            fontFamily: "'Roboto', Arial, sans-serif",
+                            fontSize: "0.875rem",
+                            lineHeight: 1.55,
+                            color: "rgba(255,255,255,0.90)",
+                            margin: 0,
                           }}
                         >
                           {faq.a}
@@ -161,7 +200,6 @@ export default function FAQSection() {
             );
           })}
         </div>
-
       </div>
     </section>
   );
