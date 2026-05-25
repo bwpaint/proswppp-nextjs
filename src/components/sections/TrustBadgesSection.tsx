@@ -180,8 +180,8 @@ export default function TrustBadgesSection() {
             <div
               key={i}
               style={{
-                background: "#7B9CD1",
-                border: "1px solid rgba(255,255,255,0.25)",
+                background: "#ffffff",
+                border: "3px solid #A5A3A3",
                 borderRadius: "11px",
                 padding: "2rem",
                 width: "340px",
@@ -210,7 +210,7 @@ export default function TrustBadgesSection() {
                   fontWeight: 400,
                   fontSize: "0.9375rem",
                   lineHeight: "1.65",
-                  color: "rgba(255,255,255,0.88)",
+                  color: "#1A1A1A",
                   fontStyle: "italic",
                   flex: 1,
                   margin: 0,
@@ -253,7 +253,7 @@ export default function TrustBadgesSection() {
                       fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                       fontWeight: 700,
                       fontSize: "0.875rem",
-                      color: "#ffffff",
+                      color: "#1A1A1A",
                       margin: 0,
                     }}
                   >
