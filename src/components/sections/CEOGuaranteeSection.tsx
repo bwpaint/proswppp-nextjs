@@ -129,13 +129,13 @@ export default function CEOGuaranteeSection() {
               <img
                 src={CEO_PHOTO}
                 alt="Derek E. Chinners – Founder &amp; Stormwater Consultant, CPESC"
-                className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-[#DE863F]"
+                className="w-28 h-28 object-cover shadow-lg border-4 border-[#DE863F]"
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.style.display = "none";
                   const div = document.createElement("div");
                   div.className =
-                    "w-28 h-28 rounded-full bg-[#0D1F2B] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#DE863F]";
+                    "w-28 h-28 bg-[#0D1F2B] flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-[#DE863F]";
                   div.textContent = "D";
                   target.parentNode?.insertBefore(div, target);
                 }}
