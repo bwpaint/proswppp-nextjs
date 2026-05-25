@@ -210,7 +210,7 @@ export default function TrustBadgesSection() {
                   fontWeight: 400,
                   fontSize: "0.9375rem",
                   lineHeight: "1.65",
-                  color: "#1A1A1A",
+                  color: "#000000",
                   fontStyle: "italic",
                   flex: 1,
                   margin: 0,
@@ -253,7 +253,7 @@ export default function TrustBadgesSection() {
                       fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                       fontWeight: 700,
                       fontSize: "0.875rem",
-                      color: "#1A1A1A",
+                      color: "#000000",
                       margin: 0,
                     }}
                   >
