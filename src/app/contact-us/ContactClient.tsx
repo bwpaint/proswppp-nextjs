@@ -300,7 +300,7 @@ export default function ContactClient() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="btn-orange w-full text-center text-base py-4"
+                  className="btn-blue w-full text-center text-base py-4"
                 >
                   Send Message →
                 </button>

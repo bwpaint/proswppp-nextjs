@@ -102,8 +102,32 @@ export default function Navigation() {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="announcement-bar">
-        <div className="w-full px-4 lg:px-6 flex items-center justify-between gap-4">
+      <div className="announcement-bar relative overflow-hidden">
+        {/* Flash overlay — spans the ENTIRE row width (not just the center
+            tagline column). Re-mounts each tick and runs its keyframe burst
+            (bright red -> black -> red -> fade out). */}
+        <AnimatePresence>
+          <motion.span
+            key={`flash-${announceIdx}`}
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{
+              opacity: [0, 1, 1, 1, 0],
+              scaleX: [0, 1, 1, 1, 1],
+              backgroundColor: ['#FF0000', '#FF0000', '#000000', '#FF0000', 'rgba(255,0,0,0)'],
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.55,
+              times: [0, 0.15, 0.45, 0.75, 1],
+              ease: 'easeInOut',
+            }}
+            style={{ transformOrigin: 'center', boxShadow: '0 0 12px rgba(255,0,0,0.55)' }}
+          />
+        </AnimatePresence>
+
+        <div className="relative w-full px-4 lg:px-6 flex items-center justify-between gap-4">
 
           {/* Left: Phone + Email */}
           <div className="flex items-center gap-4 flex-shrink-0">
@@ -117,33 +141,9 @@ export default function Navigation() {
             </a>
           </div>
 
-          {/* Center: Rotating tagline — cycles through 4 brand promises
-              with a red->black->red flash burst at each transition. */}
-          <div className="relative hidden md:flex items-center justify-center overflow-hidden flex-1 mx-4" style={{ minHeight: '1.25rem' }}>
-            {/* Flash overlay — re-mounts each idx tick and runs its keyframe
-                burst (bright red center -> black -> red solid -> fade out).
-                Positioned absolute so it covers the tagline as it flashes. */}
-            <AnimatePresence>
-              <motion.span
-                key={`flash-${announceIdx}`}
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none"
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{
-                  opacity: [0, 1, 1, 1, 0],
-                  scaleX: [0, 1, 1, 1, 1],
-                  backgroundColor: ['#FF0000', '#FF0000', '#000000', '#FF0000', 'rgba(255,0,0,0)'],
-                }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  duration: 0.55,
-                  times: [0, 0.15, 0.45, 0.75, 1],
-                  ease: 'easeInOut',
-                }}
-                style={{ transformOrigin: 'center', boxShadow: '0 0 12px rgba(255,0,0,0.55)' }}
-              />
-            </AnimatePresence>
-
+          {/* Center: Rotating tagline — cycles through 4 brand promises.
+              Flash effect now lives at the row level (above), not here. */}
+          <div className="relative hidden md:flex items-center justify-center flex-1 mx-4" style={{ minHeight: '1.25rem' }}>
             {/* Current message — crossfades between cycles */}
             <AnimatePresence mode="wait">
               <motion.span

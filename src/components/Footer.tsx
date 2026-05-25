@@ -93,7 +93,7 @@ export default function Footer() {
                 href="tel:8334387977"
                 className="flex items-center gap-2 text-gray-400 hover:text-[#DE863F] transition-colors"
               >
-                <Phone size={13} className="text-[#DE863F] flex-shrink-0" />
+                <Phone size={13} className="text-[#4361AF] flex-shrink-0" />
                 833-GET-SWPP
               </a>
               <a
@@ -102,7 +102,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 text-gray-400 hover:text-[#DE863F] transition-colors"
               >
-                <MapPin size={13} className="text-[#DE863F] flex-shrink-0 mt-0.5" />
+                <MapPin size={13} className="text-[#4361AF] flex-shrink-0 mt-0.5" />
                 <span>
                   17904 W Lake Houston Pkwy.<br />
                   STE 303<br />
@@ -114,7 +114,7 @@ export default function Footer() {
 
           {/* ── Col 2: Site Links ── */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#4361AF] mb-4">
               Site Links
             </h3>
             <ul className="space-y-2 text-sm">
@@ -141,7 +141,7 @@ export default function Footer() {
 
           {/* ── Col 3: Resource Links ── */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#4361AF] mb-4">
               Resource Links
             </h3>
             <ul className="space-y-2 text-sm">
@@ -165,7 +165,7 @@ export default function Footer() {
 
           {/* ── Col 4–5: Contact Form (span 2) ── */}
           <div className="lg:col-span-2">
-            <h3 className="font-bold text-xs uppercase tracking-widest text-[#DE863F] mb-4">
+            <h3 className="font-bold text-xs uppercase tracking-widest text-[#4361AF] mb-4">
               Get In Touch
             </h3>
             <form onSubmit={handleSubmit} className="space-y-3">
