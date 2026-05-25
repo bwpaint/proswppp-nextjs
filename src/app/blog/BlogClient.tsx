@@ -198,7 +198,7 @@ export default function BlogClient({ posts, categories, tags }: Props) {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 lg:py-28" style={{ background: DARK_BG }}>
+      <section className="pt-20 lg:pt-28 pb-6 lg:pb-8" style={{ background: DARK_BG }}>
         <div className="container text-center">
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="section-label mb-4">Expert Resources</motion.p>
@@ -216,7 +216,7 @@ export default function BlogClient({ posts, categories, tags }: Props) {
       </section>
 
       {/* Content + Sidebar */}
-      <section className="py-16 lg:py-20" style={{ background: '#000000' }}>
+      <section className="pt-4 lg:pt-6 pb-16 lg:pb-20" style={{ background: '#000000' }}>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 items-start">
 

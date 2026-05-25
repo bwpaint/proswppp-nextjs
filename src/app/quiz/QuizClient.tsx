@@ -457,7 +457,7 @@ export default function QuizClient() {
                       <label className="block text-gray-400 text-xs mb-1.5 uppercase tracking-wide">Company Name</label>
                       <input type="text" name="company" value={leadData.company} onChange={handleLeadChange} placeholder="ABC Construction LLC" className="hero-input" />
                     </div>
-                    <button type="submit" disabled={submitting} className="w-full btn-orange text-base py-4 mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                    <button type="submit" disabled={submitting} className="w-full btn-orange nav-order-btn text-base py-4 mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
                       {submitting ? 'Sending...' : 'Get My 72-Hour Compliance Roadmap'}
                     </button>
                     <p className="text-gray-500 text-xs text-center">🔒 Your information is secure. No spam, ever.</p>
