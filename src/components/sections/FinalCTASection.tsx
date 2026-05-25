@@ -130,7 +130,7 @@ export default function FinalCTASection() {
                     href={row.buttonHref}
                     target={row.buttonTarget}
                     rel={row.buttonTarget === "_blank" ? "noopener noreferrer" : undefined}
-                    className={`${row.bg === BRAND_BLUE ? "" : row.buttonClass}${row.buttonShake ? " nav-order-btn" : ""} inline-block whitespace-nowrap`}
+                    className={`${row.bg === BRAND_BLUE ? "" : row.buttonClass}${row.buttonShake ? " nav-order-btn" : ""} block whitespace-nowrap text-center w-full`}
                     style={{
                       fontSize: "1.05rem",
                       padding: "1rem 2rem",
