@@ -110,30 +110,8 @@ export default function TrustBadgesSection() {
         overflow: "hidden",
       }}
     >
-      {/* Section heading — big "What Our Customers Are Saying" */}
-      <div
-        style={{
-          maxWidth: "48rem",
-          margin: "0 auto 3rem",
-          padding: "0 1rem",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 900,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.1,
-            color: "#ffffff",
-            margin: 0,
-          }}
-        >
-          Don&rsquo;t believe us&hellip; see what our{" "}
-          <span style={{ color: "#DE863F" }}>customers</span> say.
-        </h2>
-      </div>
+      {/* Section heading lives in a section further down the page now,
+          so the reviews band starts directly with the ticker. */}
 
       {/* Scrolling review cards */}
       <div
@@ -287,40 +265,6 @@ export default function TrustBadgesSection() {
         </div>
       </div>
 
-      {/* CTA below */}
-      <div style={{ textAlign: "center", marginTop: "3rem" }}>
-        <a
-          href="https://www.google.com/search?q=proswppp&oq=proswppp&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIGCAMQRRg9MgYIBBBFGD3SAQgxMzA0ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1,,,,"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 700,
-            fontSize: "0.8125rem",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "#DE863F",
-            border: "1.5px solid #DE863F",
-            borderRadius: "11px",
-            padding: "0.75rem 2rem",
-            textDecoration: "none",
-            transition: "background 0.2s, color 0.2s",
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "#DE863F";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-            (e.currentTarget as HTMLAnchorElement).style.color = "#DE863F";
-          }}
-        >
-          Read All Google Reviews →
-        </a>
-      </div>
     </section>
   );
 }
