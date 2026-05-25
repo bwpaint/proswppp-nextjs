@@ -117,15 +117,18 @@ export default function HeroSection() {
               Get Your <span style={{ fontSize: "130%", display: "inline-block", lineHeight: 0.9 }}>SWPPP</span>
             </motion.h1>
 
-            {/* Subheadline — single line, reduced font size + nowrap. */}
+            {/* Subheadline — single line; font sized so it matches the
+                H1 "Get Your SWPPP" width (H1 has ~15-char effective length
+                thanks to the SWPPP 130% scale; H2 is 24 chars, so the H2
+                base font is ~45% smaller than the H1 base). */}
             <motion.h2
               custom={0.2}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="leading-none mb-0 whitespace-nowrap"
+              className="leading-none mb-0 whitespace-nowrap uppercase"
               style={{
-                fontSize: "clamp(1rem, 2.4vw, 1.85rem)",
+                fontSize: "clamp(1.2rem, 3.2vw, 2.5rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
