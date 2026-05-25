@@ -373,7 +373,7 @@ export default function AboutClient() {
               className="flex justify-center"
             >
               <img
-                src="/images/IMG_4484.jpg"
+                src="/images/Derek-E-Chinners-ProSWPPP.jpg"
                 alt="Derek E. Chinners — Founder & CEO, Pro SWPPP"
                 className="rounded-2xl w-full"
                 style={{ maxWidth: '420px', border: '2px solid rgba(222,134,63,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}

@@ -17,7 +17,7 @@ import ClientLogosSection from "./ClientLogosSection";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const CEO_PHOTO = "https://proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg";
+const CEO_PHOTO = "/images/Derek-E-Chinners-ProSWPPP.jpg";
 const PROSWPPP_LOGO = "https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png";
 
 // Right-column rotator slides
