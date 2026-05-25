@@ -124,14 +124,14 @@ export default function TrustBadgesSection() {
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 900,
-            letterSpacing: "-0.03em",
-            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
             color: "#ffffff",
-            textTransform: "uppercase",
             margin: 0,
           }}
         >
-          What Our <span style={{ color: "#DE863F" }}>Customers</span> Are Saying
+          Don&rsquo;t believe us&hellip; see what our{" "}
+          <span style={{ color: "#DE863F" }}>customers</span> say.
         </h2>
       </div>
 
