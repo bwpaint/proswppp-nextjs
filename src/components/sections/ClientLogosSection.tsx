@@ -23,19 +23,9 @@ const clientLogos = [
 export default function ClientLogosSection() {
   return (
     <>
-      {/* Client Logos */}
-      <section className="py-28 lg:py-32" style={{ background: 'transparent' }}>
+      {/* Client Logos — heading removed; just the scrolling ticker. */}
+      <section className="py-6 lg:py-8" style={{ background: 'transparent' }}>
         <div className="container">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="section-heading text-[#DE863F] text-2xl lg:text-3xl text-center mb-10"
-          >
-            Who We Work With
-          </motion.h2>
-
           {/* Scrolling ticker with feathered edges */}
           <div className="overflow-hidden" style={{
             maskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
