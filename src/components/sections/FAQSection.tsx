@@ -69,7 +69,7 @@ export default function FAQSection() {
               fontWeight: 900,
               fontSize: "0.72rem",
               letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.85)",
+              color: "#FFFFFF",
             }}
           >
             Got Questions?
