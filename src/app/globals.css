@@ -257,10 +257,13 @@
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+/* Primary CTA gradient sweep — wave from brand dark orange (#DE863F)
+   through warm gold to the same gold #FFB800 we use for the Google
+   review stars, then back. Color-cycles with the heroSweep keyframe. */
 .btn-hero-sweep {
-  background: linear-gradient(90deg, #E29455, #E6A26B, #E29455, #E6A26B, #E29455);
+  background: linear-gradient(90deg, #DE863F, #F0A93B, #FFB800, #F0A93B, #DE863F);
   background-size: 250% 100%;
-  animation: heroSweep 7s ease infinite;
+  animation: heroSweep 5s ease-in-out infinite;
 }
 
 @keyframes orderBtnShake {
