@@ -400,16 +400,10 @@ export default function HeroSection() {
         >
           {([
             {
-              src: "/images/Guarantee-com-300x300.png",
-              label: "100% Compliance Guaranteed",
+              src: "/images/google-5-star-badge.svg",
+              label: "5.0 Google Reviews",
               whiteBg: false,
-              href: null,
-            },
-            {
-              src: "/images/cpesc-logo-trans.webp",
-              label: "Certified SWPPP",
-              whiteBg: true,
-              href: null,
+              href: "https://www.google.com/search?q=proswppp#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1",
             },
             {
               src: "/images/Accredited_Business_Seal_NoRating_RGB.svg.svg",
@@ -418,14 +412,20 @@ export default function HeroSection() {
               href: "https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436",
             },
             {
-              src: "/images/google-5-star-badge.svg",
-              label: "5.0 Google Reviews",
-              whiteBg: false,
-              href: "https://www.google.com/search?q=proswppp#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1",
+              src: "/images/cpesc-logo-trans.webp",
+              label: "Certified SWPPP",
+              whiteBg: true,
+              href: null,
             },
             {
               src: "/images/icon-woman-owned-seal-300x300.png",
               label: "Women-Owned Business",
+              whiteBg: false,
+              href: null,
+            },
+            {
+              src: "/images/Guarantee-com-300x300.png",
+              label: "100% Compliance Guaranteed",
               whiteBg: false,
               href: null,
             },
