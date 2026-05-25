@@ -97,15 +97,16 @@ export default function HeroSection() {
               America&apos;s #1 SWPPP
             </motion.p>
 
-            {/* Main Headline */}
+            {/* Main Headline — reduced + whitespace-nowrap so it stays on
+                a single line at every viewport width. */}
             <motion.h1
               custom={0.1}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="uppercase leading-none mb-0"
+              className="uppercase leading-none mb-0 whitespace-nowrap"
               style={{
-                fontSize: "clamp(3.36rem, 6.6vw, 6rem)",
+                fontSize: "clamp(1.6rem, 4.2vw, 3.25rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 color: "#7B9CD1",
@@ -116,15 +117,15 @@ export default function HeroSection() {
               Get Your <span style={{ fontSize: "130%", display: "inline-block", lineHeight: 0.9 }}>SWPPP</span>
             </motion.h1>
 
-            {/* Subheadline */}
+            {/* Subheadline — single line, reduced font size + nowrap. */}
             <motion.h2
               custom={0.2}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="leading-none mb-0"
+              className="leading-none mb-0 whitespace-nowrap"
               style={{
-                fontSize: "clamp(2rem, 4.5vw, 4rem)",
+                fontSize: "clamp(1rem, 2.4vw, 1.85rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
@@ -132,7 +133,7 @@ export default function HeroSection() {
                 lineHeight: 0.9,
               }}
             >
-              In 72 hrs.<br />Or it&apos;s FREE!
+              In 72 hrs. or it&apos;s FREE!
             </motion.h2>
 
             {/* CTA — single big "Get My SWPPP" (uses the same prominent
