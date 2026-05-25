@@ -1095,7 +1095,8 @@ function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) 
 
 // ─── Main export ───────────────────────────────────────────────────────────────
 export default function GetYourSwpppClient() {
-  const [phase, setPhase] = useState<Phase>('hero');
+  // Land directly on the map — the intro "hero" phase is bypassed per owner.
+  const [phase, setPhase] = useState<Phase>('map');
   const [regions, setRegions] = useState<SopRegion[]>([]);
   const [mapLoading, setMapLoading] = useState(false);
   const [selectedCode, setSelectedCode] = useState('');
@@ -1226,9 +1227,9 @@ export default function GetYourSwpppClient() {
     scrollToTop();
   };
 
-  // ── Reset — clears all state and returns to hero ──────────────────────────────
+  // ── Reset — clears all state and returns to the map (entry point) ────────────
   const handleReset = () => {
-    setPhase('hero');
+    setPhase('map');
     setStep(1);
     setForm(EMPTY_ORDER);
     setSelectedCode('');
@@ -1326,9 +1327,9 @@ export default function GetYourSwpppClient() {
             <USOrderMap regions={regions} loading={mapLoading} onStateClick={handleStateClick} />
 
             <div className="text-center mt-8">
-              <button onClick={() => setPhase('hero')} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
-                ← Back
-              </button>
+              <a href="/" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+                ← Back to Home
+              </a>
             </div>
           </div>
         </div>
