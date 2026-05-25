@@ -49,7 +49,7 @@ function FileBadge({ type }: { type: string }) {
         fontWeight: 700,
         fontFamily: "'Roboto', Arial, sans-serif",
         background: isDoc ? 'rgba(107,158,209,0.2)' : 'rgba(220,60,60,0.2)',
-        color: isDoc ? '#4361AF' : '#e05555',
+        color: isDoc ? '#7B9CD1' : '#e05555',
         textTransform: 'uppercase',
         letterSpacing: '0.05em',
       }}

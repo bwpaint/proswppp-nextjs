@@ -49,7 +49,7 @@ function FileBadge({ type }: { type: string }) {
         fontWeight: 700,
         fontFamily: "'Roboto', Arial, sans-serif",
         background: isDoc ? 'rgba(107,158,209,0.2)' : 'rgba(220,60,60,0.2)',
-        color: isDoc ? '#4361AF' : '#e05555',
+        color: isDoc ? '#7B9CD1' : '#e05555',
         textTransform: 'uppercase',
         letterSpacing: '0.05em',
       }}
@@ -66,7 +66,7 @@ function LevelBadge({ level }: { level: string }) {
     city: 'City Resource',
   };
   const colors: Record<string, { bg: string; color: string }> = {
-    county: { bg: 'rgba(107,158,209,0.15)', color: '#4361AF' },
+    county: { bg: 'rgba(107,158,209,0.15)', color: '#7B9CD1' },
     state:  { bg: 'rgba(45,125,70,0.15)',   color: '#2D9E5B' },
     city:   { bg: 'rgba(222,134,63,0.15)',  color: '#DE863F' },
   };

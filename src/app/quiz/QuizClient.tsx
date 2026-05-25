@@ -56,7 +56,7 @@ const questions = [
     id: 'state',
     step: 1,
     icon: MapPin,
-    color: '#4361AF',
+    color: '#7B9CD1',
     title: 'What state is your project in?',
     subtitle: 'Regulations vary significantly by state.',
     type: 'dropdown' as const,
@@ -84,7 +84,7 @@ const questions = [
     id: 'waterway',
     step: 3,
     icon: Droplets,
-    color: '#4361AF',
+    color: '#7B9CD1',
     title: 'Storm drain or waterway within 50 ft?',
     subtitle: 'Proximity to water dramatically increases regulatory scrutiny.',
     type: 'tiles' as const,
@@ -197,7 +197,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
     <div className="w-full bg-white/10 rounded-full h-1.5 mb-6">
       <motion.div
         className="h-1.5 rounded-full"
-        style={{ background: 'linear-gradient(90deg, #E29455, #4361AF)' }}
+        style={{ background: 'linear-gradient(90deg, #E29455, #7B9CD1)' }}
         initial={{ width: 0 }}
         animate={{ width: `${pct}%` }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -278,7 +278,7 @@ export default function QuizClient() {
     <>
     <section
       className="min-h-screen py-16 lg:py-24"
-      style={{ background: '#4361AF' }}
+      style={{ background: '#7B9CD1' }}
     >
       <div className="container">
         {/* Header */}
@@ -402,7 +402,7 @@ export default function QuizClient() {
                           return (
                             <div key={a.questionId} className="flex items-center justify-between text-xs">
                               <span className="text-gray-400 capitalize">{q?.title.split('?')[0]}</span>
-                              <span className="font-semibold capitalize" style={{ color: a.points >= 30 ? '#F59E0B' : '#4361AF' }}>{a.value.replace(/_/g, ' ')}</span>
+                              <span className="font-semibold capitalize" style={{ color: a.points >= 30 ? '#F59E0B' : '#7B9CD1' }}>{a.value.replace(/_/g, ' ')}</span>
                             </div>
                           );
                         })}
@@ -553,7 +553,7 @@ function QuizFAQSection() {
   ];
 
   return (
-    <section style={{ background: '#4361AF' }} className="py-20 lg:py-24">
+    <section style={{ background: '#7B9CD1' }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#DE863F" }}>

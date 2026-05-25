@@ -321,7 +321,7 @@ export default function HeroSection() {
                   fontSize: "0.9375rem",
                   textAlign: "center",
                   marginTop: "1rem",
-                  background: "linear-gradient(90deg, #E29455 0%, #4361AF 100%)",
+                  background: "linear-gradient(90deg, #E29455 0%, #7B9CD1 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

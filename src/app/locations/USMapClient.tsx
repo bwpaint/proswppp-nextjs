@@ -117,7 +117,7 @@ export default function USMapClient({ liveStates }: Props) {
               const isActive = liveSet.has(abbr);
               const slug     = slugMap.get(abbr);
               const isHov    = hovered === abbr;
-              const fill     = isActive ? (isHov ? '#d4692a' : '#DE863F') : '#4361AF';
+              const fill     = isActive ? (isHov ? '#d4692a' : '#DE863F') : '#7B9CD1';
 
               const pathEl = (
                 <path
@@ -180,7 +180,7 @@ export default function USMapClient({ liveStates }: Props) {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#4361AF', border: '1px solid #5a7ab0' }} />
+            <div style={{ width: 16, height: 16, borderRadius: 3, background: '#7B9CD1', border: '1px solid #5a7ab0' }} />
             <span style={{ fontFamily:"'Roboto',Arial,sans-serif", fontSize:'0.8rem', color:'rgba(255,255,255,0.7)' }}>
               Coming soon
             </span>
