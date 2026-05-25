@@ -11,7 +11,6 @@
  */
 
 import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
 
 const BRAND_ORANGE = "#DE863F";
 const BRAND_BLUE   = "#7B9CD1";
@@ -161,30 +160,6 @@ export default function FinalCTASection() {
         ))}
       </div>
 
-      {/* ── Footer: phone + address ───────────────────────────────────── */}
-      <div className="container text-center mt-10 lg:mt-14">
-        <p className="text-white/80 text-sm">
-          If you have any questions before you order, please call Derek at:{" "}
-          <a
-            href="tel:8334387977"
-            className="text-white font-bold hover:underline inline-flex items-center gap-1"
-          >
-            <Phone size={14} />
-            833-GET-SWPP
-          </a>
-        </p>
-
-        <p className="text-white/60 mt-3 text-sm">
-          <a
-            href="https://maps.app.goo.gl/rKcDY3vvTKsJTqnQ9"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
-          >
-            Our Address: 17904 W Lake Houston Pkwy, STE 303, Atascocita, TX, 77346
-          </a>
-        </p>
-      </div>
     </section>
   );
 }
