@@ -278,21 +278,20 @@ export default function QuizClient() {
     <>
     <section
       className="min-h-screen py-16 lg:py-24"
-      style={{ background: '#000000' }}
+      style={{ background: '#7B9CD1' }}
     >
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#DE863F]/15 border border-[#DE863F]/30 rounded-full px-4 py-1.5 mb-4">
+          <div className="inline-flex items-center gap-2 bg-[#DE863F]/15 border border-[#DE863F]/40 rounded-full px-4 py-1.5 mb-4">
             <Shield size={14} className="text-[#DE863F]" />
             <span className="text-[#DE863F] text-xs font-bold uppercase tracking-widest">Free Risk Assessment</span>
           </div>
-          <h1 className="text-white uppercase leading-none mb-3" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontFamily: 'Inter, sans-serif', fontWeight: 900, letterSpacing: '-0.02em' }}>
-            SWPPP Compliance<br />
-            <span style={{ color: '#DE863F' }}>Risk Diagnostic</span>
+          <h1 className="text-white leading-none mb-3" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', fontFamily: 'Inter, sans-serif', fontWeight: 900, letterSpacing: '-0.02em' }}>
+            Do you even need a <span style={{ color: '#DE863F' }}>SWPPP</span>?
           </h1>
-          <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
-            Answer 5 quick questions. We will calculate your site compliance risk score and send you a personalized 72-Hour Compliance Roadmap — free.
+          <p className="text-white/90 max-w-xl mx-auto text-lg leading-relaxed font-semibold" style={{ fontFamily: 'Roboto, sans-serif' }}>
+            Take our SWPPP quiz.
           </p>
         </div>
 
@@ -302,7 +301,7 @@ export default function QuizClient() {
               <motion.div key="quiz" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
                 {/* Question Card */}
                 <div className="lg:col-span-3">
-                  <div className="rounded-2xl p-6 lg:p-8" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', backdropFilter: 'blur(12px)' }}>
+                  <div className="rounded-2xl p-6 lg:p-8" style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.15)' }}>
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-gray-500 text-xs font-medium uppercase tracking-widest">Question {currentStep} of {totalSteps}</span>
                       <span className="text-gray-500 text-xs">{Math.round(((currentStep - 1) / totalSteps) * 100)}% complete</span>
@@ -389,7 +388,7 @@ export default function QuizClient() {
 
                 {/* Live Risk Gauge */}
                 <div className="lg:col-span-2">
-                  <div className="rounded-2xl p-6 sticky top-24" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)' }}>
+                  <div className="rounded-2xl p-6 sticky top-24" style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.15)' }}>
                     <div className="flex items-center gap-2 mb-4">
                       <Zap size={16} className="text-[#DE863F]" />
                       <span className="text-white text-xs font-bold uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>Live Risk Score</span>
@@ -420,7 +419,7 @@ export default function QuizClient() {
             {/* Lead Capture Gate */}
             {showLead && !submitted && (
               <motion.div key="lead" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="max-w-2xl mx-auto">
-                <div className="rounded-2xl p-8 lg:p-10" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', backdropFilter: 'blur(12px)' }}>
+                <div className="rounded-2xl p-8 lg:p-10" style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.15)' }}>
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4" style={{ background: `${riskColor}20`, border: `2px solid ${riskColor}` }}>
                       <span className="text-2xl font-black" style={{ color: riskColor, fontFamily: 'Inter, sans-serif' }}>{riskScore}</span>
@@ -473,7 +472,7 @@ export default function QuizClient() {
             {/* Thank You Screen */}
             {submitted && (
               <motion.div key="thankyou" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto text-center">
-                <div className="rounded-2xl p-10 lg:p-14" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)' }}>
+                <div className="rounded-2xl p-10 lg:p-14" style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.15)' }}>
                   <div className="w-20 h-20 rounded-full bg-green-500/20 border-2 border-green-500 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 size={36} className="text-green-400" />
                   </div>
@@ -554,7 +553,7 @@ function QuizFAQSection() {
   ];
 
   return (
-    <section style={{ background: '#000000' }} className="py-20 lg:py-24">
+    <section style={{ background: '#7B9CD1' }} className="py-20 lg:py-24">
       <div className="container max-w-4xl mx-auto px-4">
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] mb-3 font-semibold" style={{ color: "#DE863F" }}>
