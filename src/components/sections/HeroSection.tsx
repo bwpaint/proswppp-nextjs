@@ -8,14 +8,26 @@
  *                No rotator, no CTA slide, no risk gauge, no Meet Our Team.
  */
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import TrustBadgesSection from "./TrustBadgesSection";
 import ClientLogosSection from "./ClientLogosSection";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
+const CEO_PHOTO = "https://proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg";
+const PROSWPPP_LOGO = "https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png";
+
+// Right-column rotator slides
+const PHASES = ["photo", "derek", "will"] as const;
+type Phase = (typeof PHASES)[number];
+const PHASE_DURATIONS_MS: Record<Phase, number> = {
+  photo: 6000,
+  derek: 8000,
+  will:  8000,
+};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -27,6 +39,19 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
+  // Right-column slider — auto-rotates every 6-8s, pauses on hover.
+  const [phaseIdx, setPhaseIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const phase: Phase = PHASES[phaseIdx];
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => {
+      setPhaseIdx((i) => (i + 1) % PHASES.length);
+    }, PHASE_DURATIONS_MS[phase]);
+    return () => clearTimeout(t);
+  }, [paused, phase, phaseIdx]);
+
   return (
     <section
       className="relative min-h-[70vh] flex flex-col"
@@ -198,18 +223,203 @@ export default function HeroSection() {
               Built for <span style={{ color: "#DE863F" }}>Builders</span>
             </h2>
 
-            {/* Static team photo — no slider, no overlays */}
-            <img
-              src={TEAM_PHOTO}
-              alt="The Pro SWPPP Team"
+            {/* 3-slide rotator: team photo -> Derek quote -> Will M review.
+                Hovering pauses rotation. Team photo stays in the DOM so it
+                dictates the natural card height; other slides fade in over it. */}
+            <div
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+              onFocus={() => setPaused(true)}
+              onBlur={() => setPaused(false)}
+              tabIndex={0}
               style={{
+                position: "relative",
                 width: "100%",
-                height: "auto",
-                display: "block",
-                borderRadius: "10px",
                 marginTop: "0.5rem",
+                outline: "none",
               }}
-            />
+            >
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                  borderRadius: "10px",
+                }}
+              >
+                {/* Team photo — always rendered (dictates card height) */}
+                <motion.img
+                  src={TEAM_PHOTO}
+                  alt="The Pro SWPPP Team"
+                  initial={false}
+                  animate={{ opacity: phase === "photo" ? 1 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+
+                <AnimatePresence mode="wait" initial={false}>
+                  {phase === "derek" && (
+                    <motion.div
+                      key="derek"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        padding: "1.75rem 2rem",
+                        background:
+                          "linear-gradient(135deg, rgba(13,31,43,0.96) 0%, rgba(26,58,74,0.96) 100%)",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: "1rem",
+                        textAlign: "center",
+                      }}
+                    >
+                      <img
+                        src={CEO_PHOTO}
+                        alt="Derek E. Chinners"
+                        style={{
+                          width: "110px",
+                          height: "110px",
+                          objectFit: "cover",
+                          border: "4px solid #DE863F",
+                          boxShadow: "0 6px 22px rgba(0,0,0,0.45)",
+                        }}
+                      />
+                      <blockquote
+                        style={{
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontStyle: "italic",
+                          fontSize: "1rem",
+                          lineHeight: 1.55,
+                          color: "rgba(255,255,255,0.95)",
+                          margin: 0,
+                        }}
+                      >
+                        &ldquo;When you pick Pro SWPPP for your project your
+                        calls get returned, your questions get answered, and
+                        your permitting becomes one less thing to worry
+                        about&hellip; Every Time.&rdquo;
+                      </blockquote>
+                      <p
+                        style={{
+                          fontFamily:
+                            "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                          fontWeight: 800,
+                          fontSize: "0.78rem",
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "#FFD9A8",
+                          margin: 0,
+                        }}
+                      >
+                        Derek E. Chinners &mdash; CEO, Pro SWPPP
+                      </p>
+                    </motion.div>
+                  )}
+
+                  {phase === "will" && (
+                    <motion.div
+                      key="will"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        padding: "1.75rem 2rem",
+                        background: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        gap: "1rem",
+                      }}
+                    >
+                      {/* 5 gold stars */}
+                      <div style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={26}
+                            style={{ fill: "#FFB800", color: "#FFB800" }}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Italic quote */}
+                      <blockquote
+                        style={{
+                          fontFamily: "'Roboto', Arial, sans-serif",
+                          fontStyle: "italic",
+                          fontSize: "0.95rem",
+                          lineHeight: 1.55,
+                          color: "#000000",
+                          margin: 0,
+                          textAlign: "center",
+                        }}
+                      >
+                        &ldquo;Pro SWPPP lives up to their name! They are truly
+                        pros! Super-fast turnaround, and they were able to
+                        modify the documents needed within 24 hours due to a
+                        last-minute change in on-site personnel. Could not be
+                        happier with their service and performance.&rdquo;
+                      </blockquote>
+
+                      {/* Footer: name/title left, ProSWPPP small logo right */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: "1rem",
+                          paddingTop: "0.5rem",
+                          borderTop: "1px solid rgba(0,0,0,0.10)",
+                        }}
+                      >
+                        <div>
+                          <p
+                            style={{
+                              fontFamily:
+                                "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                              fontWeight: 900,
+                              fontSize: "1rem",
+                              color: "#000000",
+                              margin: 0,
+                              lineHeight: 1.1,
+                            }}
+                          >
+                            Will M.
+                          </p>
+                          <p
+                            style={{
+                              fontFamily: "'Roboto', Arial, sans-serif",
+                              fontWeight: 600,
+                              fontSize: "0.78rem",
+                              color: "#DE863F",
+                              margin: "2px 0 0",
+                              letterSpacing: "0.04em",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Construction Owner
+                          </p>
+                        </div>
+                        <img
+                          src={PROSWPPP_LOGO}
+                          alt="Pro SWPPP"
+                          style={{ height: "38px", width: "auto", display: "block" }}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </motion.div>
         </div>
 
