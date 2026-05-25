@@ -93,9 +93,9 @@ export default function Navigation() {
               <Phone size={12} />
               833.Get.SWPPP
             </a>
-            <a href="mailto:info@proswppp.com" className="hidden sm:flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
+            <a href="mailto:bids@proswppp.com" className="hidden sm:flex items-center gap-1.5 text-white/90 hover:text-white transition-colors text-xs whitespace-nowrap">
               <Mail size={12} />
-              info@proswppp.com
+              bids@proswppp.com
             </a>
           </div>
 
