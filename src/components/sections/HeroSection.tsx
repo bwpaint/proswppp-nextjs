@@ -117,12 +117,6 @@ export default function HeroSection() {
               className="mb-0"
             >
               <p
-                className="text-white uppercase tracking-wide text-base mb-0"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, lineHeight: 1 }}
-              >
-                Order Now… Because We&apos;re America&apos;s #1 SWPPP
-              </p>
-              <p
                 className="text-gray-300 uppercase tracking-wide text-sm mb-0"
                 style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, lineHeight: 1 }}
               >
