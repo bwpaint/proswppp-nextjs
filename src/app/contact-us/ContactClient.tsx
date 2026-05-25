@@ -69,7 +69,7 @@ export default function ContactClient() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative py-20 lg:py-28"
+        className="relative pt-20 lg:pt-28 pb-4 lg:pb-6"
         style={{ background: '#000000' }}
       >
         <div className="relative z-10 container text-center">
@@ -105,7 +105,7 @@ export default function ContactClient() {
       </section>
 
       {/* ── Main Content ── */}
-      <section className="pt-6 lg:pt-10 pb-16 lg:pb-24" style={{ background: '#000000' }}>
+      <section className="pt-2 lg:pt-4 pb-16 lg:pb-24" style={{ background: '#000000' }}>
         <div className="container">
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
 
