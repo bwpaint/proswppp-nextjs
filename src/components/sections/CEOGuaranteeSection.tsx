@@ -75,7 +75,7 @@ export default function CEOGuaranteeSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         className="px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
-        style={{ background: "#7B9CD1" }}
+        style={{ background: "#4361AF" }}
       >
         <div style={{ maxWidth: "88%", marginLeft: "6%" }}>
           {/* Headline block is a single clickable link to the order page. */}
@@ -174,7 +174,7 @@ export default function CEOGuaranteeSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
         className="relative overflow-hidden px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center"
-        style={{ background: "#7B9CD1" }}
+        style={{ background: "#4361AF" }}
       >
         {/* Subtle radial light source for depth on the flat navy */}
         <div

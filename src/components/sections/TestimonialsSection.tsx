@@ -85,7 +85,7 @@ export default function TestimonialsSection() {
               fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: 900,
               letterSpacing: '-0.03em',
-              color: '#7B9CD1',
+              color: '#4361AF',
             }}
           >
             Don&apos;t believe us... see what our customer&apos;s say...

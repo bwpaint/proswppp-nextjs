@@ -90,7 +90,7 @@ export default function HeroSection() {
                 fontWeight: 900,
                 fontStyle: "italic",
                 letterSpacing: "0.2em",
-                color: "#7B9CD1",
+                color: "#4361AF",
                 lineHeight: 1,
               }}
             >
@@ -108,7 +108,7 @@ export default function HeroSection() {
                 fontSize: "clamp(3.36rem, 6.6vw, 6rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
-                color: "#7B9CD1",
+                color: "#4361AF",
                 letterSpacing: "-0.03em",
                 lineHeight: 0.9,
               }}

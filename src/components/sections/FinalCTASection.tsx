@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
 
 const BRAND_ORANGE = "#DE863F";
-const BRAND_BLUE   = "#7B9CD1";
+const BRAND_BLUE   = "#4361AF";
 
 type Row = {
   bg: string;

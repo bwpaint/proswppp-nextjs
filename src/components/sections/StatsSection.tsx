@@ -2,7 +2,7 @@
 /*
  * Stats Section — ProSWPPP Redesign
  * Casino-style count-up that fires once when the section scrolls into view.
- * All four big numbers render in brand blue (#7B9CD1).
+ * All four big numbers render in brand blue (#4361AF).
  */
 
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
@@ -22,7 +22,7 @@ const stats: Stat[] = [
   { target: 5,   decimals: 1, suffix: "★",   label: "Google Rating" },
 ];
 
-const BRAND_BLUE = "#7B9CD1";
+const BRAND_BLUE = "#4361AF";
 
 function Counter({ stat, run }: { stat: Stat; run: boolean }) {
   const mv = useMotionValue(0);

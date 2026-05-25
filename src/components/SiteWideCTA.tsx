@@ -13,7 +13,7 @@ export default function SiteWideCTA() {
     <>
       {/* ── Ready to Get Compliant? ── */}
       <section
-        style={{ background: '#7B9CD1', padding: '4rem 0' }}
+        style={{ background: '#4361AF', padding: '4rem 0' }}
       >
         <div className="container text-center">
           <motion.h2

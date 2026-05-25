@@ -1,7 +1,7 @@
 /*
  * ProSWPPP — Next.js 14 App Router
  * Design Philosophy: Clean Authority (Modern Professional Services)
- * Brand: Orange #DE863F | SWPPP Blue #7B9CD1 | Sky Blue #7B9CD1 | Navy #1A3A4A
+ * Brand: Orange #DE863F | SWPPP Blue #4361AF | Sky Blue #4361AF | Navy #1A3A4A
  * Typography: Inter 900 (display) | Roboto 400 (body)
  */
 
@@ -13,16 +13,16 @@
   --brand-orange:        #DE863F;
   --brand-orange-dark:   #D4631F;
   --brand-orange-light:  #F5A06A;
-  --brand-secondary:     #7B9CD1;
+  --brand-secondary:     #4361AF;
   --brand-secondary-dark:#0F3A8F;
-  --brand-accent:        #7B9CD1;
+  --brand-accent:        #4361AF;
   --brand-accent-dark:   #4A7FB5;
   --brand-navy:          #1A3A4A;
   --brand-navy-light:    #2A5068;
   --brand-green:         #4CAF50;
   --brand-green-dark:    #388E3C;
   --brand-text:          #000000;
-  --brand-link:          #7B9CD1;
+  --brand-link:          #4361AF;
   --radius:              11px;
 }
 
@@ -103,7 +103,7 @@
     color: white;
   }
   .btn-blue {
-    background-color: #7B9CD1;
+    background-color: #4361AF;
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;

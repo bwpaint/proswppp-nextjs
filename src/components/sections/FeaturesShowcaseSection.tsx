@@ -3,7 +3,7 @@
  * Features Showcase Section — ProSWPPP Redesign
  * Design: Full-width edge-to-edge 50/50 split — NO container, no white background gaps
  *   Left col:  Construction workers image, absolute fill, full height
- *   Right col: #7B9CD1 blue background with bullet list, full height
+ *   Right col: #4361AF blue background with bullet list, full height
  */
 
 import { motion } from "framer-motion";
@@ -77,7 +77,7 @@ export default function FeaturesShowcaseSection() {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.1 }}
-        className="bg-[#7B9CD1] px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center order-1 lg:order-2"
+        className="bg-[#4361AF] px-8 lg:px-12 py-14 lg:py-16 flex flex-col justify-center order-1 lg:order-2"
       >
         <h2 className="section-heading text-white text-2xl lg:text-3xl mb-2 leading-tight">
           How Do I Know My SWPPP<br />Will Be Done Right?

@@ -1,0 +1,7 @@
+[13-May-2026 20:17:39 UTC] PHP Parse error:  syntax error, unexpected character 0x00, expecting end of file in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/webwize-proof-standalone.php on line 52
+[13-May-2026 20:22:19 UTC] PHP Parse error:  Unclosed '{' on line 167 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-db.php on line 168
+[13-May-2026 20:22:22 UTC] PHP Parse error:  Unclosed '{' on line 167 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-db.php on line 168
+[13-May-2026 20:29:16 UTC] PHP Parse error:  Unclosed '{' on line 167 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-db.php on line 168
+[13-May-2026 20:29:19 UTC] PHP Parse error:  Unclosed '{' on line 167 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-db.php on line 168
+[13-May-2026 20:34:06 UTC] PHP Parse error:  Unclosed '{' on line 233 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-tasks.php on line 236
+[13-May-2026 20:34:10 UTC] PHP Parse error:  Unclosed '{' on line 233 in /var/www/cms.proswppp.com/wp-content/plugins/webwize-proof-standalone/includes/class-tasks.php on line 236

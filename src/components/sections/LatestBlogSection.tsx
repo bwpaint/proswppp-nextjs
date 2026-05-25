@@ -11,12 +11,12 @@ import { useState, useEffect } from "react";
 
 const CATEGORY_COLORS: Record<string, string> = {
   compliance: "#DE863F",
-  guides: "#7B9CD1",
-  inspections: "#7B9CD1",
+  guides: "#4361AF",
+  inspections: "#4361AF",
   "best-practices": "#2D7D46",
   violations: "#C0392B",
   "permit-close-out": "#8B4513",
-  uncategorized: "#7B9CD1",
+  uncategorized: "#4361AF",
 };
 
 interface PostCard {
@@ -44,7 +44,7 @@ const FALLBACK_POSTS: PostCard[] = [
   {
     id: 2,
     category: "GUIDES",
-    categoryColor: "#7B9CD1",
+    categoryColor: "#4361AF",
     title: "How We Deliver a Fully Compliant SWPPP in 72 Hours",
     excerpt: "Most firms take two weeks. We've engineered a process that delivers a permit-ready plan in 3 business days — or your money back.",
     date: "Feb 28, 2025",
@@ -54,7 +54,7 @@ const FALLBACK_POSTS: PostCard[] = [
   {
     id: 3,
     category: "INSPECTIONS",
-    categoryColor: "#7B9CD1",
+    categoryColor: "#4361AF",
     title: "What to Expect During a Stormwater Inspection",
     excerpt: "Regulators can show up unannounced. We break down exactly what inspectors look for and how a solid SWPPP protects you from fines.",
     date: "Feb 14, 2025",
@@ -115,7 +115,7 @@ export default function LatestBlogSection() {
           const cat = terms[0];
           const catSlug = cat?.slug ?? 'uncategorized';
           const catName = (cat?.name ?? 'General').toUpperCase();
-          const color = CATEGORY_COLORS[catSlug] ?? '#7B9CD1';
+          const color = CATEGORY_COLORS[catSlug] ?? '#4361AF';
           const image = p._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? '';
           return {
             id: p.id,

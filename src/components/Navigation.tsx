@@ -107,7 +107,7 @@ export default function Navigation() {
 
           {/* Left: Phone + Email */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            <a href="tel:8334387977" className="flex items-center gap-1.5 hover:text-white transition-colors text-xs whitespace-nowrap font-bold" style={{ color: "#7B9CD1" }}>
+            <a href="tel:8334387977" className="flex items-center gap-1.5 hover:text-white transition-colors text-xs whitespace-nowrap font-bold" style={{ color: "#4361AF" }}>
               <Phone size={12} />
               833.Get.SWPPP
             </a>
@@ -236,7 +236,7 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="text-[#DE863F] font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#7B9CD1] hover:text-white hover:shadow-md"
+                    className="text-[#DE863F] font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#4361AF] hover:text-white hover:shadow-md"
                   >
                     {link.label}
                   </a>
@@ -266,7 +266,7 @@ export default function Navigation() {
               </a>
               <a
                 href="tel:8334387977"
-                className="flex items-center gap-1.5 bg-[#7B9CD1] text-white font-bold text-xs uppercase tracking-wider px-3 py-2 rounded-full hover:bg-[#5a7ab0] transition-all duration-200 whitespace-nowrap"
+                className="flex items-center gap-1.5 bg-[#4361AF] text-white font-bold text-xs uppercase tracking-wider px-3 py-2 rounded-full hover:bg-[#5a7ab0] transition-all duration-200 whitespace-nowrap"
               >
                 <Phone size={12} />
                 833-GET-SWPP
