@@ -250,7 +250,7 @@ export default function Footer() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full btn-orange text-sm py-3 rounded-lg"
+                className="w-full btn-blue text-sm py-3 rounded-lg"
               >
                 Send Message
               </button>
