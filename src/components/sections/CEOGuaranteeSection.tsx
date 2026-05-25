@@ -147,7 +147,7 @@ export default function CEOGuaranteeSection() {
                 style={{
                   fontSize: "1.15rem",
                   lineHeight: 1.6,
-                  color: "rgba(255,255,255,0.92)",
+                  color: "#000000",
                 }}
               >
                 &ldquo;When you pick Pro SWPPP for your project your calls get returned,
@@ -156,7 +156,7 @@ export default function CEOGuaranteeSection() {
               </blockquote>
               <p
                 className="font-bold uppercase tracking-wide"
-                style={{ fontSize: "0.95rem", color: "#FFD9A8" }}
+                style={{ fontSize: "0.95rem", color: "#000000" }}
               >
                 Derek E. Chinners – Founder &amp; Stormwater Consultant, CPESC
               </p>
@@ -195,7 +195,7 @@ export default function CEOGuaranteeSection() {
               fontWeight: 900,
               fontSize: "0.72rem",
               letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.78)",
+              color: "#000000",
             }}
           >
             After You Order
@@ -203,17 +203,18 @@ export default function CEOGuaranteeSection() {
 
           {/* Headline */}
           <h3
-            className="section-heading text-white leading-tight mb-2"
+            className="section-heading leading-tight mb-2"
             style={{
               fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
               letterSpacing: "-0.01em",
+              color: "#000000",
             }}
           >
             Beyond the <span className="text-[#DE863F]">72-Hour</span> Delivery
           </h3>
 
           {/* Subhead */}
-          <p className="text-white/85 italic font-medium mb-7">
+          <p className="italic font-medium mb-7" style={{ color: "#000000" }}>
             Your SWPPP doesn&rsquo;t end when the plan hits your inbox.
           </p>
 
@@ -246,28 +247,29 @@ export default function CEOGuaranteeSection() {
                       border: "1px solid rgba(255,255,255,0.30)",
                     }}
                   >
-                    <Icon size={20} className="text-white" />
+                    <Icon size={20} style={{ color: "#000000" }} />
                   </div>
 
                   <div>
                     <h4
-                      className="text-white font-bold mb-0.5"
+                      className="font-bold mb-0.5"
                       style={{
                         fontFamily:
                           "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         fontSize: "1rem",
                         lineHeight: 1.2,
+                        color: "#000000",
                       }}
                     >
                       {s.title}
                     </h4>
                     <p
-                      className="text-white/85"
                       style={{
                         fontFamily: "'Roboto', Arial, sans-serif",
                         fontSize: "0.875rem",
                         lineHeight: 1.5,
                         margin: 0,
+                        color: "#000000",
                       }}
                     >
                       {s.desc}
