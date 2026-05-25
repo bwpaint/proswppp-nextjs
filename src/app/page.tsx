@@ -24,27 +24,24 @@ const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { s
 export default function HomePage() {
   return (
     <main>
-      {/* Hero with rotating Built-for-Builders card */}
+      {/* Hero — ends with the trust badges row (100% Compliance, Certified
+          SWPPP, Women-Owned, BBB) at the bottom. */}
       <HeroSection />
+
+      {/* Scrolling Google reviews — sits directly under the trust badges. */}
+      <TrustBadgesSection />
+
+      {/* Client logos scrolling ticker — sits directly under the reviews. */}
+      <ClientLogosSection />
 
       {/* 20-year stats (20+ years, 100% compliance, 72 hours, 5-star reviews) */}
       <StatsSection />
-
-      {/* Scrolling Google reviews with "What Our Customers Are Saying" heading
-          (formerly the "Client Reviews" section — TrustBadgesSection is the
-          file name kept for compatibility, but its content is the reviews
-          ticker). Sits between the stat tiles and the Experience copy. */}
-      <TrustBadgesSection />
 
       {/* Experience — "Confidence in your SWPPP expertise and compliance" */}
       <ExperienceSection />
 
       {/* CEO Guarantee — Derek photo (white) + blue guarantee panel */}
       <CEOGuaranteeSection />
-
-      {/* Client logos scrolling ticker — relocated to sit between the
-          CEO Guarantee panel and the "72 hours or it's FREE" CTA. */}
-      <ClientLogosSection />
 
       {/* Final CTA, latest blog posts, FAQ */}
       <FinalCTASection />
