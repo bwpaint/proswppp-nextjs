@@ -132,45 +132,8 @@ export default function HeroSection() {
                 lineHeight: 0.9,
               }}
             >
-              In 72 hrs., or it&apos;s FREE!
+              In 72 hrs. or it&apos;s FREE!
             </motion.h2>
-
-            {/* Supporting text */}
-            <motion.div
-              custom={0.3}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="mb-0"
-            >
-              <p
-                className="text-gray-300 uppercase tracking-wide text-sm mb-0"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400, lineHeight: 1 }}
-              >
-                5-Star Rated Google Business
-              </p>
-            </motion.div>
-
-            {/* Star Rating */}
-            <motion.div
-              custom={0.4}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="flex items-center gap-2 mb-0"
-            >
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={22} className="fill-[#FFB800] text-[#FFB800]" />
-                ))}
-              </div>
-              <span
-                className="text-white text-sm"
-                style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}
-              >
-                5.0 Google Reviews
-              </span>
-            </motion.div>
 
             {/* CTA — single big "Get My SWPPP" (uses the same prominent
                 styling as the right-column 'Start My Order' slide button). */}
