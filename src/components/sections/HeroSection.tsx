@@ -208,9 +208,9 @@ export default function HeroSection() {
             animate="visible"
             variants={fadeUp}
           >
-            {/* Heading: Built for Builders */}
+            {/* Heading above the rotator */}
             <h2
-              className="text-white uppercase leading-none mb-0"
+              className="uppercase leading-none mb-0"
               style={{
                 fontSize: "clamp(2rem, 3.8vw, 3rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -218,9 +218,10 @@ export default function HeroSection() {
                 letterSpacing: "-0.03em",
                 textAlign: "center",
                 lineHeight: 0.9,
+                color: "#CFCFCF",
               }}
             >
-              Built for <span style={{ color: "#DE863F" }}>Builders</span>
+              Peace of Mind for Your Permitting
             </h2>
 
             {/* 3-slide rotator: team photo -> Derek quote -> Will M review.
