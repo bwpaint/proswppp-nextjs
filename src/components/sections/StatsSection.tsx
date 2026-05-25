@@ -1,22 +1,62 @@
 'use client';
 /*
  * Stats Section — ProSWPPP Redesign
- * Design: Dark navy band with large orange stat numbers
- * Editorial design treatment for key metrics
+ * Casino-style count-up that fires once when the section scrolls into view.
+ * All four big numbers render in brand blue (#7B9CD1).
  */
 
-import { motion } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
 
-const stats = [
-  { value: "20+", label: "Years of Experience", suffix: "" },
-  { value: "100%", label: "Compliance Record", suffix: "" },
-  { value: "72", label: "Hour Delivery Guarantee", suffix: "hrs" },
-  { value: "5.0", label: "Google Rating", suffix: "★" },
+type Stat = {
+  target: number;
+  decimals: number;
+  suffix: string;
+  label: string;
+};
+
+const stats: Stat[] = [
+  { target: 20,  decimals: 0, suffix: "+",   label: "Years of Experience" },
+  { target: 100, decimals: 0, suffix: "%",   label: "Compliance Record" },
+  { target: 72,  decimals: 0, suffix: "hrs", label: "Hour Delivery Guarantee" },
+  { target: 5,   decimals: 1, suffix: "★",   label: "Google Rating" },
 ];
 
-export default function StatsSection() {
+const BRAND_BLUE = "#7B9CD1";
+
+function Counter({ stat, run }: { stat: Stat; run: boolean }) {
+  const mv = useMotionValue(0);
+  const rounded = useTransform(mv, (v) =>
+    stat.decimals > 0 ? v.toFixed(stat.decimals) : Math.round(v).toLocaleString()
+  );
+
+  useEffect(() => {
+    if (!run) return;
+    const controls = animate(mv, stat.target, {
+      duration: 1.8,
+      ease: [0.16, 1, 0.3, 1], // ease-out-expo: fast start, slow settle
+    });
+    return controls.stop;
+  }, [run, mv, stat.target]);
+
   return (
-    <section className="pt-28 lg:pt-32 pb-8 lg:pb-10" style={{ background: 'linear-gradient(315deg, #000000 0%, #000000 50%, #000000 100%)' }}>
+    <span style={{ color: BRAND_BLUE, fontVariantNumeric: "tabular-nums" }}>
+      <motion.span>{rounded}</motion.span>
+      <span className="text-3xl lg:text-4xl">{stat.suffix}</span>
+    </span>
+  );
+}
+
+export default function StatsSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+
+  return (
+    <section
+      ref={ref}
+      className="pt-28 lg:pt-32 pb-8 lg:pb-10"
+      style={{ background: "#000000" }}
+    >
       <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2">
           {stats.map((stat, i) => (
@@ -29,10 +69,7 @@ export default function StatsSection() {
               className="text-center"
             >
               <div className="stat-number text-5xl lg:text-6xl mb-2">
-                {stat.value}
-                {stat.suffix && (
-                  <span className="text-3xl lg:text-4xl text-[#7B9CD1]">{stat.suffix}</span>
-                )}
+                <Counter stat={stat} run={inView} />
               </div>
               <p className="text-gray-300 font-semibold text-sm uppercase tracking-wide">
                 {stat.label}

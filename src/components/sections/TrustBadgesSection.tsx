@@ -193,8 +193,8 @@ export default function TrustBadgesSection() {
             <div
               key={i}
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "#7B9CD1",
+                border: "1px solid rgba(255,255,255,0.25)",
                 borderRadius: "11px",
                 padding: "2rem",
                 width: "340px",
@@ -202,6 +202,7 @@ export default function TrustBadgesSection() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "1rem",
+                boxShadow: "0 4px 14px rgba(0,0,0,0.30)",
               }}
             >
               {/* Stars */}
