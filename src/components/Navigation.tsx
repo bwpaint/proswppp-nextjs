@@ -101,7 +101,7 @@ export default function Navigation() {
 
           {/* Center: Tagline */}
           <span className="text-xs font-semibold text-center hidden md:block whitespace-nowrap">
-            Your SWPPP Delivered in 72 Hours or it&apos;s FREE
+            Get Your SWPPP in 72 Hours or it&apos;s FREE!&nbsp; &middot; &nbsp;America&apos;s #1 SWPPP&nbsp; &middot; &nbsp;Peace of Mind for Your Permitting&nbsp; &middot; &nbsp;Family Owned and Operated
           </span>
 
           {/* Right: Social Icons */}
