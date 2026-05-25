@@ -38,13 +38,13 @@ type NavItem = {
 };
 
 const navLinks: NavItem[] = [
-  { label: "HOME", href: "/" },
-  { label: "ABOUT US", href: "/about/" },
-  { label: "GET MY SWPPP", href: "/get-your-swppp/" },
-  { label: "DO I NEED A SWPPP?", href: "/quiz-form/" },
-  { label: "LOCATIONS", href: "/locations/" },
+  { label: "Home", href: "/" },
+  { label: "Get Your SWPPP", href: "/get-your-swppp/" },
+  { label: "About Us", href: "/about/" },
+  { label: "Do You Even Need a SWPPP?", href: "/quiz-form/" },
+  { label: "Locations", href: "/locations/" },
   {
-    label: "RESOURCES",
+    label: "Resources",
     href: "#",
     dropdown: [
       { label: "SWPPP Glossary", href: "/swppp-glossary/" },
@@ -52,8 +52,8 @@ const navLinks: NavItem[] = [
       { label: "SWPPP Links", href: "/resources/links/" },
     ],
   },
-  { label: "BLOG", href: "/blog/" },
-  { label: "CONTACT US", href: "/contact-us/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Contact Us", href: "/contact-us/" },
 ];
 
 export default function Navigation() {
@@ -152,11 +152,7 @@ export default function Navigation() {
                   <div key={link.label} className="relative">
                     <button
                       onClick={() => toggleDropdown(link.label)}
-                      className={`text-white font-semibold text-xs px-2.5 py-2 rounded transition-colors duration-200 whitespace-nowrap tracking-wide flex items-center gap-0.5 ${
-                        scrolled
-                          ? "hover:bg-white/10"
-                          : "hover:bg-white/20 hover:text-white"
-                      }`}
+                      className="text-[#DE863F] font-semibold text-xs px-2.5 py-2 rounded transition-colors duration-200 whitespace-nowrap tracking-wide flex items-center gap-0.5 hover:bg-[#DE863F]/15 hover:text-[#DE863F]"
                     >
                       {link.label}
                       <ChevronDown
@@ -167,12 +163,12 @@ export default function Navigation() {
                       />
                     </button>
                     {openDropdown === link.label && (
-                      <div className="absolute top-full left-0 mt-1 bg-[#1A3A4A] rounded-lg shadow-xl overflow-hidden min-w-[180px] border border-white/10 z-50">
+                      <div className="absolute top-full left-0 mt-1 bg-black rounded-lg shadow-xl overflow-hidden min-w-[180px] border border-[#DE863F]/30 z-50">
                         {link.dropdown.map((item) => (
                           <a
                             key={item.label}
                             href={item.href}
-                            className="block px-4 py-2.5 text-white text-sm font-medium hover:bg-[#DE863F] hover:text-white transition-colors"
+                            className="block px-4 py-2.5 text-[#DE863F] text-sm font-medium hover:bg-[#DE863F] hover:text-black transition-colors"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {item.label}
@@ -185,7 +181,7 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="text-white font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#7B9CD1] hover:text-white hover:shadow-md"
+                    className="text-[#DE863F] font-semibold text-xs px-3 py-2 rounded-full transition-all duration-200 whitespace-nowrap tracking-wide hover:bg-[#7B9CD1] hover:text-white hover:shadow-md"
                   >
                     {link.label}
                   </a>
@@ -193,10 +189,10 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className={`text-white font-semibold text-xs px-2.5 py-2 rounded transition-colors duration-200 whitespace-nowrap tracking-wide ${
+                    className={`text-[#DE863F] font-semibold text-xs px-2.5 py-2 rounded transition-colors duration-200 whitespace-nowrap tracking-wide ${
                       scrolled
-                        ? "hover:bg-white/10"
-                        : "hover:bg-white/20 hover:text-white"
+                        ? "hover:bg-[#DE863F]/15"
+                        : "hover:bg-[#DE863F]/15 hover:text-[#DE863F]"
                     }`}
                   >
                     {link.label}
@@ -235,19 +231,19 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden bg-[#1A3A4A] border-t border-white/10">
+          <div className="lg:hidden bg-black border-t border-white/10">
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) =>
                 link.dropdown ? (
                   <div key={link.label}>
-                    <p className="text-white/60 font-semibold text-xs py-2 px-4 uppercase tracking-widest">
+                    <p className="text-[#DE863F]/70 font-semibold text-xs py-2 px-4 uppercase tracking-widest">
                       {link.label}
                     </p>
                     {link.dropdown.map((item) => (
                       <a
                         key={item.label}
                         href={item.href}
-                        className="block text-white font-medium text-sm py-2 px-8 rounded hover:bg-white/10 transition-colors"
+                        className="block text-[#DE863F] font-medium text-sm py-2 px-8 rounded hover:bg-[#DE863F]/15 transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         {item.label}
@@ -258,7 +254,7 @@ export default function Navigation() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="block text-white font-semibold text-sm py-3 px-4 rounded hover:bg-white/10 transition-colors tracking-wide"
+                    className="block text-[#DE863F] font-semibold text-sm py-3 px-4 rounded hover:bg-[#DE863F]/15 transition-colors tracking-wide"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
