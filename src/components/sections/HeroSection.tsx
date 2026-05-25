@@ -468,12 +468,19 @@ export default function HeroSection() {
               href: null,
             },
           ] as const).map((badge) => {
+            // BBB seal is a wide 2.65:1 rectangle — give it a larger frame so
+            // it stays readable and isn't shrunk into the square 80x80 slot.
+            const isBBB     = badge.label === "BBB Accredited Business";
+            const frameW    = isBBB ? 212 : 80;
+            const frameH    = isBBB ?  80 : 80;
+            const wrapperW  = isBBB ? 224 : 120;
+
             const inner = (
               <>
                 <div
                   style={{
-                    width: "80px",
-                    height: "80px",
+                    width: `${frameW}px`,
+                    height: `${frameH}px`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -496,22 +503,26 @@ export default function HeroSection() {
                     }}
                   />
                 </div>
-                <p
-                  style={{
-                    marginTop: "8px",
-                    fontFamily: "'Roboto', Arial, sans-serif",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: "#ffffff",
-                    textAlign: "center",
-                    lineHeight: 1.3,
-                    margin: "8px 0 0",
-                  }}
-                >
-                  {badge.label}
-                </p>
+                {/* Caption — hidden for BBB since the seal already says
+                    "Accredited Business" big and bold. */}
+                {!isBBB && (
+                  <p
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: "'Roboto', Arial, sans-serif",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "#ffffff",
+                      textAlign: "center",
+                      lineHeight: 1.3,
+                      margin: "8px 0 0",
+                    }}
+                  >
+                    {badge.label}
+                  </p>
+                )}
               </>
             );
 
@@ -522,7 +533,7 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center"
-                style={{ width: "120px", textDecoration: "none" }}
+                style={{ width: `${wrapperW}px`, textDecoration: "none" }}
                 aria-label={`${badge.label} (opens in a new tab)`}
               >
                 {inner}
@@ -531,7 +542,7 @@ export default function HeroSection() {
               <div
                 key={badge.label}
                 className="flex flex-col items-center"
-                style={{ width: "120px" }}
+                style={{ width: `${wrapperW}px` }}
               >
                 {inner}
               </div>
