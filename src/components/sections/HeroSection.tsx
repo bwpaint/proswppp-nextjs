@@ -239,16 +239,22 @@ export default function HeroSection() {
               href: null,
             },
             {
+              src: "/images/Accredited_Business_Seal_NoRating_RGB.svg.svg",
+              label: "BBB Accredited Business",
+              whiteBg: false,
+              href: "https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436",
+            },
+            {
+              src: "/images/google-5-star-badge.svg",
+              label: "5.0 Google Reviews",
+              whiteBg: false,
+              href: "https://www.google.com/search?q=proswppp#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1",
+            },
+            {
               src: "/images/icon-woman-owned-seal-300x300.png",
               label: "Women-Owned Business",
               whiteBg: false,
               href: null,
-            },
-            {
-              src: "/images/BBB_PrimaryLogo_White.svg",
-              label: "BBB Accredited Business",
-              whiteBg: false,
-              href: "https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436",
             },
           ] as const).map((badge) => {
             const inner = (

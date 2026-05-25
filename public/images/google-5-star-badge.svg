@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Google 5-Star Review">
+  <!-- White rounded card -->
+  <rect x="6" y="6" width="188" height="188" rx="18" ry="18" fill="#ffffff"/>
+  <rect x="6" y="6" width="188" height="188" rx="18" ry="18" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+
+  <defs>
+    <!-- Single star symbol, 24x24 unit -->
+    <symbol id="goldStar" viewBox="0 0 24 24">
+      <path d="M12 0l3.7 7.5 8.3 1.2-6 5.85L19.4 22.8 12 18.9 4.6 22.8l1.4-8.25-6-5.85 8.3-1.2z" fill="#FBBC05"/>
+    </symbol>
+  </defs>
+
+  <!-- Google "G" — centered horizontally, top portion -->
+  <g transform="translate(82 24) scale(1.5)">
+    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+    <path d="M5.84 14.1A6.97 6.97 0 0 1 5.5 12c0-.73.13-1.44.34-2.1V7.07H2.18A11 11 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.83z" fill="#FBBC05"/>
+    <path d="M12 5.38c1.62 0 3.06.56 4.2 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z" fill="#EA4335"/>
+  </g>
+
+  <!-- "5.0" number -->
+  <text x="100" y="115" text-anchor="middle"
+        font-family="'Inter','Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="32" font-weight="900" fill="#1A1A1A" letter-spacing="-0.5">
+    5.0
+  </text>
+
+  <!-- Five gold stars centered: 24px each, 4px gap = 24*5 + 4*4 = 136px wide.
+       Centered horizontally in 200vw: (200-136)/2 = 32 -->
+  <use href="#goldStar" x="32"  y="135" width="24" height="24"/>
+  <use href="#goldStar" x="60"  y="135" width="24" height="24"/>
+  <use href="#goldStar" x="88"  y="135" width="24" height="24"/>
+  <use href="#goldStar" x="116" y="135" width="24" height="24"/>
+  <use href="#goldStar" x="144" y="135" width="24" height="24"/>
+
+  <!-- "Google Reviews" label -->
+  <text x="100" y="180" text-anchor="middle"
+        font-family="'Roboto',Arial,sans-serif"
+        font-size="11" font-weight="700" fill="#5F6368" letter-spacing="0.4">
+    GOOGLE REVIEWS
+  </text>
+</svg>
