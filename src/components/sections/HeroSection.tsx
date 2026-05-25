@@ -146,8 +146,8 @@ export default function HeroSection() {
         }
       `}</style>
 
-      {/* Two-column content — sits ~1px below the nav, every gap collapsed */}
-      <div className="relative z-10 container pt-4 pb-0">
+      {/* Two-column content — sits 20px below the nav, every gap collapsed */}
+      <div className="relative z-10 container pt-5 pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────
@@ -254,7 +254,8 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            {/* CTAs */}
+            {/* CTA — single big "Get My SWPPP" (uses the same prominent
+                styling as the right-column 'Start My Order' slide button). */}
             <motion.div
               custom={0.5}
               initial="hidden"
@@ -264,15 +265,18 @@ export default function HeroSection() {
             >
               <a
                 href="/get-your-swppp/?start=map"
-                className="btn-orange btn-hero-sweep text-base px-8 py-4 inline-block"
+                className="btn-orange btn-hero-sweep inline-block"
+                style={{
+                  fontSize: "1.5rem",
+                  padding: "1rem 2.4rem",
+                  borderRadius: "12px",
+                  fontWeight: 900,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  boxShadow: "0 6px 18px rgba(239,124,59,0.35)",
+                }}
               >
-                Get My SWPPP
-              </a>
-              <a
-                href="/quiz-form/"
-                className="btn-blue text-base px-8 py-4 inline-block"
-              >
-                Take the Quiz
+                Get My SWPPP →
               </a>
             </motion.div>
           </div>
