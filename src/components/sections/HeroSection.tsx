@@ -303,15 +303,39 @@ export default function HeroSection() {
                         gap: "1rem",
                       }}
                     >
-                      {/* 5 gold stars */}
-                      <div style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={26}
-                            style={{ fill: "#FFB800", color: "#FFB800" }}
-                          />
-                        ))}
+                      {/* 175  ★★★★★  Reviews  — count + stars + label */}
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center", alignItems: "center" }}>
+                        <span
+                          style={{
+                            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                            fontWeight: 900,
+                            fontSize: "1.5rem",
+                            color: "#000000",
+                            lineHeight: 1,
+                          }}
+                        >
+                          175
+                        </span>
+                        <div style={{ display: "flex", gap: "4px" }}>
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={24}
+                              style={{ fill: "#FFB800", color: "#FFB800" }}
+                            />
+                          ))}
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                            fontWeight: 700,
+                            fontSize: "1rem",
+                            color: "#000000",
+                            lineHeight: 1,
+                          }}
+                        >
+                          Reviews
+                        </span>
                       </div>
 
                       {/* Italic quote */}
@@ -401,7 +425,7 @@ export default function HeroSection() {
           {([
             {
               src: "/images/google-5-star-badge.svg",
-              label: "5.0 Google Reviews",
+              label: "175 Google Reviews",
               whiteBg: false,
               href: "https://www.google.com/search?q=proswppp#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1",
             },

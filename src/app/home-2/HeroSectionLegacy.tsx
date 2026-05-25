@@ -173,7 +173,7 @@ export default function HeroSection() {
                 ))}
               </div>
               <span className="text-white text-sm" style={{ fontFamily: "'Roboto', Arial, sans-serif", fontWeight: 400 }}>
-                5.0 Google Reviews
+                175 Google Reviews
               </span>
             </motion.div>
 

@@ -33,10 +33,10 @@
   <use href="#goldStar" x="116" y="135" width="24" height="24"/>
   <use href="#goldStar" x="144" y="135" width="24" height="24"/>
 
-  <!-- "Google Reviews" label -->
+  <!-- "175 Google Reviews" label -->
   <text x="100" y="180" text-anchor="middle"
         font-family="'Roboto',Arial,sans-serif"
         font-size="11" font-weight="700" fill="#5F6368" letter-spacing="0.4">
-    GOOGLE REVIEWS
+    175 GOOGLE REVIEWS
   </text>
 </svg>
