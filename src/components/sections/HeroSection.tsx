@@ -322,25 +322,6 @@ export default function HeroSection() {
           })}
         </motion.div>
 
-        {/* Tagline H2 — sits ~10px above the bottom edge of the hero section,
-            matched in size/style to the right-column "Who We Are" eyebrow. */}
-        <motion.h2
-          custom={0.8}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="text-center uppercase tracking-widest text-sm mt-1"
-          style={{
-            fontFamily: "'Roboto', Arial, sans-serif",
-            fontWeight: 900,
-            letterSpacing: "0.2em",
-            color: "#7B9CD1",
-            margin: "0",
-            lineHeight: 1,
-          }}
-        >
-          America&apos;s #1 SWPPP
-        </motion.h2>
       </div>
 
       {/* Social-proof stack — sits inside the hero, immediately below the
