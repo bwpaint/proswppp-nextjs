@@ -241,7 +241,9 @@
 .ticker-track {
   display: flex;
   will-change: transform;
-  animation: ticker 10s linear infinite;
+  /* Client logos — slower than the reviews above (55s) for legibility.
+     Bumped from the previous super-fast 10s to give a stock-ticker feel. */
+  animation: ticker 40s linear infinite;
 }
 .ticker-track:hover { animation-play-state: paused; }
 .blog-ticker-track {

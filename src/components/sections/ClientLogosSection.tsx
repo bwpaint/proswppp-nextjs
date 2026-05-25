@@ -24,7 +24,7 @@ export default function ClientLogosSection() {
   return (
     <>
       {/* Client Logos — heading removed; just the scrolling ticker. */}
-      <section className="py-6 lg:py-8" style={{ background: 'transparent' }}>
+      <section className="py-3 lg:py-4" style={{ background: 'transparent' }}>
         <div className="container">
           {/* Scrolling ticker with feathered edges */}
           <div className="overflow-hidden" style={{
@@ -36,7 +36,7 @@ export default function ClientLogosSection() {
                 <div
                   key={`${logo.name}-${i}`}
                   className="flex-shrink-0 bg-white rounded-xl flex items-center justify-center transition-all duration-200 hover:shadow-lg"
-                  style={{ width: '160px', height: '80px', padding: '12px 20px', border: '1px solid rgba(255,255,255,0.1)' }}
+                  style={{ width: '160px', height: '56px', padding: '8px 16px', border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   <img
                     src={logo.img}
