@@ -294,7 +294,7 @@ const selectBg = { background: '#1A1A1A', color: '#FFFFFF', border: '1px solid r
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
     <label htmlFor={htmlFor} className="block text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
-      {children}{required && <span className="text-orange-500 ml-1">*</span>}
+      {children}{required && <span className="text-[#7B9CD1] ml-1">*</span>}
     </label>
   );
 }
@@ -528,7 +528,7 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
               Message Sent!
             </h3>
             <p className="text-sm text-gray-400">Our team will reach out to you about {stateName} service shortly.</p>
-            <button onClick={onClose} className="mt-6 px-6 py-2.5 rounded-lg text-sm font-bold text-white" style={{ background: '#f97316' }}>
+            <button onClick={onClose} className="mt-6 px-6 py-2.5 rounded-lg text-sm font-bold text-white" style={{ background: '#7B9CD1' }}>
               Close
             </button>
           </div>
@@ -536,7 +536,7 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
           <>
             <div className="mb-5">
               <div className="flex items-center gap-2 mb-3">
-                <MapPin className="w-5 h-5 text-orange-400 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-[#7B9CD1] flex-shrink-0" />
                 <h3 className="text-lg font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
                   {stateName} — Service Inquiry
                 </h3>
@@ -566,7 +566,7 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
               onClick={handleSend}
               disabled={sending || !lead.name || !lead.email}
               className="mt-5 w-full rounded-lg py-3.5 text-sm font-bold text-white flex items-center justify-center gap-2 transition-all"
-              style={{ background: (!lead.name || !lead.email) ? 'rgba(249,115,22,0.35)' : '#f97316', cursor: (!lead.name || !lead.email) ? 'not-allowed' : 'pointer' }}
+              style={{ background: (!lead.name || !lead.email) ? 'rgba(123,156,209,0.35)' : '#7B9CD1', cursor: (!lead.name || !lead.email) ? 'not-allowed' : 'pointer' }}
             >
               {sending
                 ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Sending…</>
@@ -613,7 +613,7 @@ function Step2({
   return (
     <div className="space-y-4">
       {hasSpecialCats && (
-        <div className="rounded-xl border border-orange-200 p-4" style={{ background: 'rgba(249,115,22,0.06)' }}>
+        <div className="rounded-xl border border-[#7B9CD1]/30 p-4" style={{ background: 'rgba(123,156,209,0.06)' }}>
           <p className="text-sm font-bold text-orange-600 mb-3">Do any of these apply to your project?</p>
           <div className="space-y-2">
             <label className="flex items-center gap-3 cursor-pointer">
@@ -661,7 +661,7 @@ function Step2({
 
       <div className="rounded-xl border border-white/20 p-4 space-y-3" style={{ background: '#1A1A1A' }}>
         <div className="flex items-center gap-2 mb-1">
-          <MapPin className="w-4 h-4 text-orange-500 flex-shrink-0" />
+          <MapPin className="w-4 h-4 text-[#7B9CD1] flex-shrink-0" />
           <p className="text-sm font-semibold text-white">Project Location</p>
         </div>
         <Field label="Street Address" id="projectStreet" value={form.projectStreet} onChange={v => set('projectStreet', v)} placeholder="456 Construction Blvd" required />
@@ -738,7 +738,7 @@ function Step3({ form, set, regionData }: {
     <div className="space-y-4">
       <SecLabel>Optional Add-ons</SecLabel>
 
-      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
+      <label className={addonCls(form.ePortal)} style={form.ePortal ? { background: 'rgba(123,156,209,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.ePortal} onChange={e => set('ePortal', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
@@ -762,7 +762,7 @@ function Step3({ form, set, regionData }: {
         </div>
       </label>
 
-      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
+      <label className={addonCls(form.cpesc)} style={form.cpesc ? { background: 'rgba(123,156,209,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.cpesc} onChange={e => set('cpesc', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
@@ -786,7 +786,7 @@ function Step3({ form, set, regionData }: {
         </div>
       </label>
 
-      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(249,115,22,0.08)' } : { background: '#1A1A1A' }}>
+      <label className={addonCls(form.hardCopy)} style={form.hardCopy ? { background: 'rgba(123,156,209,0.08)' } : { background: '#1A1A1A' }}>
         <div className="flex items-start gap-4">
           <input type="checkbox" checked={form.hardCopy} onChange={e => set('hardCopy', e.target.checked)}
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
@@ -895,9 +895,9 @@ function Step4({ form, regionData, onSubmit, submitting }: {
 
         <button onClick={onSubmit} disabled={submitting}
           className="w-full rounded-lg text-white font-bold py-4 text-sm flex items-center justify-center gap-2 transition-all"
-          style={{ background: submitting ? 'rgba(249,115,22,0.5)' : '#f97316', cursor: submitting ? 'not-allowed' : 'pointer' }}
-          onMouseEnter={e => { if (!submitting) (e.currentTarget as HTMLElement).style.background = '#ea6010'; }}
-          onMouseLeave={e => { if (!submitting) (e.currentTarget as HTMLElement).style.background = '#f97316'; }}>
+          style={{ background: submitting ? 'rgba(123,156,209,0.5)' : '#7B9CD1', cursor: submitting ? 'not-allowed' : 'pointer' }}
+          onMouseEnter={e => { if (!submitting) (e.currentTarget as HTMLElement).style.background = '#5A85B9'; }}
+          onMouseLeave={e => { if (!submitting) (e.currentTarget as HTMLElement).style.background = '#7B9CD1'; }}>
           {submitting
             ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Processing…</>
             : <><Shield className="w-4 h-4" />Place Order — {fmt(totals.total)}</>}
@@ -944,7 +944,7 @@ function Confirmation({ form, regionData, onReset }: {
           <span className="font-semibold text-white">{form.email}</span>.
         </p>
         <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-mono mt-3"
-          style={{ borderColor: 'rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', color: '#fb923c' }}>
+          style={{ borderColor: 'rgba(123,156,209,0.3)', background: 'rgba(123,156,209,0.08)', color: '#fb923c' }}>
           Order {orderId}
         </div>
       </div>
@@ -1023,7 +1023,7 @@ function Confirmation({ form, regionData, onReset }: {
             { icon: Shield,       text: '100% compliant or we revise it free of charge — guaranteed.' },
           ].map(({ icon: Icon, text }) => (
             <div key={text} className="flex items-start gap-3">
-              <Icon className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+              <Icon className="w-4 h-4 text-[#7B9CD1] flex-shrink-0 mt-0.5" />
               <span className="text-sm text-gray-700">{text}</span>
             </div>
           ))}
@@ -1039,9 +1039,9 @@ function Confirmation({ form, regionData, onReset }: {
         </a>
         <button onClick={onReset}
           className="flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold text-white w-full sm:w-auto transition-all"
-          style={{ background: '#f97316' }}
-          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
-          onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}>
+          style={{ background: '#7B9CD1' }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#5A85B9'}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#7B9CD1'}>
           Start a New Order <ChevronRight className="w-4 h-4" />
         </button>
       </div>
@@ -1070,8 +1070,8 @@ function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) 
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
                   style={{
-                    borderColor: done || active ? '#f97316' : 'rgba(255,255,255,0.12)',
-                    background: done ? '#f97316' : active ? 'rgba(249,115,22,0.12)' : 'rgba(255,255,255,0.03)',
+                    borderColor: done || active ? '#7B9CD1' : 'rgba(255,255,255,0.12)',
+                    background: done ? '#7B9CD1' : active ? 'rgba(123,156,209,0.12)' : 'rgba(255,255,255,0.03)',
                   }}>
                   {done
                     ? <CheckCircle2 className="w-4 h-4 text-white" />
@@ -1083,7 +1083,7 @@ function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) 
               </div>
               {i < STEPS.length - 1 && (
                 <div className="h-0.5 flex-1 mx-2 transition-all duration-500"
-                  style={{ background: step > s.id || submitted ? '#f97316' : 'rgba(255,255,255,0.08)' }} />
+                  style={{ background: step > s.id || submitted ? '#7B9CD1' : 'rgba(255,255,255,0.08)' }} />
               )}
             </div>
           );
@@ -1286,19 +1286,19 @@ export default function GetYourSwpppClient() {
           <button
             onClick={handleStartOrder}
             className="flex items-center justify-center gap-3 rounded-xl text-white font-black text-lg py-5 px-16 transition-all hover:scale-105 active:scale-100 shadow-2xl"
-            style={{ background: '#f97316', minWidth: '340px', letterSpacing: '0.3px' }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#ea6010'}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#f97316'}
+            style={{ background: '#7B9CD1', minWidth: '340px', letterSpacing: '0.3px' }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#5A85B9'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#7B9CD1'}
           >
             Start My Order
             <ChevronRight className="w-6 h-6" />
           </button>
 
           <div className="flex items-center justify-center gap-8 mt-12 text-sm text-gray-400 flex-wrap">
-            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-orange-500" />100% Compliant</span>
-            <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-orange-500" />72-Hour Delivery</span>
-            <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-orange-500" />17+ Years Experience</span>
-            <a href="tel:8554387977" className="flex items-center gap-2 text-orange-400 font-semibold no-underline hover:text-orange-300">
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#7B9CD1]" />100% Compliant</span>
+            <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-[#7B9CD1]" />72-Hour Delivery</span>
+            <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-[#7B9CD1]" />17+ Years Experience</span>
+            <a href="tel:8554387977" className="flex items-center gap-2 text-[#7B9CD1] font-semibold no-underline hover:text-[#A5BCE0]">
               <Phone className="w-4 h-4" />855-GET-SWPPP
             </a>
           </div>
@@ -1391,11 +1391,11 @@ export default function GetYourSwpppClient() {
                         disabled={!canProceed()}
                         className="flex items-center gap-2 rounded-lg text-white font-bold px-6 py-3 text-sm transition-all"
                         style={{
-                          background: canProceed() ? '#f97316' : 'rgba(249,115,22,0.35)',
+                          background: canProceed() ? '#7B9CD1' : 'rgba(123,156,209,0.35)',
                           cursor: canProceed() ? 'pointer' : 'not-allowed',
                         }}
-                        onMouseEnter={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#ea6010'; }}
-                        onMouseLeave={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#f97316'; }}
+                        onMouseEnter={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#5A85B9'; }}
+                        onMouseLeave={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = '#7B9CD1'; }}
                       >
                         {step === 3 ? 'Review Order' : 'Continue'}
                         <ChevronRight className="w-4 h-4" />

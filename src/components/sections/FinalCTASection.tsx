@@ -130,15 +130,26 @@ export default function FinalCTASection() {
                     href={row.buttonHref}
                     target={row.buttonTarget}
                     rel={row.buttonTarget === "_blank" ? "noopener noreferrer" : undefined}
-                    className={`${row.buttonClass}${row.buttonShake ? " nav-order-btn" : ""} inline-block whitespace-nowrap`}
+                    className={`${row.bg === BRAND_BLUE ? "" : row.buttonClass}${row.buttonShake ? " nav-order-btn" : ""} inline-block whitespace-nowrap`}
                     style={{
                       fontSize: "1.05rem",
                       padding: "1rem 2rem",
                       borderRadius: "12px",
                       fontWeight: 900,
                       letterSpacing: "0.04em",
+                      // On the blue row, force a solid white pill with dark
+                      // text instead of the orange CTA — orange on blue lacks
+                      // contrast per owner.
+                      ...(row.bg === BRAND_BLUE && {
+                        background: "#FFFFFF",
+                        color: "#1A1A1A",
+                      }),
                       textTransform: "uppercase",
-                      boxShadow: row.buttonShake ? "0 6px 18px rgba(222,134,63,0.45)" : undefined,
+                      boxShadow: row.buttonShake
+                        ? (row.bg === BRAND_BLUE
+                          ? "0 6px 18px rgba(0,0,0,0.30)"
+                          : "0 6px 18px rgba(222,134,63,0.45)")
+                        : undefined,
                     }}
                   >
                     {row.buttonLabel}
