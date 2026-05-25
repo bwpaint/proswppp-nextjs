@@ -154,114 +154,106 @@ export default function TrustBadgesSection() {
             paddingLeft: "1.5rem",
           }}
         >
-          {allReviews.map((review, i) => (
-            <div
-              key={i}
-              style={{
-                background: "#ffffff",
-                border: "3px solid #A5A3A3",
-                borderRadius: "11px",
-                padding: "2rem",
-                width: "340px",
-                flexShrink: 0,
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.30)",
-              }}
-            >
-              {/* Stars */}
-              <div style={{ display: "flex", gap: "3px" }}>
-                {Array.from({ length: review.rating }).map((_, s) => (
-                  <Star
-                    key={s}
-                    size={18}
-                    style={{ fill: "#FFB800", color: "#FFB800" }}
-                  />
-                ))}
-              </div>
-
-              {/* Quote */}
-              <p
+          {allReviews.map((review, i) => {
+            // Trim to the first 2 sentences. Falls back to the full text
+            // if there aren't 2 sentence-ending punctuation marks.
+            const m = review.text.match(/^(.*?[.!?])\s+(.*?[.!?])(?:\s|$)/);
+            const trimmed = m ? `${m[1]} ${m[2]}` : review.text;
+            const isTrimmed = m && trimmed.length < review.text.length;
+            return (
+              <div
+                key={i}
                 style={{
-                  fontFamily: "'Roboto', Arial, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "0.9375rem",
-                  lineHeight: "1.65",
-                  color: "#000000",
-                  fontStyle: "italic",
-                  flex: 1,
-                  margin: 0,
+                  background: "#ffffff",
+                  border: "3px solid #A5A3A3",
+                  borderRadius: "11px",
+                  padding: "1rem 1.1rem",
+                  width: "340px",
+                  flexShrink: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.55rem",
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.30)",
                 }}
               >
-                &ldquo;{review.text}&rdquo;
-              </p>
+                {/* Stars + Google G inline (saves a row) */}
+                <div style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                  {Array.from({ length: review.rating }).map((_, s) => (
+                    <Star
+                      key={s}
+                      size={16}
+                      style={{ fill: "#FFB800", color: "#FFB800" }}
+                    />
+                  ))}
+                  <div style={{ marginLeft: "auto" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                  </div>
+                </div>
 
-              {/* Reviewer info */}
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                {/* Avatar */}
-                <div
+                {/* Trimmed quote (max 2 sentences) */}
+                <p
                   style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    background: review.color,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
+                    fontFamily: "'Roboto', Arial, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "0.85rem",
+                    lineHeight: 1.45,
+                    color: "#000000",
+                    fontStyle: "italic",
+                    margin: 0,
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 900,
-                      fontSize: "0.7rem",
-                      color: "#fff",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {review.initials}
-                  </span>
-                </div>
+                  &ldquo;{trimmed}&rdquo;
+                  {isTrimmed && (
+                    <>
+                      {" "}
+                      <a
+                        href="https://www.google.com/search?q=proswppp#lrd=0x8640ac2d6bdc430d:0x746cb5aa6bc76e9,1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: "#DE863F",
+                          fontWeight: 700,
+                          fontStyle: "normal",
+                          textDecoration: "none",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        More →
+                      </a>
+                    </>
+                  )}
+                </p>
 
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                      fontWeight: 700,
-                      fontSize: "0.875rem",
-                      color: "#000000",
-                      margin: 0,
-                    }}
-                  >
-                    {review.name}
-                  </p>
-                  <p
-                    style={{
+                {/* Reviewer name (no avatar) */}
+                <p
+                  style={{
+                    fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    fontWeight: 700,
+                    fontSize: "0.85rem",
+                    color: "#000000",
+                    margin: 0,
+                  }}
+                >
+                  {review.name}
+                  {review.company && (
+                    <span style={{
                       fontFamily: "'Roboto', Arial, sans-serif",
                       fontWeight: 400,
-                      fontSize: "0.8rem",
                       color: "#DE863F",
-                      margin: 0,
-                    }}
-                  >
-                    {review.company}
-                  </p>
-                </div>
-
-                {/* Google G icon */}
-                <div style={{ marginLeft: "auto" }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                  </svg>
-                </div>
+                      marginLeft: "0.5rem",
+                    }}>
+                      · {review.company}
+                    </span>
+                  )}
+                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

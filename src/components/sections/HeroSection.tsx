@@ -433,7 +433,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="flex flex-wrap justify-center items-start gap-12 mt-1 pb-0"
+          className="flex flex-wrap justify-center items-start gap-12 mt-8 pb-0"
         >
           {([
             {
@@ -502,26 +502,22 @@ export default function HeroSection() {
                     }}
                   />
                 </div>
-                {/* Caption — hidden for BBB since the seal already says
-                    "Accredited Business" big and bold. */}
-                {!isBBB && (
-                  <p
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: "'Roboto', Arial, sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: "#ffffff",
-                      textAlign: "center",
-                      lineHeight: 1.3,
-                      margin: "8px 0 0",
-                    }}
-                  >
-                    {badge.label}
-                  </p>
-                )}
+                <p
+                  style={{
+                    marginTop: "8px",
+                    fontFamily: "'Roboto', Arial, sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#ffffff",
+                    textAlign: "center",
+                    lineHeight: 1.3,
+                    margin: "8px 0 0",
+                  }}
+                >
+                  {isBBB ? "Accredited Business" : badge.label}
+                </p>
               </>
             );
 
