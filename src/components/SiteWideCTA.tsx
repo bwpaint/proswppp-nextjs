@@ -13,7 +13,7 @@ export default function SiteWideCTA() {
     <>
       {/* ── Ready to Get Compliant? ── */}
       <section
-        style={{ background: 'linear-gradient(135deg, #0D1F2B 0%, #1A3A4A 100%)', padding: '4rem 0' }}
+        style={{ background: '#7B9CD1', padding: '4rem 0' }}
       >
         <div className="container text-center">
           <motion.h2
@@ -28,14 +28,14 @@ export default function SiteWideCTA() {
               letterSpacing: '-0.02em',
             }}
           >
-            Ready to Get <span style={{ color: '#DE863F' }}>Compliant?</span>
+            Ready to Get Compliant?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-gray-400 mb-8 max-w-md mx-auto"
+            className="text-white/85 mb-8 max-w-md mx-auto"
             style={{ fontFamily: "'Roboto', Arial, sans-serif" }}
           >
             Order your SWPPP today and receive it in 72 hours — guaranteed.
@@ -47,7 +47,11 @@ export default function SiteWideCTA() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <a href="/get-your-swppp/" className="btn-orange text-base px-10 py-4">
+            <a
+              href="/get-your-swppp/"
+              className="text-base px-10 py-4 rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:shadow-lg"
+              style={{ background: '#FFFFFF', color: '#1A1A1A' }}
+            >
               Get My SWPPP
             </a>
             <a
