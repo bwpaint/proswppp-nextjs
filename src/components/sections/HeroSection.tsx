@@ -142,7 +142,7 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 mt-4"
             >
               <a
                 href="/get-your-swppp/?start=map"
