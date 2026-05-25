@@ -208,11 +208,11 @@ export default function HeroSection() {
             animate="visible"
             variants={fadeUp}
           >
-            {/* Heading above the rotator */}
+            {/* Heading above the rotator — half the previous height per owner */}
             <h2
               className="uppercase leading-none mb-0"
               style={{
-                fontSize: "clamp(2rem, 3.8vw, 3rem)",
+                fontSize: "clamp(1rem, 1.9vw, 1.5rem)",
                 fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
