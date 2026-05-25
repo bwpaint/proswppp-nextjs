@@ -11,6 +11,8 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Star } from "lucide-react";
+import TrustBadgesSection from "./TrustBadgesSection";
+import ClientLogosSection from "./ClientLogosSection";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
@@ -339,6 +341,14 @@ export default function HeroSection() {
         >
           America&apos;s #1 SWPPP
         </motion.h2>
+      </div>
+
+      {/* Social-proof stack — sits inside the hero, immediately below the
+          trust badges row. Reviews first, client logos second. Wrapped in
+          a relative z-10 div so they sit above the hero gradient overlay. */}
+      <div className="relative z-10 w-full">
+        <TrustBadgesSection />
+        <ClientLogosSection />
       </div>
     </section>
   );

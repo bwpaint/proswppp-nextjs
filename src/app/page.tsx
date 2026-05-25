@@ -10,13 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-// Dynamic imports with ssr:false for framer-motion components
+// Dynamic imports with ssr:false for framer-motion components.
+// Note: TrustBadgesSection (reviews) + ClientLogosSection are now rendered
+// INSIDE HeroSection itself (per owner — they sit as part of the hero's
+// social-proof stack right under the compliance badges).
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
 const StatsSection = dynamic(() => import('@/components/sections/StatsSection'), { ssr: false });
-const TrustBadgesSection = dynamic(() => import('@/components/sections/TrustBadgesSection'), { ssr: false });
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
 const CEOGuaranteeSection = dynamic(() => import('@/components/sections/CEOGuaranteeSection'), { ssr: false });
-const ClientLogosSection = dynamic(() => import('@/components/sections/ClientLogosSection'), { ssr: false });
 const FinalCTASection = dynamic(() => import('@/components/sections/FinalCTASection'), { ssr: false });
 const LatestBlogSection = dynamic(() => import('@/components/sections/LatestBlogSection'), { ssr: false });
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { ssr: false });
@@ -24,15 +25,9 @@ const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { s
 export default function HomePage() {
   return (
     <main>
-      {/* Hero — ends with the trust badges row (100% Compliance, Certified
-          SWPPP, Women-Owned, BBB) at the bottom. */}
+      {/* Hero — ends with the trust badges row, then (rendered INSIDE
+          the hero) the scrolling Google reviews + scrolling client logos. */}
       <HeroSection />
-
-      {/* Scrolling Google reviews — sits directly under the trust badges. */}
-      <TrustBadgesSection />
-
-      {/* Client logos scrolling ticker — sits directly under the reviews. */}
-      <ClientLogosSection />
 
       {/* 20-year stats (20+ years, 100% compliance, 72 hours, 5-star reviews) */}
       <StatsSection />
