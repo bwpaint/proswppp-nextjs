@@ -286,14 +286,15 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
 const inputCls =
-  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-white ' +
-  'placeholder:text-gray-400 focus:border-orange-400 focus:outline-none ' +
-  'focus:ring-1 focus:ring-orange-400/25 transition-all text-sm';
+  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-gray-900 ' +
+  'placeholder:text-gray-400 focus:border-[#7B9CD1] focus:outline-none ' +
+  'focus:ring-1 focus:ring-[#7B9CD1]/30 transition-all text-sm ' +
+  '[color-scheme:light]';
 const selectBg = { background: '#1A1A1A', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.20)' };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="block text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
+    <label htmlFor={htmlFor} className="block text-xs font-semibold uppercase tracking-wide text-white mb-1.5">
       {children}{required && <span className="text-[#7B9CD1] ml-1">*</span>}
     </label>
   );
@@ -1059,35 +1060,45 @@ const STEPS = [
 
 function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) {
   return (
-    <div className="max-w-2xl mx-auto px-4 mb-8">
-      <div className="flex items-center">
-        {STEPS.map((s, i) => {
-          const Icon = s.icon;
-          const active = step === s.id;
-          const done = step > s.id || submitted;
-          return (
-            <div key={s.id} className="flex items-center flex-1">
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
-                  style={{
-                    borderColor: done || active ? '#7B9CD1' : 'rgba(255,255,255,0.12)',
-                    background: done ? '#7B9CD1' : active ? 'rgba(123,156,209,0.12)' : 'rgba(255,255,255,0.03)',
-                  }}>
-                  {done
-                    ? <CheckCircle2 className="w-4 h-4 text-white" />
-                    : <Icon className="w-4 h-4" style={{ color: active ? '#fb923c' : '#4b5563' }} />}
+    <div className="max-w-3xl mx-auto px-4 mb-8">
+      {/* Black band — the 4 steps sit on solid black for high contrast
+          against the surrounding blue page bg per owner. */}
+      <div
+        className="rounded-2xl px-6 py-5"
+        style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.12)' }}
+      >
+        <div className="flex items-center justify-center">
+          {STEPS.map((s, i) => {
+            const Icon = s.icon;
+            const active = step === s.id;
+            const done = step > s.id || submitted;
+            return (
+              <div key={s.id} className="flex items-center flex-1">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+                    style={{
+                      borderColor: done || active ? '#7B9CD1' : 'rgba(255,255,255,0.30)',
+                      background: done ? '#7B9CD1' : active ? 'rgba(123,156,209,0.20)' : 'rgba(255,255,255,0.06)',
+                    }}>
+                    {done
+                      ? <CheckCircle2 className="w-4 h-4 text-white" />
+                      : <Icon className="w-4 h-4" style={{ color: active ? '#FFFFFF' : 'rgba(255,255,255,0.55)' }} />}
+                  </div>
+                  <span
+                    className="text-xs mt-1.5 font-semibold whitespace-nowrap"
+                    style={{ color: active ? '#FFFFFF' : done ? '#7B9CD1' : 'rgba(255,255,255,0.55)' }}
+                  >
+                    {s.label}
+                  </span>
                 </div>
-                <span className="text-xs mt-1.5 font-semibold" style={{ color: active ? '#fb923c' : done ? '#9ca3af' : '#4b5563' }}>
-                  {s.label}
-                </span>
+                {i < STEPS.length - 1 && (
+                  <div className="h-0.5 flex-1 mx-2 transition-all duration-500"
+                    style={{ background: step > s.id || submitted ? '#7B9CD1' : 'rgba(255,255,255,0.18)' }} />
+                )}
               </div>
-              {i < STEPS.length - 1 && (
-                <div className="h-0.5 flex-1 mx-2 transition-all duration-500"
-                  style={{ background: step > s.id || submitted ? '#7B9CD1' : 'rgba(255,255,255,0.08)' }} />
-              )}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
