@@ -105,12 +105,12 @@ export default function CEOGuaranteeSection() {
               and your site will be fully compliant&hellip;
             </h2>
             <h3
-              className="section-heading mb-10 transition-colors group-hover:text-[#FF9456]"
+              className="section-heading mb-10 transition-colors group-hover:text-white/85"
               style={{
                 fontSize: "clamp(1.55rem, 2.8vw, 2.5rem)",
                 letterSpacing: "-0.01em",
                 lineHeight: 1.1,
-                color: "#DE863F",
+                color: "#FFFFFF",
               }}
             >
               in just 72 hours, guaranteed.
@@ -247,7 +247,7 @@ export default function CEOGuaranteeSection() {
                       border: "1px solid rgba(255,255,255,0.30)",
                     }}
                   >
-                    <Icon size={20} style={{ color: "#000000" }} />
+                    <Icon size={20} style={{ color: "#DE863F" }} />
                   </div>
 
                   <div>
@@ -258,7 +258,7 @@ export default function CEOGuaranteeSection() {
                           "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         fontSize: "1rem",
                         lineHeight: 1.2,
-                        color: "#000000",
+                        color: "#FFFFFF",
                       }}
                     >
                       {s.title}
@@ -269,7 +269,7 @@ export default function CEOGuaranteeSection() {
                         fontSize: "0.875rem",
                         lineHeight: 1.5,
                         margin: 0,
-                        color: "#000000",
+                        color: "rgba(255,255,255,0.90)",
                       }}
                     >
                       {s.desc}
