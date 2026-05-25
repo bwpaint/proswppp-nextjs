@@ -307,8 +307,8 @@ export default function HeroSection() {
                         gap: "1rem",
                       }}
                     >
-                      {/* 175  ★★★★★  Reviews  — count + stars + label */}
-                      <div style={{ display: "flex", gap: "10px", justifyContent: "center", alignItems: "center" }}>
+                      {/* 175-5 [★★★★★] Reviews — combined count token + stars + label */}
+                      <div style={{ display: "flex", gap: "8px", justifyContent: "center", alignItems: "center" }}>
                         <span
                           style={{
                             fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -316,15 +316,16 @@ export default function HeroSection() {
                             fontSize: "1.5rem",
                             color: "#000000",
                             lineHeight: 1,
+                            letterSpacing: "-0.01em",
                           }}
                         >
-                          175
+                          175-5
                         </span>
-                        <div style={{ display: "flex", gap: "4px" }}>
+                        <div style={{ display: "flex", gap: "3px" }}>
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              size={24}
+                              size={22}
                               style={{ fill: "#FFB800", color: "#FFB800" }}
                             />
                           ))}
