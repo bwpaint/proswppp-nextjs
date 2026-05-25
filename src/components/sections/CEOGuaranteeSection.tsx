@@ -210,7 +210,7 @@ export default function CEOGuaranteeSection() {
               color: "#000000",
             }}
           >
-            Beyond the <span className="text-[#DE863F]">72-Hour</span> Delivery
+            Beyond the <span className="text-white">72-Hour</span> Delivery
           </h3>
 
           {/* Subhead */}
@@ -236,15 +236,15 @@ export default function CEOGuaranteeSection() {
                     border: "1px solid rgba(255,255,255,0.15)",
                   }}
                 >
-                  {/* Icon circle */}
+                  {/* Icon circle — dark backdrop so the orange icon pops */}
                   <div
                     className="flex-shrink-0 flex items-center justify-center"
                     style={{
                       width: 42,
                       height: 42,
                       borderRadius: "50%",
-                      background: "rgba(255,255,255,0.18)",
-                      border: "1px solid rgba(255,255,255,0.30)",
+                      background: "#0D1F2B",
+                      border: "1px solid rgba(255,255,255,0.20)",
                     }}
                   >
                     <Icon size={20} style={{ color: "#DE863F" }} />
@@ -280,8 +280,8 @@ export default function CEOGuaranteeSection() {
             })}
           </div>
 
-          {/* CTA — orange to match the "72-Hour" accent, sized to match
-              the "Beyond the 72-Hour Delivery" headline. No underline. */}
+          {/* CTA — white to match the rest of the right-column copy.
+              Sized to match the "Beyond the 72-Hour Delivery" headline. */}
           <a
             href="tel:8334387977"
             className="inline-flex items-center gap-3 self-start"
@@ -290,17 +290,17 @@ export default function CEOGuaranteeSection() {
                 "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: "clamp(1.6rem, 2.5vw, 2.15rem)",
               fontWeight: 900,
-              color: "#DE863F",
+              color: "#FFFFFF",
               letterSpacing: "-0.01em",
               lineHeight: 1.1,
               textDecoration: "none",
               transition: "color 0.2s",
             }}
             onMouseOver={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = "#FF9456";
+              (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.85)";
             }}
             onMouseOut={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = "#DE863F";
+              (e.currentTarget as HTMLAnchorElement).style.color = "#FFFFFF";
             }}
           >
             <Phone size={30} strokeWidth={2.5} />
