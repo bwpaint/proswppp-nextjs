@@ -270,8 +270,7 @@ export default function HeroSection() {
                         position: "absolute",
                         inset: 0,
                         padding: "1.75rem 2rem",
-                        background:
-                          "linear-gradient(135deg, rgba(13,31,43,0.96) 0%, rgba(26,58,74,0.96) 100%)",
+                        background: "#ffffff",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
@@ -288,7 +287,7 @@ export default function HeroSection() {
                           height: "110px",
                           objectFit: "cover",
                           border: "4px solid #DE863F",
-                          boxShadow: "0 6px 22px rgba(0,0,0,0.45)",
+                          boxShadow: "0 4px 14px rgba(0,0,0,0.18)",
                         }}
                       />
                       <blockquote
@@ -297,7 +296,7 @@ export default function HeroSection() {
                           fontStyle: "italic",
                           fontSize: "1rem",
                           lineHeight: 1.55,
-                          color: "rgba(255,255,255,0.95)",
+                          color: "#000000",
                           margin: 0,
                         }}
                       >
@@ -314,7 +313,7 @@ export default function HeroSection() {
                           fontSize: "0.78rem",
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
-                          color: "#FFD9A8",
+                          color: "#DE863F",
                           margin: 0,
                         }}
                       >
