@@ -13,8 +13,10 @@ import type { Variants } from "framer-motion";
 import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import TrustBadgesSection from "./TrustBadgesSection";
-import ClientLogosSection from "./ClientLogosSection";
+// TrustBadgesSection + ClientLogosSection imports removed while the
+// social-proof stack is paused (see commented JSX near </section>).
+// import TrustBadgesSection from "./TrustBadgesSection";
+// import ClientLogosSection from "./ClientLogosSection";
 
 // Local copy — was a 263 KB CloudFront WebP (1920x1072). Served through
 // next/image so Vercel generates responsive WebP variants per viewport
@@ -548,13 +550,13 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Social-proof stack — sits inside the hero, immediately below the
-          trust badges row. Reviews first, client logos second. Wrapped in
-          a relative z-10 div so they sit above the hero gradient overlay. */}
-      <div className="relative z-10 w-full">
-        <TrustBadgesSection />
-        <ClientLogosSection />
-      </div>
+      {/* Social-proof stack (reviews + client logos) temporarily removed
+          for perf testing — restore by uncommenting:
+          <div className="relative z-10 w-full">
+            <TrustBadgesSection />
+            <ClientLogosSection />
+          </div>
+      */}
     </section>
   );
 }
