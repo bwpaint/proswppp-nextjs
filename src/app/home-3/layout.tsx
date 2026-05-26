@@ -36,8 +36,20 @@ const roboto = Roboto({
 
 export default function HomeThreeLayout({ children }: { children: ReactNode }) {
   return (
-    <div className={`${inter.variable} ${roboto.variable}`}>
-      {children}
-    </div>
+    <>
+      {/* Hide the rotating-flash announcement bar on /home-3/ only.
+          The bar is rendered by the shared Navigation in the root
+          layout; this scoped <style> only loads when /home-3/ mounts,
+          so the live site keeps the bar untouched. Removed from
+          layout entirely (no paint area, no LCP candidate) — the JS
+          interval still ticks in the background but does nothing
+          visible. */}
+      <style>{`
+        .announcement-bar { display: none !important; }
+      `}</style>
+      <div className={`${inter.variable} ${roboto.variable}`}>
+        {children}
+      </div>
+    </>
   );
 }
