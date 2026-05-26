@@ -1,0 +1,31 @@
+# Modern-browser targets — drops legacy polyfills for Baseline ES2022+
+# features that PageSpeed flagged as wasted bytes on the 117-*.js chunk:
+#   Array.prototype.at         (Safari 15.4+, Chrome 92+, Firefox 90+)
+#   Array.prototype.flat       (Safari 12+, Chrome 69+, Firefox 62+)
+#   Array.prototype.flatMap    (Safari 12+, Chrome 69+, Firefox 62+)
+#   Object.fromEntries         (Safari 12.2+, Chrome 73+, Firefox 63+)
+#   Object.hasOwn              (Safari 15.4+, Chrome 93+, Firefox 92+)
+#   String.prototype.trimEnd   (Safari 12+, Chrome 66+, Firefox 61+)
+#   String.prototype.trimStart (Safari 12+, Chrome 66+, Firefox 61+)
+#
+# All of those ship in browsers from Safari 15.4 / Chrome 93 / Firefox 92
+# onwards — well past Baseline 2023.
+
+# Production targets — used by Next.js SWC to decide what to polyfill.
+[production]
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions
+last 2 iOS versions
+
+# Modern + a safety net for users on slightly older but still common builds.
+not dead
+not IE 11
+not op_mini all
+
+# Development can stay loose — fast HMR.
+[development]
+last 1 Chrome version
+last 1 Firefox version
+last 1 Safari version

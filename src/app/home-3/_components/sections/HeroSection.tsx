@@ -345,9 +345,14 @@ export default function HeroSection() {
                       : "none",
                   }}
                 >
-                  <img
+                  <Image
                     src={badge.src}
                     alt={badge.label}
+                    width={80}
+                    height={80}
+                    sizes="80px"
+                    /* SVGs (BBB) don't need next/image's resize pipeline */
+                    unoptimized={badge.src.endsWith(".svg")}
                     style={{
                       width: "100%",
                       height: "100%",
