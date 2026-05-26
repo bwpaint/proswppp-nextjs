@@ -43,7 +43,8 @@ const ExperienceSection   = dynamic(() => import('./_components/sections/Experie
 const CEOGuaranteeSection = dynamic(() => import('./_components/sections/CEOGuaranteeSection'), { ssr: false });
 const ClientLogosSection  = dynamic(() => import('./_components/sections/ClientLogosSection'),  { ssr: false });
 const FinalCTASection     = dynamic(() => import('./_components/sections/FinalCTASection'),     { ssr: false });
-const LatestBlogSection   = dynamic(() => import('./_components/sections/LatestBlogSection'),   { ssr: false });
+// LatestBlogSection removed from /home-3/ — its live fetch() to the WP
+// REST API was the single biggest PageSpeed regression on this benchmark.
 const FAQSection          = dynamic(() => import('./_components/sections/FAQSection'),          { ssr: false });
 
 export default function HomeThreeBenchmarkPage() {
@@ -67,9 +68,9 @@ export default function HomeThreeBenchmarkPage() {
       {/* Client logos scrolling ticker */}
       <ClientLogosSection />
 
-      {/* Final CTA, latest blog posts, FAQ */}
+      {/* Final CTA + FAQ (LatestBlogSection removed for perf — live WP
+          REST API fetch was tanking PageSpeed) */}
       <FinalCTASection />
-      <LatestBlogSection />
       <FAQSection />
     </main>
   );
