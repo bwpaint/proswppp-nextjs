@@ -9,7 +9,8 @@
  *                  elsewhere on the page (revisions, inspection coaching,
  *                  annual reports, NOT filing, agency liaison).
  *
- * CEO photo sourced from proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg
+ * CEO photo sourced from /public/images/Derek-E-Chinners-ProSWPPP.jpg
+ * (local, ~61 KB — was a 51 KB+ uncached CMS URL)
  */
 
 import { motion } from "framer-motion";
@@ -23,7 +24,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const CEO_PHOTO = "https://proswppp.com/wp-content/uploads/2024/08/IMG_4484.jpg";
+const CEO_PHOTO = "/images/Derek-E-Chinners-ProSWPPP.jpg";
 
 interface BeyondService {
   icon: LucideIcon;
