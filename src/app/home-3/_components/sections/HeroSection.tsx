@@ -17,8 +17,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663497382802/VjZJtgwgQ4REmFrCDkU6Nc/hero-construction-9KtSzH7kq5P7L5DYyJm6oT.webp";
+// Local copy of the construction-site hero — was a 263 KB CloudFront WebP
+// (1920x1072). Served locally through next/image so Vercel generates
+// responsive variants (640w/750w/828w/1080w/1200w/1920w) and picks the
+// right size for each viewport. Big LCP win vs. the CSS background-image
+// approach which can't be optimized.
+const HERO_BG = "/images/hero-construction.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
 const PHASES = ["cta", "photo", "text", "risk"] as const;
 type Phase = (typeof PHASES)[number];
@@ -112,14 +118,18 @@ export default function HeroSection() {
   };
 
   return (
-    <section
-      className="relative min-h-[70vh] flex items-center"
-      style={{
-        backgroundImage: `url(${HERO_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center top",
-      }}
-    >
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+      {/* Hero background — next/image generates responsive WebP variants
+          per viewport, priority hint marks this as LCP. */}
+      <Image
+        src={HERO_BG}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        style={{ objectFit: "cover", objectPosition: "center top", zIndex: 0 }}
+      />
+
       {/* Dark gradient overlay — lightest top-left, darkest toward bottom-right center */}
       <div
         className="absolute inset-0"
