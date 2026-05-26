@@ -19,7 +19,9 @@ const StatsSection = dynamic(() => import('@/components/sections/StatsSection'),
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
 const CEOGuaranteeSection = dynamic(() => import('@/components/sections/CEOGuaranteeSection'), { ssr: false });
 const FinalCTASection = dynamic(() => import('@/components/sections/FinalCTASection'), { ssr: false });
-const LatestBlogSection = dynamic(() => import('@/components/sections/LatestBlogSection'), { ssr: false });
+// LatestBlogSection is now a Server Component — must NOT be dynamic with
+// ssr:false, otherwise the build-time fetch + SSR HTML would be lost.
+import LatestBlogSection from '@/components/sections/LatestBlogSection';
 const FAQSection = dynamic(() => import('@/components/sections/FAQSection'), { ssr: false });
 
 export default function HomePage() {
