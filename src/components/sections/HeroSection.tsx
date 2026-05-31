@@ -55,8 +55,9 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Two-column content — sits 20px below the nav, every gap collapsed */}
-      <div className="relative z-10 container pt-5 pb-0">
+      {/* Two-column content — sits 60px below the nav (was 20px) so the
+          hero copy gets some breathing room from the navigation bar. */}
+      <div className="relative z-10 container pt-[60px] pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ────────────────────────────────────────────────────────────────
