@@ -12,7 +12,9 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Image from "next/image";
 import TrustBadgesSection from "./TrustBadgesSection";
-import ClientLogosSection from "./ClientLogosSection";
+// ClientLogosSection was previously rendered here; it now sits at the
+// page level between ExperienceSection and CEOGuaranteeSection. See
+// src/app/page.tsx.
 
 // Local copy — was a 263 KB CloudFront WebP (1920x1072). Served through
 // next/image so Vercel generates responsive WebP variants per viewport
@@ -386,10 +388,11 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Social-proof stack — restored under the trust badges row. */}
+      {/* Social-proof stack — Google reviews ticker only. The client-logos
+          ticker now lives between ExperienceSection and CEOGuaranteeSection
+          per owner direction (see src/app/page.tsx). */}
       <div className="relative z-10 w-full">
         <TrustBadgesSection />
-        <ClientLogosSection />
       </div>
     </section>
   );
