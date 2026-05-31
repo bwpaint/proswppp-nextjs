@@ -8,15 +8,11 @@
  *                No rotator, no CTA slide, no risk gauge, no Meet Our Team.
  */
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Star } from "lucide-react";
-import { useEffect, useState } from "react";
 import Image from "next/image";
-// TrustBadgesSection + ClientLogosSection imports removed while the
-// social-proof stack is paused (see commented JSX near </section>).
-// import TrustBadgesSection from "./TrustBadgesSection";
-// import ClientLogosSection from "./ClientLogosSection";
+import TrustBadgesSection from "./TrustBadgesSection";
+import ClientLogosSection from "./ClientLogosSection";
 
 // Local copy — was a 263 KB CloudFront WebP (1920x1072). Served through
 // next/image so Vercel generates responsive WebP variants per viewport
@@ -24,17 +20,6 @@ import Image from "next/image";
 // background-image approach which can't be optimized.
 const HERO_BG = "/images/hero-construction.webp";
 const TEAM_PHOTO = "/images/proswppp-team-800.webp";
-const CEO_PHOTO = "/images/Derek-E-Chinners-ProSWPPP.jpg";
-const PROSWPPP_LOGO = "https://proswppp.com/wp-content/uploads/2023/07/Asset-1-1-logo-2.png";
-
-// Right-column rotator slides
-const PHASES = ["photo", "derek", "will"] as const;
-type Phase = (typeof PHASES)[number];
-const PHASE_DURATIONS_MS: Record<Phase, number> = {
-  photo: 6000,
-  derek: 8000,
-  will:  8000,
-};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -46,19 +31,6 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  // Right-column slider — auto-rotates every 6-8s, pauses on hover.
-  const [phaseIdx, setPhaseIdx] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const phase: Phase = PHASES[phaseIdx];
-
-  useEffect(() => {
-    if (paused) return;
-    const t = setTimeout(() => {
-      setPhaseIdx((i) => (i + 1) % PHASES.length);
-    }, PHASE_DURATIONS_MS[phase]);
-    return () => clearTimeout(t);
-  }, [paused, phase, phaseIdx]);
-
   return (
     <section className="relative min-h-[70vh] flex flex-col overflow-hidden">
       {/* Hero background — next/image generates responsive WebP variants
@@ -175,10 +147,35 @@ export default function HeroSection() {
                 Get My SWPPP →
               </a>
             </motion.div>
+
+            {/* Brand-intro paragraph under the CTA. ~11-14px responsive. */}
+            <motion.p
+              custom={0.6}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              style={{
+                marginTop: "1rem",
+                fontFamily: "'Roboto', Arial, sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(0.7rem, 1.1vw, 0.85rem)",
+                lineHeight: 1.5,
+                color: "#FFFFFF",
+                maxWidth: "44ch",
+              }}
+            >
+              Pro SWPPP, LLC is a leading nationwide provider of Stormwater
+              Pollution Prevention Plans (SWPPPs). Headquartered in Houston,
+              TX, we help clients maintain full environmental compliance with
+              all Federal, State, and Local permitting regulations, including
+              the NPDES Construction General Permit and Industrial
+              multi-sector permits.
+            </motion.p>
           </div>
 
           {/* ────────────────────────────────────────────────────────────────
-              RIGHT: Built for Builders + static team photo
+              RIGHT: Storm Water Pollution Prevention Plan eyebrow + team
+              photo + "Peace of Mind for Your Permitting" bottom overlay
               ──────────────────────────────────────────────────────────────── */}
           <motion.div
             custom={0.3}
@@ -186,241 +183,56 @@ export default function HeroSection() {
             animate="visible"
             variants={fadeUp}
           >
-            {/* Heading above the rotator — half the previous height per owner */}
+            {/* Eyebrow above the team photo — sized to match the
+                "America's #1 SWPPP" eyebrow on the left column */}
             <h2
-              className="uppercase leading-none mb-0"
+              className="text-sm mb-2"
               style={{
-                fontSize: "clamp(1rem, 1.9vw, 1.5rem)",
-                fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                fontWeight: 900,
-                letterSpacing: "-0.03em",
+                fontFamily: "'Roboto', Arial, sans-serif",
+                fontWeight: 400,
+                letterSpacing: "0.05em",
                 textAlign: "center",
-                lineHeight: 0.9,
-                color: "#CFCFCF",
+                lineHeight: 1.2,
+                color: "#FFFFFF",
               }}
             >
-              Peace of Mind for Your Permitting
+              Storm Water Pollution Prevention Plan
             </h2>
 
-            {/* 3-slide rotator: team photo -> Derek quote -> Will M review.
-                Hovering pauses rotation. Team photo stays in the DOM so it
-                dictates the natural card height; other slides fade in over it. */}
-            <div
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
-              onFocus={() => setPaused(true)}
-              onBlur={() => setPaused(false)}
-              tabIndex={0}
-              style={{
-                position: "relative",
-                width: "100%",
-                marginTop: "0.5rem",
-                outline: "none",
-              }}
-            >
+            {/* Team photo with a bottom-anchored gradient overlay carrying
+                the "Peace of Mind for Your Permitting" headline */}
+            <div style={{ position: "relative", borderRadius: "10px", overflow: "hidden" }}>
+              <img
+                src={TEAM_PHOTO}
+                alt="The Pro SWPPP Team"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
               <div
                 style={{
-                  position: "relative",
-                  width: "100%",
-                  overflow: "hidden",
-                  borderRadius: "10px",
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  padding: "2.5rem 1rem 1.25rem",
+                  background:
+                    "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.88) 100%)",
+                  color: "#FFFFFF",
+                  textAlign: "center",
                 }}
               >
-                {/* Team photo — always rendered (dictates card height) */}
-                <motion.img
-                  src={TEAM_PHOTO}
-                  alt="The Pro SWPPP Team"
-                  initial={false}
-                  animate={{ opacity: phase === "photo" ? 1 : 0 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                />
-
-                <AnimatePresence mode="wait" initial={false}>
-                  {phase === "derek" && (
-                    <motion.div
-                      key="derek"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        padding: "1.75rem 2rem",
-                        background: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "1rem",
-                        textAlign: "center",
-                      }}
-                    >
-                      <img
-                        src={CEO_PHOTO}
-                        alt="Derek E. Chinners"
-                        style={{
-                          width: "110px",
-                          height: "110px",
-                          objectFit: "cover",
-                          border: "4px solid #DE863F",
-                          boxShadow: "0 4px 14px rgba(0,0,0,0.18)",
-                        }}
-                      />
-                      <blockquote
-                        style={{
-                          fontFamily: "'Roboto', Arial, sans-serif",
-                          fontStyle: "italic",
-                          fontSize: "1rem",
-                          lineHeight: 1.55,
-                          color: "#000000",
-                          margin: 0,
-                        }}
-                      >
-                        &ldquo;When you pick Pro SWPPP for your project your
-                        calls get returned, your questions get answered, and
-                        your permitting becomes one less thing to worry
-                        about&hellip; Every Time.&rdquo;
-                      </blockquote>
-                      <p
-                        style={{
-                          fontFamily:
-                            "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                          fontWeight: 800,
-                          fontSize: "0.78rem",
-                          letterSpacing: "0.08em",
-                          textTransform: "uppercase",
-                          color: "#DE863F",
-                          margin: 0,
-                        }}
-                      >
-                        Derek E. Chinners &mdash; CEO, Pro SWPPP
-                      </p>
-                    </motion.div>
-                  )}
-
-                  {phase === "will" && (
-                    <motion.div
-                      key="will"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        padding: "1.75rem 2rem",
-                        background: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        gap: "1rem",
-                      }}
-                    >
-                      {/* 175-5 [★★★★★] Reviews — combined count token + stars + label */}
-                      <div style={{ display: "flex", gap: "8px", justifyContent: "center", alignItems: "center" }}>
-                        <span
-                          style={{
-                            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                            fontWeight: 900,
-                            fontSize: "1.5rem",
-                            color: "#000000",
-                            lineHeight: 1,
-                            letterSpacing: "-0.01em",
-                          }}
-                        >
-                          175-5
-                        </span>
-                        <div style={{ display: "flex", gap: "3px" }}>
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={22}
-                              style={{ fill: "#FFB800", color: "#FFB800" }}
-                            />
-                          ))}
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                            fontWeight: 700,
-                            fontSize: "1rem",
-                            color: "#000000",
-                            lineHeight: 1,
-                          }}
-                        >
-                          Reviews
-                        </span>
-                      </div>
-
-                      {/* Italic quote */}
-                      <blockquote
-                        style={{
-                          fontFamily: "'Roboto', Arial, sans-serif",
-                          fontStyle: "italic",
-                          fontSize: "0.95rem",
-                          lineHeight: 1.55,
-                          color: "#000000",
-                          margin: 0,
-                          textAlign: "center",
-                        }}
-                      >
-                        &ldquo;Pro SWPPP lives up to their name! They are truly
-                        pros! Super-fast turnaround, and they were able to
-                        modify the documents needed within 24 hours due to a
-                        last-minute change in on-site personnel. Could not be
-                        happier with their service and performance.&rdquo;
-                      </blockquote>
-
-                      {/* Footer: name/title left, ProSWPPP small logo right */}
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: "1rem",
-                          paddingTop: "0.5rem",
-                          borderTop: "1px solid rgba(0,0,0,0.10)",
-                        }}
-                      >
-                        <div>
-                          <p
-                            style={{
-                              fontFamily:
-                                "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                              fontWeight: 900,
-                              fontSize: "1rem",
-                              color: "#000000",
-                              margin: 0,
-                              lineHeight: 1.1,
-                            }}
-                          >
-                            Will M.
-                          </p>
-                          <p
-                            style={{
-                              fontFamily: "'Roboto', Arial, sans-serif",
-                              fontWeight: 600,
-                              fontSize: "0.78rem",
-                              color: "#DE863F",
-                              margin: "2px 0 0",
-                              letterSpacing: "0.04em",
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            Construction Owner
-                          </p>
-                        </div>
-                        <img
-                          src={PROSWPPP_LOGO}
-                          alt="Pro SWPPP"
-                          style={{ height: "38px", width: "auto", display: "block" }}
-                        />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <span
+                  className="uppercase"
+                  style={{
+                    fontFamily:
+                      "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    fontWeight: 900,
+                    fontSize: "clamp(1rem, 2.2vw, 1.6rem)",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  Peace of Mind for Your Permitting
+                </span>
               </div>
             </div>
           </motion.div>
@@ -550,13 +362,11 @@ export default function HeroSection() {
 
       </div>
 
-      {/* Social-proof stack (reviews + client logos) temporarily removed
-          for perf testing — restore by uncommenting:
-          <div className="relative z-10 w-full">
-            <TrustBadgesSection />
-            <ClientLogosSection />
-          </div>
-      */}
+      {/* Social-proof stack — restored under the trust badges row. */}
+      <div className="relative z-10 w-full">
+        <TrustBadgesSection />
+        <ClientLogosSection />
+      </div>
     </section>
   );
 }
