@@ -580,10 +580,116 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
   );
 }
 
-// ─── Step 1 — Contact Info ─────────────────────────────────────────────────────
-function Step1({ form, set }: { form: OrderForm; set: (k: keyof OrderForm, v: string | boolean | number) => void }) {
+// ─── Step 1 — Location + Contact Info ─────────────────────────────────────────
+// Single screen: "Where is your project located?" black box (state dropdown +
+// optional sub-region/special-category dropdown) followed by contact info.
+// Replaces the previous animated US map as the entry point.
+function Step1({
+  form,
+  set,
+  regionData,
+  pricingLoading,
+  onStateChange,
+}: {
+  form: OrderForm;
+  set: (k: keyof OrderForm, v: string | boolean | number) => void;
+  regionData: RegionPricing | null;
+  pricingLoading: boolean;
+  onStateChange: (code: string) => void;
+}) {
+  // Sub-regions (e.g. DFW) and special categories (USA permit, CE, Indian
+  // Territory, Industrial) come back from the same /regions/{slug}/pricing
+  // payload. We collapse them into a single dropdown that the customer
+  // picks from when the chosen state has any of these qualifiers.
+  const subOptions: { value: string; label: string; price: number | null; group: string }[] = [
+    ...(regionData?.sub_regions ?? []).map(s => ({
+      value: s.slug, label: s.name, price: s.certified_price, group: 'Region',
+    })),
+    ...(regionData?.special_categories ?? []).map(s => ({
+      value: s.slug, label: s.name, price: s.certified_price, group: 'Category',
+    })),
+  ];
+  const hasSubs = subOptions.length > 0;
+  const stateName = STATE_INFO.find(s => s.code === form.projectState)?.name;
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      {/* ── "Where is your project located?" black box ── */}
+      <div
+        className="rounded-xl border p-5"
+        style={{ background: '#000000', borderColor: 'rgba(255,255,255,0.15)' }}
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <MapPin className="w-5 h-5 text-[#7B9CD1] flex-shrink-0" />
+          <p
+            className="font-bold text-white"
+            style={{ fontFamily: "'Inter','Helvetica Neue',Arial,sans-serif", fontSize: '1.05rem' }}
+          >
+            Where is your project located?
+          </p>
+        </div>
+
+        <div>
+          <Label htmlFor="orderState" required>State</Label>
+          <select
+            id="orderState"
+            value={form.projectState}
+            onChange={e => onStateChange(e.target.value)}
+            className="w-full rounded-lg border border-white/20 px-4 py-3 text-white focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/25 transition-all text-sm appearance-none"
+            style={selectBg}
+          >
+            <option value="">Select a state…</option>
+            {STATE_INFO.map(s => (
+              <option key={s.code} value={s.code}>{s.name}</option>
+            ))}
+          </select>
+        </div>
+
+        {pricingLoading && form.projectState && (
+          <div className="flex items-center gap-2 text-xs text-white/70 mt-3">
+            <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
+            Loading regions for {stateName}…
+          </div>
+        )}
+
+        {hasSubs && !pricingLoading && (
+          <div className="mt-4">
+            <Label htmlFor="orderSubRegion" required>Region / Category</Label>
+            <select
+              id="orderSubRegion"
+              value={form.specialCategory}
+              onChange={e => set('specialCategory', e.target.value)}
+              className="w-full rounded-lg border border-white/20 px-4 py-3 text-white focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/25 transition-all text-sm appearance-none"
+              style={selectBg}
+            >
+              <option value="">Select a region or category…</option>
+              {subOptions.map(o => (
+                <option key={o.value} value={o.value}>
+                  {o.label}{o.price ? ` — ${fmt(o.price)}` : ''}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-white/60 mt-2">
+              {stateName} has multiple pricing options — pick the one that
+              best matches your project.
+            </p>
+          </div>
+        )}
+
+        {regionData && !pricingLoading && form.projectState && (
+          <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/10">
+            <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+            <span className="text-sm text-white/85">
+              Base price for <strong className="text-white">{regionData.region.name}</strong>:{' '}
+              <strong className="text-[#DE863F]">
+                {fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}
+              </strong>
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* ── Contact information ── */}
       <SecLabel>Contact Information</SecLabel>
       <div className="grid grid-cols-2 gap-3">
         <Field label="First Name" id="firstName" value={form.firstName} onChange={v => set('firstName', v)} placeholder="John" required />
@@ -608,53 +714,11 @@ function Step2({
   pricingLoading: boolean;
 }) {
   const stateName = STATE_INFO.find(s => s.code === form.projectState)?.name;
-  const hasSpecialCats = (regionData?.special_categories?.length ?? 0) > 0;
-  const hasSubRegions = (regionData?.sub_regions?.length ?? 0) > 0;
+  // Sub-region / special-category selection moved to Step 1 alongside the
+  // state dropdown. Step 2 is now purely project details.
 
   return (
     <div className="space-y-4">
-      {hasSpecialCats && (
-        <div className="rounded-xl border border-[#7B9CD1]/30 p-4" style={{ background: 'rgba(123,156,209,0.06)' }}>
-          <p className="text-sm font-bold text-orange-600 mb-3">Do any of these apply to your project?</p>
-          <div className="space-y-2">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="specialCategory" value="" checked={form.specialCategory === ''}
-                onChange={() => set('specialCategory', '')} className="w-4 h-4 accent-orange-500" />
-              <span className="text-sm text-gray-700">None of the below</span>
-            </label>
-            {regionData!.special_categories.map(cat => (
-              <label key={cat.id} className="flex items-center gap-3 cursor-pointer">
-                <input type="radio" name="specialCategory" value={cat.slug} checked={form.specialCategory === cat.slug}
-                  onChange={() => set('specialCategory', cat.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-white">{cat.name}</span>
-                {cat.certified_price && (
-                  <span className="text-xs text-orange-600 ml-auto">{fmt(cat.certified_price)}</span>
-                )}
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {hasSubRegions && (
-        <div className="rounded-xl border border-white/20 p-4" style={{ background: '#1A1A1A' }}>
-          <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-3">Select Your Region</p>
-          <div className="space-y-2">
-            {regionData!.sub_regions.map(sub => (
-              <label key={sub.id} className="flex items-center gap-3 cursor-pointer">
-                <input type="radio" name="subRegion" value={sub.slug}
-                  checked={form.specialCategory === sub.slug}
-                  onChange={() => set('specialCategory', sub.slug)} className="w-4 h-4 accent-orange-500" />
-                <span className="text-sm text-white">{sub.name}</span>
-                {sub.certified_price && (
-                  <span className="text-xs text-orange-600 ml-auto">{fmt(sub.certified_price)}</span>
-                )}
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
       <SecLabel>Project Details</SecLabel>
 
       <Field label="Project Name" id="projectName" value={form.projectName} onChange={v => set('projectName', v)}
@@ -1106,8 +1170,9 @@ function ProgressBar({ step, submitted }: { step: number; submitted: boolean }) 
 
 // ─── Main export ───────────────────────────────────────────────────────────────
 export default function GetYourSwpppClient() {
-  // Land directly on the map — the intro "hero" phase is bypassed per owner.
-  const [phase, setPhase] = useState<Phase>('map');
+  // Land directly on the multi-step wizard. The US map phase was replaced
+  // by Step 1's "Where is your project located?" state dropdown per owner.
+  const [phase, setPhase] = useState<Phase>('wizard');
   const [regions, setRegions] = useState<SopRegion[]>([]);
   const [mapLoading, setMapLoading] = useState(false);
   const [selectedCode, setSelectedCode] = useState('');
@@ -1133,16 +1198,10 @@ export default function GetYourSwpppClient() {
       .finally(() => setMapLoading(false));
   }, [phase]);
 
-  // ?start=map in the URL skips the hero landing and drops the visitor
-  // straight onto the state-selection map. Used by the home-page CTAs
-  // ('Get My SWPPP' / 'Start My Order') that already signal order intent.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('start') === 'map') {
-      setPhase('map');
-    }
-  }, []);
+  // ?start=map was previously used to skip the hero landing and drop the
+  // visitor straight onto the US map. The map was removed in favor of an
+  // in-form state dropdown, so this param is now a no-op — the wizard is
+  // already the initial phase.
 
   useEffect(() => {
     if (!selectedSlug) return;
@@ -1156,8 +1215,27 @@ export default function GetYourSwpppClient() {
 
   const set = useCallback((k: keyof OrderForm, v: string | boolean | number) => setForm(f => ({ ...f, [k]: v })), []);
 
-  const handleStartOrder = () => { setPhase('map'); setTimeout(scrollToTop, 100); };
+  const handleStartOrder = () => { setPhase('wizard'); setTimeout(scrollToTop, 100); };
 
+  // Called by Step 1's state dropdown. Mirrors the old map click handler:
+  // it stamps the project state on the form, sets selectedSlug (which
+  // fires the pricing fetch effect), and clears any previous sub-region
+  // pick so the user re-chooses for the newly selected state.
+  const handleStateDropdown = (code: string) => {
+    const info = STATE_INFO.find(s => s.code === code);
+    if (!code || !info) {
+      setSelectedCode('');
+      setSelectedSlug('');
+      setRegionData(null);
+      setForm(f => ({ ...f, projectState: '', specialCategory: '' }));
+      return;
+    }
+    setSelectedCode(code);
+    setSelectedSlug(info.slug);
+    setForm(f => ({ ...f, projectState: code, specialCategory: '' }));
+  };
+
+  // Map-click handler kept for the (now-unreachable) map phase code path.
   const handleStateClick = (code: string, slug: string, active: boolean) => {
     if (!active) {
       const info = STATE_INFO.find(s => s.code === code);
@@ -1172,15 +1250,26 @@ export default function GetYourSwpppClient() {
   };
 
   const canProceed = () => {
-    if (step === 1) return !!(form.firstName && form.lastName && form.company && form.email && form.phone);
+    if (step === 1) {
+      const hasSubs =
+        (regionData?.sub_regions?.length ?? 0) > 0 ||
+        (regionData?.special_categories?.length ?? 0) > 0;
+      const subOk = !hasSubs || !!form.specialCategory;
+      return !!(
+        form.projectState && subOk &&
+        form.firstName && form.lastName && form.company && form.email && form.phone
+      );
+    }
     if (step === 2) return !!(form.projectName && form.projectState && form.startDate && form.landDisturbance && form.serviceNeeded);
     return true;
   };
 
   const goNext = () => { scrollToTop(); setStep(s => s + 1); };
   const goBack = () => {
-    if (step === 1) { setPhase('map'); setStep(1); setSubmitted(false); }
-    else { scrollToTop(); setStep(s => s - 1); }
+    // No more map phase to fall back to; Step 1 is the entry point, so the
+    // Back button is hidden on Step 1 (see render below).
+    scrollToTop();
+    setStep(s => Math.max(1, s - 1));
   };
 
   const handleSubmit = async () => {
@@ -1238,9 +1327,9 @@ export default function GetYourSwpppClient() {
     scrollToTop();
   };
 
-  // ── Reset — clears all state and returns to the map (entry point) ────────────
+  // ── Reset — clears all state and returns to Step 1 (entry point) ────────────
   const handleReset = () => {
-    setPhase('map');
+    setPhase('wizard');
     setStep(1);
     setForm(EMPTY_ORDER);
     setSelectedCode('');
@@ -1252,10 +1341,10 @@ export default function GetYourSwpppClient() {
     setTimeout(scrollToTop, 50);
   };
 
-  const stepTitle = ['', 'Contact Information', 'Project Details', 'Services & Add-ons', 'Review & Payment'][step];
+  const stepTitle = ['', 'Project Location & Contact', 'Project Details', 'Services & Add-ons', 'Review & Payment'][step];
 
   return (
-    <div ref={topRef} className="min-h-screen" style={{ background: '#7B9CD1', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div ref={topRef} className="min-h-screen" style={{ background: '#000000', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
       {/* ── Reset button — fixed BOTTOM-right so it doesn't sit in the
           same area as the site navigation. Visible on all non-hero phases. ── */}
@@ -1361,21 +1450,18 @@ export default function GetYourSwpppClient() {
                 style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
                 Get Your <span style={{ color: '#FFFFFF' }}>SWPPP</span>
               </h1>
-              {selectedCode && (
-                <p className="text-sm text-white/80 flex items-center justify-center gap-1.5 mt-1">
-                  <MapPin className="w-3.5 h-3.5 text-white" />
-                  {STATE_INFO.find(s => s.code === selectedCode)?.name}
-                  <button onClick={() => { setPhase('map'); setStep(1); }}
-                    className="text-white underline underline-offset-2 ml-1 hover:text-white/80">change</button>
-                </p>
-              )}
             </div>
           )}
 
-          {!submitted && <ProgressBar step={step} submitted={submitted} />}
+          {/* Progress bar / stepper removed per owner — the Contact / Project /
+              Add-ons / Payment bullets no longer render. Form cards stand
+              alone on the black page background. */}
 
           <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl border border-white/20 p-6 sm:p-8" style={{ background: '#000000' }}>
+            <div
+              className="rounded-2xl border p-6 sm:p-8"
+              style={{ background: '#1A1A1A', borderColor: 'rgba(255,255,255,0.12)' }}
+            >
               {submitted ? (
                 <Confirmation form={form} regionData={regionData} onReset={handleReset} />
               ) : (
@@ -1384,20 +1470,29 @@ export default function GetYourSwpppClient() {
                     <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
                       {stepTitle}
                     </h2>
-                    <p className="text-xs text-white/70 mt-0.5">Step {step} of {STEPS.length}</p>
                   </div>
 
-                  {step === 1 && <Step1 form={form} set={set} />}
+                  {step === 1 && (
+                    <Step1
+                      form={form}
+                      set={set}
+                      regionData={regionData}
+                      pricingLoading={pricingLoading}
+                      onStateChange={handleStateDropdown}
+                    />
+                  )}
                   {step === 2 && <Step2 form={form} set={set} regionData={regionData} pricingLoading={pricingLoading} />}
                   {step === 3 && <Step3 form={form} set={set} regionData={regionData} />}
                   {step === 4 && <Step4 form={form} regionData={regionData} onSubmit={handleSubmit} submitting={submitting} />}
 
                   {step < 4 && (
-                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-amber-100">
-                      <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-white/70 hover:text-gray-800 transition-colors">
-                        <ChevronLeft className="w-4 h-4" />
-                        {step === 1 ? 'Change State' : 'Back'}
-                      </button>
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
+                      {step > 1 ? (
+                        <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors">
+                          <ChevronLeft className="w-4 h-4" />
+                          Back
+                        </button>
+                      ) : <span />}
                       <button
                         onClick={goNext}
                         disabled={!canProceed()}
