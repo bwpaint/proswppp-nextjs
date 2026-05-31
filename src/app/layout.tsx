@@ -107,7 +107,7 @@ const wwProofScript = `(function () {
   if (!document.getElementById('wwps-proof-script')) {
     var sc = document.createElement('script');
     sc.id  = 'wwps-proof-script';
-    sc.src = '/proof.js?v=1.4.5';
+    sc.src = '/proof.js?v=1.5.0';
     document.body.appendChild(sc);
   }
 })();`;

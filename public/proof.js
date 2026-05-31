@@ -1353,7 +1353,11 @@
         dp.setProperty('transform',       'scale(0.95)','important');
         dp.setProperty('transition',      'opacity .15s, transform .15s', 'important');
         dp.setProperty('transform-origin','top left',   'important');
-        dp.setProperty('user-select',     'none',       'important');
+        // Allow text selection inside the detail panel so the team can
+        // copy the client's feedback into emails / replies. The drag
+        // handle header sets its OWN inline user-select:none so drag
+        // clicks won't select header text.
+        dp.setProperty('user-select',     'text',       'important');
         dp.setProperty('pointer-events',  'auto',       'important');
 
         // Fade in (double RAF so first paint registers opacity:0 before animating to 1)
@@ -1422,14 +1426,21 @@
 
         // Opaque white content card — all task info lives here
         var contentCard = mkEl('div', { background: '#ffffff', borderRadius: '5px', padding: '14px' });
+        // Re-assert text selection on the content card itself so any
+        // future style rule on a child can't silently disable it.
+        contentCard.style.setProperty('user-select', 'text', 'important');
+        contentCard.style.setProperty('-webkit-user-select', 'text', 'important');
         contentCard.innerHTML =
             '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
                 locationHtml +
             '</div>' +
             '<div style="margin-bottom:12px;">' +
-                '<div style="font-weight:600;font-size:11px;margin-bottom:5px;color:' + COLORS.gray + ';text-transform:uppercase;letter-spacing:.5px;">Feedback</div>' +
+                '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">' +
+                    '<div style="font-weight:600;font-size:11px;color:' + COLORS.gray + ';text-transform:uppercase;letter-spacing:.5px;">Feedback</div>' +
+                    '<button id="wwps-copy-feedback" type="button" style="background:transparent;border:1px solid ' + COLORS.border + ';color:' + COLORS.gray + ';font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:3px;cursor:pointer;line-height:1;">Copy</button>' +
+                '</div>' +
                 '<div style="background:' + COLORS.light + ';border-left:3px solid ' + prioColor + ';padding:10px 14px;border-radius:0 4px 4px 0;">' +
-                    '<p style="margin:0;line-height:1.5;">' + escHtml(task.comment) + '</p>' +
+                    '<p id="wwps-feedback-text" style="margin:0;line-height:1.5;user-select:text;-webkit-user-select:text;cursor:text;">' + escHtml(task.comment) + '</p>' +
                 '</div>' +
             '</div>' +
             imageHtml +
@@ -1466,6 +1477,48 @@
             panel.remove();
         }
         panel.querySelector('#wwps-detail-close').addEventListener('click', closeDetail);
+
+        // ---- Copy feedback text ----
+        // One-click copy of the client's comment so the team can paste it
+        // into emails / replies without highlighting + Ctrl+C.
+        var copyBtn = panel.querySelector('#wwps-copy-feedback');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var src = (task && task.comment) ? String(task.comment) : '';
+                var flash = function() {
+                    var orig       = copyBtn.textContent;
+                    var origBg     = copyBtn.style.background;
+                    var origBorder = copyBtn.style.borderColor;
+                    var origColor  = copyBtn.style.color;
+                    copyBtn.textContent = 'Copied!';
+                    copyBtn.style.background = COLORS.green || '#28a745';
+                    copyBtn.style.color = '#fff';
+                    copyBtn.style.borderColor = COLORS.green || '#28a745';
+                    setTimeout(function() {
+                        copyBtn.textContent = orig;
+                        copyBtn.style.background = origBg;
+                        copyBtn.style.color = origColor;
+                        copyBtn.style.borderColor = origBorder;
+                    }, 1500);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(src).then(flash, legacyCopy);
+                } else {
+                    legacyCopy();
+                }
+                function legacyCopy() {
+                    var ta = document.createElement('textarea');
+                    ta.value = src;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); flash(); } catch (_) {}
+                    document.body.removeChild(ta);
+                }
+            });
+        }
 
         // ---- Complete ----
         panel.querySelector('#wwps-detail-complete').addEventListener('click', function() {
