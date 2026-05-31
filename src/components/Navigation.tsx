@@ -11,16 +11,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, ChevronDown, Mail } from "lucide-react";
-
-const ANNOUNCEMENT_MESSAGES = [
-  "Get Your SWPPP in 72 Hours or it's FREE!",
-  "America's #1 SWPPP",
-  "Peace of Mind for Your Permitting",
-  "Family Owned and Operated",
-];
-const ANNOUNCEMENT_INTERVAL_MS = 4000;
 
 const IconLinkedIn = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -69,16 +60,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [announceIdx, setAnnounceIdx] = useState(0);
   const navRef = useRef<HTMLDivElement>(null);
-
-  // Rotate the announcement bar message every N seconds.
-  useEffect(() => {
-    const t = setInterval(() => {
-      setAnnounceIdx((i) => (i + 1) % ANNOUNCEMENT_MESSAGES.length);
-    }, ANNOUNCEMENT_INTERVAL_MS);
-    return () => clearInterval(t);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -101,33 +83,11 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="announcement-bar relative overflow-hidden">
-        {/* Flash overlay — spans the ENTIRE row width (not just the center
-            tagline column). Re-mounts each tick and runs its keyframe burst
-            (bright red -> black -> red -> fade out). */}
-        <AnimatePresence>
-          <motion.span
-            key={`flash-${announceIdx}`}
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{
-              opacity: [0, 1, 1, 1, 0],
-              scaleX: [0, 1, 1, 1, 1],
-              backgroundColor: ['#FF0000', '#FF0000', '#000000', '#FF0000', 'rgba(255,0,0,0)'],
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.55,
-              times: [0, 0.15, 0.45, 0.75, 1],
-              ease: 'easeInOut',
-            }}
-            style={{ transformOrigin: 'center', boxShadow: '0 0 12px rgba(255,0,0,0.55)' }}
-          />
-        </AnimatePresence>
-
-        <div className="relative w-full px-4 lg:px-6 flex items-center justify-between gap-4">
+      {/* Announcement Bar — static text, no rotation, no flash. The
+          slow gradient background sweep on .announcement-bar (defined
+          in globals.css) is the only animation that remains. */}
+      <div className="announcement-bar">
+        <div className="w-full px-4 lg:px-6 flex items-center justify-between gap-4">
 
           {/* Left: Phone + Email */}
           <div className="flex items-center gap-4 flex-shrink-0">
@@ -141,22 +101,11 @@ export default function Navigation() {
             </a>
           </div>
 
-          {/* Center: Rotating tagline — cycles through 4 brand promises.
-              Flash effect now lives at the row level (above), not here. */}
-          <div className="relative hidden md:flex items-center justify-center flex-1 mx-4" style={{ minHeight: '1.25rem' }}>
-            {/* Current message — crossfades between cycles */}
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={`msg-${announceIdx}`}
-                className="text-xs font-semibold text-center whitespace-nowrap relative z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: 'easeInOut', delay: 0.3 }}
-              >
-                {ANNOUNCEMENT_MESSAGES[announceIdx]}
-              </motion.span>
-            </AnimatePresence>
+          {/* Center: Static tagline — two phrases joined by a bullet */}
+          <div className="hidden md:flex items-center justify-center flex-1 mx-4">
+            <span className="text-xs font-semibold text-center whitespace-nowrap">
+              America&apos;s #1 SWPPP &nbsp;&bull;&nbsp; Family Owned and Operated
+            </span>
           </div>
 
           {/* Right: Social Icons */}
