@@ -917,9 +917,48 @@
             window._wwpsHighlightEl   = targetEl;
             targetEl.style.outline       = '3px solid ' + (PRIORITY_COLORS[task.priority] || COLORS.red);
             targetEl.style.outlineOffset = '4px';
-        } else if (task.scroll_percent) {
-            var docH = Math.max(document.body.scrollHeight, 1);
-            window.scrollTo({ top: Math.max(0, (task.scroll_percent / 100) * docH - 200), behavior: 'smooth' });
+        } else if (task.scroll_percent !== undefined && task.scroll_percent !== null) {
+            // Selector didn't match — page changed since the comment was made.
+            // Fall back to a pulsing dashed-circle marker at the original
+            // (viewport_x_percent, scroll_percent) coords the client's browser
+            // captured, so the dev still sees WHERE the comment was placed.
+            var docH2 = Math.max(document.body.scrollHeight, 1);
+            var markerY = Math.max(0, (task.scroll_percent / 100) * docH2);
+            window.scrollTo({ top: Math.max(0, markerY - window.innerHeight / 2), behavior: 'smooth' });
+
+            // Inject keyframes once
+            if (!document.getElementById('wwps-fallback-style')) {
+                var st = document.createElement('style');
+                st.id = 'wwps-fallback-style';
+                st.textContent = '@keyframes wwpsFallbackPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:1}50%{transform:translate(-50%,-50%) scale(1.25);opacity:.55}}';
+                document.head.appendChild(st);
+            }
+
+            // Remove any previous marker before drawing the new one
+            var prev = document.getElementById('wwps-fallback-marker');
+            if (prev) prev.remove();
+
+            var prioCol = PRIORITY_COLORS[task.priority] || COLORS.red;
+            var xPct = (task.viewport_x_percent !== undefined && task.viewport_x_percent !== null) ? task.viewport_x_percent : 50;
+            var marker = document.createElement('div');
+            marker.id = 'wwps-fallback-marker';
+            marker.title = "Original element could not be located — marker shows the position when the comment was made.";
+            var ms = marker.style;
+            ms.setProperty('position',      'absolute',                              'important');
+            ms.setProperty('top',           markerY + 'px',                          'important');
+            ms.setProperty('left',          xPct + '%',                              'important');
+            ms.setProperty('width',         '64px',                                  'important');
+            ms.setProperty('height',        '64px',                                  'important');
+            ms.setProperty('border',        '4px dashed ' + prioCol,                 'important');
+            ms.setProperty('border-radius', '50%',                                   'important');
+            ms.setProperty('background',    'rgba(255,255,255,.08)',                 'important');
+            ms.setProperty('z-index',       '2147483645',                            'important');
+            ms.setProperty('pointer-events','none',                                  'important');
+            ms.setProperty('transform',     'translate(-50%,-50%)',                  'important');
+            ms.setProperty('box-shadow',    '0 0 32px ' + prioCol + ', inset 0 0 16px ' + prioCol, 'important');
+            ms.setProperty('animation',     'wwpsFallbackPulse 1.5s ease-in-out infinite', 'important');
+            document.body.appendChild(marker);
+            window._wwpsFallbackMarker = marker;
         }
 
         var prioColor = PRIORITY_COLORS[task.priority] || COLORS.red;
@@ -1253,6 +1292,14 @@
             window._wwpsHighlightEl.style.outline       = window._wwpsHighlightOrig || '';
             window._wwpsHighlightEl.style.outlineOffset = '';
             window._wwpsHighlightEl = null;
+        }
+        // Remove the fallback "selector-missed" marker if present
+        if (window._wwpsFallbackMarker) {
+            try { window._wwpsFallbackMarker.remove(); } catch(e) {}
+            window._wwpsFallbackMarker = null;
+        } else {
+            var stray = document.getElementById('wwps-fallback-marker');
+            if (stray) stray.remove();
         }
     }
 
