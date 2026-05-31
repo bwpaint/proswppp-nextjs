@@ -1,14 +1,17 @@
 'use client';
 /*
  * Experience Section — ProSWPPP Redesign
- * Design: Single unified black section — Confidence Statement headline + 17+ stat merged
- * Per user request: merged two separate black sections into one centered band.
+ * Design: Single unified black section — Confidence Statement headline +
+ * "America's #1 SWPPP" payoff + supporting subhead + brand-logos ticker.
+ * The client-logos ticker is rendered INSIDE this section so it shares
+ * the same #000000 background and reads as one continuous dark band.
  */
 import { motion } from "framer-motion";
+import ClientLogosSection from "./ClientLogosSection";
 
 export default function ExperienceSection() {
   return (
-    <section className="pt-8 lg:pt-10 pb-28 lg:pb-32" style={{ background: '#000000' }}>
+    <section className="pt-8 lg:pt-10 pb-16 lg:pb-20" style={{ background: '#000000' }}>
       <div className="container text-center">
 
         {/* 3-line stacked headline — lines fade in sequentially */}
@@ -52,6 +55,13 @@ export default function ExperienceSection() {
           care of our customers&hellip; every time, no matter what.
         </motion.p>
 
+      </div>
+
+      {/* Brand-logos ticker — lives inside this same black band per
+          owner direction, so the headlines + the "brands we've worked
+          with" carousel read as one unified dark section. */}
+      <div className="mt-10 lg:mt-12">
+        <ClientLogosSection />
       </div>
     </section>
   );

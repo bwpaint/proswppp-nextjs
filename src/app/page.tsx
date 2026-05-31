@@ -13,12 +13,11 @@ export async function generateMetadata(): Promise<Metadata> {
 // Dynamic imports with ssr:false for framer-motion components.
 // Note: TrustBadgesSection (Google reviews) is still rendered INSIDE
 // HeroSection itself. ClientLogosSection (the "brands we've worked with"
-// ticker) was moved out of the hero and now sits between
-// ExperienceSection and CEOGuaranteeSection per owner direction.
+// ticker) now lives INSIDE ExperienceSection so the headlines and the
+// brand carousel share one continuous black background.
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: false });
 const StatsSection = dynamic(() => import('@/components/sections/StatsSection'), { ssr: false });
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), { ssr: false });
-const ClientLogosSection = dynamic(() => import('@/components/sections/ClientLogosSection'), { ssr: false });
 const CEOGuaranteeSection = dynamic(() => import('@/components/sections/CEOGuaranteeSection'), { ssr: false });
 const FinalCTASection = dynamic(() => import('@/components/sections/FinalCTASection'), { ssr: false });
 // LatestBlogSection is now a Server Component — must NOT be dynamic with
@@ -36,12 +35,9 @@ export default function HomePage() {
       {/* 20-year stats (20+ years, 100% compliance, 72 hours, 5-star reviews) */}
       <StatsSection />
 
-      {/* Experience — "Confidence in your SWPPP expertise and compliance" */}
+      {/* Experience — "America's #1 SWPPP" headlines + brand-logos
+          ticker rendered as one unified black band. */}
       <ExperienceSection />
-
-      {/* Brands-we've-worked-with ticker — sits between the black
-          Experience band and the blue CEO Guarantee section. */}
-      <ClientLogosSection />
 
       {/* CEO Guarantee — Derek photo (white) + blue guarantee panel */}
       <CEOGuaranteeSection />
