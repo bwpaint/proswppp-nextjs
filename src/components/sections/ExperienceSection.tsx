@@ -11,27 +11,45 @@ export default function ExperienceSection() {
     <section className="pt-8 lg:pt-10 pb-28 lg:pb-32" style={{ background: '#000000' }}>
       <div className="container text-center">
 
-        {/* Confidence headline */}
+        {/* 3-line stacked headline — lines fade in sequentially */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="section-heading text-white text-2xl lg:text-4xl leading-tight mb-4"
+          className="section-heading text-white text-2xl lg:text-4xl leading-tight mb-2"
         >
-          Confidence Built In: Expert SWPPPs,<br />
-          Full Compliance, Lifetime Support.
+          America&apos;s most reviewed SWPPP service
+        </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="section-heading text-white text-2xl lg:text-4xl leading-tight mb-2"
+        >
+          America&apos;s highest-rated SWPPP service
+        </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="section-heading text-2xl lg:text-4xl leading-tight mb-5"
+          style={{ color: "#DE863F" }}
+        >
+          America&apos;s #1 SWPPP
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
           className="text-gray-300 max-w-2xl mx-auto"
         >
-          20+ years of experience with a long-standing track record of delivering
-          fully compliant SWPPP solutions on time, every time.
+          We are America&apos;s #1 SWPPP for a reason &mdash; because we take
+          care of our customers&hellip; every time, no matter what.
         </motion.p>
 
       </div>
