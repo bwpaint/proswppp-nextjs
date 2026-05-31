@@ -35,7 +35,7 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="section-heading text-2xl lg:text-4xl leading-tight mb-5"
+          className="section-heading text-5xl lg:text-7xl leading-tight mb-5"
           style={{ color: "#DE863F" }}
         >
           America&apos;s #1 SWPPP
