@@ -227,6 +227,8 @@ interface RegionPricing {
 
 interface OrderForm {
   firstName: string; lastName: string; company: string; email: string; phone: string;
+  // Company / billing address — captured alongside contact info on Step 1.
+  companyStreet: string; companyCity: string; companyState: string; companyZip: string;
   specialCategory: string;
   projectName: string; projectStreet: string; projectCity: string;
   projectState: string; projectZip: string; landDisturbance: string;
@@ -263,6 +265,7 @@ const FALLBACK_PRICE = 2497; // used only if state not in STATE_PRICES
 
 const EMPTY_ORDER: OrderForm = {
   firstName: '', lastName: '', company: '', email: '', phone: '',
+  companyStreet: '', companyCity: '', companyState: '', companyZip: '',
   specialCategory: '',
   projectName: '', projectStreet: '', projectCity: '',
   projectState: '', projectZip: '', landDisturbance: '', serviceNeeded: '',
@@ -689,17 +692,46 @@ function Step1({
         )}
       </div>
 
-      {/* ── Contact information ── */}
-      <SecLabel>Contact Information</SecLabel>
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="First Name" id="firstName" value={form.firstName} onChange={v => set('firstName', v)} placeholder="John" required />
-        <Field label="Last Name" id="lastName" value={form.lastName} onChange={v => set('lastName', v)} placeholder="Smith" required />
-      </div>
-      <Field label="Company" id="company" value={form.company} onChange={v => set('company', v)} placeholder="ACME Construction Co." required />
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="Email" id="email" type="email" value={form.email} onChange={v => set('email', v)} placeholder="john@acme.com" required />
-        <Field label="Phone" id="phone" type="tel" value={form.phone} onChange={v => set('phone', v)} placeholder="(555) 000-0000" required />
-      </div>
+      {/* ── Contact information ── Hidden until the user picks a state so
+          the screen reads top-to-bottom: location first, then contact. */}
+      {form.projectState && (
+        <>
+          <SecLabel>Contact Information</SecLabel>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="First Name" id="firstName" value={form.firstName} onChange={v => set('firstName', v)} placeholder="John" required />
+            <Field label="Last Name" id="lastName" value={form.lastName} onChange={v => set('lastName', v)} placeholder="Smith" required />
+          </div>
+          <Field label="Company" id="company" value={form.company} onChange={v => set('company', v)} placeholder="ACME Construction Co." required />
+
+          {/* Company / billing address */}
+          <div
+            className="rounded-xl border p-4 space-y-3"
+            style={{ background: '#1A1A1A', borderColor: 'rgba(255,255,255,0.20)' }}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <MapPin className="w-4 h-4 text-[#7B9CD1] flex-shrink-0" />
+              <p className="text-sm font-semibold text-white">Company Address</p>
+            </div>
+            <Field label="Street Address" id="companyStreet" value={form.companyStreet} onChange={v => set('companyStreet', v)} placeholder="123 Main Street" required />
+            <div className="grid grid-cols-5 gap-3">
+              <div className="col-span-2">
+                <Field label="City" id="companyCity" value={form.companyCity} onChange={v => set('companyCity', v)} placeholder="Houston" required />
+              </div>
+              <div className="col-span-2">
+                <Field label="State" id="companyState" value={form.companyState} onChange={v => set('companyState', v)} placeholder="TX" required />
+              </div>
+              <div className="col-span-1">
+                <Field label="Zip" id="companyZip" value={form.companyZip} onChange={v => set('companyZip', v)} placeholder="77001" required />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Email" id="email" type="email" value={form.email} onChange={v => set('email', v)} placeholder="john@acme.com" required />
+            <Field label="Phone" id="phone" type="tel" value={form.phone} onChange={v => set('phone', v)} placeholder="(555) 000-0000" required />
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -761,12 +793,11 @@ function Step2({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <Select label="Land Disturbance Area" id="land" value={form.landDisturbance}
-          onChange={v => set('landDisturbance', v)} options={LAND_OPTIONS} required />
-        <Select label="Service Needed" id="service" value={form.serviceNeeded}
-          onChange={v => set('serviceNeeded', v)} options={SERVICE_OPTIONS} required />
-      </div>
+      {/* Service Needed dropdown removed per owner — only Land Disturbance
+          remains in this row. The SERVICE_OPTIONS constant is kept in
+          case the field is re-added later. */}
+      <Select label="Land Disturbance Area" id="land" value={form.landDisturbance}
+        onChange={v => set('landDisturbance', v)} options={LAND_OPTIONS} required />
 
       <div className="grid grid-cols-2 gap-3">
         <Field label="Project Start Date" id="startDate" type="date" value={form.startDate}
@@ -1257,10 +1288,13 @@ export default function GetYourSwpppClient() {
       const subOk = !hasSubs || !!form.specialCategory;
       return !!(
         form.projectState && subOk &&
-        form.firstName && form.lastName && form.company && form.email && form.phone
+        form.firstName && form.lastName && form.company &&
+        form.companyStreet && form.companyCity && form.companyState && form.companyZip &&
+        form.email && form.phone
       );
     }
-    if (step === 2) return !!(form.projectName && form.projectState && form.startDate && form.landDisturbance && form.serviceNeeded);
+    // Service Needed removed from Step 2 — only Land Disturbance is gated here.
+    if (step === 2) return !!(form.projectName && form.projectState && form.startDate && form.landDisturbance);
     return true;
   };
 
@@ -1344,7 +1378,7 @@ export default function GetYourSwpppClient() {
   const stepTitle = ['', 'Project Location & Contact', 'Project Details', 'Services & Add-ons', 'Review & Payment'][step];
 
   return (
-    <div ref={topRef} className="min-h-screen" style={{ background: '#000000', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div ref={topRef} className="min-h-screen" style={{ background: '#FFFFFF', color: '#FFFFFF', fontFamily: "'Inter', system-ui, sans-serif" }}>
 
       {/* ── Reset button — fixed BOTTOM-right so it doesn't sit in the
           same area as the site navigation. Visible on all non-hero phases. ── */}
