@@ -12,14 +12,34 @@
 
 import LatestBlogSectionClient, { type PostCard } from "./LatestBlogSectionClient";
 
+// Category slugs come from the WP REST API ("wp:term" embed). These match
+// the current taxonomy (created 2026-05-31). Posts now categorized as:
+//   state-swppp-requirements (48), swppp-compliance-inspections (16),
+//   noi-permitting (11), swppp-fundamentals (7), industrial-swppp (5),
+//   bmps-erosion-control (1). No post should ever fall through to
+//   "uncategorized" — it's listed only as a defensive fallback.
 const CATEGORY_COLORS: Record<string, string> = {
-  compliance: "#DE863F",
-  guides: "#7B9CD1",
-  inspections: "#7B9CD1",
-  "best-practices": "#2D7D46",
-  violations: "#C0392B",
-  "permit-close-out": "#8B4513",
-  uncategorized: "#7B9CD1",
+  "state-swppp-requirements":    "#7B9CD1", // brand blue
+  "noi-permitting":               "#DE863F", // brand orange
+  "bmps-erosion-control":         "#2D7D46", // earth green
+  "swppp-compliance-inspections": "#C0392B", // enforcement red
+  "industrial-swppp":             "#555555", // industrial steel
+  "swppp-fundamentals":           "#4A6FA5", // deeper blue
+  uncategorized:                  "#7B9CD1",
+};
+
+// Human-readable display names — the WP "name" field comes through with
+// HTML entities ("BMPs &amp; Erosion Control") because the public REST
+// endpoint doesn't decode them. We override per slug so the pill renders
+// cleanly. Anything not in this map falls back to the API-provided name
+// (post.title.rendered style — stripHtml-ed below).
+const CATEGORY_LABELS: Record<string, string> = {
+  "state-swppp-requirements":    "State SWPPP Requirements",
+  "noi-permitting":               "NOI & Permitting",
+  "bmps-erosion-control":         "BMPs & Erosion Control",
+  "swppp-compliance-inspections": "SWPPP Compliance & Inspections",
+  "industrial-swppp":             "Industrial SWPPP",
+  "swppp-fundamentals":           "SWPPP Fundamentals",
 };
 
 const FALLBACK_POSTS: PostCard[] = [
@@ -126,9 +146,17 @@ async function fetchPosts(): Promise<PostCard[]> {
     return data.map((p: Record<string, unknown>) => {
       const embedded = (p._embedded ?? {}) as Record<string, unknown>;
       const terms = ((embedded["wp:term"] as unknown[] | undefined)?.[0] ?? []) as Record<string, unknown>[];
-      const cat = terms[0];
+      // Pick the FIRST non-Uncategorized term. WP returns terms ordered
+      // by category ID, so a freshly imported post that still carries
+      // Uncategorized (id=1) would have it returned first; without this
+      // filter the pill would read "UNCATEGORIZED" even though a real
+      // category is also assigned.
+      const cat =
+        terms.find((t) => (t?.slug as string | undefined) !== "uncategorized") ??
+        terms[0];
       const catSlug = (cat?.slug as string | undefined) ?? "uncategorized";
-      const catName = ((cat?.name as string | undefined) ?? "General").toUpperCase();
+      const fallbackName = stripHtml((cat?.name as string | undefined) ?? "General");
+      const catName = (CATEGORY_LABELS[catSlug] ?? fallbackName).toUpperCase();
       const color = CATEGORY_COLORS[catSlug] ?? "#7B9CD1";
       const featured = (embedded["wp:featuredmedia"] as unknown[] | undefined)?.[0] as
         | Record<string, unknown>
