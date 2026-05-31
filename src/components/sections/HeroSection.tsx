@@ -452,7 +452,7 @@ export default function HeroSection() {
               href: "https://www.bbb.org/us/tx/kingwood/profile/water-pollution-control/pro-swppp-llc-0915-90073436",
             },
             {
-              src: "/images/compliancy-logo.jpg",
+              src: "/images/cpesc-logo-trans.webp",
               label: "Certified SWPPP",
               whiteBg: true,
               href: null,
