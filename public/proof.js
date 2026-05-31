@@ -1439,8 +1439,8 @@
                     '<div style="font-weight:600;font-size:11px;color:' + COLORS.gray + ';text-transform:uppercase;letter-spacing:.5px;">Feedback</div>' +
                     '<button id="wwps-copy-feedback" type="button" style="background:transparent;border:1px solid ' + COLORS.border + ';color:' + COLORS.gray + ';font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:3px;cursor:pointer;line-height:1;">Copy</button>' +
                 '</div>' +
-                '<div style="background:' + COLORS.light + ';border-left:3px solid ' + prioColor + ';padding:10px 14px;border-radius:0 4px 4px 0;">' +
-                    '<p id="wwps-feedback-text" style="margin:0;line-height:1.5;user-select:text;-webkit-user-select:text;cursor:text;">' + escHtml(task.comment) + '</p>' +
+                '<div style="background:' + COLORS.light + ';border-left:3px solid ' + prioColor + ';padding:10px 14px;border-radius:0 4px 4px 0;max-height:200px;overflow-y:auto;">' +
+                    '<p id="wwps-feedback-text" style="margin:0;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;user-select:text;-webkit-user-select:text;cursor:text;">' + escHtml(task.comment) + '</p>' +
                 '</div>' +
             '</div>' +
             imageHtml +
