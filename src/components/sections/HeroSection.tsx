@@ -95,9 +95,25 @@ export default function HeroSection() {
                 color: "#7B9CD1",
                 letterSpacing: "-0.03em",
                 lineHeight: 0.9,
+                // Hair-line text stroke fattens the glyphs past Inter's
+                // top weight (900) — "Get Your" reads as solid bold.
+                WebkitTextStroke: "0.5px #7B9CD1",
               }}
             >
-              Get Your <span style={{ fontSize: "130%", display: "inline-block", lineHeight: 0.9 }}>SWPPP</span>
+              Get Your{" "}
+              <span
+                style={{
+                  fontSize: "130%",
+                  display: "inline-block",
+                  lineHeight: 0.9,
+                  fontWeight: 900,
+                  // Heavier stroke on SWPPP pushes it past "Get Your" for
+                  // an ultra-bold treatment.
+                  WebkitTextStroke: "1.5px #7B9CD1",
+                }}
+              >
+                SWPPP
+              </span>
             </motion.h1>
 
             {/* Subheadline — single line; font sized so it matches the
@@ -148,7 +164,8 @@ export default function HeroSection() {
               </a>
             </motion.div>
 
-            {/* Brand-intro paragraph under the CTA. ~11-14px responsive. */}
+            {/* Brand-intro paragraph under the CTA. Full column width so
+                it spans the whole left side (no maxWidth cap). */}
             <motion.p
               custom={0.6}
               initial="hidden"
@@ -158,18 +175,25 @@ export default function HeroSection() {
                 marginTop: "1rem",
                 fontFamily: "'Roboto', Arial, sans-serif",
                 fontWeight: 400,
-                fontSize: "clamp(0.7rem, 1.1vw, 0.85rem)",
-                lineHeight: 1.5,
+                fontSize: "clamp(0.75rem, 1.05vw, 0.9rem)",
+                lineHeight: 1.55,
                 color: "#FFFFFF",
-                maxWidth: "44ch",
+                width: "100%",
               }}
             >
-              Pro SWPPP, LLC is a leading nationwide provider of Stormwater
-              Pollution Prevention Plans (SWPPPs). Headquartered in Houston,
-              TX, we help clients maintain full environmental compliance with
-              all Federal, State, and Local permitting regulations, including
-              the NPDES Construction General Permit and Industrial
-              multi-sector permits.
+              Pro SWPPP, LLC is America&apos;s leading provider of Stormwater
+              Pollution Prevention Plans (SWPPPs), headquartered in Houston,
+              TX, and operating nationwide to serve any and all Stormwater
+              Pollution Prevention Plan requirements to ensure our customers
+              are in full environmental compliance with all Federal, State,
+              and Local stormwater permitting requirements whether it be
+              compliance with the Industrial multi-sector permit, or the
+              NPDES Construction General Permit&hellip; we&apos;ve got you
+              covered. We take care of all your environmental permitting
+              requirements so you don&apos;t have to worry about it. Family
+              owned and operated for over twenty years with over 175+ five
+              star Google reviews you can rest assured you&apos;re in good
+              hands with Pro SWPPP.
             </motion.p>
           </div>
 
