@@ -231,20 +231,20 @@ export default function CEOGuaranteeSection() {
                   transition={{ delay: 0.18 + i * 0.07, duration: 0.45 }}
                   className="flex items-start gap-4 rounded-xl p-3.5"
                   style={{
-                    background: "rgba(255,255,255,0.10)",
-                    backdropFilter: "blur(4px)",
+                    background: "#000000",
                     border: "1px solid rgba(255,255,255,0.15)",
                   }}
                 >
-                  {/* Icon circle — dark backdrop so the orange icon pops */}
+                  {/* Icon circle — #333333 (20% less than pure black) so
+                      the orange glyph pops against the black card. */}
                   <div
                     className="flex-shrink-0 flex items-center justify-center"
                     style={{
                       width: 42,
                       height: 42,
                       borderRadius: "50%",
-                      background: "#0D1F2B",
-                      border: "1px solid rgba(255,255,255,0.20)",
+                      background: "#333333",
+                      border: "1px solid rgba(255,255,255,0.12)",
                     }}
                   >
                     <Icon size={20} style={{ color: "#DE863F" }} />
@@ -258,7 +258,7 @@ export default function CEOGuaranteeSection() {
                           "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
                         fontSize: "1rem",
                         lineHeight: 1.2,
-                        color: "#FFFFFF",
+                        color: "#7B9CD1",
                       }}
                     >
                       {s.title}
@@ -269,7 +269,7 @@ export default function CEOGuaranteeSection() {
                         fontSize: "0.875rem",
                         lineHeight: 1.5,
                         margin: 0,
-                        color: "rgba(255,255,255,0.90)",
+                        color: "#FFFFFF",
                       }}
                     >
                       {s.desc}
