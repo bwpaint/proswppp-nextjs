@@ -263,9 +263,13 @@ const STATE_PRICES: Record<string, number> = {
 const LAND_OPTIONS = [
   'Under 1 Acre', '1 to 5 Acres', '5 to 10 Acres', '10 to 25 Acres', '25+ Acres',
 ];
+// Service tier the customer is ordering. Selected on Step 1 right after
+// state is chosen — replaces the older "Service Needed" dropdown that
+// used to live in Step 2.
 const SERVICE_OPTIONS = [
-  'New SWPPP', 'SWPPP Revision / Update', 'SWPPP Inspection',
-  'Annual Report', 'SWPPP Training', 'General Question',
+  'Standard SWPPP',
+  'Turnkey SWPPP',
+  'NOI Only',
 ];
 const FALLBACK_PRICE = 2497; // used only if state not in STATE_PRICES
 
@@ -703,6 +707,41 @@ function Step1({
           </div>
         )}
       </div>
+
+      {/* ── Service tier ── Appears between the location box and the
+          contact information once the customer has chosen a state. */}
+      {form.projectState && (
+        <div
+          className="rounded-xl border p-5"
+          style={{ background: '#000000', borderColor: 'rgba(255,255,255,0.15)' }}
+        >
+          <p
+            className="font-bold text-orange-600 mb-3"
+            style={{ fontFamily: "'Inter','Helvetica Neue',Arial,sans-serif", fontSize: '1.05rem' }}
+          >
+            Service
+          </p>
+          <div className="space-y-2">
+            {SERVICE_OPTIONS.map((opt) => (
+              <label
+                key={opt}
+                className="flex items-center gap-3 cursor-pointer rounded-md px-2 py-1.5 hover:bg-white/5 transition-colors"
+              >
+                <input
+                  type="radio"
+                  name="serviceNeeded"
+                  value={opt}
+                  checked={form.serviceNeeded === opt}
+                  onChange={() => set('serviceNeeded', opt)}
+                  className="w-4 h-4 accent-orange-500"
+                  required
+                />
+                <span className="text-sm text-white font-semibold">{opt}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── Contact information ── Hidden until the user picks a state so
           the screen reads top-to-bottom: location first, then contact. */}
@@ -1385,12 +1424,13 @@ export default function GetYourSwpppClient() {
       const subOk = !hasSubs || !!form.specialCategory;
       return !!(
         form.projectState && subOk &&
+        form.serviceNeeded &&
         form.firstName && form.lastName && form.company &&
         form.companyStreet && form.companyCity && form.companyState && form.companyZip &&
         form.email && form.phone
       );
     }
-    // Service Needed removed from Step 2 — only Land Disturbance is gated here.
+    // Service Needed gating moved to Step 1 — Step 2 only requires Land Disturbance.
     if (step === 2) return !!(form.projectName && form.projectState && form.startDate && form.landDisturbance);
     return true;
   };
