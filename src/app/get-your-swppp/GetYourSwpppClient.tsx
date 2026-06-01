@@ -296,13 +296,14 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
 // Input fields stay on a white background but the customer's typed
-// text + select selection render in ProSWPPP brand blue per owner.
+// text + select selection render in ProSWPPP brand blue, bold weight,
+// per owner direction.
 const inputCls =
-  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-[#7B9CD1] font-semibold ' +
+  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-[#7B9CD1] font-bold ' +
   'placeholder:text-gray-400 placeholder:font-normal focus:border-[#7B9CD1] focus:outline-none ' +
   'focus:ring-1 focus:ring-[#7B9CD1]/30 transition-all text-sm ' +
   '[color-scheme:light]';
-const selectBg = { background: '#000000', color: '#7B9CD1', border: '1px solid rgba(255,255,255,0.20)', fontWeight: 600 };
+const selectBg = { background: '#000000', color: '#7B9CD1', border: '1px solid rgba(255,255,255,0.20)', fontWeight: 700 };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
@@ -1593,14 +1594,15 @@ export default function GetYourSwpppClient() {
         <div className="min-h-screen px-4 py-16">
           {!submitted && (
             <div className="text-center mb-8">
+              {/* Eyebrow + H1 are black so they read on the white page bg. */}
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4"
-                style={{ borderColor: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF' }}>
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#FFFFFF' }} />
+                style={{ borderColor: 'rgba(0,0,0,0.25)', background: 'rgba(0,0,0,0.06)', color: '#000000' }}>
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#000000' }} />
                 72-Hour SWPPP Delivery
               </div>
-              <h1 className="text-4xl sm:text-5xl font-black text-white mb-2"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
-                Get Your <span style={{ color: '#FFFFFF' }}>SWPPP</span>
+              <h1 className="text-4xl sm:text-5xl font-black mb-2"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px', color: '#000000' }}>
+                Get Your <span style={{ color: '#000000' }}>SWPPP</span>
               </h1>
             </div>
           )}
