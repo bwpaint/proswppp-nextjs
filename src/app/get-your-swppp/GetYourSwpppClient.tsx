@@ -637,7 +637,7 @@ function Step1({
         <div className="flex items-center gap-2 mb-4">
           <MapPin className="w-5 h-5 text-[#7B9CD1] flex-shrink-0" />
           <p
-            className="font-bold text-white"
+            className="font-bold text-orange-600"
             style={{ fontFamily: "'Inter','Helvetica Neue',Arial,sans-serif", fontSize: '1.05rem' }}
           >
             Where is your project located?
@@ -722,7 +722,7 @@ function Step1({
           >
             <div className="flex items-center gap-2 mb-1">
               <MapPin className="w-4 h-4 text-[#7B9CD1] flex-shrink-0" />
-              <p className="text-sm font-semibold text-white">Company Address</p>
+              <p className="text-sm font-semibold text-orange-600">Company Address</p>
             </div>
             <Field label="Street Address" id="companyStreet" value={form.companyStreet} onChange={v => set('companyStreet', v)} placeholder="123 Main Street" required />
             <div className="grid grid-cols-5 gap-3">
@@ -774,7 +774,7 @@ function Step2({
       <div className="rounded-xl border border-white/20 p-4 space-y-3" style={{ background: '#1A1A1A' }}>
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="w-4 h-4 text-[#7B9CD1] flex-shrink-0" />
-          <p className="text-sm font-semibold text-white">Project Location</p>
+          <p className="text-sm font-semibold text-orange-600">Project Location</p>
         </div>
         <Field label="Street Address" id="projectStreet" value={form.projectStreet} onChange={v => set('projectStreet', v)} placeholder="456 Construction Blvd" required />
         <div className="grid grid-cols-5 gap-3">
@@ -933,7 +933,7 @@ function Step3({ form, set, regionData }: {
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">E-Portal Access</span>
+              <span className="font-bold text-orange-600 text-sm">E-Portal Access</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(ep_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-300 space-y-0.5 mb-2">
@@ -957,7 +957,7 @@ function Step3({ form, set, regionData }: {
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
+              <span className="font-bold text-orange-600 text-sm">CPESC Certified Inspections</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(cp_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-300 space-y-0.5 mb-2">
@@ -981,7 +981,7 @@ function Step3({ form, set, regionData }: {
             className="mt-1 w-4 h-4 accent-orange-500 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-bold text-white text-sm">Hard Copy Binders</span>
+              <span className="font-bold text-orange-600 text-sm">Hard Copy Binders</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(bd_price)}</span>
             </div>
             <p className="text-sm text-gray-300">2 professionally printed &amp; bound SWPPP hard copies.</p>
@@ -1025,20 +1025,20 @@ function Step4({ form, regionData, onSubmit, submitting }: {
         <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Order Summary</p>
         <div className="space-y-4 text-sm">
           <div>
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             <p className="text-gray-300">{form.company}</p>
             <p className="text-gray-300">{form.email} · {form.phone}</p>
           </div>
           <div className="border-t border-white/20 pt-4">
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
             <p className="text-gray-300">{form.projectCity}, {stateName} {form.projectZip}</p>
             <p className="text-gray-300">{form.landDisturbance} · {form.serviceNeeded}</p>
             {form.startDate && <p className="text-gray-300">Start: {form.startDate}</p>}
           </div>
           <div className="border-t border-white/20 pt-4 space-y-2">
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-2">Pricing</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between"><span className="text-gray-300">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
             {form.ePortal && <div className="flex justify-between"><span className="text-gray-300">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
             {form.cpesc && <div className="flex justify-between"><span className="text-gray-300">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
@@ -1066,16 +1066,16 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           </div>
           <div className="space-y-3">
             <div>
-              <p className="text-xs text-white/90 mb-1">Card Number</p>
+              <p className="text-xs text-orange-600 mb-1 font-semibold">Card Number</p>
               <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>4242 4242 4242 4242</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-white/90 mb-1">Expiry</p>
+                <p className="text-xs text-orange-600 mb-1 font-semibold">Expiry</p>
                 <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>12 / 28</div>
               </div>
               <div>
-                <p className="text-xs text-white/90 mb-1">CVC</p>
+                <p className="text-xs text-orange-600 mb-1 font-semibold">CVC</p>
                 <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>•••</div>
               </div>
             </div>
@@ -1123,7 +1123,7 @@ function Confirmation({ form, regionData, onReset }: {
           style={{ background: 'rgba(34,197,94,0.1)' }}>
           <CheckCircle2 className="w-8 h-8 text-green-400" />
         </div>
-        <h2 className="text-3xl font-black text-white mb-2"
+        <h2 className="text-3xl font-black text-orange-600 mb-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
           Order Received!
         </h2>
@@ -1145,7 +1145,7 @@ function Confirmation({ form, regionData, onReset }: {
         <div className="space-y-4 text-sm">
           {/* Contact */}
           <div>
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             {form.company && <p className="text-gray-300">{form.company}</p>}
             <p className="text-gray-300">{form.email}</p>
@@ -1154,7 +1154,7 @@ function Confirmation({ form, regionData, onReset }: {
 
           {/* Project */}
           <div className="border-t border-white/20 pt-4">
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
             {form.projectStreet && <p className="text-gray-300">{form.projectStreet}</p>}
             <p className="text-gray-300">
@@ -1170,7 +1170,7 @@ function Confirmation({ form, regionData, onReset }: {
 
           {/* Pricing breakdown */}
           <div className="border-t border-white/20 pt-4 space-y-2.5">
-            <p className="text-xs text-white/90 uppercase tracking-wide mb-2">Pricing</p>
+            <p className="text-xs text-orange-600 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between">
               <span className="text-gray-300">Base SWPPP — {stateName}</span>
               <span className="text-white">{fmt(totals.base)}</span>
@@ -1623,7 +1623,8 @@ export default function GetYourSwpppClient() {
               ) : (
                 <>
                   <div className="mb-6">
-                    <h2 className="text-xl font-black text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
+                    {/* Per-step title — orange on the black form card. */}
+                    <h2 className="text-xl font-black text-orange-600" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.3px' }}>
                       {stepTitle}
                     </h2>
                   </div>
