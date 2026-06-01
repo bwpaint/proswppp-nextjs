@@ -295,12 +295,14 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 }
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
+// Input fields stay on a white background but the customer's typed
+// text + select selection render in ProSWPPP brand blue per owner.
 const inputCls =
-  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-gray-900 ' +
-  'placeholder:text-gray-400 focus:border-[#7B9CD1] focus:outline-none ' +
+  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-[#7B9CD1] font-semibold ' +
+  'placeholder:text-gray-400 placeholder:font-normal focus:border-[#7B9CD1] focus:outline-none ' +
   'focus:ring-1 focus:ring-[#7B9CD1]/30 transition-all text-sm ' +
   '[color-scheme:light]';
-const selectBg = { background: '#1A1A1A', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.20)' };
+const selectBg = { background: '#000000', color: '#7B9CD1', border: '1px solid rgba(255,255,255,0.20)', fontWeight: 600 };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
@@ -691,7 +693,7 @@ function Step1({
             <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
             <span className="text-sm text-white/85">
               Base price for <strong className="text-white">{regionData.region.name}</strong>:{' '}
-              <strong className="text-[#DE863F]">
+              <strong className="text-[#7B9CD1]">
                 {fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}
               </strong>
             </span>
@@ -797,7 +799,7 @@ function Step2({
             <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
             <span className="text-sm text-green-700">
               Base price for <strong className="text-green-800">{regionData.region.name}</strong>:{' '}
-              <strong>{fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}</strong>
+              <strong className="text-[#7B9CD1]">{fmt(regionData.pricing?.certified_price ?? STATE_PRICES[form.projectState] ?? FALLBACK_PRICE)}</strong>
             </span>
           </div>
         )}
@@ -816,7 +818,13 @@ function Step2({
           onChange={v => set('endDate', v)} />
       </div>
 
-      {/* ── Engineering drawings — yes/no + file upload ── */}
+      {/* ── Engineering drawings — yes/no + file upload ──
+          TODO (owner is deciding the final shape here): revisit the
+          upload mechanism. Options to weigh: keep this single-file
+          picker, switch to drag-and-drop zone, or offer URL-only fallback
+          (Dropbox / Drive). Backend wiring (multipart -> WP media
+          library via HMAC API) is still pending too. Park until owner
+          decides the UX direction. */}
       <div
         className="rounded-xl border p-4 space-y-3"
         style={{ background: '#1A1A1A', borderColor: 'rgba(255,255,255,0.20)' }}
@@ -923,7 +931,7 @@ function Step3({ form, set, regionData }: {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">E-Portal Access</span>
-              <span className="text-sm font-bold text-orange-600">{fmt(ep_price)}/mo</span>
+              <span className="text-sm font-bold text-[#7B9CD1]">{fmt(ep_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
               <li>• Custom inspection portal — mobile compatible</li>
@@ -933,7 +941,7 @@ function Step3({ form, set, regionData }: {
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
                 <MonthSelect label="How many months?" id="ePortalMonths" value={form.ePortalMonths}
                   onChange={v => set('ePortalMonths', v)} />
-                <p className="text-sm font-semibold text-orange-600">Subtotal: {fmt(totals.ep)}</p>
+                <p className="text-sm font-semibold text-[#7B9CD1]">Subtotal: {fmt(totals.ep)}</p>
               </div>
             )}
           </div>
@@ -947,7 +955,7 @@ function Step3({ form, set, regionData }: {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
-              <span className="text-sm font-bold text-orange-600">{fmt(cp_price)}/mo</span>
+              <span className="text-sm font-bold text-[#7B9CD1]">{fmt(cp_price)}/mo</span>
             </div>
             <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
               <li>• Custom inspection portal included</li>
@@ -957,7 +965,7 @@ function Step3({ form, set, regionData }: {
               <div className="mt-3 space-y-2" onClick={e => e.preventDefault()}>
                 <MonthSelect label="How many months?" id="cpescMonths" value={form.cpescMonths}
                   onChange={v => set('cpescMonths', v)} />
-                <p className="text-sm font-semibold text-orange-600">Subtotal: {fmt(totals.cp)}</p>
+                <p className="text-sm font-semibold text-[#7B9CD1]">Subtotal: {fmt(totals.cp)}</p>
               </div>
             )}
           </div>
@@ -971,7 +979,7 @@ function Step3({ form, set, regionData }: {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
               <span className="font-bold text-white text-sm">Hard Copy Binders</span>
-              <span className="text-sm font-bold text-orange-600">{fmt(bd_price)}</span>
+              <span className="text-sm font-bold text-[#7B9CD1]">{fmt(bd_price)}</span>
             </div>
             <p className="text-sm text-gray-600">2 professionally printed &amp; bound SWPPP hard copies.</p>
           </div>
@@ -990,7 +998,7 @@ function Step3({ form, set, regionData }: {
           {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
           <div className="flex justify-between border-t border-white/20 pt-3">
             <span className="font-bold text-white">Total</span>
-            <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
+            <span className="text-2xl font-black text-[#7B9CD1]">{fmt(totals.total)}</span>
           </div>
         </div>
       </div>
@@ -1035,7 +1043,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           </div>
           <div className="flex justify-between border-t border-orange-300/40 pt-4">
             <span className="font-bold text-white text-base">Total Due Today</span>
-            <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
+            <span className="text-2xl font-black text-[#7B9CD1]">{fmt(totals.total)}</span>
           </div>
         </div>
       </div>
@@ -1184,7 +1192,7 @@ function Confirmation({ form, regionData, onReset }: {
             )}
             <div className="flex justify-between border-t border-orange-300/40 pt-3">
               <span className="font-bold text-white">Total Charged</span>
-              <span className="text-2xl font-black text-orange-600">{fmt(totals.total)}</span>
+              <span className="text-2xl font-black text-[#7B9CD1]">{fmt(totals.total)}</span>
             </div>
           </div>
         </div>
@@ -1604,7 +1612,7 @@ export default function GetYourSwpppClient() {
           <div className="max-w-2xl mx-auto">
             <div
               className="rounded-2xl border p-6 sm:p-8"
-              style={{ background: '#1A1A1A', borderColor: 'rgba(255,255,255,0.12)' }}
+              style={{ background: '#000000', borderColor: 'rgba(255,255,255,0.12)' }}
             >
               {submitted ? (
                 <Confirmation form={form} regionData={regionData} onReset={handleReset} />
