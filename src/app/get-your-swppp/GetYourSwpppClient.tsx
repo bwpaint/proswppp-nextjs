@@ -296,14 +296,16 @@ function calcTotal(form: OrderForm, pricing: RegionPricing | null) {
 
 // ─── Shared UI atoms ───────────────────────────────────────────────────────────
 // Input fields stay on a white background but the customer's typed
-// text + select selection render in ProSWPPP brand blue, bold weight,
-// per owner direction.
+// text + select selection render in ProSWPPP brand blue, weight 800
+// (font-extrabold) per owner direction — heavier than plain bold (700)
+// so the typed value reads with real visual weight against the white
+// input background.
 const inputCls =
-  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-[#7B9CD1] font-bold ' +
+  'w-full rounded-lg border border-white/20 bg-white px-4 py-3 text-[#7B9CD1] font-extrabold ' +
   'placeholder:text-gray-400 placeholder:font-normal focus:border-[#7B9CD1] focus:outline-none ' +
   'focus:ring-1 focus:ring-[#7B9CD1]/30 transition-all text-sm ' +
   '[color-scheme:light]';
-const selectBg = { background: '#000000', color: '#7B9CD1', border: '1px solid rgba(255,255,255,0.20)', fontWeight: 700 };
+const selectBg = { background: '#000000', color: '#7B9CD1', border: '1px solid rgba(255,255,255,0.20)', fontWeight: 800 };
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: ReactNode }) {
   return (
