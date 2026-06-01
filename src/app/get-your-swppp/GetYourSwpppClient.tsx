@@ -232,7 +232,13 @@ interface OrderForm {
   specialCategory: string;
   projectName: string; projectStreet: string; projectCity: string;
   projectState: string; projectZip: string; landDisturbance: string;
-  serviceNeeded: string; startDate: string; endDate: string; drawingsLink: string;
+  serviceNeeded: string; startDate: string; endDate: string;
+  // Drawings: yes/no gate + the selected file's display info. Actual File
+  // object is held in a separate React state in the main component so it
+  // can be sent at submit time without bloating the JSON form payload.
+  hasDrawings: '' | 'yes' | 'no';
+  drawingsFileName: string;
+  drawingsFileSize: number;
   ePortal: boolean; ePortalMonths: number;
   cpesc: boolean; cpescMonths: number;
   hardCopy: boolean;
@@ -269,7 +275,8 @@ const EMPTY_ORDER: OrderForm = {
   specialCategory: '',
   projectName: '', projectStreet: '', projectCity: '',
   projectState: '', projectZip: '', landDisturbance: '', serviceNeeded: '',
-  startDate: '', endDate: '', drawingsLink: '',
+  startDate: '', endDate: '',
+  hasDrawings: '', drawingsFileName: '', drawingsFileSize: 0,
   ePortal: false, ePortalMonths: 3,
   cpesc: false, cpescMonths: 3,
   hardCopy: false,
@@ -739,11 +746,14 @@ function Step1({
 // ─── Step 2 — Project Details ──────────────────────────────────────────────────
 function Step2({
   form, set, regionData, pricingLoading,
+  drawingsFile, onDrawingsFileChange,
 }: {
   form: OrderForm;
   set: (k: keyof OrderForm, v: string | boolean | number) => void;
   regionData: RegionPricing | null;
   pricingLoading: boolean;
+  drawingsFile: File | null;
+  onDrawingsFileChange: (f: File | null) => void;
 }) {
   const stateName = STATE_INFO.find(s => s.code === form.projectState)?.name;
   // Sub-region / special-category selection moved to Step 1 alongside the
@@ -806,9 +816,81 @@ function Step2({
           onChange={v => set('endDate', v)} />
       </div>
 
-      <Field label="Link to Civil Drawings" id="drawings" type="url" value={form.drawingsLink}
-        onChange={v => set('drawingsLink', v)} placeholder="https://dropbox.com/sh/…"
-        hint="Dropbox, Google Drive, or any file-sharing link" />
+      {/* ── Engineering drawings — yes/no + file upload ── */}
+      <div
+        className="rounded-xl border p-4 space-y-3"
+        style={{ background: '#1A1A1A', borderColor: 'rgba(255,255,255,0.20)' }}
+      >
+        <Label htmlFor="hasDrawings">Do you have engineering drawings?</Label>
+        <div className="flex gap-6">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="hasDrawings"
+              value="yes"
+              checked={form.hasDrawings === 'yes'}
+              onChange={() => set('hasDrawings', 'yes')}
+              className="w-4 h-4 accent-orange-500"
+            />
+            <span className="text-sm text-white">Yes</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="hasDrawings"
+              value="no"
+              checked={form.hasDrawings === 'no'}
+              onChange={() => {
+                set('hasDrawings', 'no');
+                onDrawingsFileChange(null);
+                set('drawingsFileName', '');
+                set('drawingsFileSize', 0);
+              }}
+              className="w-4 h-4 accent-orange-500"
+            />
+            <span className="text-sm text-white">No</span>
+          </label>
+        </div>
+
+        {form.hasDrawings === 'yes' && (
+          <div className="pt-2 border-t border-white/10">
+            <Label htmlFor="drawingsFile">
+              Upload your drawings (PDF, DWG, DXF, ZIP, or image)
+            </Label>
+            <input
+              id="drawingsFile"
+              type="file"
+              accept=".pdf,.dwg,.dxf,.zip,.png,.jpg,.jpeg,.tif,.tiff"
+              onChange={(e) => {
+                const file = e.target.files?.[0] ?? null;
+                onDrawingsFileChange(file);
+                set('drawingsFileName', file ? file.name : '');
+                set('drawingsFileSize', file ? file.size : 0);
+              }}
+              className="block w-full text-sm text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#7B9CD1] file:text-white file:font-bold file:cursor-pointer file:transition-colors hover:file:bg-[#5A85B9]"
+            />
+            {drawingsFile && (
+              <p className="text-xs text-green-400 mt-2 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" />
+                <span>
+                  {drawingsFile.name} (
+                  {(drawingsFile.size / 1024 / 1024).toFixed(2)} MB)
+                </span>
+              </p>
+            )}
+            <p className="text-xs text-white/60 mt-2">
+              Drag-and-drop also supported. Maximum 25 MB per file.
+            </p>
+          </div>
+        )}
+
+        {form.hasDrawings === 'no' && (
+          <p className="text-xs text-white/70 pt-1">
+            No problem — our team will reach out for site details after you
+            submit. You can email or upload drawings later.
+          </p>
+        )}
+      </div>
     </div>
   );
 }
@@ -1213,6 +1295,10 @@ export default function GetYourSwpppClient() {
   const [pricingLoading, setPricingLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<OrderForm>(EMPTY_ORDER);
+  // Holds the actual File object the customer picks for engineering
+  // drawings. Stored outside the JSON form state because Files can't
+  // round-trip through JSON; uploaded at submit time as multipart.
+  const [drawingsFile, setDrawingsFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -1319,10 +1405,22 @@ export default function GetYourSwpppClient() {
       const projectAddress = [form.projectStreet, form.projectCity, form.projectZip]
         .filter(Boolean).join(', ');
 
+      const companyAddress = [form.companyStreet, form.companyCity, form.companyState, form.companyZip]
+        .filter(Boolean).join(', ');
+
+      const drawingsLine =
+        form.hasDrawings === 'yes' && drawingsFile
+          ? `Drawings: uploaded "${drawingsFile.name}" (${(drawingsFile.size / 1024 / 1024).toFixed(2)} MB)`
+          : form.hasDrawings === 'no'
+            ? 'Drawings: customer does not have drawings — follow up'
+            : 'Drawings: not specified';
+
       const notes = [
+        companyAddress ? `Company Address: ${companyAddress}` : '',
         form.specialCategory ? `Special Category: ${form.specialCategory}` : '',
         form.startDate ? `Start Date: ${form.startDate}` : '',
         form.endDate ? `End Date: ${form.endDate}` : '',
+        drawingsLine,
         `E-Portal Add-on: ${form.ePortal ? `yes${form.ePortalMonths ? ` (${form.ePortalMonths} months)` : ''}` : 'no'}`,
         `CPESC Add-on: ${form.cpesc ? `yes${form.cpescMonths ? ` (${form.cpescMonths} months)` : ''}` : 'no'}`,
         `Hard Copy Add-on: ${form.hardCopy ? 'yes' : 'no'}`,
@@ -1331,28 +1429,39 @@ export default function GetYourSwpppClient() {
         `Total Amount: $${totals.total}`,
       ].filter(Boolean).join('\n');
 
-      await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          form_slug: 'get-swppp',
-          fields: {
-            firstName:        form.firstName,
-            lastName:         form.lastName,
-            company:          form.company,
-            email:            form.email,
-            phone:            form.phone,
-            projectName:      form.projectName,
-            projectAddress:   projectAddress,
-            state:            selectedCode || '',
-            Zip:              form.projectZip,
-            acreage:          form.landDisturbance,
-            service:          form.serviceNeeded,
-            civilDrawingsUrl: form.drawingsLink,
-            notes:            notes,
-          },
-        }),
-      });
+      const baseFields = {
+        firstName:        form.firstName,
+        lastName:         form.lastName,
+        company:          form.company,
+        email:            form.email,
+        phone:            form.phone,
+        projectName:      form.projectName,
+        projectAddress:   projectAddress,
+        state:            selectedCode || '',
+        Zip:              form.projectZip,
+        acreage:          form.landDisturbance,
+        service:          form.serviceNeeded,
+        civilDrawingsUrl: form.drawingsFileName, // filename only; actual upload via multipart below
+        notes:            notes,
+      };
+
+      if (drawingsFile) {
+        // Multipart upload when the customer attached a drawings file.
+        // /api/submit-form is expected to detect Content-Type multipart and
+        // route the file into Fluent Forms' attachment field (or forward
+        // to S3 / WordPress media library, depending on backend wiring).
+        const fd = new FormData();
+        fd.append('form_slug', 'get-swppp');
+        fd.append('fields', JSON.stringify(baseFields));
+        fd.append('drawings', drawingsFile, drawingsFile.name);
+        await fetch('/api/submit-form', { method: 'POST', body: fd });
+      } else {
+        await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ form_slug: 'get-swppp', fields: baseFields }),
+        });
+      }
     } catch { /* non-blocking */ }
     await new Promise(r => setTimeout(r, 1800));
     setSubmitting(false);
@@ -1369,6 +1478,7 @@ export default function GetYourSwpppClient() {
     setSelectedCode('');
     setSelectedSlug('');
     setRegionData(null);
+    setDrawingsFile(null);
     setSubmitting(false);
     setSubmitted(false);
     setInactiveModal(null);
@@ -1515,7 +1625,16 @@ export default function GetYourSwpppClient() {
                       onStateChange={handleStateDropdown}
                     />
                   )}
-                  {step === 2 && <Step2 form={form} set={set} regionData={regionData} pricingLoading={pricingLoading} />}
+                  {step === 2 && (
+                    <Step2
+                      form={form}
+                      set={set}
+                      regionData={regionData}
+                      pricingLoading={pricingLoading}
+                      drawingsFile={drawingsFile}
+                      onDrawingsFileChange={setDrawingsFile}
+                    />
+                  )}
                   {step === 3 && <Step3 form={form} set={set} regionData={regionData} />}
                   {step === 4 && <Step4 form={form} regionData={regionData} onSubmit={handleSubmit} submitting={submitting} />}
 
