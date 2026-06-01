@@ -209,7 +209,7 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
               <a
                 href="/get-your-swppp/#order_swppp_form"
-                className="nav-order-btn bg-white text-[#0D1F2B] font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-[#DE863F] hover:text-white transition-all duration-200 hover:shadow-lg whitespace-nowrap"
+                className="nav-order-btn bg-white text-[#0D1F2B] font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-[#7B9CD1] hover:text-white transition-all duration-200 hover:shadow-lg whitespace-nowrap"
               >
                 GET MY SWPPP
               </a>
