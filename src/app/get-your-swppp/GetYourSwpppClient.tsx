@@ -324,7 +324,7 @@ function Field({ label, id, type = 'text', value, onChange, placeholder, require
       <input id={id} type={type} value={value} onChange={e => onChange(e.target.value)}
         placeholder={placeholder} disabled={disabled}
         className={inputCls + (disabled ? ' opacity-60 cursor-not-allowed' : '')} />
-      {hint && <p className="text-xs text-gray-600 mt-1">{hint}</p>}
+      {hint && <p className="text-xs text-gray-300 mt-1">{hint}</p>}
     </div>
   );
 }
@@ -936,7 +936,7 @@ function Step3({ form, set, regionData }: {
               <span className="font-bold text-white text-sm">E-Portal Access</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(ep_price)}/mo</span>
             </div>
-            <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
+            <ul className="text-sm text-gray-300 space-y-0.5 mb-2">
               <li>• Custom inspection portal — mobile compatible</li>
               <li>• Cloud-stored docs emailed to all parties</li>
             </ul>
@@ -960,7 +960,7 @@ function Step3({ form, set, regionData }: {
               <span className="font-bold text-white text-sm">CPESC Certified Inspections</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(cp_price)}/mo</span>
             </div>
-            <ul className="text-sm text-gray-600 space-y-0.5 mb-2">
+            <ul className="text-sm text-gray-300 space-y-0.5 mb-2">
               <li>• Custom inspection portal included</li>
               <li>• Remotely coordinated with certified inspectors</li>
             </ul>
@@ -984,21 +984,21 @@ function Step3({ form, set, regionData }: {
               <span className="font-bold text-white text-sm">Hard Copy Binders</span>
               <span className="text-sm font-bold text-[#7B9CD1]">{fmt(bd_price)}</span>
             </div>
-            <p className="text-sm text-gray-600">2 professionally printed &amp; bound SWPPP hard copies.</p>
+            <p className="text-sm text-gray-300">2 professionally printed &amp; bound SWPPP hard copies.</p>
           </div>
         </div>
       </label>
 
       <div className="rounded-xl border border-white/20 p-5" style={{ background: '#000000' }}>
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-600 mb-4">Price Summary</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-300 mb-4">Price Summary</p>
         <div className="space-y-2.5 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">Base SWPPP</span>
+            <span className="text-gray-300">Base SWPPP</span>
             <span className="text-white font-medium">{fmt(totals.base)}</span>
           </div>
-          {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
-          {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
-          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
+          {form.ePortal && <div className="flex justify-between"><span className="text-gray-300">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
+          {form.cpesc && <div className="flex justify-between"><span className="text-gray-300">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
+          {form.hardCopy && <div className="flex justify-between"><span className="text-gray-300">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
           <div className="flex justify-between border-t border-white/20 pt-3">
             <span className="font-bold text-white">Total</span>
             <span className="text-2xl font-black text-[#7B9CD1]">{fmt(totals.total)}</span>
@@ -1027,22 +1027,22 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           <div>
             <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
-            <p className="text-gray-600">{form.company}</p>
-            <p className="text-gray-600">{form.email} · {form.phone}</p>
+            <p className="text-gray-300">{form.company}</p>
+            <p className="text-gray-300">{form.email} · {form.phone}</p>
           </div>
           <div className="border-t border-white/20 pt-4">
             <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
-            <p className="text-gray-600">{form.projectCity}, {stateName} {form.projectZip}</p>
-            <p className="text-gray-600">{form.landDisturbance} · {form.serviceNeeded}</p>
-            {form.startDate && <p className="text-gray-600">Start: {form.startDate}</p>}
+            <p className="text-gray-300">{form.projectCity}, {stateName} {form.projectZip}</p>
+            <p className="text-gray-300">{form.landDisturbance} · {form.serviceNeeded}</p>
+            {form.startDate && <p className="text-gray-300">Start: {form.startDate}</p>}
           </div>
           <div className="border-t border-white/20 pt-4 space-y-2">
             <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
-            <div className="flex justify-between"><span className="text-gray-600">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
-            {form.ePortal && <div className="flex justify-between"><span className="text-gray-600">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
-            {form.cpesc && <div className="flex justify-between"><span className="text-gray-600">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
-            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-600">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
+            <div className="flex justify-between"><span className="text-gray-300">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
+            {form.ePortal && <div className="flex justify-between"><span className="text-gray-300">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
+            {form.cpesc && <div className="flex justify-between"><span className="text-gray-300">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
+            {form.hardCopy && <div className="flex justify-between"><span className="text-gray-300">Hard Copy Binders</span><span className="text-white">{fmt(totals.bd)}</span></div>}
           </div>
           <div className="flex justify-between border-t border-orange-300/40 pt-4">
             <span className="font-bold text-white text-base">Total Due Today</span>
@@ -1127,7 +1127,7 @@ function Confirmation({ form, regionData, onReset }: {
           style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '-0.5px' }}>
           Order Received!
         </h2>
-        <p className="text-sm text-gray-600 leading-relaxed">
+        <p className="text-sm text-gray-300 leading-relaxed">
           Thank you, <span className="font-semibold text-white">{form.firstName}</span>!{' '}
           A confirmation has been sent to{' '}
           <span className="font-semibold text-white">{form.email}</span>.
@@ -1147,22 +1147,22 @@ function Confirmation({ form, regionData, onReset }: {
           <div>
             <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
-            {form.company && <p className="text-gray-600">{form.company}</p>}
-            <p className="text-gray-600">{form.email}</p>
-            {form.phone && <p className="text-gray-600">{form.phone}</p>}
+            {form.company && <p className="text-gray-300">{form.company}</p>}
+            <p className="text-gray-300">{form.email}</p>
+            {form.phone && <p className="text-gray-300">{form.phone}</p>}
           </div>
 
           {/* Project */}
           <div className="border-t border-white/20 pt-4">
             <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
-            {form.projectStreet && <p className="text-gray-600">{form.projectStreet}</p>}
-            <p className="text-gray-600">
+            {form.projectStreet && <p className="text-gray-300">{form.projectStreet}</p>}
+            <p className="text-gray-300">
               {form.projectCity ? `${form.projectCity}, ` : ''}{stateName} {form.projectZip}
             </p>
-            <p className="text-gray-600">{form.landDisturbance} · {form.serviceNeeded}</p>
+            <p className="text-gray-300">{form.landDisturbance} · {form.serviceNeeded}</p>
             {form.startDate && (
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Start: {form.startDate}{form.endDate ? ` — End: ${form.endDate}` : ''}
               </p>
             )}
@@ -1172,24 +1172,24 @@ function Confirmation({ form, regionData, onReset }: {
           <div className="border-t border-white/20 pt-4 space-y-2.5">
             <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between">
-              <span className="text-gray-600">Base SWPPP — {stateName}</span>
+              <span className="text-gray-300">Base SWPPP — {stateName}</span>
               <span className="text-white">{fmt(totals.base)}</span>
             </div>
             {form.ePortal && (
               <div className="flex justify-between">
-                <span className="text-gray-600">E-Portal Access ({form.ePortalMonths} mo)</span>
+                <span className="text-gray-300">E-Portal Access ({form.ePortalMonths} mo)</span>
                 <span className="text-white">{fmt(totals.ep)}</span>
               </div>
             )}
             {form.cpesc && (
               <div className="flex justify-between">
-                <span className="text-gray-600">CPESC Inspections ({form.cpescMonths} mo)</span>
+                <span className="text-gray-300">CPESC Inspections ({form.cpescMonths} mo)</span>
                 <span className="text-white">{fmt(totals.cp)}</span>
               </div>
             )}
             {form.hardCopy && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Hard Copy Binders</span>
+                <span className="text-gray-300">Hard Copy Binders</span>
                 <span className="text-white">{fmt(totals.bd)}</span>
               </div>
             )}
@@ -1679,7 +1679,7 @@ export default function GetYourSwpppClient() {
             </div>
 
             {!submitted && (
-              <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-600 flex-wrap">
+              <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-300 flex-wrap">
                 <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-white/70" />SSL Encrypted</span>
                 <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-white/70" />72-Hour Delivery</span>
                 <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-white/70" />100% Compliant or FREE</span>
