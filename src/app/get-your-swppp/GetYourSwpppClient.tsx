@@ -533,7 +533,7 @@ function InactiveStateModal({ stateName, onClose }: { stateName: string; onClose
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
       <div className="w-full max-w-md rounded-2xl border border-white/10 p-6 relative" style={{ background: '#111115' }}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 text-white/90 hover:text-white transition-colors">
           <X className="w-5 h-5" />
         </button>
 
@@ -661,7 +661,7 @@ function Step1({
         </div>
 
         {pricingLoading && form.projectState && (
-          <div className="flex items-center gap-2 text-xs text-white/70 mt-3">
+          <div className="flex items-center gap-2 text-xs text-white/90 mt-3">
             <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
             Loading regions for {stateName}…
           </div>
@@ -684,7 +684,7 @@ function Step1({
                 </option>
               ))}
             </select>
-            <p className="text-xs text-white/60 mt-2">
+            <p className="text-xs text-white/85 mt-2">
               {stateName} has multiple pricing options — pick the one that
               best matches your project.
             </p>
@@ -792,7 +792,7 @@ function Step2({
         </div>
 
         {pricingLoading && (
-          <div className="flex items-center gap-2 text-xs text-white/70 pt-1">
+          <div className="flex items-center gap-2 text-xs text-white/90 pt-1">
             <div className="w-3 h-3 border border-orange-500 border-t-transparent rounded-full animate-spin" />
             Loading pricing for {stateName}…
           </div>
@@ -889,14 +889,14 @@ function Step2({
                 </span>
               </p>
             )}
-            <p className="text-xs text-white/60 mt-2">
+            <p className="text-xs text-white/85 mt-2">
               Drag-and-drop also supported. Maximum 25 MB per file.
             </p>
           </div>
         )}
 
         {form.hasDrawings === 'no' && (
-          <p className="text-xs text-white/70 pt-1">
+          <p className="text-xs text-white/90 pt-1">
             No problem — our team will reach out for site details after you
             submit. You can email or upload drawings later.
           </p>
@@ -1025,20 +1025,20 @@ function Step4({ form, regionData, onSubmit, submitting }: {
         <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-4">Order Summary</p>
         <div className="space-y-4 text-sm">
           <div>
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             <p className="text-gray-300">{form.company}</p>
             <p className="text-gray-300">{form.email} · {form.phone}</p>
           </div>
           <div className="border-t border-white/20 pt-4">
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
             <p className="text-gray-300">{form.projectCity}, {stateName} {form.projectZip}</p>
             <p className="text-gray-300">{form.landDisturbance} · {form.serviceNeeded}</p>
             {form.startDate && <p className="text-gray-300">Start: {form.startDate}</p>}
           </div>
           <div className="border-t border-white/20 pt-4 space-y-2">
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between"><span className="text-gray-300">Base SWPPP</span><span className="text-white">{fmt(totals.base)}</span></div>
             {form.ePortal && <div className="flex justify-between"><span className="text-gray-300">E-Portal ({form.ePortalMonths} mo)</span><span className="text-white">{fmt(totals.ep)}</span></div>}
             {form.cpesc && <div className="flex justify-between"><span className="text-gray-300">CPESC ({form.cpescMonths} mo)</span><span className="text-white">{fmt(totals.cp)}</span></div>}
@@ -1054,7 +1054,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
       <div className="rounded-xl border border-white/20 p-5" style={{ background: '#000000' }}>
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs font-bold uppercase tracking-widest text-orange-600">Payment</p>
-          <div className="flex items-center gap-1.5 text-xs text-white/70">
+          <div className="flex items-center gap-1.5 text-xs text-white/90">
             <Lock className="w-3 h-3" />Secured by Stripe
           </div>
         </div>
@@ -1066,17 +1066,17 @@ function Step4({ form, regionData, onSubmit, submitting }: {
           </div>
           <div className="space-y-3">
             <div>
-              <p className="text-xs text-white/70 mb-1">Card Number</p>
-              <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>4242 4242 4242 4242</div>
+              <p className="text-xs text-white/90 mb-1">Card Number</p>
+              <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>4242 4242 4242 4242</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-white/70 mb-1">Expiry</p>
-                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>12 / 28</div>
+                <p className="text-xs text-white/90 mb-1">Expiry</p>
+                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>12 / 28</div>
               </div>
               <div>
-                <p className="text-xs text-white/70 mb-1">CVC</p>
-                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/70" style={{ background: '#1A1A1A' }}>•••</div>
+                <p className="text-xs text-white/90 mb-1">CVC</p>
+                <div className="rounded-lg border border-white/20 px-4 py-3 font-mono text-sm text-white/90" style={{ background: '#1A1A1A' }}>•••</div>
               </div>
             </div>
           </div>
@@ -1092,7 +1092,7 @@ function Step4({ form, regionData, onSubmit, submitting }: {
             : <><Shield className="w-4 h-4" />Place Order — {fmt(totals.total)}</>}
         </button>
 
-        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-white/70 flex-wrap">
+        <div className="flex items-center justify-center gap-4 mt-4 text-xs text-white/90 flex-wrap">
           <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> 256-bit SSL</span>
           <span>·</span>
           <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> 72-hour delivery</span>
@@ -1145,7 +1145,7 @@ function Confirmation({ form, regionData, onReset }: {
         <div className="space-y-4 text-sm">
           {/* Contact */}
           <div>
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Contact</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Contact</p>
             <p className="text-white font-semibold">{form.firstName} {form.lastName}</p>
             {form.company && <p className="text-gray-300">{form.company}</p>}
             <p className="text-gray-300">{form.email}</p>
@@ -1154,7 +1154,7 @@ function Confirmation({ form, regionData, onReset }: {
 
           {/* Project */}
           <div className="border-t border-white/20 pt-4">
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-1">Project</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-1">Project</p>
             <p className="text-white font-semibold">{form.projectName}</p>
             {form.projectStreet && <p className="text-gray-300">{form.projectStreet}</p>}
             <p className="text-gray-300">
@@ -1170,7 +1170,7 @@ function Confirmation({ form, regionData, onReset }: {
 
           {/* Pricing breakdown */}
           <div className="border-t border-white/20 pt-4 space-y-2.5">
-            <p className="text-xs text-white/70 uppercase tracking-wide mb-2">Pricing</p>
+            <p className="text-xs text-white/90 uppercase tracking-wide mb-2">Pricing</p>
             <div className="flex justify-between">
               <span className="text-gray-300">Base SWPPP — {stateName}</span>
               <span className="text-white">{fmt(totals.base)}</span>
@@ -1653,7 +1653,7 @@ export default function GetYourSwpppClient() {
                   {step < 4 && (
                     <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
                       {step > 1 ? (
-                        <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors">
+                        <button onClick={goBack} className="flex items-center gap-1.5 text-sm text-white/90 hover:text-white transition-colors">
                           <ChevronLeft className="w-4 h-4" />
                           Back
                         </button>
@@ -1680,9 +1680,9 @@ export default function GetYourSwpppClient() {
 
             {!submitted && (
               <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-300 flex-wrap">
-                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-white/70" />SSL Encrypted</span>
-                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-white/70" />72-Hour Delivery</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-white/70" />100% Compliant or FREE</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-white/90" />SSL Encrypted</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-white/90" />72-Hour Delivery</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-white/90" />100% Compliant or FREE</span>
               </div>
             )}
           </div>
